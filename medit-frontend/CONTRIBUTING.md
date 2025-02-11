@@ -10,6 +10,11 @@ Ide: visual studio code
 
 Code formatter: Prettier - Code formatter
 
+### New branchs
+
+Every new branch must have the branch as its base. 
+For each task on Jira make a separate branch, if they are small make a single branch for each story.
+
 ### Commit Guidelines
 
 Commento in inglese prefissato dal codice dello sviluppo di riferimento e dal tipo di
