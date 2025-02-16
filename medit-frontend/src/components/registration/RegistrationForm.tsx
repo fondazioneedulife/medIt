@@ -2,6 +2,10 @@ import { Box, ListItem, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 import { Label } from "./label";
+import iconEmail from "../../assets/icon/icon-email.svg";
+import iconUser from "../../assets/icon/logo user.svg";
+import iconKey from "../../assets/icon/icon-key.svg";
+import "./registrationForm.css";
 
 // Crea un tema personalizzato con il font Montserrat
 const theme = createTheme({
@@ -22,7 +26,10 @@ export const Registration: React.FC = () => {
     >
       <ListItem
         alignItems="center"
-        style={{ justifyContent: "center", flexDirection: "column" }}
+        style={{
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
       >
         <ThemeProvider theme={theme}>
           <Typography
@@ -35,16 +42,52 @@ export const Registration: React.FC = () => {
         </ThemeProvider>
         <Box
           sx={{
-            width: 100,
+            width: 200,
             height: 100,
             borderRadius: 1,
             bgcolor: theme.palette.primary.main,
-            "&:hover": {
-              bgcolor: theme.palette.primary.dark,
-            },
+          }}
+          style={{
+            display: "inline-table",
           }}
         >
-          <Label />
+          <ListItem
+            alignItems="center"
+            style={{
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
+          >
+            <div>
+              <div>
+                <Label
+                  inputName="name"
+                  img={iconUser}
+                  placeholder={"Firstname"}
+                />
+                <Label
+                  inputName="surname"
+                  img={iconUser}
+                  placeholder={"Lastname"}
+                />
+                <Label
+                  inputName="email"
+                  img={iconEmail}
+                  placeholder={"Email"}
+                />
+                <Label
+                  inputName="password"
+                  img={iconKey}
+                  placeholder={"Password"}
+                />
+                <Label
+                  inputName="Confirmpassword"
+                  img={iconKey}
+                  placeholder={"Confrim password"}
+                />
+              </div>
+            </div>
+          </ListItem>
         </Box>
       </ListItem>
     </body>
