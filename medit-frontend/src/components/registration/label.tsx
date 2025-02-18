@@ -1,5 +1,6 @@
 import React from "react";
-import { ListItem } from "@mui/material";
+import { Box, ListItem } from "@mui/material";
+import TextField from "@mui/material/TextField";
 
 interface LabelProps {
   inputName: string;
@@ -7,13 +8,15 @@ interface LabelProps {
   img: string;
   showHr?: boolean;
   style?: React.CSSProperties;
+  iconshow?: boolean;
+  type?: string;
 }
 
 export const Label: React.FC<LabelProps> = ({
-  inputName,
   img,
   placeholder,
   showHr = true,
+  type = "text",
 }) => {
   return (
     <>
@@ -28,28 +31,51 @@ export const Label: React.FC<LabelProps> = ({
           alt="User Icon"
           style={{ paddingRight: "20px", width: "2.2rem" }}
         />
-        <input
-          placeholder={placeholder}
-          type="text"
-          id={inputName}
-          name={inputName}
-          style={{
-            colorScheme: "none",
-            backgroundColor: "transparent",
-            border: "none",
-            outline: "none",
-            width: "75%",
-            height: "3rem",
-            fontSize: "1.2rem",
-            color: "black",
-            fontWeight: "600",
-          }}
-        />
-        <style>{`
-          input::placeholder {
-            color: rgba(0, 0, 0, 0.5);
-          }
-        `}</style>
+        <Box
+          component="form"
+          sx={{ "& > :not(style)": { m: 1, width: "25ch" } }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            placeholder={placeholder}
+            variant="outlined"
+            type={type}
+            InputProps={{
+              style: {
+                backgroundColor: "transparent",
+                border: "none",
+                outline: "none",
+                width: "90%",
+                height: "3rem",
+                fontSize: "1.2rem",
+                color: "black",
+                fontWeight: "600",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color: "black",
+              },
+            }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "transparent",
+                },
+                "&:hover fieldset": {
+                  borderColor: "transparent",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "transparent",
+                },
+                "& input": {
+                  color: "black", // Assicurati che il colore del testo sia nero
+                },
+              },
+            }}
+          />
+        </Box>
       </ListItem>
       {showHr === true && (
         <hr style={{ borderColor: "rgba(98, 98, 98, 0.2)" }} />

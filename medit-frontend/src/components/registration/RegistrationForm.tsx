@@ -79,12 +79,14 @@ export const Registration: React.FC = () => {
                   inputName="password"
                   img={iconKey}
                   placeholder={"Password"}
+                  type="password"
                 />
                 <Label
                   inputName="Confirmpassword"
                   img={iconKey}
-                  placeholder={"Confrim password"}
+                  placeholder={"Confirm password"}
                   showHr={false}
+                  type="password"
                 />
               </div>
             </div>
