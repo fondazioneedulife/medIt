@@ -1,6 +1,6 @@
 import { Box, Button, Link, Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Return } from "../registration/return";
+import { ReturnIcon} from "./ReturnIcon";
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import completeLogoWhite from "../../assets/logo/medit_logo_white_with_logotype.svg";
 import { LoginButton } from "./LoginButton";
@@ -28,9 +28,7 @@ export const ChoseLoginOrSignup: React.FC = () => {
         boxSizing: "border-box",
       }}
     >
-        <Box sx={{ position: "absolute", top: "3.5rem", left: "2.5rem" }}>
-            <Return />
-        </Box>
+        <ReturnIcon path="/login/register" /> {/* Return to the specified path */}
         <ThemeProvider theme={theme}>
             <Stack
                 spacing={3}
