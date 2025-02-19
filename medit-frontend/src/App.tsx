@@ -15,7 +15,8 @@ function App() {
 
             {/* TODO: set login guard */}
             {/* <Route path="login" element={<LoginMainContext />}> */}
-            <Route path="login" element={<Login />}>
+            <Route path="login">
+              <Route index element={<Login />}></Route>
               <Route path="register" element={<Registration />}></Route>
               {/* all login route */}
             </Route>
