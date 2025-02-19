@@ -1,4 +1,4 @@
-import { Box, createTheme, ThemeProvider } from "@mui/material";
+import { Button, createTheme, ThemeProvider } from "@mui/material";
 
 const theme = createTheme({
   typography: {
@@ -10,7 +10,7 @@ export const ConfirmRegistration: React.FC = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box
+        <Button
           sx={{
             borderRadius: 3,
             width: "21rem",
@@ -22,6 +22,7 @@ export const ConfirmRegistration: React.FC = () => {
             justifyContent: "center",
             margin: "0 auto",
             fontWeight: "bold",
+            textTransform: "capitalize",
             marginTop: "3rem",
             fontSize: "1.3rem",
             boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
@@ -29,7 +30,7 @@ export const ConfirmRegistration: React.FC = () => {
           }}
         >
           Confirm
-        </Box>
+        </Button>
       </ThemeProvider>
     </>
   );

@@ -46,7 +46,7 @@ export const Label: React.FC<LabelProps> = ({
                 backgroundColor: "transparent",
                 border: "none",
                 outline: "none",
-                width: "90%",
+                width: "100%",
                 height: "3rem",
                 fontSize: "1.2rem",
                 color: "black",

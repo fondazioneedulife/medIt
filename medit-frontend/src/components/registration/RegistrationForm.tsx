@@ -1,4 +1,4 @@
-import { Box, ListItem, Typography } from "@mui/material";
+import { Button, ListItem, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Label } from "./label";
 import iconEmail from "../../assets/icon/icon-email.svg";
@@ -42,13 +42,16 @@ export const Registration: React.FC = () => {
             Registration
           </Typography>
         </ThemeProvider>
-        <Box
+        <Button
           sx={{
             borderRadius: 5,
             boxShadow: "inset 4px 4px 6px rgba(0, 0, 0, 0.25)",
             display: "inline-table",
             backgroundColor: "rgba(255, 255, 255, 0.5)",
             width: "21rem",
+            "&:focus, &:focus-visible": {
+              outline: "none",
+            },
           }}
         >
           <ListItem
@@ -91,7 +94,7 @@ export const Registration: React.FC = () => {
               </div>
             </div>
           </ListItem>
-        </Box>
+        </Button>
         <ConfirmRegistration />
       </ListItem>
     </body>
