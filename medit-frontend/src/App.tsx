@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { config } from "./config";
 import { Registration } from "./components/registration/RegistrationForm.tsx";
+import { ChooseRole } from "./components/chooseRole/chooseRole.tsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             {/* <Route path="login" element={<LoginMainContext />}> */}
             <Route path="login">
               <Route path="register" element={<Registration />}></Route>
+              <Route path="chooserole" element={<ChooseRole />}></Route>
               {/* all login route */}
             </Route>
           </Route>
