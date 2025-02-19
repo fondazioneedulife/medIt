@@ -33,9 +33,9 @@ export const ChoseLoginOrSignup: React.FC = () => {
             <Stack
                 spacing={3}
                 sx={{
-                width: "100%",
-                alignItems: "center",
-            }}
+                    width: "100%",
+                    alignItems: "center",
+                }}
             >
                 <img src={completeLogoWhite} alt="Medit complete logo"
                     style={{ width: "12.5rem;", marginBottom: "5rem" }} />
