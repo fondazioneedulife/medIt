@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { config } from "./config";
 import { Registration } from "./components/registration/RegistrationForm.tsx";
+import { Login } from "./components/login/Login.tsx";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
 
             {/* TODO: set login guard */}
             {/* <Route path="login" element={<LoginMainContext />}> */}
-            <Route path="login">
+            <Route path="login" element={<Login />}>
               <Route path="register" element={<Registration />}></Route>
               {/* all login route */}
             </Route>
