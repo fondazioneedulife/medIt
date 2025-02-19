@@ -35,11 +35,14 @@ export const ChoseLoginOrSignup: React.FC = () => {
         justifyContent: "center",
         padding: "1rem",
         boxSizing: "border-box",
-        [theme.breakpoints.up('sm')]: {
-            height: "175vh", // Adjust the height for landscape orientation
+        [theme.breakpoints.down('md')]: {
+            '@media (orientation: landscape)': {
+                height: "175vh", // Adjust the height for landscape orientation on phones
+            },
         },
       }}
     >
+        {/* TODO: configure correct path route */}
         <ReturnIcon path="/login/register" /> {/* Return to the specified path */}
         <ThemeProvider theme={theme}>
             <Stack
