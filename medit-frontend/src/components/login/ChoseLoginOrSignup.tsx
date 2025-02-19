@@ -10,6 +10,15 @@ const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, Arial",
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
 });
 
 export const ChoseLoginOrSignup: React.FC = () => {
@@ -26,6 +35,9 @@ export const ChoseLoginOrSignup: React.FC = () => {
         justifyContent: "center",
         padding: "1rem",
         boxSizing: "border-box",
+        [theme.breakpoints.up('sm')]: {
+            height: "175vh", // Adjust the height for landscape orientation
+        },
       }}
     >
         <ReturnIcon path="/login/register" /> {/* Return to the specified path */}
@@ -37,8 +49,11 @@ export const ChoseLoginOrSignup: React.FC = () => {
                     alignItems: "center",
                 }}
             >
-                <img src={completeLogoWhite} alt="Medit complete logo"
-                    style={{ width: "12.5rem;", marginBottom: "5rem" }} />
+                <img
+                    src={completeLogoWhite}
+                    alt="Medit complete logo"
+                    style={{ width: "8rem", marginBottom: "5rem"}}
+                />
                 <Stack
                     direction="row"
                     spacing={2}
