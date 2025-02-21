@@ -27,7 +27,7 @@ export const Navbar: React.FC = () => {
         margin: 0,
         padding: 0,
         overflow: "hidden",
-        position: "sticky",
+        position: "fixed",
       }}
     >
       <Box
