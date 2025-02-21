@@ -5,6 +5,7 @@ import iconEmail from "../../assets/icon/icon-email.svg";
 import Logo from "../../assets/logo.svg";
 import iconKey from "../../assets/icon/icon-key.svg";
 import { Select } from "./buttons";
+import { useLanguage } from "../../contexts/LanguageContext";
 import { ReturnIcon } from "./ReturnIcon";
 
 const theme = createTheme({
@@ -23,6 +24,9 @@ const theme = createTheme({
 });
 
 export const Login: React.FC = () => {
+
+  const { translate } = useLanguage();
+  
   return (
     <Box
       sx={{
@@ -42,8 +46,8 @@ export const Login: React.FC = () => {
         },
       }}
     >
-      <ReturnIcon path="/login/chose" />
-      <ThemeProvider theme={theme}>
+     <ReturnIcon path="/login/chose" />
+     <ThemeProvider theme={theme}>
         <Stack
           spacing={3}
           sx={{
@@ -96,7 +100,7 @@ export const Login: React.FC = () => {
                 </div>
               </ListItem>
             </Box>
-            <Select>Login</Select>
+            <Select>{translate('login')}</Select>
           </ListItem>
         </Stack>
       </ThemeProvider>

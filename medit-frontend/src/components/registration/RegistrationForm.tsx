@@ -6,6 +6,7 @@ import iconUser from "../../assets/icon/logo user.svg";
 import iconKey from "../../assets/icon/icon-key.svg";
 import { ConfirmRegistration } from "./buttonConfirm";
 import { Return } from "./return";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 // Crea un tema personalizzato con il font Montserrat
 const theme = createTheme({
@@ -15,6 +16,8 @@ const theme = createTheme({
 });
 
 export const Registration: React.FC = () => {
+  const { translate } = useLanguage();
+
   return (
     <body
       style={{
@@ -39,7 +42,7 @@ export const Registration: React.FC = () => {
               fontSize: "2.5rem",
             }}
           >
-            Registration
+            {translate("registration")}
           </Typography>
         </ThemeProvider>
         <Button
@@ -66,12 +69,12 @@ export const Registration: React.FC = () => {
                 <Label
                   inputName="name"
                   img={iconUser}
-                  placeholder={"Firstname"}
+                  placeholder={translate("firstName")}
                 />
                 <Label
                   inputName="surname"
                   img={iconUser}
-                  placeholder={"Lastname"}
+                  placeholder={translate("lastName")}
                 />
                 <Label
                   inputName="email"
@@ -87,7 +90,7 @@ export const Registration: React.FC = () => {
                 <Label
                   inputName="Confirmpassword"
                   img={iconKey}
-                  placeholder={"Confirm password"}
+                  placeholder={translate("confirmPassword")}
                   showHr={false}
                   type="password"
                 />
