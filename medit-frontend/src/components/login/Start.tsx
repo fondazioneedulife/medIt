@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import World from "../../assets/icon/world.svg";
 import completeLogoWhite from "../../assets/logo/medit_logo_white_with_logotype.svg";
 import { LoginButton } from "./LoginButton";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 const theme = createTheme({
   typography: {
@@ -20,6 +21,8 @@ const theme = createTheme({
 });
 
 export const Start: React.FC = () => {
+  const { translate } = useLanguage();
+
   return (
     <Box
       sx={{
@@ -79,7 +82,8 @@ export const Start: React.FC = () => {
               lineHeight: "1",
             }}
           >
-            Your digital healthcare <br /> assistant
+            {/* Your digital healthcare <br /> assistant */}
+            Your digital healthcare assistant
           </Box>
           <Box></Box>
           <Stack
@@ -91,7 +95,7 @@ export const Start: React.FC = () => {
               justifyContent: "center",
             }}
           >
-            <LoginButton text="Get Started" width="100%" maxWidth="20rem" />
+            <LoginButton text={translate("getStarted")} width="100%" maxWidth="20rem" />
           </Stack>
         </Stack>
       </ThemeProvider>
