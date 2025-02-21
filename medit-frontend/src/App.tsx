@@ -4,10 +4,11 @@ import { Registration } from "./components/registration/RegistrationForm.tsx";
 import { ChooseRole } from "./components/chooseRole/chooseRole.tsx";
 import { Login } from "./components/login/Login.tsx";
 import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
 function App() {
   return (
-    <>
+    <LanguageProvider>
       <BrowserRouter basename={config.APP_BASENAME}>
         <Routes>
           {/* <Route path="/" element={<Layout />}> */}
@@ -27,7 +28,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </LanguageProvider>
   );
 }
 

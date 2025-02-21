@@ -1,0 +1,12 @@
+{
+  "en": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "continue_without_registration": "Continue without registration"
+  },
+  "it": {
+    "login": "Accedi",
+    "signup": "Registrati",
+    "continue_without_registration": "Continua senza registrazione"
+  }
+}
