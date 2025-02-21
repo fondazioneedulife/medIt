@@ -16,10 +16,12 @@ const theme = createTheme({
 
 export const Registration: React.FC = () => {
   return (
-    <body
+    <div
       style={{
         background: "linear-gradient(45deg, #00ca9bff, #1412c6ff)",
         backgroundSize: "200% 120%", // Estende il gradiente
+        width: "100vw",
+        height: "100%",
       }}
     >
       <ListItem
@@ -28,7 +30,7 @@ export const Registration: React.FC = () => {
           flexDirection: "column",
         }}
       >
-        <Return />
+        <Return to="/login/chose" />
         <ThemeProvider theme={theme}>
           <Typography
             variant="h3"
@@ -97,6 +99,6 @@ export const Registration: React.FC = () => {
         </Button>
         <ConfirmRegistration />
       </ListItem>
-    </body>
+    </div>
   );
 };
