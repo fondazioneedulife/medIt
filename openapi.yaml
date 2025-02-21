@@ -1,0 +1,408 @@
+openapi: 3.0.0
+info:
+  title: Medicine Reminder API
+  description: API to manage users and medications.
+  version: 1.0.0
+servers:
+  - url: https://api.medicinereminder.com/v1
+    description: Production server
+tags:
+  - name: Authentication
+    description: API for user authentication
+  - name: Synchronization
+    description: API for data synchronization
+  - name: QRCode
+    description: API for QR code validation
+
+paths:
+  # Registration Endpoint
+  /auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Register a new user
+      operationId: registerUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: User successfully registered
+        '400':
+          description: Invalid input data
+        '409':
+          description: Email already registered
+
+  # Login Endpoint
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Login to obtain a JWT
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    example: "your-jwt-token"
+        '401':
+          description: Invalid credentials
+        '400':
+          description: Invalid input data
+
+  # Sync Endpoint (Client -> Backend)
+  /sync/in:
+    post:
+      tags:
+        - Synchronization
+      summary: Sync data from client to backend
+      operationId: syncDataIn
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SyncDataInRequest'
+      responses:
+        '200':
+          description: Data successfully synced
+        '400':
+          description: Invalid data
+        '401':
+          description: Unauthorized
+
+  # Sync Endpoint (Backend -> Client)
+  /sync/out:
+    get:
+      tags:
+        - Synchronization
+      summary: Sync data from backend to client
+      operationId: syncDataOut
+      responses:
+        '200':
+          description: Data successfully synced
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncDataOutResponse'
+        '401':
+          description: Unauthorized
+
+  # Logout Endpoint
+  /auth/logout:
+    post:
+      tags:
+        - Authentication
+      summary: Logout the user
+      operationId: logoutUser
+      responses:
+        '200':
+          description: Logout successful
+        '401':
+          description: Unauthorized
+
+  # QR Code Check Endpoint
+  /qrcode/check:
+    post:
+      tags:
+        - QRCode
+      summary: Check the validity of a QR code
+      operationId: checkQRCode
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                qrcode:
+                  type: string
+                  example: "your-qr-code"
+      responses:
+        '200':
+          description: QR code is valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                    example: true
+                  userId:
+                    type: integer
+                    example: 1
+        '400':
+          description: Invalid QR code
+        '401':
+          description: Unauthorized
+
+components:
+  securitySchemes:
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    # Registration Schema
+    RegisterRequest:
+      x-class-name: RegisterRequest
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: "John"
+        lastName:
+          type: string
+          example: "Doe"
+        email:
+          type: string
+          example: "john.doe@example.com"
+        password:
+          type: string
+          format: password
+        role:
+          type: string
+          enum:
+            - patient
+            - caregiver
+          example: "patient"
+        timezone:
+          type: string
+          example: "Europe/Rome"
+        language:
+          type: string
+          example: "en"
+
+    # Login Schema
+    LoginRequest:
+      x-class-name: LoginRequest
+      type: object
+      properties:
+        email:
+          type: string
+          example: "john.doe@example.com"
+        password:
+          type: string
+          format: password
+
+    # Login Response Schema
+    LoginResponse:
+      x-class-name: LoginResponse
+      type: object
+      properties:
+        accessToken:
+          type: string
+          example: "your-jwt-token"
+
+    # Sync Schema (Client -> Backend)
+    SyncDataInRequest:
+      x-class-name: SyncDataInRequest
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        medications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Medication'
+        reminders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reminder'
+        taken_medications:
+          type: array
+          items:
+            $ref: '#/components/schemas/TakenMedication'
+
+    # Sync Schema (Backend -> Client)
+    SyncDataOutResponse:
+      x-class-name: SyncDataOutResponse
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        medications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Medication'
+        reminders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reminder'
+        taken_medications:
+          type: array
+          items:
+            $ref: '#/components/schemas/TakenMedication'
+
+    # User Schema
+    User:
+      x-class-name: User
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum:
+            - patient
+            - caregiver
+        qrcode:
+          type: string
+          format: byte
+        timezone:
+          type: string
+        language:
+          type: string
+        synced_at:
+          type: string
+          format: date-time
+
+    # Medication Schema
+    Medication:
+      x-class-name: Medication
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - capsule
+            - pill
+            - powder
+        dose:
+          type: integer
+        program:
+          type: string
+        quantity:
+          type: integer
+        note:
+          type: string
+        userId:
+          type: integer
+        synced_at:
+          type: string
+          format: date-time
+
+    # Reminder Schema
+    Reminder:
+      x-class-name: Reminder
+      type: object
+      properties:
+        id:
+          type: integer
+        medication_id:
+          type: integer
+        reminder_date_time:
+          type: string
+          format: date-time
+        id_group:
+          type: integer
+        synced_at:
+          type: string
+          format: date-time
+
+    # Taken Medication Schema
+    TakenMedication:
+      x-class-name: TakenMedication
+      type: object
+      properties:
+        id:
+          type: integer
+        reminder_id:
+          type: integer
+        date_time:
+          type: string
+          format: date-time
+        synced_at:
+          type: string
+          format: date-time
+
+    Problem:
+      x-class-name: Problem
+      description: error occurred - see status code and problem object for more information.
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+          description: |
+            An absolute URI that identifies the problem type.  When dereferenced,
+            it SHOULD provide human-readable documentation for the problem type
+            (e.g., using HTML).
+          default: "about:blank"
+          example: "https://zalando.github.io/problem/constraint-violation"
+        title:
+          type: string
+          description: |
+            A short, summary of the problem type. Written in english and readable
+            for engineers (usually not suited for non technical stakeholders and
+            not localized); example: Service Unavailable
+        status:
+          type: integer
+          format: int32
+          description: |
+            The HTTP status code generated by the origin server for this occurrence
+            of the problem.
+          minimum: 100
+          maximum: 600
+          exclusiveMaximum: true
+          example: 503
+        detail:
+          type: string
+          description: |
+            A human readable explanation specific to this occurrence of the
+            problem.
+          example: Connection to database timed out
+        instance:
+          type: string
+          format: uri
+          description: |
+            An absolute URI that identifies the specific occurrence of the problem.
+            It may or may not yield further information if dereferenced.
+        errorCategory:
+          type: string
+          description: The category of the error.
+          example: Invalid
+        fieldName:
+          type: string
+          description: The name of the field that caused the error.
+          example: phone
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp when the error occurred.
+          example: "2024-11-13T10:42:21.263191453Z"
+        traceId:
+          type: string
+          description: The trace ID for the error.
+          example: "057b351ca8e8badf158357ecbb2edb73"
