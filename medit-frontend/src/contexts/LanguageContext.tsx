@@ -24,7 +24,7 @@ const LanguageContext = createContext<LanguageContextProps | undefined>(undefine
 // Create the language context provider
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     // TODO: make function to set languague in start login page and settings
-    const [language, setLanguage] = useState<Language>('en'); // Default language is English
+    const [language, setLanguage] = useState<Language>('it'); // Default language is English
 
     const translate = (key: string) => {
         const langTranslations = (translations as Translations)[language];

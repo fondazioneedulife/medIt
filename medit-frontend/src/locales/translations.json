@@ -2,11 +2,25 @@
   "en": {
     "login": "Login",
     "signup": "Sign Up",
-    "continue_without_registration": "Continue without registration"
+    "registration": "Registration",
+    "continueWithoutRegistration": "Continue without registration",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "confrim": "Confirm",
+    "confirmPassword": "Confirm password",
+    "patient": "Patient",
+    "whoAreYouQuestion": "Who are you?"
   },
   "it": {
     "login": "Accedi",
     "signup": "Registrati",
-    "continue_without_registration": "Continua senza registrazione"
+    "registration": "Registrazione",
+    "continueWithoutRegistration": "Continua senza registrazione",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "confrim": "Conferma",
+    "confirmPassword": "Conferma password",
+    "patient": "Paziente",
+    "whoAreYouQuestion": "Chi sei?"
   }
 }

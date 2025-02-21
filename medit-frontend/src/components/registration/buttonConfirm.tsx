@@ -1,4 +1,5 @@
 import { Button, createTheme, ThemeProvider } from "@mui/material";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 const theme = createTheme({
   typography: {
@@ -7,6 +8,7 @@ const theme = createTheme({
 });
 
 export const ConfirmRegistration: React.FC = () => {
+  const { translate } = useLanguage();
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -29,7 +31,7 @@ export const ConfirmRegistration: React.FC = () => {
             cursor: "pointer",
           }}
         >
-          Confirm
+          {translate("confrim")}
         </Button>
       </ThemeProvider>
     </>

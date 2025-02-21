@@ -22,7 +22,7 @@ function App() {
               <Route index element={<Login />}></Route>
               <Route path="chose" element={<ChoseLoginOrSignup />}></Route>
               <Route path="register" element={<Registration />}></Route>
-              <Route path="chooserole" element={<ChooseRole />}></Route>
+              <Route path="choose-role" element={<ChooseRole />}></Route>
               {/* all login route */}
             </Route>
           </Route>

@@ -121,7 +121,7 @@ export const ChoseLoginOrSignup: React.FC = () => {
                             fontWeight: "bold",
                         }}
                     >
-                        {translate('continue_without_registration')}
+                        {translate('continueWithoutRegistration')}
                     </Link>
                 </Stack>
             </Stack>

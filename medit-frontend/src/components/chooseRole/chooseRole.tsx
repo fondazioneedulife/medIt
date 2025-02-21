@@ -2,6 +2,7 @@ import { ListItem, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Return } from "../registration/return";
 import { ChooseButton } from "./chooseButton";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 // Crea un tema personalizzato con il font Montserrat
 const theme = createTheme({
@@ -15,6 +16,8 @@ interface ReturnProps {
 }
 
 export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
+  const { translate } = useLanguage();
+  
   return (
     <>
       <body
@@ -42,7 +45,7 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
                   fontSize: "2.5rem",
                 }}
               >
-                Registration
+                {translate("registration")}
               </Typography>
               <Typography
                 variant="h3"
@@ -52,7 +55,7 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
                   fontSize: "2rem",
                 }}
               >
-                Who are you?
+                {translate("whoAreYouQuestion")}
               </Typography>
             </ThemeProvider>
             <ListItem
