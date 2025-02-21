@@ -5,6 +5,7 @@ import { ChooseRole } from "./components/chooseRole/chooseRole.tsx";
 import { Login } from "./components/login/Login.tsx";
 import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
 import { Start } from "./components/login/Start.tsx";
+import { ScanQR } from "./components/QRCode/ScanQR.tsx";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="login">
               <Route index element={<Login />}></Route>
               <Route path="chose" element={<ChoseLoginOrSignup />}></Route>
+              <Route path="scanqr" element={<ScanQR />}></Route>
               <Route path="register" element={<Registration />}></Route>
               <Route path="chooserole" element={<ChooseRole />}></Route>
               {/* all login route */}
