@@ -5,14 +5,17 @@ import { ChooseRole } from "./components/chooseRole/chooseRole.tsx";
 import { Login } from "./components/login/Login.tsx";
 import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
 import { Navbar } from "./components/Navbar/Navbar.tsx";
+import { LanguageProvider } from "./contexts/LanguageContext";
+import { Start } from "./components/login/Start.tsx";
 
 function App() {
   return (
-    <>
+    <LanguageProvider>
       <BrowserRouter basename={config.APP_BASENAME}>
         <Routes>
           {/* <Route path="/" element={<Layout />}> */}
           <Route path="/">
+            <Route path="start" element={<Start />}></Route>
             {/* TODO: set default route to redirect user first */}
             {/* <Route index element={<Root />} /> */}
 
@@ -24,12 +27,13 @@ function App() {
               <Route path="register" element={<Registration />}></Route>
               <Route path="chooserole" element={<ChooseRole />}></Route>
               <Route path="navbar" element={<Navbar />}></Route>
+              <Route path="choose-role" element={<ChooseRole />}></Route>
               {/* all login route */}
             </Route>
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </LanguageProvider>
   );
 }
 
