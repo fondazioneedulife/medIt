@@ -3,6 +3,7 @@ import { config } from "./config";
 import { Registration } from "./components/registration/RegistrationForm.tsx";
 import { Login } from "./components/login/Login.tsx";
 import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
+import { Start } from "./components/login/Start.tsx";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<Layout />}> */}
           <Route path="/">
+            <Route path="start" element={<Start />}></Route>
             {/* TODO: set default route to redirect user first */}
             {/* <Route index element={<Root />} /> */}
 
