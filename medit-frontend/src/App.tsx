@@ -4,6 +4,7 @@ import { Registration } from "./components/registration/RegistrationForm.tsx";
 import { ChooseRole } from "./components/chooseRole/chooseRole.tsx";
 import { Login } from "./components/login/Login.tsx";
 import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
+import { Navbar } from "./components/Navbar/Navbar.tsx";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path="chose" element={<ChoseLoginOrSignup />}></Route>
               <Route path="register" element={<Registration />}></Route>
               <Route path="chooserole" element={<ChooseRole />}></Route>
+              <Route path="navbar" element={<Navbar />}></Route>
               {/* all login route */}
             </Route>
           </Route>
