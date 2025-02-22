@@ -1,11 +1,20 @@
+import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { config } from "./config";
 import { Registration } from "./components/registration/RegistrationForm.tsx";
 import { ChooseRole } from "./components/chooseRole/chooseRole.tsx";
 import { Login } from "./components/login/Login.tsx";
 import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
+import { openDB } from "./database/indexdb";
 
 function App() {
+  useEffect(() => {
+    // Open the database and create tables if they don't exist
+    openDB().catch((error) => {
+      console.error("Failed to open database:", error);
+    });
+  }, []);
+
   return (
     <>
       <BrowserRouter basename={config.APP_BASENAME}>
