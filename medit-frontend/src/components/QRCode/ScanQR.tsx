@@ -80,10 +80,9 @@ export const ScanQR: React.FC = () => {
 
           <Box
             sx={{
-              width: "200px",
-              height: "200px",
+              width: "250px",
+              height: "250px",
               backgroundColor: "#242424",
-              border: "5px solid #fff",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
