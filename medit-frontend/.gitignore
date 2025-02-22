@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# SSL certificate
+src/certificate/privatekey.key
+src/certificate/certificate.crt
+
+# env
+.env
