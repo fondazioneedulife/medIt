@@ -1,10 +1,10 @@
-import { MedicationEnum } from "./MedicationEnum";
+import { MedicationTypeEnum } from "./MedicationTypeEnum";
 
 export interface Medication {
   id?: number;
   userId: number;
   name: string;
-  type: MedicationEnum;
+  type: MedicationTypeEnum;
   dose: string;
   program: string;
   quantity: number;
