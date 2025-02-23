@@ -15,7 +15,6 @@ tags:
     description: API for QR code validation
 
 paths:
-  # Registration Endpoint
   /auth/register:
     post:
       tags:
@@ -31,12 +30,29 @@ paths:
       responses:
         '201':
           description: User successfully registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
         '400':
           description: Invalid input data
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
         '409':
           description: Email already registered
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
 
-  # Login Endpoint
   /auth/login:
     post:
       tags:
@@ -55,17 +71,26 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  accessToken:
-                    type: string
-                    example: "your-jwt-token"
+                $ref: '#/components/schemas/LoginResponse'
         '401':
           description: Invalid credentials
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
         '400':
           description: Invalid input data
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
 
-  # Sync Endpoint (Client -> Backend)
   /sync/in:
     post:
       tags:
@@ -77,16 +102,29 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SyncDataInRequest'
+              $ref: '#/components/schemas/SyncDataRequest'
       responses:
         '200':
           description: Data successfully synced
         '400':
           description: Invalid data
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
         '401':
           description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
 
-  # Sync Endpoint (Backend -> Client)
   /sync/out:
     get:
       tags:
@@ -99,11 +137,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SyncDataOutResponse'
+                $ref: '#/components/schemas/SyncDataResponse'
         '401':
           description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
 
-  # Logout Endpoint
   /auth/logout:
     post:
       tags:
@@ -115,8 +162,17 @@ paths:
           description: Logout successful
         '401':
           description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
 
-  # QR Code Check Endpoint
   /qrcode/check:
     post:
       tags:
@@ -128,29 +184,32 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                qrcode:
-                  type: string
-                  example: "your-qr-code"
+              $ref: '#/components/schemas/QRCodeRequest'
       responses:
         '200':
           description: QR code is valid
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  valid:
-                    type: boolean
-                    example: true
-                  userId:
-                    type: integer
-                    example: 1
+                $ref: '#/components/schemas/QRCodeResponse'
         '400':
           description: Invalid QR code
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
         '401':
           description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '500':
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
 
 components:
   securitySchemes:
@@ -160,7 +219,6 @@ components:
       bearerFormat: JWT
 
   schemas:
-    # Registration Schema
     RegisterRequest:
       x-class-name: RegisterRequest
       type: object
@@ -178,11 +236,7 @@ components:
           type: string
           format: password
         role:
-          type: string
-          enum:
-            - patient
-            - caregiver
-          example: "patient"
+          $ref: '#/components/schemas/RoleEnum'
         timezone:
           type: string
           example: "Europe/Rome"
@@ -190,7 +244,6 @@ components:
           type: string
           example: "en"
 
-    # Login Schema
     LoginRequest:
       x-class-name: LoginRequest
       type: object
@@ -202,7 +255,6 @@ components:
           type: string
           format: password
 
-    # Login Response Schema
     LoginResponse:
       x-class-name: LoginResponse
       type: object
@@ -211,9 +263,8 @@ components:
           type: string
           example: "your-jwt-token"
 
-    # Sync Schema (Client -> Backend)
-    SyncDataInRequest:
-      x-class-name: SyncDataInRequest
+    SyncDataRequest:
+      x-class-name: SyncDataRequest
       type: object
       properties:
         users:
@@ -233,9 +284,8 @@ components:
           items:
             $ref: '#/components/schemas/TakenMedication'
 
-    # Sync Schema (Backend -> Client)
-    SyncDataOutResponse:
-      x-class-name: SyncDataOutResponse
+    SyncDataResponse:
+      x-class-name: SyncDataResponse
       type: object
       properties:
         users:
@@ -255,7 +305,32 @@ components:
           items:
             $ref: '#/components/schemas/TakenMedication'
 
-    # User Schema
+    QRCodeRequest:
+      x-class-name: QRCodeRequest
+      type: object
+      properties:
+        qrcode:
+          type: string
+          example: ""
+
+    QRCodeResponse:
+      x-class-name: QRCodeResponse
+      type: object
+      properties:
+        valid:
+          type: boolean
+          example: true
+        userId:
+          type: integer
+          example: 1
+
+    UserResponse:
+      x-class-name: UserResponse
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+
     User:
       x-class-name: User
       type: object
@@ -269,10 +344,7 @@ components:
         email:
           type: string
         role:
-          type: string
-          enum:
-            - patient
-            - caregiver
+          $ref: '#/components/schemas/RoleEnum'
         qrcode:
           type: string
           format: byte
@@ -284,7 +356,6 @@ components:
           type: string
           format: date-time
 
-    # Medication Schema
     Medication:
       x-class-name: Medication
       type: object
@@ -294,11 +365,7 @@ components:
         name:
           type: string
         type:
-          type: string
-          enum:
-            - capsule
-            - pill
-            - powder
+          $ref: '#/components/schemas/MedicationTypeEnum'
         dose:
           type: integer
         program:
@@ -313,7 +380,6 @@ components:
           type: string
           format: date-time
 
-    # Reminder Schema
     Reminder:
       x-class-name: Reminder
       type: object
@@ -331,7 +397,6 @@ components:
           type: string
           format: date-time
 
-    # Taken Medication Schema
     TakenMedication:
       x-class-name: TakenMedication
       type: object
@@ -346,6 +411,19 @@ components:
         synced_at:
           type: string
           format: date-time
+
+    RoleEnum:
+      type: string
+      enum:
+        - patient
+        - caregiver
+
+    MedicationTypeEnum:
+      type: string
+      enum:
+        - capsule
+        - pill
+        - powder
 
     Problem:
       x-class-name: Problem
