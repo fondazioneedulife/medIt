@@ -9,9 +9,10 @@ import { openDB } from "./database/indexdb";
 import { Navbar } from "./components/Navbar/Navbar.tsx";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { Start } from "./components/login/Start.tsx";
+import { MedicineComponent } from "./components/MedicineComponent/medicineComponent.tsx";
+import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { MedicineComponent } from "./components/home/MedicineComponent/medicineComponent.tsx";
 import { Home } from "./components/home/home.tsx";
-
 function App() {
   useEffect(() => {
     // Open the database and create tables if they don't exist
@@ -27,6 +28,8 @@ function App() {
           {/* <Route path="/" element={<Layout />}> */}
           <Route path="/">
             <Route path="start" element={<Start />}></Route>
+            <Route path="changePWD" element={<ChangePWD />}></Route>
+
             {/* TODO: set default route to redirect user first */}
             {/* <Route index element={<Root />} /> */}
 
