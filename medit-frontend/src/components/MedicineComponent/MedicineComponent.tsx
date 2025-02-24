@@ -28,19 +28,20 @@ export const MedicineComponent: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "space-around",
-        height: "100vh",
+        height: "25vh",
+        position: "relative",
+        top: 300,
       }}
     >
       <Box
         sx={{
-          width: "60vh",
-          height: "21vh",
+          width: { xs: "90%", md: "25%", sm: "60%", xxl: "100%" },
+          height: { xs: "15vh", md: "18vh", sm: "15vh" },
           backgroundColor: "white",
           borderRadius: "30px",
           display: "flex",
-          p: 4,
-          boxShadow: "0px -4px 4px rgba(0, 0, 0, 0.25)",
+          p: 2,
+          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         }}
       >
         <Box
@@ -52,13 +53,18 @@ export const MedicineComponent: React.FC = () => {
           }}
         ></Box>
         <Box
-          sx={{ display: "flex", flexDirection: "column", ml: 3, width: "51%" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            ml: 1.2,
+            width: "58%",
+          }}
         >
           <Box sx={{ color: "black" }}>
             <ThemeProvider theme={theme}>
               <Typography
                 variant="h3"
-                sx={{ fontWeight: "bold", fontSize: "2.5rem", mb: 2.5 }}
+                sx={{ fontWeight: "bold", fontSize: "1.5rem", mb: 1 }}
               >
                 Medicine
               </Typography>
@@ -68,7 +74,7 @@ export const MedicineComponent: React.FC = () => {
             <ThemeProvider theme={theme}>
               <Typography
                 variant="h5"
-                sx={{ fontWeight: "Medium", fontSize: "1.5rem" }}
+                sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
                 Capsule, 100mg
               </Typography>
@@ -78,7 +84,7 @@ export const MedicineComponent: React.FC = () => {
             <ThemeProvider theme={theme}>
               <Typography
                 variant="h5"
-                sx={{ fontWeight: "Medium", fontSize: "1.5rem" }}
+                sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
                 Daily, 1 times a day
               </Typography>
@@ -94,11 +100,14 @@ export const MedicineComponent: React.FC = () => {
               display: "flex",
               justifyContent: "space-around",
               alignItems: "center",
-              mt: 2,
+              mt: 1,
             }}
           >
             <ThemeProvider theme={theme}>
-              <Typography variant="h5" sx={{ fontWeight: "Bold" }}>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: "Bold", fontSize: "1rem" }}
+              >
                 9:00 am
               </Typography>
             </ThemeProvider>
@@ -125,11 +134,11 @@ export const MedicineComponent: React.FC = () => {
               onClick={toggleCheck}
             >
               <Box>
-                <img src={Ellipse} alt="Ellipse" width={50} />
+                <img src={Ellipse} alt="Ellipse" width={40} />
               </Box>
               <Fade in={isChecked} timeout={500}>
                 <Box sx={{ position: "absolute", top: -2, left: 7 }}>
-                  <img src={Check} alt="Check" width={50} />
+                  <img src={Check} alt="Check" width={40} />
                 </Box>
               </Fade>
             </Box>

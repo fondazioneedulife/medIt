@@ -8,6 +8,7 @@ import { Navbar } from "./components/Navbar/Navbar.tsx";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { Start } from "./components/login/Start.tsx";
 import { MedicineComponent } from "./components/MedicineComponent/medicineComponent.tsx";
+import { Home } from "./components/home/home.tsx";
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
               <Route path="chose" element={<ChoseLoginOrSignup />}></Route>
               <Route path="register" element={<Registration />}></Route>
               <Route path="chooserole" element={<ChooseRole />}></Route>
+              <Route path="home" element={<Home />}></Route>
+
               <Route path="navbar" element={<Navbar />}></Route>
               <Route path="choose-role" element={<ChooseRole />}></Route>
               <Route

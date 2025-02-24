@@ -13,6 +13,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/roboto": "^5.1.1",
+    "@meinefinsternis/react-horizontal-date-picker": "^1.0.1",
     "@mui/icons-material": "^6.4.3",
     "@mui/material": "^6.4.3",
     "@mui/styled-engine-sc": "^6.4.3",
