@@ -1,9 +1,9 @@
 import { Box, Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import World from "../../assets/icon/world.svg";
 import completeLogoWhite from "../../assets/logo/medit_logo_white_with_logotype.svg";
-import { LoginButton } from "./LoginButton";
+import { LoginButton } from "../login/LoginButton";
 import { useLanguage } from "../../contexts/LanguageContext";
+import { ChoseLangIcon } from "./ChoseLangIcon";
 
 const theme = createTheme({
   typography: {
@@ -20,7 +20,7 @@ const theme = createTheme({
   },
 });
 
-export const Start: React.FC = () => {
+export const GetStart: React.FC = () => {
   const { translate } = useLanguage();
 
   return (
@@ -45,21 +45,7 @@ export const Start: React.FC = () => {
       }}
     >
       <ThemeProvider theme={theme}>
-        <div
-          style={{
-            position: "absolute",
-            top: "1rem",
-            right: "1rem",
-          }}
-        >
-          <img
-            src={World}
-            alt="World icon"
-            style={{
-              width: "2.5rem",
-            }}
-          />
-        </div>
+        <ChoseLangIcon />
         <Stack
           spacing={3}
           sx={{

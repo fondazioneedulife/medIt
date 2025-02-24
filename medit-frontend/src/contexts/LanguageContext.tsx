@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import translations from '../locales/translations.json';
 
 // Define a type for the translations
@@ -23,8 +23,13 @@ const LanguageContext = createContext<LanguageContextProps | undefined>(undefine
 
 // Create the language context provider
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    // TODO: make function to set languague in start login page and settings
-    const [language, setLanguage] = useState<Language>('en'); // Default language is English
+    // Retrieve the language from localStorage or default to 'en'
+    const storedLanguage = (localStorage.getItem('language') as Language) || 'en';
+    const [language, setLanguage] = useState<Language>(storedLanguage);
+
+    useEffect(() => {
+        localStorage.setItem('language', language);
+    }, [language]);
 
     const translate = (key: string) => {
         const langTranslations = (translations as Translations)[language];
@@ -33,7 +38,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     return (
         <LanguageContext.Provider value={{ language, setLanguage, translate }}>
-        {children}
+            {children}
         </LanguageContext.Provider>
     );
 };
