@@ -29,3 +29,6 @@ src/certificate/certificate.crt
 
 # env
 .env
+
+# Ignore generated folder
+/src/generated/
