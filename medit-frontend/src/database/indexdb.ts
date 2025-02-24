@@ -1,4 +1,4 @@
-const DB_NAME = "MedicineReminderDB";
+const DB_NAME = "Medit";
 const DB_VERSION = 1;
 
 // Open the database
