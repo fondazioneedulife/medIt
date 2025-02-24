@@ -6,8 +6,8 @@ import {
   Typography,
   Fade,
 } from "@mui/material";
-import Ellipse from "../../assets/icon/Check-Ellipse.svg";
-import Check from "../../assets/icon/Check.svg";
+import Ellipse from "../../../assets/icon/Check-Ellipse.svg";
+import Check from "../../../assets/icon/Check.svg";
 
 const theme = createTheme({
   typography: {
@@ -30,13 +30,13 @@ export const MedicineComponent: React.FC = () => {
         alignItems: "center",
         height: "25vh",
         position: "relative",
-        top: 300,
+        top: 20,
       }}
     >
       <Box
         sx={{
-          width: { xs: "90%", md: "25%", sm: "60%", xxl: "100%" },
-          height: { xs: "15vh", md: "18vh", sm: "15vh" },
+          width: { xs: "90%", sm: "55%", md: "40%", lg: "30%", xl: "25%" },
+          height: { md: "14vh", xl: "18vh", xs: "14vh" },
           backgroundColor: "white",
           borderRadius: "30px",
           display: "flex",
@@ -64,7 +64,11 @@ export const MedicineComponent: React.FC = () => {
             <ThemeProvider theme={theme}>
               <Typography
                 variant="h3"
-                sx={{ fontWeight: "bold", fontSize: "1.5rem", mb: 1 }}
+                sx={{
+                  fontWeight: "bold",
+                  fontSize: { xl: "1.9rem", xs: "1.5rem" },
+                  mb: { xl: 3, xs: 1 },
+                }}
               >
                 Medicine
               </Typography>
@@ -94,7 +98,7 @@ export const MedicineComponent: React.FC = () => {
             sx={{
               backgroundColor: "#0B6BB2",
               color: "white",
-              width: "55%",
+              width: "5.5rem",
               height: "20%",
               borderRadius: "25px",
               display: "flex",

@@ -31,7 +31,6 @@ export const Calendar: React.FC = () => {
         backgroundColor: "white",
         width: "100%",
         top: "0",
-        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
         zIndex: "1",
       }}
     >
@@ -44,6 +43,8 @@ export const Calendar: React.FC = () => {
           dayLabel: classes.dayLabel,
           selectedDay: classes.selectedDay,
           rangeDays: classes.rangeDays,
+          dateLabel: classes.dateLabel,
+          monthLabel: classes.monthLabel,
         }}
       />
       <UserComponent />

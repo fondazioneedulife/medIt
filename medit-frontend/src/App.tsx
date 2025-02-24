@@ -7,7 +7,7 @@ import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
 import { Navbar } from "./components/Navbar/Navbar.tsx";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { Start } from "./components/login/Start.tsx";
-import { MedicineComponent } from "./components/MedicineComponent/medicineComponent.tsx";
+import { MedicineComponent } from "./components/home/MedicineComponent/medicineComponent.tsx";
 import { Home } from "./components/home/home.tsx";
 
 function App() {
