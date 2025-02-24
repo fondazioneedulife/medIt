@@ -7,6 +7,7 @@ import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
 import { Navbar } from "./components/Navbar/Navbar.tsx";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { Start } from "./components/login/Start.tsx";
+import { MedicineComponent } from "./components/MedicineComponent/medicineComponent.tsx";
 
 function App() {
   return (
@@ -28,6 +29,10 @@ function App() {
               <Route path="chooserole" element={<ChooseRole />}></Route>
               <Route path="navbar" element={<Navbar />}></Route>
               <Route path="choose-role" element={<ChooseRole />}></Route>
+              <Route
+                path="medicinecomponent"
+                element={<MedicineComponent />}
+              ></Route>
               {/* all login route */}
             </Route>
           </Route>
