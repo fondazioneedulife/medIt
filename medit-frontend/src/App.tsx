@@ -8,6 +8,7 @@ import { Navbar } from "./components/Navbar/Navbar.tsx";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { Start } from "./components/login/Start.tsx";
 import { MedicineComponent } from "./components/MedicineComponent/medicineComponent.tsx";
+import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
           {/* <Route path="/" element={<Layout />}> */}
           <Route path="/">
             <Route path="start" element={<Start />}></Route>
+            <Route path="changePWD" element={<ChangePWD />}></Route>
+
             {/* TODO: set default route to redirect user first */}
             {/* <Route index element={<Root />} /> */}
 
