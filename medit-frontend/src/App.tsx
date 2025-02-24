@@ -4,6 +4,7 @@ import { Registration } from "./components/registration/RegistrationForm.tsx";
 import { ChooseRole } from "./components/chooseRole/chooseRole.tsx";
 import { Login } from "./components/login/Login.tsx";
 import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
+import { Navbar } from "./components/Navbar/Navbar.tsx";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { Start } from "./components/login/Start.tsx";
 import { MedicineComponent } from "./components/MedicineComponent/medicineComponent.tsx";
@@ -25,6 +26,8 @@ function App() {
               <Route index element={<Login />}></Route>
               <Route path="chose" element={<ChoseLoginOrSignup />}></Route>
               <Route path="register" element={<Registration />}></Route>
+              <Route path="chooserole" element={<ChooseRole />}></Route>
+              <Route path="navbar" element={<Navbar />}></Route>
               <Route path="choose-role" element={<ChooseRole />}></Route>
               <Route
                 path="medicinecomponent"
