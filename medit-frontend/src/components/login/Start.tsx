@@ -80,10 +80,10 @@ export const Start: React.FC = () => {
               textAlign: "center",
               marginBottom: "2rem",
               lineHeight: "1",
+              width: "75%",
             }}
           >
-            {/* Your digital healthcare <br /> assistant */}
-            Your digital healthcare assistant
+            {translate("startSlogan")}
           </Box>
           <Box></Box>
           <Stack
