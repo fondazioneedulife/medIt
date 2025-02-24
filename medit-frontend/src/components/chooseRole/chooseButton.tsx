@@ -1,6 +1,7 @@
 import { Button, createTheme, ListItem, Typography } from "@mui/material";
 import iconCaregiver from "../../assets/icon/icon_caregiver.svg";
 import iconPatient from "../../assets/icon/icon_patient.svg";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 const theme = createTheme({
   typography: {
@@ -9,6 +10,8 @@ const theme = createTheme({
 });
 
 export const ChooseButton: React.FC = () => {
+  const { translate } = useLanguage();
+
   return (
     <>
       <ListItem
@@ -73,7 +76,7 @@ export const ChooseButton: React.FC = () => {
               textTransform: "capitalize",
             }}
           >
-            Patient
+            {translate("patient")}
           </Typography>
         </Button>
       </ListItem>
