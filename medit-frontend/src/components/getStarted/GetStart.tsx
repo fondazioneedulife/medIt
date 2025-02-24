@@ -81,7 +81,12 @@ export const GetStart: React.FC = () => {
               justifyContent: "center",
             }}
           >
-            <LoginButton text={translate("getStarted")} width="100%" maxWidth="20rem" />
+            <LoginButton
+                text={translate("getStarted")}
+                width="100%"
+                maxWidth="20rem"
+                to="/login/chose"
+            />
           </Stack>
         </Stack>
       </ThemeProvider>
