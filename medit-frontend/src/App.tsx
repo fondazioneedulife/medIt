@@ -5,14 +5,13 @@ import { Registration } from "./components/registration/RegistrationForm.tsx";
 import { ChooseRole } from "./components/chooseRole/chooseRole.tsx";
 import { Login } from "./components/login/Login.tsx";
 import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
-
 import { ScanQR } from "./components/QRCode/ScanQR.tsx";
-
 import { openDB } from "./database/indexdb";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
+import { Root } from "./routes/Root";
 
 
 function App() {
@@ -29,6 +28,7 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<Layout />}> */}
           <Route path="/">
+            <Route index element={<Root />}></Route>
             <Route path="start" element={<GetStart />}></Route>
             <Route path="changePWD" element={<ChangePWD />}></Route>
 
