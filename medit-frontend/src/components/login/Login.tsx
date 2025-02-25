@@ -1,4 +1,4 @@
-import { Box, ListItem, Stack, Typography } from "@mui/material";
+import { Box, ListItem, Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Label } from "../registration/label";
 import iconEmail from "../../assets/icon/icon-email.svg";
@@ -7,6 +7,7 @@ import iconKey from "../../assets/icon/icon-key.svg";
 import { Select } from "./buttons";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { ReturnIcon } from "./ReturnIcon";
+import { LoginButton } from "./LoginButton";
 
 const theme = createTheme({
   typography: {
@@ -58,9 +59,15 @@ export const Login: React.FC = () => {
           <img
             src={Logo}
             alt="Logo"
-            style={{ marginTop: "10px", marginBottom: "15vh" }}
-          />{" "}
-          <ListItem
+            style={{ width: "8rem", marginBottom: "5rem"}}
+          />
+          <Stack
+            direction="row"
+            sx={{
+                width: "75%",
+            }}
+          >
+            <ListItem
             style={{
               justifyContent: "center",
               flexDirection: "column",
@@ -82,8 +89,8 @@ export const Login: React.FC = () => {
                   flexDirection: "column",
                 }}
               >
-                <div>
-                  <div>
+                <Box>
+                  <Box>
                     <Label
                       inputName="email"
                       img={iconEmail}
@@ -96,12 +103,25 @@ export const Login: React.FC = () => {
                       showHr={false}
                       type="password"
                     />
-                  </div>
-                </div>
+                  </Box>
+                </Box>
               </ListItem>
             </Box>
-            <Select>{translate('login')}</Select>
           </ListItem>
+          </Stack>
+          <Stack
+            direction="row"
+            sx={{
+                width: "80%",
+            }}
+          >
+            <LoginButton
+              text={translate('signup')}
+              width="100%"
+              maxWidth="30rem"
+              to="/home"
+            />
+          </Stack>
         </Stack>
       </ThemeProvider>
     </Box>
