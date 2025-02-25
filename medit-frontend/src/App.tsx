@@ -41,7 +41,7 @@ function App() {
             <Route path="login">
               <Route index element={<Login />}></Route>
               
-              <Route path="scanqr" element={<ScanQR />}></Route>
+              <Route path="scan-qrcode" element={<ScanQR />}></Route>
 
               {/* all login route */}
               <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
