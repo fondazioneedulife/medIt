@@ -5,6 +5,7 @@ import QrCodeIcon from '@mui/icons-material/QrCode';
 import completeLogoWhite from "../../assets/logo/medit_logo_white_with_logotype.svg";
 import { LoginButton } from "./LoginButton";
 import { useLanguage } from "../../contexts/LanguageContext";
+import { useNavigate } from "react-router-dom";
 
 // personalized theme with Montserrat font
 const theme = createTheme({
@@ -24,6 +25,12 @@ const theme = createTheme({
 
 export const ChoseLoginOrSignup: React.FC = () => {
   const { translate } = useLanguage();
+
+  const navigate = useNavigate();
+
+  const handleQrCodeClick = () => {
+    navigate("/login/scan-qrcode");
+  };
 
   return (
     <Box
@@ -76,6 +83,7 @@ export const ChoseLoginOrSignup: React.FC = () => {
                     />
                     <Button 
                         variant="contained"
+                        onClick={handleQrCodeClick}
                         sx={{
                             width: "25%",
                             maxWidth: "4rem",

@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ReturnIcon } from "../login/ReturnIcon";
 import { useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 const theme = createTheme({
   typography: {
@@ -22,6 +23,8 @@ const theme = createTheme({
 export const ScanQR: React.FC = () => {
   const [scanResult, setScanResult] = useState<string | null>(null);
 
+  const { translate } = useLanguage();
+
   return (
     <Box
       sx={{
@@ -38,18 +41,18 @@ export const ScanQR: React.FC = () => {
         position: "relative",
         [theme.breakpoints.down("md")]: {
           "@media (orientation: landscape)": {
-            height: "175vh",
+            height: "150vh",
           },
         },
       }}
     >
-      <ReturnIcon path="/login/chose" />
+      <ReturnIcon path="/login/choose" />
       <ThemeProvider theme={theme}>
         <Stack
           spacing={3}
           sx={{
             width: "100%",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           <Box
@@ -59,9 +62,10 @@ export const ScanQR: React.FC = () => {
               textAlign: "center",
               marginBottom: "2rem",
               lineHeight: "1",
+              color: "white",
             }}
           >
-            Scan QR
+            {translate("scanQrCode")}
           </Box>
           <Box></Box>
           <Box
@@ -69,14 +73,15 @@ export const ScanQR: React.FC = () => {
               fontSize: "2rem",
               fontWeight: "light",
               textAlign: "center",
-              marginBottom: "2rem",
               lineHeight: "1",
+              color: "white",
+              width: "90%",
             }}
           >
-            Scan the patient's <br /> QR for access
+            {translate("scanQrCodeDescription")}
           </Box>
 
-          <Box sx={{ height: "8vh" }}></Box>
+          <Box sx={{ height: "1vh" }}></Box>
 
           <Box
             sx={{
@@ -112,16 +117,6 @@ export const ScanQR: React.FC = () => {
               </a>
             </Box>
           )}
-
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{
-              width: "100%",
-              height: "4.5rem",
-              justifyContent: "center",
-            }}
-          ></Stack>
         </Stack>
       </ThemeProvider>
     </Box>
