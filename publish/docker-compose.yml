@@ -1,0 +1,62 @@
+services:
+  postgres:
+    image: postgres:17.3
+    container_name: postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: medit
+      POSTGRES_PASSWORD: 7Q0rBpE7PFkr9s
+      POSTGRES_DB: medit_db
+        #ports:
+        #- "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - medit
+
+  medit-backend:
+    build:
+      context: ../medit-backend
+      dockerfile: Dockerfile  
+    container_name: medit-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - medit
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    ports:
+      - "80:80"   # Mappa la porta 80 del tuo host alla porta 80 di NGINX
+      - "443:443"
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf  # Usa un file di configurazione NGINX personalizzato
+    depends_on:
+      - medit-backend
+    networks:
+      - medit
+    restart: unless-stopped
+
+  medit-frontend:
+    build:
+      context: ../medit-frontend  # Aggiorna questo con il percorso del tuo progetto Node.js
+    container_name: medit-frontend
+    ports:
+      - "3000:3000"  # Mappa la porta 3000 del container alla porta 3000 dell'host
+      - "4173:4173"
+    depends_on:
+      - postgres
+    networks:
+      - medit
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  medit:
+    driver: bridge
