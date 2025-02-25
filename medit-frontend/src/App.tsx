@@ -8,10 +8,11 @@ import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
 import { openDB } from "./database/indexdb";
 import { Navbar } from "./components/Navbar/Navbar.tsx";
 import { LanguageProvider } from "./contexts/LanguageContext";
-import { Start } from "./components/login/Start.tsx";
+import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { MedicineComponent } from "./components/home/MedicineComponent/MedicineComponent.tsx";
 import { Home } from "./components/home/home.tsx";
+
 function App() {
   useEffect(() => {
     // Open the database and create tables if they don't exist
@@ -26,7 +27,7 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<Layout />}> */}
           <Route path="/">
-            <Route path="start" element={<Start />}></Route>
+            <Route path="start" element={<GetStart />}></Route>
             <Route path="changePWD" element={<ChangePWD />}></Route>
 
             {/* TODO: set default route to redirect user first */}
@@ -36,18 +37,21 @@ function App() {
             {/* <Route path="login" element={<LoginMainContext />}> */}
             <Route path="login">
               <Route index element={<Login />}></Route>
-              <Route path="chose" element={<ChoseLoginOrSignup />}></Route>
-              <Route path="register" element={<Registration />}></Route>
-              <Route path="chooserole" element={<ChooseRole />}></Route>
+
+              {/* all login route */}
+              <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
               <Route path="home" element={<Home />}></Route>
 
               <Route path="navbar" element={<Navbar />}></Route>
-              <Route path="choose-role" element={<ChooseRole />}></Route>
               <Route
                 path="medicinecomponent"
                 element={<MedicineComponent />}
               ></Route>
-              {/* all login route */}
+              
+            </Route>
+            <Route path="register">
+              <Route index element={<Registration />}></Route>
+              <Route path="choose-role" element={<ChooseRole />}></Route>
             </Route>
           </Route>
         </Routes>
