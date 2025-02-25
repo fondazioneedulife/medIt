@@ -9,3 +9,7 @@
 
 ### Application Local ###
 target/
+### Node.js ###
+.node_modules/
+
+.DS_Store
