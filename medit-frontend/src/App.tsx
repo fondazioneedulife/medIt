@@ -32,19 +32,14 @@ function App() {
             <Route path="start" element={<GetStart />}></Route>
             <Route path="changePWD" element={<ChangePWD />}></Route>
 
-            
-            {/* TODO: set default route to redirect user first */}
-            {/* <Route index element={<Root />} /> */}
-
             {/* TODO: set login guard */}
             {/* <Route path="login" element={<LoginMainContext />}> */}
             <Route path="login">
               <Route index element={<Login />}></Route>
               
-              <Route path="scan-qrcode" element={<ScanQR />}></Route>
-
               {/* all login route */}
               <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
+              <Route path="scan-qrcode" element={<ScanQR />}></Route>
               
             </Route>
             <Route path="register">
