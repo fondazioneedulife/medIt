@@ -85,7 +85,7 @@ export const GetStart: React.FC = () => {
                 text={translate("getStarted")}
                 width="100%"
                 maxWidth="20rem"
-                to="/login/chose"
+                to="/login/choose"
             />
           </Stack>
         </Stack>

@@ -5,7 +5,7 @@ import iconEmail from "../../assets/icon/icon-email.svg";
 import iconUser from "../../assets/icon/logo user.svg";
 import iconKey from "../../assets/icon/icon-key.svg";
 import { ConfirmRegistration } from "./buttonConfirm";
-import { Return } from "./return";
+import { Return } from "./Return";
 import { useLanguage } from "../../contexts/LanguageContext";
 
 // Crea un tema personalizzato con il font Montserrat

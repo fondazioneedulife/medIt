@@ -22,10 +22,13 @@ function App() {
             {/* <Route path="login" element={<LoginMainContext />}> */}
             <Route path="login">
               <Route index element={<Login />}></Route>
-              <Route path="chose" element={<ChoseLoginOrSignup />}></Route>
-              <Route path="register" element={<Registration />}></Route>
-              <Route path="choose-role" element={<ChooseRole />}></Route>
+              <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
+              
               {/* all login route */}
+            </Route>
+            <Route path="register">
+              <Route index element={<Registration />}></Route>
+              <Route path="choose-role" element={<ChooseRole />}></Route>
             </Route>
           </Route>
         </Routes>

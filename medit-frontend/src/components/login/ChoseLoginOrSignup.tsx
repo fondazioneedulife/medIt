@@ -45,8 +45,7 @@ export const ChoseLoginOrSignup: React.FC = () => {
         },
       }}
     >
-        {/* TODO: configure correct path route */}
-        <ReturnIcon path="/start" /> {/* Return to the specified path */}
+        <ReturnIcon path="/start" /> {/* Return to the specified route */}
         <ThemeProvider theme={theme}>
             <Stack
                 spacing={3}
@@ -107,7 +106,7 @@ export const ChoseLoginOrSignup: React.FC = () => {
                         text={translate('signup')}
                         width="100%"
                         maxWidth="18rem"
-                        to="/login/register"
+                        to="/register"
                     />
                 </Stack>
                 <Stack

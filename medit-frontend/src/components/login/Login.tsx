@@ -46,7 +46,7 @@ export const Login: React.FC = () => {
         },
       }}
     >
-     <ReturnIcon path="/login/chose" />
+     <ReturnIcon path="/login/choose" />
      <ThemeProvider theme={theme}>
         <Stack
           spacing={3}
