@@ -6,11 +6,9 @@ import { ChooseRole } from "./components/chooseRole/chooseRole.tsx";
 import { Login } from "./components/login/Login.tsx";
 import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
 import { openDB } from "./database/indexdb";
-import { Navbar } from "./components/Navbar/Navbar.tsx";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
-import { MedicineComponent } from "./components/home/MedicineComponent/MedicineComponent.tsx";
 import { Home } from "./components/home/home.tsx";
 
 function App() {
@@ -30,6 +28,7 @@ function App() {
             <Route path="start" element={<GetStart />}></Route>
             <Route path="changePWD" element={<ChangePWD />}></Route>
 
+            
             {/* TODO: set default route to redirect user first */}
             {/* <Route index element={<Root />} /> */}
 
@@ -40,19 +39,14 @@ function App() {
 
               {/* all login route */}
               <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
-              <Route path="home" element={<Home />}></Route>
-
-              <Route path="navbar" element={<Navbar />}></Route>
-              <Route
-                path="medicinecomponent"
-                element={<MedicineComponent />}
-              ></Route>
               
             </Route>
             <Route path="register">
               <Route index element={<Registration />}></Route>
               <Route path="choose-role" element={<ChooseRole />}></Route>
             </Route>
+
+            <Route path="home" element={<Home />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,6 +1,6 @@
 import { ListItem, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Return } from "../registration/Return";
+import { Return } from "../registration/return";
 import { ChooseButton } from "./chooseButton";
 import { useLanguage } from "../../contexts/LanguageContext";
 
