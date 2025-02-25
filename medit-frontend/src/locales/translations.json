@@ -1,0 +1,30 @@
+{
+  "en": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "registration": "Registration",
+    "continueWithoutRegistration": "Continue without registration",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "confrim": "Confirm",
+    "confirmPassword": "Confirm password",
+    "patient": "Patient",
+    "whoAreYouQuestion": "Who are you?",
+    "getStarted": "Get started",
+    "startSlogan": "Your digital healthcare assistant"
+  },
+  "it": {
+    "login": "Accedi",
+    "signup": "Registrati",
+    "registration": "Registrazione",
+    "continueWithoutRegistration": "Continua senza registrazione",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "confrim": "Conferma",
+    "confirmPassword": "Conferma password",
+    "patient": "Paziente",
+    "whoAreYouQuestion": "Chi sei?",
+    "getStarted": "Inizia",
+    "startSlogan": "Il tuo assistente digitale per la salute"
+  }
+}

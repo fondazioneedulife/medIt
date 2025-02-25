@@ -7,7 +7,7 @@ const theme = createTheme({
   },
 });
 
-export const ConfirmRegistration: React.FC = () => {
+export const SaveBtn: React.FC = () => {
   const { translate } = useLanguage();
   return (
     <>
@@ -15,15 +15,14 @@ export const ConfirmRegistration: React.FC = () => {
         <Button
           sx={{
             borderRadius: 3,
-            width: "21rem",
-            height: "5rem",
-            backgroundColor: "white",
-            color: "black",
+            width: "28rem",
+            height: "4rem",
+            backgroundColor: "#0B6BB2",
+            color: "white",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            margin: "0 auto",
-            fontWeight: "bold",
+            fontWeight: "semibold",
             textTransform: "capitalize",
             marginTop: "3rem",
             fontSize: "1.3rem",
@@ -31,7 +30,7 @@ export const ConfirmRegistration: React.FC = () => {
             cursor: "pointer",
           }}
         >
-          {translate("confrim")}
+          {translate("save")}
         </Button>
       </ThemeProvider>
     </>

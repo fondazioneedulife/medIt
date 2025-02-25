@@ -33,8 +33,7 @@ export const Label: React.FC<LabelProps> = ({
         />
         <Box
           component="form"
-          // sx={{ "& > :not(style)": { m: 1, width: "25ch" } }}
-          sx={{ "& > :not(style)": { m: 1, width: "13rem" } }}
+          sx={{ "& > :not(style)": { m: 1, width: "20rem" } }} // Modifica la larghezza qui
           noValidate
           autoComplete="off"
         >
@@ -47,16 +46,18 @@ export const Label: React.FC<LabelProps> = ({
                 backgroundColor: "transparent",
                 border: "none",
                 outline: "none",
-                width: "100%",
-                height: "3rem",
+                width: "200%", // Modifica la larghezza qui
+                height: "1.5rem",
                 fontSize: "1.2rem",
                 color: "black",
                 fontWeight: "600",
+                textAlign: "left", // Modifica questa linea per spostare il placeholder a sinistra
               },
             }}
             InputLabelProps={{
               style: {
                 color: "black",
+                textAlign: "left", // Modifica questa linea per spostare il placeholder a sinistra
               },
             }}
             sx={{
@@ -72,6 +73,8 @@ export const Label: React.FC<LabelProps> = ({
                 },
                 "& input": {
                   color: "black", // Assicurati che il colore del testo sia nero
+                  textAlign: "left", // Modifica questa linea per spostare il placeholder a sinistra
+                  paddingLeft: "10px", // Aggiungi questa linea per un ulteriore spostamento a sinistra
                 },
               },
             }}
