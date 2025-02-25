@@ -5,11 +5,15 @@ import { Registration } from "./components/registration/RegistrationForm.tsx";
 import { ChooseRole } from "./components/chooseRole/chooseRole.tsx";
 import { Login } from "./components/login/Login.tsx";
 import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
+
+import { ScanQR } from "./components/QRCode/ScanQR.tsx";
+
 import { openDB } from "./database/indexdb";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
+
 
 function App() {
   useEffect(() => {
@@ -36,6 +40,8 @@ function App() {
             {/* <Route path="login" element={<LoginMainContext />}> */}
             <Route path="login">
               <Route index element={<Login />}></Route>
+              
+              <Route path="scanqr" element={<ScanQR />}></Route>
 
               {/* all login route */}
               <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
