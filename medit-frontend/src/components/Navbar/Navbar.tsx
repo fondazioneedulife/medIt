@@ -8,6 +8,7 @@ import {
 import HomeIcon from "../../assets/icon/icon_home.svg";
 import ProfileIcon from "../../assets/icon/Icon_user.svg";
 import IconPlus from "../../assets/icon/Icon_plus.svg";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 const theme = createTheme({
   typography: {
@@ -16,6 +17,8 @@ const theme = createTheme({
 });
 
 export const Navbar: React.FC = () => {
+  const { translate } = useLanguage();
+
   return (
     <Box
       sx={{
@@ -75,7 +78,7 @@ export const Navbar: React.FC = () => {
                 color: "#a2a2a2"
               }}
             >
-              Home
+              {translate("home")}
             </Typography>
           </ThemeProvider>
         </Button>
@@ -138,7 +141,7 @@ export const Navbar: React.FC = () => {
                 color: "#a2a2a2"
               }}
             >
-              Profile
+              {translate("profile")}
             </Typography>
           </ThemeProvider>
         </Button>

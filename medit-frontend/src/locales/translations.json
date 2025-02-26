@@ -13,7 +13,9 @@
     "getStarted": "Get started",
     "startSlogan": "Your digital healthcare assistant",
     "scanQrCode": "Scan QR code",
-    "scanQrCodeDescription": "Scan the patient's QR for access"
+    "scanQrCodeDescription": "Scan the patient's QR for access",
+    "home": "Home",
+    "profile": "Profile"
   },
   "it": {
     "login": "Accedi",
@@ -29,6 +31,8 @@
     "getStarted": "Inizia",
     "startSlogan": "Il tuo assistente digitale per la salute",
     "scanQrCode": "Scannerizza QR code",
-    "scanQrCodeDescription": "Scannerizza il QR del paziente per accedere"
+    "scanQrCodeDescription": "Scannerizza il QR del paziente per accedere",
+    "home": "Home",
+    "profile": "Profilo"
   }
 }
