@@ -10,6 +10,7 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
+import { AddDetails } from "./components/home/AddDetails/AddDetails.tsx";
 
 function App() {
   useEffect(() => {
@@ -28,7 +29,6 @@ function App() {
             <Route path="start" element={<GetStart />}></Route>
             <Route path="changePWD" element={<ChangePWD />}></Route>
 
-            
             {/* TODO: set default route to redirect user first */}
             {/* <Route index element={<Root />} /> */}
 
@@ -39,7 +39,6 @@ function App() {
 
               {/* all login route */}
               <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
-              
             </Route>
             <Route path="register">
               <Route index element={<Registration />}></Route>
@@ -47,6 +46,7 @@ function App() {
             </Route>
 
             <Route path="home" element={<Home />}></Route>
+            <Route path="Details" element={<AddDetails />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
