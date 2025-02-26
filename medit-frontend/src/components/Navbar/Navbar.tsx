@@ -9,6 +9,7 @@ import HomeIcon from "../../assets/icon/icon_home.svg";
 import ProfileIcon from "../../assets/icon/Icon_user.svg";
 import IconPlus from "../../assets/icon/Icon_plus.svg";
 import { useLanguage } from "../../contexts/LanguageContext";
+import { useNavigate } from "react-router";
 
 const theme = createTheme({
   typography: {
@@ -18,6 +19,7 @@ const theme = createTheme({
 
 export const Navbar: React.FC = () => {
   const { translate } = useLanguage();
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -59,6 +61,7 @@ export const Navbar: React.FC = () => {
             },
           }}
           tabIndex={0}
+          onClick={() => navigate("/home")}
         >
           <Box
             component="img"
@@ -122,6 +125,7 @@ export const Navbar: React.FC = () => {
             },
           }}
           tabIndex={0}
+          onClick={() => navigate("/profile")}
         >
           <Box
             component="img"
