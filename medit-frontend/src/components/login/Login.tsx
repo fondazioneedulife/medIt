@@ -1,10 +1,9 @@
-import { Box, ListItem, Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Label } from "../registration/label";
+import { LoginLabel } from "./LoginLabel";
 import iconEmail from "../../assets/icon/icon-email.svg";
 import Logo from "../../assets/logo.svg";
 import iconKey from "../../assets/icon/icon-key.svg";
-import { Select } from "./buttons";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { ReturnIcon } from "./ReturnIcon";
 import { LoginButton } from "./LoginButton";
@@ -61,54 +60,43 @@ export const Login: React.FC = () => {
             alt="Logo"
             style={{ width: "8rem", marginBottom: "5rem"}}
           />
+
           <Stack
             direction="row"
             sx={{
-                width: "75%",
-            }}
-          >
-            <ListItem
-            style={{
-              justifyContent: "center",
-              flexDirection: "column",
+                width: "80%",
+                justifyContent: "center",
+                maxWidth: "30rem",
             }}
           >
             <Box
               sx={{
+                justifyContent: "center",
+                flexDirection: "column",
+                width: "100%",
                 borderRadius: 5,
                 boxShadow: "inset 4px 4px 6px rgba(0, 0, 0, 0.25)",
                 display: "inline-table",
                 backgroundColor: "rgba(255, 255, 255, 0.5)",
-                width: "21rem",
+                padding: "1rem",
+                boxSizing: "border-box",
               }}
             >
-              <ListItem
-                alignItems="center"
-                style={{
-                  justifyContent: "center",
-                  flexDirection: "column",
-                }}
-              >
-                <Box>
-                  <Box>
-                    <Label
-                      inputName="email"
-                      img={iconEmail}
-                      placeholder={"Email"}
-                    />
-                    <Label
-                      inputName="password"
-                      img={iconKey}
-                      placeholder={"Password"}
-                      showHr={false}
-                      type="password"
-                    />
-                  </Box>
-                </Box>
-              </ListItem>
+              <LoginLabel
+                inputName="email"
+                img={iconEmail}
+                placeholder={"Email"}
+              />
+              <LoginLabel
+                inputName="password"
+                img={iconKey}
+                placeholder={"Password"}
+                showHr={false}
+                type="password"
+              />
             </Box>
-          </ListItem>
           </Stack>
+
           <Stack
             direction="row"
             sx={{
