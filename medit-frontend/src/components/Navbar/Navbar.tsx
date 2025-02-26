@@ -69,7 +69,11 @@ export const Navbar: React.FC = () => {
           <ThemeProvider theme={theme}>
             <Typography
               variant="h6"
-              sx={{ fontWeight: "medium", fontSize: "1rem" }}
+              sx={{
+                fontWeight: "medium",
+                fontSize: "1rem",
+                color: "#a2a2a2"
+              }}
             >
               Home
             </Typography>
@@ -128,7 +132,11 @@ export const Navbar: React.FC = () => {
           <ThemeProvider theme={theme}>
             <Typography
               variant="h6"
-              sx={{ fontWeight: "medium", fontSize: "1rem" }}
+              sx={{
+                fontWeight: "medium",
+                fontSize: "1rem",
+                color: "#a2a2a2"
+              }}
             >
               Profile
             </Typography>
