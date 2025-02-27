@@ -9,7 +9,8 @@ import { openDB } from "./database/indexdb";
 import { Navbar } from "./components/Navbar/Navbar.tsx";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { Start } from "./components/login/Start.tsx";
-import { MedicineComponent } from "./components/MedicineComponent/medicineComponent.tsx";
+import { MedicineComponent } from "./components/MedicineComponent/MedicineComponent.tsx";
+import { RegistrationProvider } from "./components/registration/RegistrationContext.tsx";
 
 function App() {
   useEffect(() => {
@@ -34,10 +35,24 @@ function App() {
             <Route path="login">
               <Route index element={<Login />}></Route>
               <Route path="chose" element={<ChoseLoginOrSignup />}></Route>
-              <Route path="register" element={<Registration />}></Route>
-              <Route path="chooserole" element={<ChooseRole />}></Route>
+
+              <Route
+                path="register"
+                element={
+                  <RegistrationProvider>
+                    <Registration />
+                  </RegistrationProvider>
+                }
+              ></Route>
+              <Route
+                path="choose-role"
+                element={
+                  <RegistrationProvider>
+                    <ChooseRole />
+                  </RegistrationProvider>
+                }
+              ></Route>
               <Route path="navbar" element={<Navbar />}></Route>
-              <Route path="choose-role" element={<ChooseRole />}></Route>
               <Route
                 path="medicinecomponent"
                 element={<MedicineComponent />}
