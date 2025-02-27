@@ -10,7 +10,7 @@ interface ReturnIconProps {
 
 export const ReturnIcon: React.FC<ReturnIconProps> = ({
   path,
-  color = "inherit",
+  color,
 }) => {
   const navigate = useNavigate();
 
@@ -25,11 +25,11 @@ export const ReturnIcon: React.FC<ReturnIconProps> = ({
         position: "absolute",
         top: "2rem",
         left: "1rem",
-        color: "white",
+        color: {color},
       }}
       disableRipple
     >
-      <ArrowBackIosNewIcon sx={{ color: color }} />
+      <ArrowBackIosNewIcon sx={{ color: {color} }} />
     </IconButton>
   );
 };
