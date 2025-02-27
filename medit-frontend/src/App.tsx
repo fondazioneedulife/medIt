@@ -9,7 +9,8 @@ import { openDB } from "./database/indexdb";
 import { Navbar } from "./components/Navbar/Navbar.tsx";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { Start } from "./components/login/Start.tsx";
-import { MedicineComponent } from "./components/MedicineComponent/medicineComponent.tsx";
+import { MedicineComponent } from "./components/MedicineComponent/MedicineComponent.tsx";
+import { UserInfo } from "./components/userInfo/userInfo.tsx";
 
 function App() {
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
           {/* <Route path="/" element={<Layout />}> */}
           <Route path="/">
             <Route path="start" element={<Start />}></Route>
+            <Route path="userinfo" element={<UserInfo />}></Route>
             {/* TODO: set default route to redirect user first */}
             {/* <Route index element={<Root />} /> */}
 
