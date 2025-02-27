@@ -25,7 +25,7 @@ export const ReturnIcon: React.FC<ReturnIconProps> = ({
         position: "absolute",
         top: "1rem",
         left: "1rem",
-        color: "white",
+        color: "#666666",
       }}
       disableRipple
     >
