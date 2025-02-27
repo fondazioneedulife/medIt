@@ -8,10 +8,16 @@ import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
 import { ScanQR } from "./components/QRCode/ScanQR.tsx";
 import { openDB } from "./database/indexdb";
 import { LanguageProvider } from "./contexts/LanguageContext";
+
+import { Start } from "./components/login/Start.tsx";
+import { MedicineComponent } from "./components/MedicineComponent/MedicineComponent.tsx";
+import { UserInfo } from "./components/userInfo/userInfo.tsx";
+
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
 import { Root } from "./routes/Root";
+
 
 
 function App() {
@@ -28,9 +34,16 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<Layout />}> */}
           <Route path="/">
+
+            <Route path="start" element={<Start />}></Route>
+            <Route path="userinfo" element={<UserInfo />}></Route>
+            {/* TODO: set default route to redirect user first */}
+            {/* <Route index element={<Root />} /> */}
+
             <Route index element={<Root />}></Route>
             <Route path="start" element={<GetStart />}></Route>
             <Route path="changePWD" element={<ChangePWD />}></Route>
+
 
             {/* TODO: set login guard */}
             {/* <Route path="login" element={<LoginMainContext />}> */}
