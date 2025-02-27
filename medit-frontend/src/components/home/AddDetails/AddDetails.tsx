@@ -6,6 +6,8 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
+import SelectComponent from "./select";
+import { ButtonSave } from "./button";
 
 export const AddDetails: React.FC = () => {
   const theme = createTheme({
@@ -27,11 +29,10 @@ export const AddDetails: React.FC = () => {
     >
       <Box
         sx={{
-          height: "50%",
-          width: "70%",
+          height: "100%",
+          width: "100%",
           alignItems: "center",
           justifyContent: "center",
-          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           flexDirection: "column",
           display: "flex",
         }}
@@ -47,28 +48,25 @@ export const AddDetails: React.FC = () => {
         <Box
           sx={{
             borderRadius: 5,
-            boxShadow: "inset 4px 4px 6px rgba(0, 0, 0, 0.25)",
-            display: "inline-table",
             backgroundColor: "#F0F0F0",
-            width: "15rem",
+            width: { xs: "90%", md: "30%", lg: "30%", xl: "20%" },
           }}
         >
           <ListItem>
-            <Box>
-              <Box>
-                <LabelReminder inputName="email" placeholder={"Name Product"} />
-                <Box sx={{ display: "flex" }}>
-                  <LabelReminder
-                    inputName="password"
-                    placeholder={"Dose"}
-                    showHr={false}
-                    type="password"
-                  />
-                </Box>
+            <Box sx={{ width: "100%" }}>
+              <LabelReminder inputName="" placeholder={"Name Product"} />
+              <Box sx={{ display: "flex", width: "60%" }}>
+                <LabelReminder
+                  inputName="name"
+                  placeholder={"Dose"}
+                  showHr={false}
+                />
+                <SelectComponent />
               </Box>
             </Box>
           </ListItem>
         </Box>
+        <ButtonSave />
       </Box>
     </Box>
   );

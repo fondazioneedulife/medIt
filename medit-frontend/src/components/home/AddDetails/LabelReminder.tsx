@@ -35,7 +35,7 @@ export const LabelReminder: React.FC<LabelProps> = ({
                   backgroundColor: "transparent",
                   border: "none",
                   outline: "none",
-                  width: "auto",
+                  width: "60%",
                   height: "3rem",
                   fontSize: "1.2rem",
                   color: "black",
