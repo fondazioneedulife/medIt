@@ -16,7 +16,10 @@
     "scanQrCode": "Scan QR code",
     "scanQrCodeDescription": "Scan the patient's QR for access",
     "home": "Home",
-    "profile": "Profile"
+    "profile": "Profile",
+    "userInfo": "user information",
+    "support": "Support",
+    "settings": "Settings"
   },
   "it": {
     "login": "Accedi",
@@ -35,6 +38,9 @@
     "scanQrCode": "Scannerizza QR code",
     "scanQrCodeDescription": "Scannerizza il QR del paziente per accedere",
     "home": "Home",
-    "profile": "Profilo"
+    "profile": "Profilo",
+    "userInfo": "informazioni utente",
+    "support": "Supporto",
+    "settings": "Impostazioni"
   }
 }

@@ -7,6 +7,8 @@ import ExampleUserProfile from "../../assets/profile/example_patient_profile_ima
 import { useLanguage } from "../../contexts/LanguageContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from 'react-router';
+import { ProfileEntry } from './ProfileEntry';
+import userInfo from "../../assets/profile/user_information.svg";
 
 
 export const UserProfile: React.FC = () => {
@@ -110,6 +112,36 @@ export const UserProfile: React.FC = () => {
                                     {translate('patient').toLocaleLowerCase()}
                                 </Box>
                             </Box>
+                        </Box>
+
+                        <Box sx={{
+                            marginTop: "2rem",
+                            marginBottom: "2rem",
+                            backgroundColor: "white",
+                            borderRadius: "1rem",
+                            width: "100%"
+                        }}>
+                            <ProfileEntry 
+                                img={userInfo}
+                                text={translate('userInfo')}
+                            />
+                        </Box>
+
+                        <Box sx={{
+                            marginBottom: "2rem",
+                            backgroundColor: "white",
+                            borderRadius: "1rem",
+                            width: "100%"
+                        }}>
+                            <ProfileEntry 
+                                img={userInfo}
+                                text={translate('support')}
+                            />
+                            <hr />
+                            <ProfileEntry 
+                                img={userInfo}
+                                text={translate('settings')}
+                            />
                         </Box>
 
                         <Box display="flex" justifyContent="center" p={2}>
