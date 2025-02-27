@@ -1,4 +1,5 @@
 import { Button, createTheme, ThemeProvider } from "@mui/material";
+import { Link } from 'react-router-dom';
 
 const theme = createTheme({
   typography: {
@@ -10,13 +11,17 @@ interface LoginButtonProps {
     text: string;
     width?: string;
     maxWidth?: string;
+    to: string;  // route url 
 }
 
-export const LoginButton: React.FC<LoginButtonProps> = ({ text, width, maxWidth }) => {
+export const LoginButton: React.FC<LoginButtonProps> = ({ text, width, maxWidth, to }) => {
   return (
     <>
       <ThemeProvider theme={theme}>
         <Button
+          component={Link}
+          to={to}
+          variant="contained"
           sx={{
             width: {width},
             maxWidth: {maxWidth},

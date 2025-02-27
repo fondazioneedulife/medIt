@@ -9,7 +9,11 @@
     "confrim": "Confirm",
     "confirmPassword": "Confirm password",
     "patient": "Patient",
-    "whoAreYouQuestion": "Who are you?"
+    "whoAreYouQuestion": "Who are you?",
+    "getStarted": "Get started",
+    "startSlogan": "Your digital healthcare assistant",
+    "scanQrCode": "Scan QR code",
+    "scanQrCodeDescription": "Scan the patient's QR for access"
   },
   "it": {
     "login": "Accedi",
@@ -21,6 +25,10 @@
     "confrim": "Conferma",
     "confirmPassword": "Conferma password",
     "patient": "Paziente",
-    "whoAreYouQuestion": "Chi sei?"
+    "whoAreYouQuestion": "Chi sei?",
+    "getStarted": "Inizia",
+    "startSlogan": "Il tuo assistente digitale per la salute",
+    "scanQrCode": "Scannerizza QR code",
+    "scanQrCodeDescription": "Scannerizza il QR del paziente per accedere"
   }
 }
