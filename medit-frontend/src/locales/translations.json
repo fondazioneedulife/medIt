@@ -11,7 +11,9 @@
     "patient": "Patient",
     "whoAreYouQuestion": "Who are you?",
     "getStarted": "Get started",
-    "startSlogan": "Your digital healthcare assistant"
+    "startSlogan": "Your digital healthcare assistant",
+    "scanQrCode": "Scan QR code",
+    "scanQrCodeDescription": "Scan the patient's QR for access"
   },
   "it": {
     "login": "Accedi",
@@ -25,6 +27,8 @@
     "patient": "Paziente",
     "whoAreYouQuestion": "Chi sei?",
     "getStarted": "Inizia",
-    "startSlogan": "Il tuo assistente digitale per la salute"
+    "startSlogan": "Il tuo assistente digitale per la salute",
+    "scanQrCode": "Scannerizza QR code",
+    "scanQrCodeDescription": "Scannerizza il QR del paziente per accedere"
   }
 }
