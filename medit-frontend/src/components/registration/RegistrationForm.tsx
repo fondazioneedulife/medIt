@@ -79,7 +79,7 @@ export const Registration: React.FC = () => {
         ...prevUser,
         role: RoleEnum.Patient,
       }));
-      navigate("/login/choose-role");
+      navigate("/register/choose-role");
     } catch (error) {
       console.error("Failed to register user:", error);
     }
