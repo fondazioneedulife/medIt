@@ -9,6 +9,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from 'react-router';
 import { ProfileEntry } from './ProfileEntry';
 import userInfo from "../../assets/profile/user_information.svg";
+import supportIcon from "../../assets/profile/support_icon.svg";
+import settingsIcon from "../../assets/profile/settings_icon.svg";
 
 
 export const UserProfile: React.FC = () => {
@@ -124,6 +126,7 @@ export const UserProfile: React.FC = () => {
                             <ProfileEntry 
                                 img={userInfo}
                                 text={translate('userInfo')}
+                                path="/login"
                             />
                         </Box>
 
@@ -134,13 +137,15 @@ export const UserProfile: React.FC = () => {
                             width: "100%"
                         }}>
                             <ProfileEntry 
-                                img={userInfo}
+                                img={supportIcon}
                                 text={translate('support')}
+                                path="/login"
                             />
                             <hr />
                             <ProfileEntry 
-                                img={userInfo}
+                                img={settingsIcon}
                                 text={translate('settings')}
+                                path="/login"
                             />
                         </Box>
 

@@ -104,7 +104,7 @@ export const Login: React.FC = () => {
             }}
           >
             <LoginButton
-              text={translate('signup')}
+              text={translate('login')}
               width="100%"
               maxWidth="30rem"
               to="/home"
