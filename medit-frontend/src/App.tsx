@@ -13,6 +13,7 @@ import { UserInfo } from "./components/userInfo/userInfo.tsx";
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
+import { AddDetails } from "./components/home/AddDetails/AddDetails.tsx";
 import { Root } from "./routes/Root";
 
 
@@ -47,8 +48,7 @@ function App() {
               
               {/* all login route */}
               <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
-              <Route path="scan-qrcode" element={<ScanQR />}></Route>
-              
+              <Route path="scan-qrcode" element={<ScanQR />}></Route>  
             </Route>
             <Route path="register">
               <Route index element={<Registration />}></Route>
