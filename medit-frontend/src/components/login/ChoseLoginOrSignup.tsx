@@ -1,4 +1,4 @@
-import { Box, Button, Link, Stack, Typography } from "@mui/material";
+import { Box, Button, Link, Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ReturnIcon} from "./ReturnIcon";
 import QrCodeIcon from '@mui/icons-material/QrCode';
