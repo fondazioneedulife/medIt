@@ -1,5 +1,5 @@
 import { Navbar } from '../Navbar/Navbar';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Stack } from '@mui/material';
 import { ReturnIcon } from '../login/ReturnIcon';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -11,7 +11,8 @@ import { ProfileEntry } from './ProfileEntry';
 import userInfo from "../../assets/profile/user_information.svg";
 import supportIcon from "../../assets/profile/support_icon.svg";
 import settingsIcon from "../../assets/profile/settings_icon.svg";
-
+import patientListIcon from "../../assets/profile/patient_list_icon.svg";
+import logoutIcon from "../../assets/profile/logoutIcon.svg"
 
 export const UserProfile: React.FC = () => {
     
@@ -25,9 +26,14 @@ export const UserProfile: React.FC = () => {
 
     const navigate = useNavigate();
 
-    const handleQrCodeClick = () => {
+    const qrCodeHandleClick = () => {
         // TODO: correct right patient qr code route
-        navigate("/login/scan-qrcode");
+        navigate("/login");
+    };
+
+    const patientListHandleClick = () => {
+        // TODO: correct right patient qr code route
+        navigate("/login");
     };
 
     return(
@@ -69,6 +75,7 @@ export const UserProfile: React.FC = () => {
                             >
                                 {translate('profile')}
                             </Typography>
+                            {/* if user role is patient, qr code is visible */}
                             <Button
                                 sx={{
                                     backgroundColor: 'white',
@@ -82,7 +89,7 @@ export const UserProfile: React.FC = () => {
                                 }}
                                 fullWidth
                                 variant="contained"
-                                onClick={handleQrCodeClick}
+                                onClick={qrCodeHandleClick}
                             >
                                 <QrCodeIcon sx={{ fontSize: "2rem" }} />
                             </Button>
@@ -114,6 +121,37 @@ export const UserProfile: React.FC = () => {
                                     {translate('patient').toLocaleLowerCase()}
                                 </Box>
                             </Box>
+                        </Box>
+
+                        {/* patient list link is visible if user role is caregiver */}
+                        <Box 
+                            sx={{
+                                marginTop: "2rem",
+                                padding: "1rem",
+                                backgroundColor: "#0B6BB2",
+                                borderRadius: "1rem",
+                                cursor: "pointer"
+                            }}
+                            onClick={patientListHandleClick}
+                        >
+                            <Stack
+                                sx={{ width: '100%'}}
+                                direction="row"
+                                alignItems="center"
+                                spacing={2}
+                                color="white"
+                            >
+                                <img
+                                    src={patientListIcon}
+                                    alt="icon"
+                                    style={{
+                                        height: '1.5rem',
+                                        width: '1.5rem',
+                                        marginRight: "1rem"
+                                    }}
+                                />
+                                {translate('patientList')}
+                            </Stack>
                         </Box>
 
                         <Box sx={{
@@ -149,15 +187,34 @@ export const UserProfile: React.FC = () => {
                             />
                         </Box>
 
-                        <Box display="flex" justifyContent="center" p={2}>
-                            <Button
-                                variant="contained"
-                                color="error"
-                                startIcon={<LogoutIcon />}
-                                sx={{ color: 'white', borderRadius: '12px' }}
+                        {/* logout */}
+                        <Box 
+                            sx={{
+                                padding: "1rem",
+                                backgroundColor: "#FF0000",
+                                borderRadius: "1rem",
+                                cursor: "pointer"
+                            }}
+                            onClick={patientListHandleClick}
+                        >
+                            <Stack
+                                sx={{ width: '100%'}}
+                                direction="row"
+                                alignItems="center"
+                                spacing={2}
+                                color="white"
                             >
+                                <img
+                                    src={logoutIcon}
+                                    alt="logout icon"
+                                    style={{
+                                        height: "1.5rem",
+                                        width: "1.5rem",
+                                        marginRight: "1rem"
+                                    }}
+                                />
                                 {translate('logout')}
-                            </Button>
+                            </Stack>
                         </Box>
                     </Box>
                 </ThemeProvider>

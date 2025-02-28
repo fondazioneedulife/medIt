@@ -19,7 +19,8 @@
     "profile": "Profile",
     "userInfo": "user information",
     "support": "Support",
-    "settings": "Settings"
+    "settings": "Settings",
+    "patientList": "patient list"
   },
   "it": {
     "login": "Accedi",
@@ -41,6 +42,7 @@
     "profile": "Profilo",
     "userInfo": "informazioni utente",
     "support": "Supporto",
-    "settings": "Impostazioni"
+    "settings": "Impostazioni",
+    "patientList": "lista pazienti"
   }
 }

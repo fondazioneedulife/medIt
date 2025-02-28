@@ -23,6 +23,7 @@ export const ProfileEntry: React.FC<ProfileEntryProps> = ({
             sx={{
                 width: '100%',
                 padding: '1rem',
+                cursor: 'pointer'
             }}
             onClick={handleClick}
         >
