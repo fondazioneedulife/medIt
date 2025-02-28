@@ -2,7 +2,6 @@ import { Navbar } from '../Navbar/Navbar';
 import { Box, Typography, Button, Stack } from '@mui/material';
 import { ReturnIcon } from '../login/ReturnIcon';
 import QrCodeIcon from '@mui/icons-material/QrCode';
-import LogoutIcon from '@mui/icons-material/Logout';
 import ExampleUserProfile from "../../assets/profile/example_patient_profile_image.svg";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -112,10 +111,10 @@ export const UserProfile: React.FC = () => {
                                 <Typography variant="h6">{translate('profile')}</Typography>
                                 <Box
                                     sx={{
-                                        backgroundColor: 'blue',
-                                        color: 'white',
-                                        borderRadius: '12px',
-                                        padding: '2px 8px',
+                                        backgroundColor: "#00259D",
+                                        color: "white",
+                                        borderRadius: "12px",
+                                        padding: "2px 8px",
                                     }}
                                 >
                                     {translate('patient').toLocaleLowerCase()}
