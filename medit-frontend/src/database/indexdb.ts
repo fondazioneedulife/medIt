@@ -1,5 +1,8 @@
+import { User } from "../generated";
+
 const DB_NAME = "Medit";
 const DB_VERSION = 1;
+const USER_STORE = "users";
 
 // Open the database
 export const openDB = (): Promise<IDBDatabase> => {
@@ -17,7 +20,7 @@ export const openDB = (): Promise<IDBDatabase> => {
         });
         usersStore.createIndex("email", "email", { unique: true });
         usersStore.createIndex("first_name", "first_name", { unique: false });
-        usersStore.createIndex("first_name", "first_name", { unique: false });
+        usersStore.createIndex("last_name", "last_name", { unique: false });
         usersStore.createIndex("role", "role", { unique: false });
         usersStore.createIndex("created_at", "created_at", { unique: false });
         usersStore.createIndex("update_at", "update_at", { unique: false });
@@ -176,3 +179,19 @@ export const deleteRecord = async (
     request.onerror = () => reject(request.error);
   });
 };
+
+export const registerUser = async (user: User): Promise<IDBValidKey> => {
+  return await addRecord("users", user);
+};
+
+export async function getUserByEmail(email: string): Promise<User | undefined> {
+  const db = await openDB();
+  const tx = db.transaction(USER_STORE, "readonly");
+  const store = tx.objectStore(USER_STORE);
+  const index = store.index("email");
+  const request = index.get(email);
+  return new Promise<User | undefined>((resolve, reject) => {
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
