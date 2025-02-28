@@ -14,7 +14,6 @@ import { UserInfo } from "./components/userInfo/userInfo.tsx";
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
-import { AddDetails } from "./components/home/AddDetails/AddDetails.tsx";
 import { Root } from "./routes/Root";
 
 function App() {
@@ -39,15 +38,19 @@ function App() {
             <Route path="start" element={<GetStart />}></Route>
             <Route path="changePWD" element={<ChangePWD />}></Route>
 
-
             {/* TODO: set login guard */}
             {/* <Route path="login" element={<LoginMainContext />}> */}
             <Route path="login">
               <Route index element={<Login />}></Route>
               <Route path="chose" element={<ChoseLoginOrSignup />}></Route>
 
+              {/* all login route */}
+              <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
+              <Route path="scan-qrcode" element={<ScanQR />}></Route>
+            </Route>
+            <Route path="register">
               <Route
-                path="register"
+                index
                 element={
                   <RegistrationProvider>
                     <Registration />
@@ -62,19 +65,6 @@ function App() {
                   </RegistrationProvider>
                 }
               ></Route>
-              <Route path="navbar" element={<Navbar />}></Route>
-              <Route
-                path="medicinecomponent"
-                element={<MedicineComponent />}
-              ></Route>
-              
-              {/* all login route */}
-              <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
-              <Route path="scan-qrcode" element={<ScanQR />}></Route>  
-            </Route>
-            <Route path="register">
-              <Route index element={<Registration />}></Route>
-              <Route path="choose-role" element={<ChooseRole />}></Route>
             </Route>
 
             <Route path="home" element={<Home />}></Route>
