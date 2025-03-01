@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Button, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { LoginLabel } from "./LoginLabel";
 import iconEmail from "../../assets/icon/icon-email.svg";
@@ -6,7 +6,12 @@ import Logo from "../../assets/logo.svg";
 import iconKey from "../../assets/icon/icon-key.svg";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { ReturnIcon } from "./ReturnIcon";
-import { LoginButton } from "./LoginButton";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getUserByEmail, getAuthByUserId } from "../../database/indexdb";
+import bcrypt from "bcryptjs";
+import { useRegistration } from "../registration/RegistrationContext";
+import { Auth } from "../../../api-types/Auth";
 
 const theme = createTheme({
   typography: {
@@ -24,9 +29,53 @@ const theme = createTheme({
 });
 
 export const Login: React.FC = () => {
-
   const { translate } = useLanguage();
-  
+  const navigate = useNavigate();
+  const { setUser } = useRegistration();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(email);
+    try {
+      const user = await getUserByEmail(email);
+      if (!user) {
+        setError("User not found");
+        return;
+      }
+      if (user.id === undefined) {
+        setError("User ID is undefined");
+        return;
+      }
+      const auth: Auth = (await getAuthByUserId(user.id)) as Auth;
+      if (!auth) {
+        setError("Authentication data not found");
+        return;
+      }
+      const isPasswordValid = await bcrypt.compare(password, auth.password);
+      if (!isPasswordValid) {
+        setError("Invalid password");
+        return;
+      }
+      setUser(user);
+      navigate("/home");
+    } catch (error) {
+      console.error("Failed to login user:", error);
+      setError("Failed to login user");
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -46,8 +95,8 @@ export const Login: React.FC = () => {
         },
       }}
     >
-     <ReturnIcon path="/login/choose" />
-     <ThemeProvider theme={theme}>
+      <ReturnIcon path="/login/choose" />
+      <ThemeProvider theme={theme}>
         <Stack
           spacing={3}
           sx={{
@@ -58,15 +107,15 @@ export const Login: React.FC = () => {
           <img
             src={Logo}
             alt="Logo"
-            style={{ width: "8rem", marginBottom: "5rem"}}
+            style={{ width: "8rem", marginBottom: "5rem" }}
           />
 
           <Stack
             direction="row"
             sx={{
-                width: "80%",
-                justifyContent: "center",
-                maxWidth: "30rem",
+              width: "80%",
+              justifyContent: "center",
+              maxWidth: "30rem",
             }}
           >
             <Box
@@ -82,33 +131,47 @@ export const Login: React.FC = () => {
                 boxSizing: "border-box",
               }}
             >
-              <LoginLabel
-                inputName="email"
-                img={iconEmail}
-                placeholder={"Email"}
-              />
-              <LoginLabel
-                inputName="password"
-                img={iconKey}
-                placeholder={"Password"}
-                showHr={false}
-                type="password"
-              />
+              <form onSubmit={handleSubmit}>
+                <LoginLabel
+                  inputName="email"
+                  img={iconEmail}
+                  placeholder={"Email"}
+                  onChange={handleInputChange}
+                />
+                <LoginLabel
+                  inputName="password"
+                  img={iconKey}
+                  placeholder={"Password"}
+                  showHr={false}
+                  type="password"
+                  onChange={handleInputChange}
+                />
+                {error && (
+                  <Typography color="error" sx={{ mt: 2 }}>
+                    {error}
+                  </Typography>
+                )}
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    mt: 2,
+                    width: "100%",
+                    borderRadius: 3,
+                    backgroundColor: "#00ca9bff",
+                    color: "white",
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: "#00b38f",
+                    },
+                  }}
+                >
+                  {translate("login")}
+                </Button>
+              </form>
             </Box>
-          </Stack>
-
-          <Stack
-            direction="row"
-            sx={{
-                width: "80%",
-            }}
-          >
-            <LoginButton
-              text={translate('signup')}
-              width="100%"
-              maxWidth="30rem"
-              to="/home"
-            />
           </Stack>
         </Stack>
       </ThemeProvider>
