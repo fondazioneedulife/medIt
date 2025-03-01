@@ -195,3 +195,20 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
     request.onerror = () => reject(request.error);
   });
 }
+
+export const getAuthByUserId = async (userId: number) => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("auth", "readonly");
+    const store = transaction.objectStore("auth");
+    const request = store.get(userId);
+
+    request.onsuccess = () => {
+      resolve(request.result);
+    };
+
+    request.onerror = () => {
+      reject(request.error);
+    };
+  });
+};
