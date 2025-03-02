@@ -15,6 +15,7 @@ import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
 import { Root } from "./routes/Root";
+import { UserProfile } from "./components/profile/UserProfile";
 
 function App() {
   useEffect(() => {
@@ -68,6 +69,7 @@ function App() {
             </Route>
 
             <Route path="home" element={<Home />}></Route>
+            <Route path="profile" element={<UserProfile />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

@@ -31,6 +31,9 @@ export const ChoseLoginOrSignup: React.FC = () => {
   const handleQrCodeClick = () => {
     navigate("/login/scan-qrcode");
   };
+  const handleClickHome = () => {
+    navigate("/home");
+  };
 
   return (
     <Box
@@ -52,7 +55,7 @@ export const ChoseLoginOrSignup: React.FC = () => {
         },
       }}
     >
-        <ReturnIcon path="/start" />
+        <ReturnIcon path="/start" color="white" />
         <ThemeProvider theme={theme}>
             <Stack
                 spacing={3}
@@ -125,7 +128,7 @@ export const ChoseLoginOrSignup: React.FC = () => {
                     }}
                 >
                     <Link
-                        href="#"
+                        onClick={handleClickHome}
                         underline="always"
                         sx={{
                             color: "white",

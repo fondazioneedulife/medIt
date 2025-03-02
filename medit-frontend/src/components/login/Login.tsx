@@ -46,7 +46,7 @@ export const Login: React.FC = () => {
         },
       }}
     >
-     <ReturnIcon path="/login/choose" />
+     <ReturnIcon path="/login/choose" color="white"/>
      <ThemeProvider theme={theme}>
         <Stack
           spacing={3}
@@ -74,6 +74,7 @@ export const Login: React.FC = () => {
                 justifyContent: "center",
                 flexDirection: "column",
                 width: "100%",
+                maxWidth: "20rem",
                 borderRadius: 5,
                 boxShadow: "inset 4px 4px 6px rgba(0, 0, 0, 0.25)",
                 display: "inline-table",
@@ -104,9 +105,9 @@ export const Login: React.FC = () => {
             }}
           >
             <LoginButton
-              text={translate('signup')}
+              text={translate('login')}
               width="100%"
-              maxWidth="30rem"
+              maxWidth="20rem"
               to="/home"
             />
           </Stack>

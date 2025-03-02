@@ -1,6 +1,7 @@
 {
   "en": {
     "login": "Login",
+    "logout": "Logout",
     "signup": "Sign Up",
     "registration": "Registration",
     "continueWithoutRegistration": "Continue without registration",
@@ -13,10 +14,18 @@
     "getStarted": "Get started",
     "startSlogan": "Your digital healthcare assistant",
     "scanQrCode": "Scan QR code",
-    "scanQrCodeDescription": "Scan the patient's QR for access"
+    "scanQrCodeDescription": "Scan the patient's QR for access",
+    "home": "Home",
+    "profile": "Profile",
+    "userInfo": "user information",
+    "support": "Support",
+    "settings": "Settings",
+    "patientList": "patient list",
+    "caregiver": "caregiver"
   },
   "it": {
     "login": "Accedi",
+    "logout": "Esci",
     "signup": "Registrati",
     "registration": "Registrazione",
     "continueWithoutRegistration": "Continua senza registrazione",
@@ -29,6 +38,13 @@
     "getStarted": "Inizia",
     "startSlogan": "Il tuo assistente digitale per la salute",
     "scanQrCode": "Scannerizza QR code",
-    "scanQrCodeDescription": "Scannerizza il QR del paziente per accedere"
+    "scanQrCodeDescription": "Scannerizza il QR del paziente per accedere",
+    "home": "Home",
+    "profile": "Profilo",
+    "userInfo": "informazioni utente",
+    "support": "Supporto",
+    "settings": "Impostazioni",
+    "patientList": "lista pazienti",
+    "caregiver": "caregiver"
   }
 }
