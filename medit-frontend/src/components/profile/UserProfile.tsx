@@ -127,13 +127,17 @@ export const UserProfile: React.FC = () => {
                                 <Typography variant="h6">{translate('profile')}</Typography>
                                 <Box
                                     sx={{
-                                        backgroundColor: "#00259D",
+                                        backgroundColor: "#00259D", /* if user role is patiente */
+                                        // backgroundColor: "#FF0000", /* if user role is caregiver */
                                         color: "white",
                                         borderRadius: "12px",
                                         padding: "2px 8px",
                                     }}
                                 >
+                                    {/* if user role is patient */}
                                     {translate('patient').toLocaleLowerCase()}
+                                    {/* if user role is caregiver */}
+                                    {/* {translate('caregiver').toLocaleLowerCase()} */}
                                 </Box>
                             </Box>
                         </Box>

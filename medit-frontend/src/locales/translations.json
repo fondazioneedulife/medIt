@@ -20,7 +20,8 @@
     "userInfo": "user information",
     "support": "Support",
     "settings": "Settings",
-    "patientList": "patient list"
+    "patientList": "patient list",
+    "caregiver": "caregiver"
   },
   "it": {
     "login": "Accedi",
@@ -43,6 +44,7 @@
     "userInfo": "informazioni utente",
     "support": "Supporto",
     "settings": "Impostazioni",
-    "patientList": "lista pazienti"
+    "patientList": "lista pazienti",
+    "caregiver": "caregiver"
   }
 }
