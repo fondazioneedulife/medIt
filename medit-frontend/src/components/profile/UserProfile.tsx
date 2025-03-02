@@ -139,7 +139,7 @@ export const UserProfile: React.FC = () => {
                         </Box>
 
                         {/* patient list link is visible if user role is caregiver */}
-                        <Box 
+                        {/* <Box 
                             sx={{
                                 marginTop: "2rem",
                                 padding: "1rem",
@@ -167,7 +167,7 @@ export const UserProfile: React.FC = () => {
                                 />
                                 {translate('patientList')}
                             </Stack>
-                        </Box>
+                        </Box> */}
 
                         <Box sx={{
                             marginTop: "2rem",
