@@ -19,6 +19,15 @@ export const UserProfile: React.FC = () => {
         typography: {
             fontFamily: "Montserrat, Arial",
         },
+        breakpoints: {
+            values: {
+                xs: 0,
+                sm: 600,
+                md: 960,
+                lg: 1280,
+                xl: 1920,
+            },
+        },
     });
 
     const { translate } = useLanguage();
@@ -45,7 +54,10 @@ export const UserProfile: React.FC = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    backgroundColor: "#f7f7f7"
+                    backgroundColor: "#f7f7f7",
+                    [theme.breakpoints.up('lg')]: {
+                        height: "140vh",
+                    },
                 }} 
             >
                 <ReturnIcon path="/home" color="black"/>
@@ -53,10 +65,14 @@ export const UserProfile: React.FC = () => {
                     <Box
                         sx={{
                             width: "80%",
+                            maxWidth: "20rem",
                             height: "100%",
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "center",
+                            [theme.breakpoints.up('lg')]: {
+                                marginTop: "-10rem",
+                            },
                         }}
                     >
                         <Box
