@@ -5,8 +5,13 @@ import { ChooseButton } from "./chooseButton";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useState } from "react";
 import { useRegistration } from "../registration/RegistrationContext";
-import { registerUser, getUserByEmail } from "../../database/indexdb";
+import {
+  registerUser,
+  getUserByEmail,
+  addRecord,
+} from "../../database/indexdb";
 import { RoleEnum } from "../../generated/models/RoleEnum";
+import bcrypt from "bcryptjs";
 
 const theme = createTheme({
   typography: {
@@ -49,13 +54,28 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
         return;
       }
 
+      const salt = await bcrypt.genSalt(10);
+      if (!user.password) {
+        console.error("User password is undefined");
+        return;
+      }
+      const hashedPassword = await bcrypt.hash(user.password, salt);
+
       const { Confirmpassword, ...userToSave } = user;
       console.log("User to save:", userToSave);
-      await registerUser({
+      const userId = await registerUser({
         ...userToSave,
         role: selectedRole as RoleEnum,
         created_at: new Date(),
         updated_at: new Date(),
+      });
+
+      await addRecord("auth", {
+        user_id: userId,
+        password: hashedPassword,
+        failed_attempts: 0,
+        last_login: new Date(),
+        synced_at: new Date(),
       });
 
       console.log("User registered successfully with role:", selectedRole);
@@ -93,7 +113,7 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
                 fontWeight: "bold",
                 mb: "1rem",
                 fontSize: "2.5rem",
-                color: "white"
+                color: "white",
               }}
             >
               {translate("registration")}
@@ -104,7 +124,7 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
               style={{
                 fontWeight: "regular",
                 fontSize: "2rem",
-                color: "white"
+                color: "white",
               }}
             >
               {translate("whoAreYouQuestion")}
