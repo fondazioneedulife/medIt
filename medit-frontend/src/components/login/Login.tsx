@@ -12,6 +12,7 @@ import { getUserByEmail, getAuthByUserId } from "../../database/indexdb";
 import bcrypt from "bcryptjs";
 import { useRegistration } from "../registration/RegistrationContext";
 import { Auth } from "../../../api-types/Auth";
+import { LoginButton } from "./LoginButton";
 
 const theme = createTheme({
   typography: {
@@ -95,7 +96,7 @@ export const Login: React.FC = () => {
         },
       }}
     >
-      <ReturnIcon path="/login/choose" />
+      <ReturnIcon path="/login/choose" color="white" />
       <ThemeProvider theme={theme}>
         <Stack
           spacing={3}
@@ -114,7 +115,7 @@ export const Login: React.FC = () => {
             <Stack
               direction="row"
               sx={{
-                width: "80%",
+                width: "100%",
                 justifyContent: "center",
                 maxWidth: "30rem",
               }}
@@ -159,7 +160,8 @@ export const Login: React.FC = () => {
             <Stack
               direction="row"
               sx={{
-                  width: "80%",
+                  width: "100%",
+                  marginTop: "2rem"
               }}
             >
               <LoginButton
@@ -169,8 +171,9 @@ export const Login: React.FC = () => {
                 to="/home"
               />
             </Stack>
-          </Stack>
          </form>
+
+        </Stack>
       </ThemeProvider>
     </Box>
   );
