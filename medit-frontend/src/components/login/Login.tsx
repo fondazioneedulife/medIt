@@ -110,28 +110,29 @@ export const Login: React.FC = () => {
             style={{ width: "8rem", marginBottom: "5rem" }}
           />
 
-          <Stack
-            direction="row"
-            sx={{
-              width: "80%",
-              justifyContent: "center",
-              maxWidth: "30rem",
-            }}
-          >
-            <Box
+          <form onSubmit={handleSubmit}>
+            <Stack
+              direction="row"
               sx={{
+                width: "80%",
                 justifyContent: "center",
-                flexDirection: "column",
-                width: "100%",
-                borderRadius: 5,
-                boxShadow: "inset 4px 4px 6px rgba(0, 0, 0, 0.25)",
-                display: "inline-table",
-                backgroundColor: "rgba(255, 255, 255, 0.5)",
-                padding: "1rem",
-                boxSizing: "border-box",
+                maxWidth: "30rem",
               }}
             >
-              <form onSubmit={handleSubmit}>
+              <Box
+                sx={{
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  width: "100%",
+                  maxWidth: "20rem",
+                  borderRadius: 5,
+                  boxShadow: "inset 4px 4px 6px rgba(0, 0, 0, 0.25)",
+                  display: "inline-table",
+                  backgroundColor: "rgba(255, 255, 255, 0.5)",
+                  padding: "1rem",
+                  boxSizing: "border-box",
+                }}
+              >
                 <LoginLabel
                   inputName="email"
                   img={iconEmail}
@@ -151,29 +152,25 @@ export const Login: React.FC = () => {
                     {error}
                   </Typography>
                 )}
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{
-                    mt: 2,
-                    width: "100%",
-                    borderRadius: 3,
-                    backgroundColor: "#00ca9bff",
-                    color: "white",
-                    fontSize: "1.2rem",
-                    fontWeight: "bold",
-                    textTransform: "none",
-                    "&:hover": {
-                      backgroundColor: "#00b38f",
-                    },
-                  }}
-                >
-                  {translate("login")}
-                </Button>
-              </form>
-            </Box>
+                
+              </Box>
+            </Stack>
+
+            <Stack
+              direction="row"
+              sx={{
+                  width: "80%",
+              }}
+            >
+              <LoginButton
+                text={translate('login')}
+                width="100%"
+                maxWidth="20rem"
+                to="/home"
+              />
+            </Stack>
           </Stack>
-        </Stack>
+         </form>
       </ThemeProvider>
     </Box>
   );

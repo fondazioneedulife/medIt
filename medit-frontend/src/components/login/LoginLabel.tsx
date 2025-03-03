@@ -20,67 +20,40 @@ export const LoginLabel: React.FC<LoginLabelProps> = ({
   onChange,
 }) => {
   return (
-    <>
-      <ListItem
+    <Box 
+      sx={{ 
+        width: "100%"
+      }}
+    >
+      <Stack
+        direction="row"
         alignItems="center"
-        style={{
-          justifyContent: "center",
-        }}
+        spacing={2}
       >
-        <img
-          src={img}
-          alt="Icon"
-          style={{ paddingRight: "20px", width: "2.2rem" }}
-        />
-        <Box
-          component="div"
-          sx={{ "& > :not(style)": { m: 1, width: "13rem" } }}
-        >
-          <TextField
-            name={inputName}
-            placeholder={placeholder}
-            variant="outlined"
-            type={type}
-            onChange={onChange}
-            InputProps={{
-              style: {
-                backgroundColor: "transparent",
-                border: "none",
-                outline: "none",
-                width: "100%",
-                height: "3rem",
-                fontSize: "1.2rem",
-                color: "black",
-                fontWeight: "600",
-              },
-            }}
-            InputLabelProps={{
-              style: {
-                color: "black",
-              },
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "transparent",
-                },
-                "&:hover fieldset": {
-                  borderColor: "transparent",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "transparent",
-                },
-                "& input": {
-                  color: "black", // Assicurati che il colore del testo sia nero
-                },
-              },
+          <img
+            src={img}
+            alt="icon"
+            style={{
+                height: "1.5rem",
+                width: "1.5rem"
             }}
           />
-        </Box>
-      </ListItem>
-      {showHr === true && (
-        <hr style={{ borderColor: "rgba(98, 98, 98, 0.2)" }} />
-      )}
-    </>
+          <TextField
+            fullWidth
+            placeholder={placeholder}
+            type={type}
+            variant="standard"
+            InputProps={{ disableUnderline: true }}
+          />
+      </Stack>
+      {showHr && <hr style={{
+        width: "100%",
+        marginTop: "0.5rem",
+        color: "#7C7C7C",
+        backgroundColor: "#7C7C7C",
+        border: "none",
+        height: "1px"
+      }} />}
+    </Box>
   );
 };
