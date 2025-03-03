@@ -96,7 +96,7 @@ export const Registration: React.FC = () => {
         alignItems: "center",
       }}
     >
-      <ReturnIcon path="/login/chose" />
+      <ReturnIcon path="/login/choose" color="white" />
       <ListItem
         sx={{
           justifyContent: "center",

@@ -93,6 +93,7 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
                 fontWeight: "bold",
                 mb: "1rem",
                 fontSize: "2.5rem",
+                color: "white"
               }}
             >
               {translate("registration")}
@@ -103,6 +104,7 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
               style={{
                 fontWeight: "regular",
                 fontSize: "2rem",
+                color: "white"
               }}
             >
               {translate("whoAreYouQuestion")}

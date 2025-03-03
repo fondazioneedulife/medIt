@@ -55,7 +55,7 @@ export const ChooseButton: React.FC<ChooseButtonProps> = ({ onRoleSelect }) => {
             component="h3"
             style={{
               fontWeight: "bold",
-              fontSize: "2rem",
+              fontSize: "1.5rem",
               textTransform: "capitalize",
             }}
           >
@@ -85,7 +85,7 @@ export const ChooseButton: React.FC<ChooseButtonProps> = ({ onRoleSelect }) => {
             component="h3"
             style={{
               fontWeight: "bold",
-              fontSize: "2rem",
+              fontSize: "1.5rem",
               textTransform: "capitalize",
             }}
           >
