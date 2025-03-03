@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { RoleEnum } from "../../generated/models/RoleEnum";
-import { RegisterRequest } from "../../generated/models/RegisterRequest";
+import { RegisterRequest } from "../../../api-types/RegisterRequest";
 
 interface RegistrationContextProps {
   user: RegisterRequest & { Confirmpassword: string };
@@ -31,6 +31,8 @@ export const RegistrationProvider: React.FC<RegistrationProviderProps> = ({
     role: RoleEnum.Patient,
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     language: "en",
+    created_at: new Date(),
+    updated_at: new Date(),
   });
 
   return (
