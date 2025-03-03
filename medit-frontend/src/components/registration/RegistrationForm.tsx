@@ -4,7 +4,7 @@ import { Label } from "./label";
 import iconEmail from "../../assets/icon/icon-email.svg";
 import iconUser from "../../assets/icon/logo user.svg";
 import iconKey from "../../assets/icon/icon-key.svg";
-import { Return } from "./return";
+import { ReturnIcon } from "../login/ReturnIcon";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { getUserByEmail } from "../../database/indexdb";
 import { useState } from "react";
@@ -89,13 +89,14 @@ export const Registration: React.FC = () => {
     <Box
       sx={{
         background: "linear-gradient(45deg, #00ca9bff, #1412c6ff)",
-        backgroundSize: "200% 120%", // Estende il gradiente
+        backgroundSize: "200% 120%",
         minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
+      <ReturnIcon path="/login/chose"/>
       <ListItem
         sx={{
           justifyContent: "center",
@@ -104,7 +105,6 @@ export const Registration: React.FC = () => {
           maxWidth: "500px",
         }}
       >
-        <Return />
         <ThemeProvider theme={theme}>
           <Typography
             variant="h3"
@@ -114,6 +114,7 @@ export const Registration: React.FC = () => {
               paddingBottom: "3rem",
               fontSize: "2.5rem",
               textAlign: "center",
+              color: "white"
             }}
           >
             {translate("registration")}
@@ -200,20 +201,22 @@ export const Registration: React.FC = () => {
             variant="contained"
             color="primary"
             sx={{
-              mt: 2,
+              mt: "2rem",
               width: "100%",
               borderRadius: 3,
-              backgroundColor: "#00ca9bff",
-              color: "white",
+              backgroundColor: "white",
+              color: "black",
               fontSize: "1.2rem",
               fontWeight: "bold",
-              textTransform: "none",
+              textTransform: "capitalize",
               "&:hover": {
-                backgroundColor: "#00b38f",
+                backgroundColor: "white",
               },
             }}
           >
-            {translate("confirm")}
+            <Box sx={{ padding:"1rem"}}>
+              {translate("confirm")}
+            </Box>
           </Button>
         </form>
       </ListItem>
