@@ -183,43 +183,49 @@ export const deleteRecord = async (
   });
 };
 
+// export const registerUser = async (
+//   user: RegisterRequest
+// ): Promise<IDBValidKey> => {
+//   const db = await openDB();
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       const transaction = db.transaction([USER_STORE, "auth"], "readwrite");
+//       const userStore = transaction.objectStore(USER_STORE);
+//       const authStore = transaction.objectStore("auth");
+
+//       // Hash the password before saving
+//       const hashedPassword = await bcrypt.hash(user.password, 10);
+
+//       const { password, ...userToSave } = user;
+//       console.log("User to save:", userToSave);
+//       const userId = await addRecord(USER_STORE, userToSave);
+
+//       const authRequest = authStore.add({
+//         user_id: userId,
+//         password: hashedPassword,
+//         failed_attempts: 0,
+//         last_login: new Date(),
+//         synced_at: new Date(),
+//       } as Auth);
+
+//       authRequest.onsuccess = () => resolve(userId);
+//       authRequest.onerror = () => reject(authRequest.error);
+
+//       // Ensure the transaction is not closed prematurely
+//       transaction.oncomplete = () =>
+//         console.log("Transaction completed successfully.");
+//       transaction.onerror = () => reject(transaction.error);
+//       transaction.onabort = () => reject(transaction.error);
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
+// };
+
 export const registerUser = async (
   user: RegisterRequest
 ): Promise<IDBValidKey> => {
-  const db = await openDB();
-  return new Promise(async (resolve, reject) => {
-    try {
-      const transaction = db.transaction([USER_STORE, "auth"], "readwrite");
-      const userStore = transaction.objectStore(USER_STORE);
-      const authStore = transaction.objectStore("auth");
-
-      // Hash the password before saving
-      const hashedPassword = await bcrypt.hash(user.password, 10);
-
-      const { password, ...userToSave } = user;
-      console.log("User to save:", userToSave);
-      const userId = await addRecord(USER_STORE, userToSave);
-
-      const authRequest = authStore.add({
-        user_id: userId,
-        password: hashedPassword,
-        failed_attempts: 0,
-        last_login: new Date(),
-        synced_at: new Date(),
-      } as Auth);
-
-      authRequest.onsuccess = () => resolve(userId);
-      authRequest.onerror = () => reject(authRequest.error);
-
-      // Ensure the transaction is not closed prematurely
-      transaction.oncomplete = () =>
-        console.log("Transaction completed successfully.");
-      transaction.onerror = () => reject(transaction.error);
-      transaction.onabort = () => reject(transaction.error);
-    } catch (error) {
-      reject(error);
-    }
-  });
+  return await addRecord("users", user);
 };
 
 export async function getUserByEmail(email: string): Promise<User | undefined> {

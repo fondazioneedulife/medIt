@@ -79,7 +79,7 @@ export const Registration: React.FC = () => {
         ...prevUser,
         role: RoleEnum.Patient,
       }));
-      navigate("/login/choose-role");
+      navigate("/register/choose-role");
     } catch (error) {
       console.error("Failed to register user:", error);
     }
@@ -96,7 +96,7 @@ export const Registration: React.FC = () => {
         alignItems: "center",
       }}
     >
-      <ReturnIcon path="/login/chose"/>
+      <ReturnIcon path="/login/chose" />
       <ListItem
         sx={{
           justifyContent: "center",
@@ -114,7 +114,7 @@ export const Registration: React.FC = () => {
               paddingBottom: "3rem",
               fontSize: "2.5rem",
               textAlign: "center",
-              color: "white"
+              color: "white",
             }}
           >
             {translate("registration")}
@@ -214,9 +214,7 @@ export const Registration: React.FC = () => {
               },
             }}
           >
-            <Box sx={{ padding:"1rem"}}>
-              {translate("confirm")}
-            </Box>
+            <Box sx={{ padding: "1rem" }}>{translate("confirm")}</Box>
           </Button>
         </form>
       </ListItem>

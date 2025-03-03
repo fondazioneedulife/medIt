@@ -51,7 +51,7 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
 
       const { Confirmpassword, ...userToSave } = user;
       console.log("User to save:", userToSave);
-      const userId = await registerUser({
+      await registerUser({
         ...userToSave,
         role: selectedRole as RoleEnum,
         created_at: new Date(),
