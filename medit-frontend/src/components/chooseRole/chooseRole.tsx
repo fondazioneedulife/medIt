@@ -5,13 +5,8 @@ import { ChooseButton } from "./chooseButton";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useState } from "react";
 import { useRegistration } from "../registration/RegistrationContext";
-import {
-  registerUser,
-  getUserByEmail,
-  addRecord,
-} from "../../database/indexdb";
+import { registerUser, getUserByEmail } from "../../database/indexdb";
 import { RoleEnum } from "../../generated/models/RoleEnum";
-import bcrypt from "bcryptjs";
 
 const theme = createTheme({
   typography: {
@@ -31,10 +26,17 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
   const handleRoleSelect = async (selectedRole: string) => {
     console.log("handleRoleSelect called with role:", selectedRole);
     setRole(selectedRole);
-    setUser((prevUser) => ({
-      ...prevUser,
-      role: selectedRole as RoleEnum,
-    }));
+
+    setUser((prevUser) => {
+      const updatedUser = {
+        ...prevUser,
+        role: selectedRole as RoleEnum,
+        created_at: new Date(),
+        updated_at: new Date(),
+      };
+      console.log("User after role select:", updatedUser);
+      return updatedUser;
+    });
 
     try {
       if (!user.email) {
@@ -47,26 +49,13 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
         return;
       }
 
-      // Hash the password before saving
-      const salt = await bcrypt.genSalt(10);
-      if (!user.password) {
-        console.error("User password is undefined");
-        return;
-      }
-      const hashedPassword = await bcrypt.hash(user.password, salt);
-
-      const { Confirmpassword, password, ...userToSave } = user;
-      const userId = await registerUser({
+      const { Confirmpassword, ...userToSave } = user;
+      console.log("User to save:", userToSave);
+      await registerUser({
         ...userToSave,
         role: selectedRole as RoleEnum,
-      });
-
-      await addRecord("auth", {
-        user_id: userId,
-        password: hashedPassword,
-        failed_attempts: 0,
-        last_login: new Date(),
-        synced_at: new Date(),
+        created_at: new Date(),
+        updated_at: new Date(),
       });
 
       console.log("User registered successfully with role:", selectedRole);

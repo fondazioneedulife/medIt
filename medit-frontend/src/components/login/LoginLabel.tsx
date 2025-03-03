@@ -1,21 +1,23 @@
 import React from "react";
-import { Box, Stack, TextField } from "@mui/material";
+import { Box, ListItem } from "@mui/material";
+import TextField from "@mui/material/TextField";
 
-interface LabelProps {
+interface LoginLabelProps {
   inputName: string;
   placeholder: string;
   img: string;
   showHr?: boolean;
-  style?: React.CSSProperties;
-  iconshow?: boolean;
   type?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export const LoginLabel: React.FC<LabelProps> = ({
+export const LoginLabel: React.FC<LoginLabelProps> = ({
+  inputName,
   img,
   placeholder,
   showHr = true,
   type = "text",
+  onChange,
 }) => {
   return (
     <Box 

@@ -42,9 +42,14 @@ function App() {
             {/* TODO: set login guard */}
             {/* <Route path="login" element={<LoginMainContext />}> */}
             <Route path="login">
-              <Route index element={<Login />}></Route>
-              <Route path="chose" element={<ChoseLoginOrSignup />}></Route>
-
+              <Route
+                index
+                element={
+                  <RegistrationProvider>
+                    <Login />
+                  </RegistrationProvider>
+                }
+              ></Route>
               {/* all login route */}
               <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
               <Route path="scan-qrcode" element={<ScanQR />}></Route>

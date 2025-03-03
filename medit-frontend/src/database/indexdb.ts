@@ -1,4 +1,7 @@
-import { User } from "../generated";
+import bcrypt from "bcryptjs";
+import { RegisterRequest } from "../../api-types/RegisterRequest";
+import { User } from "../generated/models/User";
+import { Auth } from "../../api-types/Auth";
 
 const DB_NAME = "Medit";
 const DB_VERSION = 1;
@@ -23,7 +26,7 @@ export const openDB = (): Promise<IDBDatabase> => {
         usersStore.createIndex("last_name", "last_name", { unique: false });
         usersStore.createIndex("role", "role", { unique: false });
         usersStore.createIndex("created_at", "created_at", { unique: false });
-        usersStore.createIndex("update_at", "update_at", { unique: false });
+        usersStore.createIndex("updated_at", "updated_at", { unique: false });
         usersStore.createIndex("timezone", "timezone", { unique: false });
         usersStore.createIndex("language", "language", { unique: false });
         usersStore.createIndex("synced_at", "synced_at", { unique: false });
@@ -56,7 +59,7 @@ export const openDB = (): Promise<IDBDatabase> => {
         medicationsStore.createIndex("created_at", "created_at", {
           unique: false,
         });
-        medicationsStore.createIndex("update_at", "update_at", {
+        medicationsStore.createIndex("updated_at", "updated_at", {
           unique: false,
         });
         medicationsStore.createIndex("synced_at", "synced_at", {
@@ -180,7 +183,48 @@ export const deleteRecord = async (
   });
 };
 
-export const registerUser = async (user: User): Promise<IDBValidKey> => {
+// export const registerUser = async (
+//   user: RegisterRequest
+// ): Promise<IDBValidKey> => {
+//   const db = await openDB();
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       const transaction = db.transaction([USER_STORE, "auth"], "readwrite");
+//       const userStore = transaction.objectStore(USER_STORE);
+//       const authStore = transaction.objectStore("auth");
+
+//       // Hash the password before saving
+//       const hashedPassword = await bcrypt.hash(user.password, 10);
+
+//       const { password, ...userToSave } = user;
+//       console.log("User to save:", userToSave);
+//       const userId = await addRecord(USER_STORE, userToSave);
+
+//       const authRequest = authStore.add({
+//         user_id: userId,
+//         password: hashedPassword,
+//         failed_attempts: 0,
+//         last_login: new Date(),
+//         synced_at: new Date(),
+//       } as Auth);
+
+//       authRequest.onsuccess = () => resolve(userId);
+//       authRequest.onerror = () => reject(authRequest.error);
+
+//       // Ensure the transaction is not closed prematurely
+//       transaction.oncomplete = () =>
+//         console.log("Transaction completed successfully.");
+//       transaction.onerror = () => reject(transaction.error);
+//       transaction.onabort = () => reject(transaction.error);
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
+// };
+
+export const registerUser = async (
+  user: RegisterRequest
+): Promise<IDBValidKey> => {
   return await addRecord("users", user);
 };
 
@@ -195,3 +239,20 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
     request.onerror = () => reject(request.error);
   });
 }
+
+export const getAuthByUserId = async (userId: number) => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("auth", "readonly");
+    const store = transaction.objectStore("auth");
+    const request = store.get(userId);
+
+    request.onsuccess = () => {
+      resolve(request.result);
+    };
+
+    request.onerror = () => {
+      reject(request.error);
+    };
+  });
+};
