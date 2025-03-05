@@ -10,12 +10,12 @@ import { openDB } from "./database/indexdb";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { RegistrationProvider } from "./components/registration/RegistrationContext.tsx";
 import { UserInfo } from "./components/userInfo/userInfo.tsx";
-
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
 import { Root } from "./routes/Root";
 import { UserProfile } from "./components/profile/UserProfile";
+import { SettingsPage } from "./components/profile/settings/SettingsPage.tsx";
 
 function App() {
   useEffect(() => {
@@ -37,7 +37,6 @@ function App() {
 
             <Route index element={<Root />}></Route>
             <Route path="start" element={<GetStart />}></Route>
-            <Route path="changePWD" element={<ChangePWD />}></Route>
 
             {/* TODO: set login guard */}
             {/* <Route path="login" element={<LoginMainContext />}> */}
@@ -76,7 +75,8 @@ function App() {
             <Route path="home" element={<Home />}></Route>
             <Route path="profile">
                 <Route index element={<UserProfile />}></Route>
-                <Route path="settings" element={<ScanQR />}></Route>
+                <Route path="settings" element={<SettingsPage />}></Route>
+                <Route path="change-password" element={<ChangePWD />}></Route>
             </Route>
           </Route>
         </Routes>
