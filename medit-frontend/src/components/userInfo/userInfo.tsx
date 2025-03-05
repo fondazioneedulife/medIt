@@ -1,4 +1,4 @@
-import { ListItem, Typography, Box } from "@mui/material";
+import { ListItem, Typography, Box, colors } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Label2 } from "./label2";
 import { ReturnIcon } from "../login/ReturnIcon";
@@ -10,6 +10,15 @@ import { useState } from "react";
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, Arial",
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
   },
 });
 
@@ -27,6 +36,14 @@ export const UserInfo: React.FC = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        width: "100%",
+        overflowX: "hidden",
+        height: "100vh",
+        [theme.breakpoints.down("md")]: {
+          "@media (orientation: landscape)": {
+            height: "175vh",
+          },
+        },
       }}
     >
       <ListItem
@@ -35,7 +52,15 @@ export const UserInfo: React.FC = () => {
           flexDirection: "column",
         }}
       >
-        <ReturnIcon path="#" /> {/* TODO: adding ReturnIcon's color (black) */}
+        <Box
+          sx={{
+            position: "fixed",
+            top: "1rem",
+            left: "1rem",
+          }}
+        >
+          <ReturnIcon path="#" color="black" />
+        </Box>
         <ThemeProvider theme={theme}>
           <Typography
             variant="h3"
@@ -53,7 +78,6 @@ export const UserInfo: React.FC = () => {
         <Box
           sx={{
             borderRadius: 5,
-            boxShadow: "inset 4px 4px 6px rgba(0, 0, 0, 0.25)",
             display: "inline-table",
             backgroundColor: "rgba(255, 255, 255, 0.5)",
             width: "21rem",
@@ -126,6 +150,11 @@ export const UserInfo: React.FC = () => {
               roles={roles}
               selectedRole={selectedRole}
               onRoleSelect={setSelectedRole}
+              sx={{
+                "& .MuiSelect-select": {
+                  textAlign: "left",
+                },
+              }}
             />
           </Box>
         </Box>
