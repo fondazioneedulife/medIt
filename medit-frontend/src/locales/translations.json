@@ -9,7 +9,9 @@
     "confrim": "Confirm",
     "confirmPassword": "Confirm password",
     "patient": "Patient",
-    "whoAreYouQuestion": "Who are you?"
+    "whoAreYouQuestion": "Who are you?",
+    "getStarted": "Get started",
+    "startSlogan": "Your digital healthcare assistant"
   },
   "it": {
     "login": "Accedi",
@@ -21,6 +23,8 @@
     "confrim": "Conferma",
     "confirmPassword": "Conferma password",
     "patient": "Paziente",
-    "whoAreYouQuestion": "Chi sei?"
+    "whoAreYouQuestion": "Chi sei?",
+    "getStarted": "Inizia",
+    "startSlogan": "Il tuo assistente digitale per la salute"
   }
 }

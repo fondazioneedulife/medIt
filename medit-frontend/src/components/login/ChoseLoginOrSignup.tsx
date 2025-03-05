@@ -45,8 +45,7 @@ export const ChoseLoginOrSignup: React.FC = () => {
         },
       }}
     >
-        {/* TODO: configure correct path route */}
-        <ReturnIcon path="/login/register" /> {/* Return to the specified path */}
+        <ReturnIcon path="/start" />
         <ThemeProvider theme={theme}>
             <Stack
                 spacing={3}
@@ -69,7 +68,12 @@ export const ChoseLoginOrSignup: React.FC = () => {
                         justifyContent: "center",
                     }}
                 >
-                    <LoginButton text={translate('login')} width="75%" maxWidth="13rem"/>
+                    <LoginButton
+                        text={translate('login')}
+                        width="75%"
+                        maxWidth="13rem"
+                        to = "/login"
+                    />
                     <Button 
                         variant="contained"
                         sx={{
@@ -98,7 +102,12 @@ export const ChoseLoginOrSignup: React.FC = () => {
                         width: "75%"
                     }}
                 >
-                    <LoginButton text={translate('signup')} width="100%" maxWidth="18rem"/>
+                    <LoginButton
+                        text={translate('signup')}
+                        width="100%"
+                        maxWidth="18rem"
+                        to="/register"
+                    />
                 </Stack>
                 <Stack
                     direction="row"
