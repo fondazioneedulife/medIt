@@ -223,9 +223,10 @@ export const deleteRecord = async (
 // };
 
 export const registerUser = async (
-  user: RegisterRequest
+  registerRequest: RegisterRequest
 ): Promise<IDBValidKey> => {
-  return await addRecord("users", user);
+  const { password, ...userToSave } = registerRequest;
+  return await addRecord("users", userToSave);
 };
 
 export async function getUserByEmail(email: string): Promise<User | undefined> {
