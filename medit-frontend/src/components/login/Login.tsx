@@ -12,7 +12,7 @@ import { getUserByEmail, getAuthByUserId } from "../../database/indexdb";
 import bcrypt from "bcryptjs";
 import { useRegistration } from "../registration/RegistrationContext";
 import { Auth } from "../../../api-types/Auth";
-import { LoginButton } from "./LoginButton";
+import { RoleEnum } from "../../generated";
 
 const theme = createTheme({
   typography: {
@@ -51,6 +51,7 @@ export const Login: React.FC = () => {
     console.log(email);
     try {
       const user = await getUserByEmail(email);
+      console.log(user);
       if (!user) {
         setError("User not found");
         return;
@@ -60,6 +61,7 @@ export const Login: React.FC = () => {
         return;
       }
       const auth: Auth = (await getAuthByUserId(user.id)) as Auth;
+      console.log(auth);
       if (!auth) {
         setError("Authentication data not found");
         return;
@@ -69,7 +71,20 @@ export const Login: React.FC = () => {
         setError("Invalid password");
         return;
       }
-      setUser(user);
+      setUser({
+        ...user,
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        email: user.email || "",
+        role: user.role || RoleEnum.Patient,
+        qrcode: user.qrcode || "",
+        timezone: user.timezone || "",
+        language: user.language || "",
+        password: auth.password,
+        Confirmpassword: "",
+        created_at: new Date(),
+        updated_at: new Date(),
+      });
       navigate("/home");
     } catch (error) {
       console.error("Failed to login user:", error);
@@ -153,26 +168,40 @@ export const Login: React.FC = () => {
                     {error}
                   </Typography>
                 )}
-                
               </Box>
             </Stack>
 
             <Stack
               direction="row"
               sx={{
-                  width: "100%",
-                  marginTop: "2rem"
+                width: "100%",
+                marginTop: "2rem",
               }}
             >
-              <LoginButton
-                text={translate('login')}
-                width="100%"
-                maxWidth="20rem"
-                to="/home"
-              />
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{
+                  width: "100%",
+                  maxWidth: "20rem",
+                  borderRadius: 2,
+                  backgroundColor: "white",
+                  color: "black",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto",
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                  cursor: "pointer",
+                  textTransform: "none",
+                }}
+              >
+                {translate("login")}
+              </Button>
             </Stack>
-         </form>
-
+          </form>
         </Stack>
       </ThemeProvider>
     </Box>

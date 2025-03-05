@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useState } from "react";
 import { RoleEnum } from "../../generated/models/RoleEnum";
 import { RegisterRequest } from "../../../api-types/RegisterRequest";
+import { User } from "../../generated/models/User";
+
+type RegistrationUser = RegisterRequest & User & { Confirmpassword: string };
 
 interface RegistrationContextProps {
-  user: RegisterRequest & { Confirmpassword: string };
-  setUser: React.Dispatch<
-    React.SetStateAction<RegisterRequest & { Confirmpassword: string }>
-  >;
+  user: RegistrationUser;
+  setUser: React.Dispatch<React.SetStateAction<RegistrationUser>>;
 }
 
 const RegistrationContext = createContext<RegistrationContextProps | undefined>(
@@ -20,9 +21,8 @@ interface RegistrationProviderProps {
 export const RegistrationProvider: React.FC<RegistrationProviderProps> = ({
   children,
 }) => {
-  const [user, setUser] = useState<
-    RegisterRequest & { Confirmpassword: string }
-  >({
+  const [user, setUser] = useState<RegistrationUser>({
+    id: 0,
     firstName: "",
     lastName: "",
     email: "",

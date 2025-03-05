@@ -1,5 +1,5 @@
 import { Button, createTheme, ThemeProvider } from "@mui/material";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const theme = createTheme({
   typography: {
@@ -8,13 +8,18 @@ const theme = createTheme({
 });
 
 interface LoginButtonProps {
-    text: string;
-    width?: string;
-    maxWidth?: string;
-    to: string;  // route url 
+  text: string;
+  width?: string;
+  maxWidth?: string;
+  to: string; // route url
 }
 
-export const LoginButton: React.FC<LoginButtonProps> = ({ text, width, maxWidth, to }) => {
+export const LoginButton: React.FC<LoginButtonProps> = ({
+  text,
+  width,
+  maxWidth,
+  to,
+}) => {
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -24,8 +29,8 @@ export const LoginButton: React.FC<LoginButtonProps> = ({ text, width, maxWidth,
           to={to}
           variant="contained"
           sx={{
-            width: {width},
-            maxWidth: {maxWidth},
+            width: { width },
+            maxWidth: { maxWidth },
             borderRadius: 2,
             backgroundColor: "white",
             color: "black",
