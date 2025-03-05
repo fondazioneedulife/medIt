@@ -67,6 +67,7 @@ export const GetStart: React.FC = () => {
               marginBottom: "2rem",
               lineHeight: "1",
               width: "75%",
+              color: "white",
             }}
           >
             {translate("startSlogan")}

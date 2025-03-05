@@ -25,10 +25,18 @@ export const ReturnIcon: React.FC<ReturnIconProps> = ({
         position: "absolute",
         top: "1rem",
         left: "1rem",
+
       }}
       disableRipple
     >
       <ArrowBackIosNewIcon sx={{ color: color }} /> 
+
+        color: "white",
+      }}
+      disableRipple
+    >
+      <ArrowBackIosNewIcon sx={{ color: color }} />
+
     </IconButton>
   );
 };

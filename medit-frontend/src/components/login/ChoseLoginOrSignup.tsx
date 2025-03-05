@@ -45,7 +45,7 @@ export const ChoseLoginOrSignup: React.FC = () => {
         },
       }}
     >
-        <ReturnIcon path="/start" /> {/* Return to the specified route */}
+        <ReturnIcon path="/start" />
         <ThemeProvider theme={theme}>
             <Stack
                 spacing={3}
