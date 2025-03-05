@@ -9,12 +9,16 @@ import { ScanQR } from "./components/QRCode/ScanQR.tsx";
 import { openDB } from "./database/indexdb";
 import { LanguageProvider } from "./contexts/LanguageContext";
 
+import { RegistrationProvider } from "./components/registration/RegistrationContext.tsx";
+
 import { UserInfo } from "./components/userInfo/userInfo.tsx";
 
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
 import { Root } from "./routes/Root";
+import { UserProfile } from "./components/profile/UserProfile";
+
 
 function App() {
   useEffect(() => {
@@ -41,18 +45,43 @@ function App() {
             {/* TODO: set login guard */}
             {/* <Route path="login" element={<LoginMainContext />}> */}
             <Route path="login">
+
               <Route index element={<Login />}></Route>
+
+              <Route
+                index
+                element={
+                  <RegistrationProvider>
+                    <Login />
+                  </RegistrationProvider>
+                }
+              ></Route>
 
               {/* all login route */}
               <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
               <Route path="scan-qrcode" element={<ScanQR />}></Route>
             </Route>
             <Route path="register">
-              <Route index element={<Registration />}></Route>
-              <Route path="choose-role" element={<ChooseRole />}></Route>
+              <Route
+                index
+                element={
+                  <RegistrationProvider>
+                    <Registration />
+                  </RegistrationProvider>
+                }
+              ></Route>
+              <Route
+                path="choose-role"
+                element={
+                  <RegistrationProvider>
+                    <ChooseRole />
+                  </RegistrationProvider>
+                }
+              ></Route>
             </Route>
 
             <Route path="home" element={<Home />}></Route>
+            <Route path="profile" element={<UserProfile />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

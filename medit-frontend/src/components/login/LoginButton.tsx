@@ -19,6 +19,7 @@ export const LoginButton: React.FC<LoginButtonProps> = ({ text, width, maxWidth,
     <>
       <ThemeProvider theme={theme}>
         <Button
+          type="submit"
           component={Link}
           to={to}
           variant="contained"

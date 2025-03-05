@@ -7,12 +7,21 @@ const theme = createTheme({
   },
 });
 
-export const ConfirmRegistration: React.FC = () => {
+interface ConfirmRegistrationProps {
+  onConfirm: () => void;
+}
+
+export const ConfirmRegistration: React.FC<ConfirmRegistrationProps> = ({
+  onConfirm,
+}) => {
   const { translate } = useLanguage();
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <Button
+          type="button"
+          onClick={onConfirm}
           sx={{
             borderRadius: 3,
             width: "21rem",
@@ -31,7 +40,7 @@ export const ConfirmRegistration: React.FC = () => {
             cursor: "pointer",
           }}
         >
-          {translate("confrim")}
+          {translate("confirm")}
         </Button>
       </ThemeProvider>
     </>
