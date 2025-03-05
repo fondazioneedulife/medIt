@@ -77,6 +77,7 @@ export const PatientQR: React.FC = () => {
             marginBottom: "2rem",
           }}
         >
+          {/* TODO: prendere immagine da database */}
           <img
             src={QRimg}
             alt="QR"
