@@ -16,6 +16,7 @@ import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
 import { Root } from "./routes/Root";
 import { UserProfile } from "./components/profile/UserProfile";
+import { PatientQR } from "./components/patientQR/PatientQR";
 
 function App() {
   useEffect(() => {
@@ -38,6 +39,7 @@ function App() {
             <Route index element={<Root />}></Route>
             <Route path="start" element={<GetStart />}></Route>
             <Route path="changePWD" element={<ChangePWD />}></Route>
+            <Route path="patientQR" element={<PatientQR />}></Route>
 
             {/* TODO: set login guard */}
             {/* <Route path="login" element={<LoginMainContext />}> */}
