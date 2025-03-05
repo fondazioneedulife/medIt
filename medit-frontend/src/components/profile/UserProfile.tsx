@@ -35,8 +35,7 @@ export const UserProfile: React.FC = () => {
     const navigate = useNavigate();
 
     const qrCodeHandleClick = () => {
-        // TODO: correct right patient qr code route
-        navigate("/login");
+        navigate("/profile/patient-qr-code");
     };
 
     const patientListHandleClick = () => {
