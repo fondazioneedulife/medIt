@@ -21,7 +21,9 @@
     "support": "Support",
     "settings": "Settings",
     "patientList": "patient list",
-    "caregiver": "caregiver"
+    "caregiver": "caregiver",
+    "changePassword": "change password",
+    "selectLanguage ": "select language "
   },
   "it": {
     "login": "Accedi",
@@ -45,6 +47,8 @@
     "support": "Supporto",
     "settings": "Impostazioni",
     "patientList": "lista pazienti",
-    "caregiver": "caregiver"
+    "caregiver": "caregiver",
+    "changePassword": "cambia password",
+    "selectLanguage": "seleziona lingua"
   }
 }
