@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, ListItem } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface LabelProps {
   inputName: string;
@@ -18,6 +19,8 @@ export const Label: React.FC<LabelProps> = ({
   showHr = true,
   type = "text",
 }) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   return (
     <>
       <ListItem
@@ -33,7 +36,9 @@ export const Label: React.FC<LabelProps> = ({
         />
         <Box
           component="form"
-          sx={{ "& > :not(style)": { m: 1, width: "20rem" } }} // Modifica la larghezza qui
+          sx={{
+            "& > :not(style)": { m: 1, width: isMobile ? "15rem" : "20rem" },
+          }}
           noValidate
           autoComplete="off"
         >
@@ -46,18 +51,18 @@ export const Label: React.FC<LabelProps> = ({
                 backgroundColor: "transparent",
                 border: "none",
                 outline: "none",
-                width: "200%", // Modifica la larghezza qui
+                width: "200%",
                 height: "1.5rem",
                 fontSize: "1.2rem",
                 color: "black",
                 fontWeight: "600",
-                textAlign: "left", // Modifica questa linea per spostare il placeholder a sinistra
+                textAlign: "left",
               },
             }}
             InputLabelProps={{
               style: {
                 color: "black",
-                textAlign: "left", // Modifica questa linea per spostare il placeholder a sinistra
+                textAlign: "left",
               },
             }}
             sx={{
@@ -72,9 +77,9 @@ export const Label: React.FC<LabelProps> = ({
                   borderColor: "transparent",
                 },
                 "& input": {
-                  color: "black", // Assicurati che il colore del testo sia nero
-                  textAlign: "left", // Modifica questa linea per spostare il placeholder a sinistra
-                  paddingLeft: "10px", // Aggiungi questa linea per un ulteriore spostamento a sinistra
+                  color: "black",
+                  textAlign: "left",
+                  paddingLeft: "10px",
                 },
               },
             }}
