@@ -16,6 +16,7 @@ import { Home } from "./components/home/home.tsx";
 import { Root } from "./routes/Root";
 import { UserProfile } from "./components/profile/UserProfile";
 import { SettingsPage } from "./components/profile/settings/SettingsPage.tsx";
+import { PatientList } from "./components/patientList/PatientList.tsx"
 
 function App() {
   useEffect(() => {
@@ -74,9 +75,10 @@ function App() {
 
             <Route path="home" element={<Home />}></Route>
             <Route path="profile">
-                <Route index element={<UserProfile />}></Route>
-                <Route path="settings" element={<SettingsPage />}></Route>
-                <Route path="change-password" element={<ChangePWD />}></Route>
+              <Route index element={<UserProfile />}></Route>
+              <Route path="settings" element={<SettingsPage />}></Route>
+              <Route path="change-password" element={<ChangePWD />}></Route>
+              <Route path="patient-list" element={<PatientList />}></Route>
             </Route>
           </Route>
         </Routes>
