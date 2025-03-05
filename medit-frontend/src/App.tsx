@@ -74,7 +74,10 @@ function App() {
             </Route>
 
             <Route path="home" element={<Home />}></Route>
-            <Route path="profile" element={<UserProfile />}></Route>
+            <Route path="profile">
+                <Route index element={<UserProfile />}></Route>
+                <Route path="settings" element={<ScanQR />}></Route>
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
