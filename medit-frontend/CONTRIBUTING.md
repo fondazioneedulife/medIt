@@ -2,6 +2,19 @@
 
 ## Frontend
 
+### Start project
+
+clone git repository
+cd medit-frontend
+
+npm i
+
+setup .env file
+add certificate files
+
+npm run install:api
+
+
 ### IDE Setup
 
 Ide: visual studio code
