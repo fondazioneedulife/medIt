@@ -46,7 +46,7 @@ export const ScanQR: React.FC = () => {
         },
       }}
     >
-      <ReturnIcon path="/login/choose" />
+      <ReturnIcon path="/login/choose" color="white" />
       <ThemeProvider theme={theme}>
         <Stack
           spacing={3}

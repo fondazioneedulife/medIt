@@ -23,7 +23,7 @@ export const ReturnIcon: React.FC<ReturnIconProps> = ({
       onClick={handleGoBack}
       sx={{
         position: "absolute",
-        top: "1rem",
+        top: "2rem",
         left: "1rem",
         color: "#666666",
       }}
