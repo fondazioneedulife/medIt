@@ -28,6 +28,7 @@ export const SettingsPage: React.FC = () => {
                 <Box
                     sx={{
                         width: "80%",
+                        maxWidth: "20rem",
                         borderRadius: "1rem",
                         backgroundColor: "white"
                     }}
