@@ -9,9 +9,7 @@ import { openDB } from "./database/indexdb";
 import { Navbar } from "./components/Navbar/Navbar.tsx";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { Start } from "./components/login/Start.tsx";
-import { MedicineComponent } from "./components/MedicineComponent/medicineComponent.tsx";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
-import { MedicineComponent } from "./components/home/MedicineComponent/medicineComponent.tsx";
 import { Home } from "./components/home/home.tsx";
 function App() {
   useEffect(() => {
@@ -44,10 +42,7 @@ function App() {
 
               <Route path="navbar" element={<Navbar />}></Route>
               <Route path="choose-role" element={<ChooseRole />}></Route>
-              <Route
-                path="medicinecomponent"
-                element={<MedicineComponent />}
-              ></Route>
+              <Route path="medicinecomponent"></Route>
               {/* all login route */}
             </Route>
           </Route>

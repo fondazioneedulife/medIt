@@ -1,5 +1,6 @@
 import { Button, createTheme, ThemeProvider } from "@mui/material";
 import { useLanguage } from "../../contexts/LanguageContext";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const theme = createTheme({
   typography: {
@@ -9,13 +10,15 @@ const theme = createTheme({
 
 export const SaveBtn: React.FC = () => {
   const { translate } = useLanguage();
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <Button
           sx={{
             borderRadius: 3,
-            width: "28rem",
+            width: isMobile ? "23rem" : "28rem",
             height: "4rem",
             backgroundColor: "#0B6BB2",
             color: "white",
