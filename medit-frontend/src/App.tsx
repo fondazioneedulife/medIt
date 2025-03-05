@@ -12,6 +12,7 @@ import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { MedicineComponent } from "./components/home/MedicineComponent/MedicineComponent.tsx";
 import { Home } from "./components/home/home.tsx";
+import { PatientList } from "./components/patientList/patientList.tsx";
 
 function App() {
   useEffect(() => {
@@ -52,9 +53,11 @@ function App() {
             <Route path="register">
               <Route index element={<Registration />}></Route>
               <Route path="choose-role" element={<ChooseRole />}></Route>
+              <Route path="patientList" element={<PatientList />}></Route>
             </Route>
           </Route>
         </Routes>
+       
       </BrowserRouter>
     </LanguageProvider>
   );
