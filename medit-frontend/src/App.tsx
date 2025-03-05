@@ -13,10 +13,8 @@ import { UserInfo } from "./components/userInfo/userInfo.tsx";
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
-import { AddDetails } from "./components/home/AddDetails/AddDetails.tsx";
+import { SetReminder } from "./components/home/SetReminder/SetReminder.tsx";
 import { Root } from "./routes/Root";
-
-
 
 function App() {
   useEffect(() => {
@@ -40,15 +38,14 @@ function App() {
             <Route path="start" element={<GetStart />}></Route>
             <Route path="changePWD" element={<ChangePWD />}></Route>
 
-
             {/* TODO: set login guard */}
             {/* <Route path="login" element={<LoginMainContext />}> */}
             <Route path="login">
               <Route index element={<Login />}></Route>
-              
+
               {/* all login route */}
               <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
-              <Route path="scan-qrcode" element={<ScanQR />}></Route>  
+              <Route path="scan-qrcode" element={<ScanQR />}></Route>
             </Route>
             <Route path="register">
               <Route index element={<Registration />}></Route>
@@ -56,6 +53,7 @@ function App() {
             </Route>
 
             <Route path="home" element={<Home />}></Route>
+            <Route path="reminder" element={<SetReminder />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
