@@ -22,6 +22,7 @@ export const AddDetails: React.FC = () => {
       sx={{
         width: "100wh",
         height: "100vh",
+        maxWidth: "100vw",
         backgroundColor: "white",
         display: "flex",
         alignItems: "center",
