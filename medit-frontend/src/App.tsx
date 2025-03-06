@@ -19,6 +19,7 @@ import { UserProfile } from "./components/profile/UserProfile";
 import { SettingsPage } from "./components/profile/settings/SettingsPage.tsx";
 import { PatientList } from "./components/patientList/PatientList.tsx";
 import { PatientQrcode } from "./components/profile/patientQrcode/PatientQrcode.tsx";
+import { AddDetails } from "./components/home/AddDetails/AddDetails.tsx";
 function App() {
   useEffect(() => {
     // Open the database and create tables if they don't exist
@@ -83,6 +84,7 @@ function App() {
               <Route path="settings" element={<SettingsPage />}></Route>
               <Route path="change-password" element={<ChangePWD />}></Route>
               <Route path="patient-list" element={<PatientList />}></Route>
+              <Route path="addDetails" element={<AddDetails />}></Route>
             </Route>
           </Route>
         </Routes>

@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import SelectComponent from "./select";
 import { ButtonSave } from "./button";
+import AddInfo from "./AddInfo";
 
 export const AddDetails: React.FC = () => {
   const theme = createTheme({
@@ -65,6 +66,17 @@ export const AddDetails: React.FC = () => {
               </Box>
             </Box>
           </ListItem>
+        </Box>
+        <Box
+          sx={{
+            marginTop: "2rem",
+            backgroundColor: "#F0F0F0",
+            width: { xs: "90%", md: "30%", lg: "30%", xl: "20%" },
+            borderRadius: 5,
+            height: "15vh",
+          }}
+        >
+          <AddInfo />
         </Box>
         <ButtonSave />
       </Box>
