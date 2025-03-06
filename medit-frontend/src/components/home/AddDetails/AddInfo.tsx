@@ -30,7 +30,7 @@ export default function AddInfo() {
                   backgroundColor: "transparent",
                   border: "none",
                   outline: "none",
-                  width: "130%",
+                  width: "100%",
                   height: "3rem",
                   fontSize: "1.2rem",
                   color: "black",
@@ -53,6 +53,11 @@ export default function AddInfo() {
                 },
                 "& input": {
                   color: "black",
+                },
+              },
+              [theme.breakpoints.down("sm")]: {
+                "& .MuiInputBase-input": {
+                  width: "100%", // Imposta la larghezza al 100% su dispositivi mobili
                 },
               },
             }}
