@@ -10,6 +10,7 @@ import { openDB } from "./database/indexdb";
 import { LanguageProvider } from "./contexts/LanguageContext";
 
 import { UserInfo } from "./components/userInfo/userInfo.tsx";
+import { UserInfoPatient } from "./components/userInfo/userInfo_Patient.tsx";
 
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
@@ -31,6 +32,10 @@ function App() {
           {/* <Route path="/" element={<Layout />}> */}
           <Route path="/">
             <Route path="userinfo" element={<UserInfo />}></Route>
+            <Route
+              path="userinfo-patient"
+              element={<UserInfoPatient />}
+            ></Route>
             {/* TODO: set default route to redirect user first */}
             {/* <Route index element={<Root />} /> */}
 

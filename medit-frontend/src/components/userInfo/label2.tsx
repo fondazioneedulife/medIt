@@ -85,7 +85,7 @@ export const Label2: React.FC<LabelProps> = ({
                 fontSize: "1.2rem",
                 color: "black",
                 fontWeight: "600",
-                textAlign: "left", // Testo allineato a sinistra
+                textAlign: "left",
               },
             }}
             InputLabelProps={{ style: { color: "black" } }}
