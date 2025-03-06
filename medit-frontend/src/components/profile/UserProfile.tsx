@@ -35,8 +35,7 @@ export const UserProfile: React.FC = () => {
     const navigate = useNavigate();
 
     const qrCodeHandleClick = () => {
-        // TODO: correct right patient qr code route
-        navigate("/login");
+        navigate("/profile/patient-qr-code");
     };
 
     const patientListHandleClick = () => {
@@ -124,7 +123,7 @@ export const UserProfile: React.FC = () => {
                                 style={{ width: "30%", padding: "0.5rem"}}
                             />
                             <Box ml={2}>
-                                <Typography variant="h6">{translate('profile')}</Typography>
+                                <Typography variant="h6">Username</Typography>
                                 <Box
                                     sx={{
                                         backgroundColor: "#00259D", /* if user role is patiente */
@@ -202,7 +201,7 @@ export const UserProfile: React.FC = () => {
                             <ProfileEntry 
                                 img={settingsIcon}
                                 text={translate('settings')}
-                                path="/login"
+                                path="/profile/settings"
                             />
                         </Box>
 
