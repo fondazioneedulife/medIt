@@ -1,14 +1,17 @@
-import { Button, ListItem, Typography } from "@mui/material";
+import { Button, ListItem, Typography, Box } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Label } from "./label";
 import iconEmail from "../../assets/icon/icon-email.svg";
 import iconUser from "../../assets/icon/logo user.svg";
 import iconKey from "../../assets/icon/icon-key.svg";
-import { ConfirmRegistration } from "./buttonConfirm";
-import { Return } from "./return";
+import { ReturnIcon } from "../login/ReturnIcon";
 import { useLanguage } from "../../contexts/LanguageContext";
+import { getUserByEmail } from "../../database/indexdb";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { RoleEnum } from "../../generated";
+import { useRegistration } from "./RegistrationContext";
 
-// Crea un tema personalizzato con il font Montserrat
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, Arial",
@@ -17,89 +20,204 @@ const theme = createTheme({
 
 export const Registration: React.FC = () => {
   const { translate } = useLanguage();
+  const navigate = useNavigate();
+  const { user, setUser } = useRegistration();
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUser((prevUser) => ({
+      ...prevUser,
+      [name]: value,
+    }));
+  };
+
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!user.firstName || !/^[a-zA-Z]+$/.test(user.firstName)) {
+      newErrors.firstName = "Invalid first name";
+    }
+
+    if (!user.lastName || !/^[a-zA-Z]+$/.test(user.lastName)) {
+      newErrors.lastName = "Invalid last name";
+    }
+
+    if (!user.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) {
+      newErrors.email = "Invalid email address";
+    }
+
+    if (!user.password || user.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters long";
+    }
+
+    if (user.password !== user.Confirmpassword) {
+      newErrors.Confirmpassword = "Passwords do not match";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) {
+      return;
+    }
+    try {
+      if (!user.email) {
+        console.error("Email is required");
+        return;
+      }
+      const existingUser = await getUserByEmail(user.email);
+      if (existingUser) {
+        console.error("User with this email already exists");
+        return;
+      }
+      setUser((prevUser) => ({
+        ...prevUser,
+        role: RoleEnum.Patient,
+      }));
+      navigate("/register/choose-role");
+    } catch (error) {
+      console.error("Failed to register user:", error);
+    }
+  };
 
   return (
-    <body
-      style={{
+    <Box
+      sx={{
         background: "linear-gradient(45deg, #00ca9bff, #1412c6ff)",
-        backgroundSize: "200% 120%", // Estende il gradiente
+        backgroundSize: "200% 120%",
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
+      <ReturnIcon path="/login/choose" color="white" />
       <ListItem
-        style={{
+        sx={{
           justifyContent: "center",
           flexDirection: "column",
+          width: "100%",
+          maxWidth: "500px",
         }}
       >
-        <Return />
         <ThemeProvider theme={theme}>
           <Typography
             variant="h3"
             component="h3"
-            style={{
+            sx={{
               fontWeight: "bold",
               paddingBottom: "3rem",
               fontSize: "2.5rem",
+              textAlign: "center",
+              color: "white",
             }}
           >
             {translate("registration")}
           </Typography>
         </ThemeProvider>
-        <Button
-          sx={{
-            borderRadius: 5,
-            boxShadow: "inset 4px 4px 6px rgba(0, 0, 0, 0.25)",
-            display: "inline-table",
-            backgroundColor: "rgba(255, 255, 255, 0.5)",
-            width: "21rem",
-            "&:focus, &:focus-visible": {
-              outline: "none",
-            },
-          }}
-        >
-          <ListItem
-            alignItems="center"
-            style={{
-              justifyContent: "center",
-              flexDirection: "column",
+        <form onSubmit={handleSubmit}>
+          <Box
+            sx={{
+              borderRadius: 5,
+              boxShadow: "inset 4px 4px 6px rgba(0, 0, 0, 0.25)",
+              display: "inline-table",
+              backgroundColor: "rgba(255, 255, 255, 0.5)",
+              width: "100%",
+              "&:focus, &:focus-visible": {
+                outline: "none",
+              },
             }}
           >
-            <div>
+            <ListItem
+              alignItems="center"
+              sx={{
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
               <div>
-                <Label
-                  inputName="name"
-                  img={iconUser}
-                  placeholder={translate("firstName")}
-                />
-                <Label
-                  inputName="surname"
-                  img={iconUser}
-                  placeholder={translate("lastName")}
-                />
-                <Label
-                  inputName="email"
-                  img={iconEmail}
-                  placeholder={"Email"}
-                />
-                <Label
-                  inputName="password"
-                  img={iconKey}
-                  placeholder={"Password"}
-                  type="password"
-                />
-                <Label
-                  inputName="Confirmpassword"
-                  img={iconKey}
-                  placeholder={translate("confirmPassword")}
-                  showHr={false}
-                  type="password"
-                />
+                <div>
+                  <Label
+                    inputName="firstName"
+                    img={iconUser}
+                    placeholder={translate("firstName")}
+                    onChange={handleInputChange}
+                  />
+                  {errors.firstName && (
+                    <Typography color="error">{errors.firstName}</Typography>
+                  )}
+                  <Label
+                    inputName="lastName"
+                    img={iconUser}
+                    placeholder={translate("lastName")}
+                    onChange={handleInputChange}
+                  />
+                  {errors.lastName && (
+                    <Typography color="error">{errors.lastName}</Typography>
+                  )}
+                  <Label
+                    inputName="email"
+                    img={iconEmail}
+                    placeholder={"Email"}
+                    onChange={handleInputChange}
+                  />
+                  {errors.email && (
+                    <Typography color="error">{errors.email}</Typography>
+                  )}
+                  <Label
+                    inputName="password"
+                    img={iconKey}
+                    placeholder={"Password"}
+                    type="password"
+                    onChange={handleInputChange}
+                  />
+                  {errors.password && (
+                    <Typography color="error">{errors.password}</Typography>
+                  )}
+                  <Label
+                    inputName="Confirmpassword"
+                    img={iconKey}
+                    placeholder={translate("confirmPassword")}
+                    showHr={false}
+                    type="password"
+                    onChange={handleInputChange}
+                  />
+                  {errors.Confirmpassword && (
+                    <Typography color="error">
+                      {errors.Confirmpassword}
+                    </Typography>
+                  )}
+                </div>
               </div>
-            </div>
-          </ListItem>
-        </Button>
-        <ConfirmRegistration />
+            </ListItem>
+          </Box>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{
+              mt: "2rem",
+              width: "100%",
+              borderRadius: 3,
+              backgroundColor: "white",
+              color: "black",
+              fontSize: "1.2rem",
+              fontWeight: "bold",
+              textTransform: "capitalize",
+              "&:hover": {
+                backgroundColor: "white",
+              },
+            }}
+          >
+            <Box sx={{ padding: "1rem" }}>{translate("confirm")}</Box>
+          </Button>
+        </form>
       </ListItem>
-    </body>
+    </Box>
   );
 };

@@ -1,0 +1,46 @@
+import { Box, Typography, Button, Stack } from '@mui/material';
+import { useNavigate } from 'react-router';
+import { useLanguage } from '../../../contexts/LanguageContext';
+import { ReturnIcon } from '../../login/ReturnIcon';
+import { ProfileEntry } from '../ProfileEntry';
+import { SelectLanguage } from './SelectLanguage';
+import changePasswordIcon from '../../../assets/profile/settings/change_password_icon.svg';
+
+export const SettingsPage: React.FC = () => {
+
+    const { translate } = useLanguage();
+
+    const navigate = useNavigate();
+
+    return(
+        <>
+            <ReturnIcon path="/profile" color="black"/>
+            <Box
+                sx={{
+                    height: "100vh",
+                    width: "100vw",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#f7f7f7"
+                }} 
+            >
+                <Box
+                    sx={{
+                        width: "80%",
+                        borderRadius: "1rem",
+                        backgroundColor: "white"
+                    }}
+                >
+                    <ProfileEntry
+                        img={changePasswordIcon}
+                        text={translate('changePassword')}
+                        path="/profile/change-password"
+                    />
+                    <hr />
+                    <SelectLanguage />
+                </Box>
+            </Box>
+        </>
+    );
+};
