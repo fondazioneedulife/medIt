@@ -38,13 +38,13 @@ function App() {
               <Route index element={<Root />}></Route>
               <Route path="start" element={<GetStart />}></Route>
               <Route path="changePWD" element={<ChangePWD />}></Route>
-              
+
               <Route path="login">
                 <Route index element={<Login />}></Route>
                 <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
                 <Route path="scan-qrcode" element={<ScanQR />}></Route>
               </Route>
-              
+
               <Route path="register">
                 <Route
                   index
@@ -63,13 +63,16 @@ function App() {
                   }
                 ></Route>
               </Route>
-              
+
               <Route path="home" element={<Home />}></Route>
               <Route path="reminder" element={<SetReminder />}></Route>
-              
+
               <Route path="profile">
                 <Route index element={<UserProfile />}></Route>
-                <Route path="patient-qr-code" element={<PatientQrcode />}></Route>
+                <Route
+                  path="patient-qr-code"
+                  element={<PatientQrcode />}
+                ></Route>
                 <Route path="settings" element={<SettingsPage />}></Route>
                 <Route path="change-password" element={<ChangePWD />}></Route>
                 <Route path="patient-list" element={<PatientList />}></Route>
