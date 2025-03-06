@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserByEmail, getAuthByUserId } from "../../database/indexdb";
 import bcrypt from "bcryptjs";
-import { useRegistration } from "../registration/RegistrationContext";
+import { useLogin } from "./LoginContext";
 import { Auth } from "../../../api-types/Auth";
 import { RoleEnum } from "../../generated";
 
@@ -32,7 +32,7 @@ const theme = createTheme({
 export const Login: React.FC = () => {
   const { translate } = useLanguage();
   const navigate = useNavigate();
-  const { setUser } = useRegistration();
+  const { setUser } = useLogin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -80,10 +80,6 @@ export const Login: React.FC = () => {
         qrcode: user.qrcode || "",
         timezone: user.timezone || "",
         language: user.language || "",
-        password: auth.password,
-        Confirmpassword: "",
-        created_at: new Date(),
-        updated_at: new Date(),
       });
       navigate("/home");
     } catch (error) {
