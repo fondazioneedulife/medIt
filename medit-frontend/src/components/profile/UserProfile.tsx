@@ -7,7 +7,8 @@ import { useLanguage } from "../../contexts/LanguageContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from 'react-router';
 import { ProfileEntry } from './ProfileEntry';
-import userInfo from "../../assets/profile/user_information.svg";
+import { useLogin } from '../login/LoginContext';
+import userInfoIcon from "../../assets/profile/user_information.svg";
 import supportIcon from "../../assets/profile/support_icon.svg";
 import settingsIcon from "../../assets/profile/settings_icon.svg";
 import patientListIcon from "../../assets/profile/patient_list_icon.svg";
@@ -29,6 +30,8 @@ export const UserProfile: React.FC = () => {
             },
         },
     });
+
+    const { user } = useLogin();
 
     const { translate } = useLanguage();
 
@@ -90,23 +93,27 @@ export const UserProfile: React.FC = () => {
                                 {translate('profile')}
                             </Typography>
                             {/* if user role is patient, qr code is visible */}
-                            <Button
-                                sx={{
-                                    backgroundColor: 'white',
-                                    color: 'black',
-                                    borderRadius: "1rem",
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    maxWidth: "3rem",
-                                    height: "4rem",
-                                }}
-                                fullWidth
-                                variant="contained"
-                                onClick={qrCodeHandleClick}
-                            >
-                                <QrCodeIcon sx={{ fontSize: "2rem" }} />
-                            </Button>
+                            {user?.role == 'patient' 
+                                ?
+                                    <Button
+                                        sx={{
+                                            backgroundColor: 'white',
+                                            color: 'black',
+                                            borderRadius: "1rem",
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            maxWidth: "3rem",
+                                            height: "4rem",
+                                        }}
+                                        fullWidth
+                                        variant="contained"
+                                        onClick={qrCodeHandleClick}
+                                    >
+                                        <QrCodeIcon sx={{ fontSize: "2rem" }} />
+                                    </Button>
+                                : ''
+                            }
                         </Box>
 
                         <Box
@@ -123,54 +130,60 @@ export const UserProfile: React.FC = () => {
                                 style={{ width: "30%", padding: "0.5rem"}}
                             />
                             <Box ml={2}>
-                                <Typography variant="h6">Username</Typography>
+                                <Typography 
+                                    variant="h6"
+                                    sx={{textTransform: "capitalize"}}
+                                >
+                                    {user?.firstName}
+                                </Typography>
                                 <Box
                                     sx={{
-                                        backgroundColor: "#00259D", /* if user role is patiente */
-                                        // backgroundColor: "#FF0000", /* if user role is caregiver */
+                                        backgroundColor: user?.role == 'caregiver' ? "#FF0000" : "#00259D",
                                         color: "white",
                                         borderRadius: "12px",
                                         padding: "2px 8px",
                                     }}
                                 >
-                                    {/* if user role is patient */}
-                                    {translate('patient').toLocaleLowerCase()}
-                                    {/* if user role is caregiver */}
-                                    {/* {translate('caregiver').toLocaleLowerCase()} */}
+                                    {translate(user?.role == 'caregiver' ? 'caregiver' : 'patient').toLocaleLowerCase()}
                                 </Box>
                             </Box>
                         </Box>
 
                         {/* patient list link is visible if user role is caregiver */}
-                        {/* <Box 
-                            sx={{
-                                marginTop: "2rem",
-                                padding: "1rem",
-                                backgroundColor: "#0B6BB2",
-                                borderRadius: "1rem",
-                                cursor: "pointer"
-                            }}
-                            onClick={patientListHandleClick}
-                        >
-                            <Stack
-                                sx={{ width: '100%'}}
-                                direction="row"
-                                alignItems="center"
-                                spacing={2}
-                                color="white"
+                        {user?.role == 'caregiver'
+                            ?
+                            <Box 
+                                sx={{
+                                    marginTop: "2rem",
+                                    padding: "1rem",
+                                    backgroundColor: "#0B6BB2",
+                                    borderRadius: "1rem",
+                                    cursor: "pointer"
+                                }}
+                                onClick={patientListHandleClick}
                             >
-                                <img
-                                    src={patientListIcon}
-                                    alt="icon"
-                                    style={{
-                                        height: '1.5rem',
-                                        width: '1.5rem',
-                                        marginRight: "1rem"
-                                    }}
-                                />
-                                {translate('patientList')}
-                            </Stack>
-                        </Box> */}
+                                <Stack
+                                    sx={{ width: '100%'}}
+                                    direction="row"
+                                    alignItems="center"
+                                    spacing={2}
+                                    color="white"
+                                >
+                                    <img
+                                        src={patientListIcon}
+                                        alt="icon"
+                                        style={{
+                                            height: '1.5rem',
+                                            width: '1.5rem',
+                                            marginRight: "1rem"
+                                        }}
+                                    />
+                                    {translate('patientList')}
+                                </Stack>
+                            </Box>
+                            : '' 
+                        }
+                        
 
                         <Box sx={{
                             marginTop: "2rem",
@@ -180,9 +193,9 @@ export const UserProfile: React.FC = () => {
                             width: "100%"
                         }}>
                             <ProfileEntry 
-                                img={userInfo}
+                                img={userInfoIcon}
                                 text={translate('userInfo')}
-                                path="/login"
+                                path="/profile/user-info"
                             />
                         </Box>
 

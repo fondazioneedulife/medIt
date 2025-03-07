@@ -56,10 +56,11 @@ export const PatientQrcode: React.FC = () => {
             color: "black",
           }}
         >
-          QR Code
+          {translate('qrCode')}
         </Box>
         <Box
           sx={{
+            width: "80%",
             fontSize: "1.2rem",
             fontWeight: "light",
             color: "black",
@@ -67,8 +68,7 @@ export const PatientQrcode: React.FC = () => {
             marginTop: "2rem",
           }}
         >
-          Caregivers can connect to the patient's profile by scanning this code
-          from the app
+          {translate('patientQrCodeDescritpion')}
         </Box>
 
         <Box
@@ -77,7 +77,7 @@ export const PatientQrcode: React.FC = () => {
             marginBottom: "2rem",
           }}
         >
-          {/* TODO: prendere immagine da database */}
+          {/* TODO: replace placeholder image */}
           <img
             src={QRimg}
             alt="QR"
@@ -93,7 +93,7 @@ export const PatientQrcode: React.FC = () => {
             color: "black",
           }}
         >
-          Scan me
+          {translate('scanMe')}
         </Box>
       </Box>
     </ThemeProvider>
