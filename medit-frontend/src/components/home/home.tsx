@@ -7,6 +7,7 @@ import { FilterButton } from "./FilterButton/FilterButton.tsx";
 import { AddDetails } from "./AddDetails/AddDetails.tsx";
 import { Box } from "@mui/material";
 import { motion } from "framer-motion";
+import { useLogin } from "../login/LoginContext.tsx";
 
 export const Home: React.FC = () => {
   const [showAddDetails, setShowAddDetails] = useState(false);
@@ -15,20 +16,14 @@ export const Home: React.FC = () => {
     setShowAddDetails(!showAddDetails);
   };
 
+  const { user } = useLogin();
+  
   return (
     <>
       <Box sx={{ position: "relative" }}>
         <Navbar onAddDetailsClick={handleAddDetailsToggle} />
       </Box>
-import { useLogin } from "../login/LoginContext.tsx";
-
-export const Home: React.FC = () => {
-  const { user } = useLogin();
-
-  return (
-    <>
       {console.log(user)}
-      <Navbar />
       <Calendar />
       <FilterButton />
       <MedicineComponent />

@@ -17,8 +17,8 @@ const theme = createTheme({
   },
 });
 export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
-  onAddDetailsClick,
-export const Navbar: React.FC = () => {
+  onAddDetailsClick}) => {
+  
   const { translate } = useLanguage();
   const navigate = useNavigate();
 
