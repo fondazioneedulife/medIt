@@ -15,7 +15,9 @@ const theme = createTheme({
   },
 });
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
+  onAddDetailsClick,
+}) => {
   return (
     <Box
       sx={{
@@ -95,6 +97,7 @@ export const Navbar: React.FC = () => {
             component="img"
             src={IconPlus}
             alt="Profile Icon"
+            onClick={onAddDetailsClick}
             sx={{
               width: "3rem",
             }}
