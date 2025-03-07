@@ -8,18 +8,27 @@ import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
 import { ScanQR } from "./components/QRCode/ScanQR.tsx";
 import { openDB } from "./database/indexdb";
 import { LanguageProvider } from "./contexts/LanguageContext";
+
+
+import { UserInfo } from "./components/userInfo/userInfo.tsx";
+import { UserInfoPatient } from "./components/userInfo/userInfo_Patient.tsx";
+
+
 import { RegistrationProvider } from "./components/registration/RegistrationContext.tsx";
 import { LoginProvider } from "./components/login/LoginContext.tsx";
 import { UserInfo } from "./components/userInfo/userInfo.tsx";
+
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
 import { SetReminder } from "./components/home/SetReminder/SetReminder.tsx";
 import { Root } from "./routes/Root";
+
 import { UserProfile } from "./components/profile/UserProfile";
 import { SettingsPage } from "./components/profile/settings/SettingsPage.tsx";
 import { PatientList } from "./components/patientList/PatientList.tsx";
 import { PatientQrcode } from "./components/profile/patientQrcode/PatientQrcode.tsx";
+
 function App() {
   useEffect(() => {
     // Open the database and create tables if they don't exist
@@ -30,6 +39,32 @@ function App() {
 
   return (
     <LanguageProvider>
+
+      <BrowserRouter basename={config.APP_BASENAME}>
+        <Routes>
+          {/* <Route path="/" element={<Layout />}> */}
+          <Route path="/">
+            <Route path="userinfo" element={<UserInfo />}></Route>
+            <Route
+              path="userinfo-patient"
+              element={<UserInfoPatient />}
+            ></Route>
+            {/* TODO: set default route to redirect user first */}
+            {/* <Route index element={<Root />} /> */}
+
+            <Route index element={<Root />}></Route>
+            <Route path="start" element={<GetStart />}></Route>
+            <Route path="changePWD" element={<ChangePWD />}></Route>
+
+            {/* TODO: set login guard */}
+            {/* <Route path="login" element={<LoginMainContext />}> */}
+            <Route path="login">
+              <Route index element={<Login />}></Route>
+
+              {/* all login route */}
+              <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
+              <Route path="scan-qrcode" element={<ScanQR />}></Route>
+
       <LoginProvider>
         <BrowserRouter basename={config.APP_BASENAME}>
           <Routes>
@@ -75,6 +110,7 @@ function App() {
                 <Route path="settings" element={<SettingsPage />}></Route>
                 <Route path="change-password" element={<ChangePWD />}></Route>
               </Route>
+
             </Route>
           </Routes>
         </BrowserRouter>

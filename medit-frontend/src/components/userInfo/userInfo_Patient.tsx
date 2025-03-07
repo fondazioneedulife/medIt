@@ -1,10 +1,10 @@
-import { ListItem, Typography, Box, colors } from "@mui/material";
+import { ListItem, Typography, Box } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Label2 } from "./label2";
 import { ReturnIcon } from "../login/ReturnIcon";
 import iconEdit from "../../assets/icon/edit.svg";
+import iconPatient from "../../assets/icon/icon_patient.svg";
 import { useLanguage } from "../../contexts/LanguageContext";
-import { RoleDropdown } from "./RoleDropdown";
 import { useState } from "react";
 
 const theme = createTheme({
@@ -22,10 +22,8 @@ const theme = createTheme({
   },
 });
 
-export const UserInfo: React.FC = () => {
+export const UserInfoPatient: React.FC = () => {
   const { translate } = useLanguage();
-  const roles = ["Patient", "Caregiver"];
-  const [selectedRole, setSelectedRole] = useState(roles[0]);
 
   return (
     <Box
@@ -145,17 +143,28 @@ export const UserInfo: React.FC = () => {
         }}
       >
         <Box>
-          <Box>
-            <RoleDropdown
-              roles={roles}
-              selectedRole={selectedRole}
-              onRoleSelect={setSelectedRole}
-              sx={{
-                "& .MuiSelect-select": {
-                  textAlign: "left",
-                },
-              }}
+          <Box
+            sx={{
+              borderRadius: 5,
+              display: "flex",
+              alignItems: "center",
+              backgroundColor: "#ffffff",
+              width: "21rem",
+              justifyContent: "flex-start",
+              padding: "0.5rem 1rem",
+              height: "3rem",
+              fontSize: "1.2rem",
+              color: "black",
+              fontWeight: "600",
+              fontFamily: "Montserrat, Arial",
+            }}
+          >
+            <img
+              src={iconPatient}
+              alt="patient icon"
+              style={{ width: "3rem", marginRight: "0.5rem" }}
             />
+            patient
           </Box>
         </Box>
       </ListItem>
