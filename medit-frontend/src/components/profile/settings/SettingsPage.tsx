@@ -20,14 +20,37 @@ export const SettingsPage: React.FC = () => {
                     height: "100vh",
                     width: "100vw",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#f7f7f7"
+                    flexDirection: "column",
+                    justifyContent: "flex-start", 
+                    alignItems: "center", 
+                    backgroundColor: "#f7f7f7",
+                    paddingTop: "6.5rem"
                 }} 
             >
                 <Box
                     sx={{
                         width: "80%",
+                        maxWidth: "20rem",
+                        display: "flex",
+                        flexDirection: "column",
+                        marginBottom: "2rem",
+                    }}
+                >
+                    <Typography
+                        variant="h4"
+                        sx={{
+                            textTransform: "capitalize",
+                            fontWeight: "bold",
+                            fontFamily: "Montserrat, Arial, sans-serif",
+                        }}
+                    >
+                        {translate('settings')}
+                    </Typography>
+                </Box>
+                <Box
+                    sx={{
+                        width: "80%",
+                        maxWidth: "20rem",
                         borderRadius: "1rem",
                         backgroundColor: "white"
                     }}
