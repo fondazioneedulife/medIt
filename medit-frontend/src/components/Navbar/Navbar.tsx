@@ -16,7 +16,8 @@ const theme = createTheme({
     fontFamily: "Montserrat, Arial",
   },
 });
-
+export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
+  onAddDetailsClick,
 export const Navbar: React.FC = () => {
   const { translate } = useLanguage();
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export const Navbar: React.FC = () => {
         padding: 0,
         position: "fixed",
         bottom: 0,
-        zIndex: 1000, // Imposta un z-index alto per la navbar
+        zIndex: 1000, 
         boxShadow: "0px -4px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
@@ -105,6 +106,7 @@ export const Navbar: React.FC = () => {
             component="img"
             src={IconPlus}
             alt="Profile Icon"
+            onClick={onAddDetailsClick}
             sx={{
               width: "3rem",
             }}

@@ -1,6 +1,8 @@
 import { LabelReminder } from "../../home/AddDetails/LabelReminder";
+import IconPlus from "../../../assets/icon//circle-plus.svg";
 import {
   Box,
+  Button,
   createTheme,
   ListItem,
   ThemeProvider,
@@ -19,8 +21,9 @@ export const AddDetails: React.FC = () => {
   return (
     <Box
       sx={{
-        width: "100wh",
-        height: "100vh",
+        height: "80vh",
+        width: "100vw",
+        borderRadius: "40px 40px 0 0",
         backgroundColor: "white",
         display: "flex",
         alignItems: "center",
@@ -65,6 +68,24 @@ export const AddDetails: React.FC = () => {
               </Box>
             </Box>
           </ListItem>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            pt: 5,
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{ mr: 1, bgcolor: "white", boxShadow: "none" }}
+          >
+            <img src={IconPlus} alt="" />
+          </Button>
+          <Typography variant="h6" sx={{ color: "rgba(98, 98, 98, 0.5)" }}>
+            Add Profile image
+          </Typography>
         </Box>
         <ButtonSave />
       </Box>
