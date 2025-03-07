@@ -57,6 +57,9 @@ export const UserProfile: React.FC = () => {
                     justifyContent: "center",
                     alignItems: "center",
                     backgroundColor: "#f7f7f7",
+                    [theme.breakpoints.up('sm')]: {
+                        height: "200vh",
+                    },
                     [theme.breakpoints.up('lg')]: {
                         height: "140vh",
                     },
