@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Box, IconButton, Menu, MenuItem, Stack } from '@mui/material';
-import LanguageIcon from '@mui/icons-material/Language';
+import { Box, Menu, MenuItem, Stack } from '@mui/material';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import enFlag from '../../../assets/flags/en.svg';
 import itFlag from '../../../assets/flags/it.svg';
 import selectLanguageIcon from '../../../assets/profile/settings/select_language_icon.svg';
+import translations from "../../../locales/translations.json";
 
 const languages = [
     { code: 'en', name: 'English', flag: enFlag },
@@ -12,8 +12,6 @@ const languages = [
 ];
 
 export const SelectLanguage: React.FC = () => {
-    const { translate } = useLanguage();
-
     const { language, setLanguage } = useLanguage();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -54,7 +52,7 @@ export const SelectLanguage: React.FC = () => {
                             marginRight: "1rem"
                         }}
                     />
-                    {translate('selectLanguage')}
+                    {translations[language]['selectLanguage'] || 'select language'}
                 </Stack>
             </Box>
 
