@@ -10,13 +10,16 @@ interface LabelProps {
   style?: React.CSSProperties;
   iconshow?: boolean;
   type?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export const Label: React.FC<LabelProps> = ({
+  inputName,
   img,
   placeholder,
   showHr = true,
   type = "text",
+  onChange,
 }) => {
   return (
     <>
@@ -32,16 +35,15 @@ export const Label: React.FC<LabelProps> = ({
           style={{ paddingRight: "20px", width: "2.2rem" }}
         />
         <Box
-          component="form"
-          // sx={{ "& > :not(style)": { m: 1, width: "25ch" } }}
+          component="div"
           sx={{ "& > :not(style)": { m: 1, width: "13rem" } }}
-          noValidate
-          autoComplete="off"
         >
           <TextField
+            name={inputName}
             placeholder={placeholder}
             variant="outlined"
             type={type}
+            onChange={onChange}
             InputProps={{
               style: {
                 backgroundColor: "transparent",

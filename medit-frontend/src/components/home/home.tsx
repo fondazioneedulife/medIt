@@ -20,6 +20,15 @@ export const Home: React.FC = () => {
       <Box sx={{ position: "relative" }}>
         <Navbar onAddDetailsClick={handleAddDetailsToggle} />
       </Box>
+import { useLogin } from "../login/LoginContext.tsx";
+
+export const Home: React.FC = () => {
+  const { user } = useLogin();
+
+  return (
+    <>
+      {console.log(user)}
+      <Navbar />
       <Calendar />
       <FilterButton />
       <MedicineComponent />

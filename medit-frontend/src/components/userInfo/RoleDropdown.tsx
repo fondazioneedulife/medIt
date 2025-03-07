@@ -51,7 +51,8 @@ export const RoleDropdown: React.FC<RoleDropdownProps> = ({
             borderRadius: "8px",
             textTransform: "none",
             fontSize: "1.2rem",
-            width: "29rem",
+            width: "23rem",
+            justifyContent: "space-between",
             "&:hover": {
               backgroundColor: "#ffffff",
             },

@@ -1,10 +1,10 @@
 openapi: 3.0.0
 info:
-  title: Medicine Reminder API
+  title: MedIt API
   description: API to manage users and medications.
   version: 1.0.0
 servers:
-  - url: https://api.medicinereminder.com/v1
+  - url: https://api.medit.com/v1
     description: Production server
 tags:
   - name: Authentication
@@ -15,88 +15,12 @@ tags:
     description: API for QR code validation
 
 paths:
-  /auth/register:
-    post:
-      tags:
-        - Authentication
-      summary: Register a new user
-      operationId: registerUser
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RegisterRequest'
-      responses:
-        '201':
-          description: User successfully registered
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserResponse'
-        '400':
-          description: Invalid input data
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Problem'
-        '409':
-          description: Email already registered
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Problem'
-        '500':
-          description: Internal Server Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Problem'
-
-  /auth/login:
-    post:
-      tags:
-        - Authentication
-      summary: Login to obtain a JWT
-      operationId: loginUser
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LoginRequest'
-      responses:
-        '200':
-          description: Login successful
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LoginResponse'
-        '401':
-          description: Invalid credentials
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Problem'
-        '400':
-          description: Invalid input data
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Problem'
-        '500':
-          description: Internal Server Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Problem'
-
-  /sync/in:
+  /sync/upload:
     post:
       tags:
         - Synchronization
       summary: Sync data from client to backend
-      operationId: syncDataIn
+      operationId: syncDataUpload
       requestBody:
         required: true
         content:
@@ -125,12 +49,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Problem'
 
-  /sync/out:
+  /sync/download:
     get:
       tags:
         - Synchronization
       summary: Sync data from backend to client
-      operationId: syncDataOut
+      operationId: syncDataDownload
       responses:
         '200':
           description: Data successfully synced
@@ -138,28 +62,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SyncDataResponse'
-        '401':
-          description: Unauthorized
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Problem'
-        '500':
-          description: Internal Server Error
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Problem'
-
-  /auth/logout:
-    post:
-      tags:
-        - Authentication
-      summary: Logout the user
-      operationId: logoutUser
-      responses:
-        '200':
-          description: Logout successful
         '401':
           description: Unauthorized
           content:
@@ -219,50 +121,6 @@ components:
       bearerFormat: JWT
 
   schemas:
-    RegisterRequest:
-      x-class-name: RegisterRequest
-      type: object
-      properties:
-        firstName:
-          type: string
-          example: "John"
-        lastName:
-          type: string
-          example: "Doe"
-        email:
-          type: string
-          example: "john.doe@example.com"
-        password:
-          type: string
-          format: password
-        role:
-          $ref: '#/components/schemas/RoleEnum'
-        timezone:
-          type: string
-          example: "Europe/Rome"
-        language:
-          type: string
-          example: "en"
-
-    LoginRequest:
-      x-class-name: LoginRequest
-      type: object
-      properties:
-        email:
-          type: string
-          example: "john.doe@example.com"
-        password:
-          type: string
-          format: password
-
-    LoginResponse:
-      x-class-name: LoginResponse
-      type: object
-      properties:
-        accessToken:
-          type: string
-          example: "your-jwt-token"
-
     SyncDataRequest:
       x-class-name: SyncDataRequest
       type: object
@@ -323,13 +181,6 @@ components:
         userId:
           type: integer
           example: 1
-
-    UserResponse:
-      x-class-name: UserResponse
-      type: object
-      properties:
-        user:
-          $ref: '#/components/schemas/User'
 
     User:
       x-class-name: User
