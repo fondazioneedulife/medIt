@@ -8,7 +8,7 @@ import translations from "../../../locales/translations.json";
 
 const languages = [
     { code: 'en', name: 'English', flag: enFlag },
-    { code: 'it', name: 'Italian', flag: itFlag },
+    { code: 'it', name: 'Italiano', flag: itFlag },
 ];
 
 export const SelectLanguage: React.FC = () => {

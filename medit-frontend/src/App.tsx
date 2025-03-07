@@ -34,7 +34,6 @@ function App() {
         <BrowserRouter basename={config.APP_BASENAME}>
           <Routes>
             <Route path="/">
-              <Route path="userinfo" element={<UserInfo />}></Route>
               <Route index element={<Root />}></Route>
               <Route path="start" element={<GetStart />}></Route>
               <Route path="changePWD" element={<ChangePWD />}></Route>
@@ -70,9 +69,11 @@ function App() {
               <Route path="profile">
                 <Route index element={<UserProfile />}></Route>
                 <Route path="patient-qr-code" element={<PatientQrcode />}></Route>
+                <Route path="patient-list" element={<PatientList />}></Route>
+
+                <Route path="user-info" element={<UserInfo />}></Route>
                 <Route path="settings" element={<SettingsPage />}></Route>
                 <Route path="change-password" element={<ChangePWD />}></Route>
-                <Route path="patient-list" element={<PatientList />}></Route>
               </Route>
             </Route>
           </Routes>
