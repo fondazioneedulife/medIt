@@ -20,6 +20,7 @@ import { UserProfile } from "./components/profile/UserProfile";
 import { SettingsPage } from "./components/profile/settings/SettingsPage.tsx";
 import { PatientList } from "./components/patientList/PatientList.tsx";
 import { PatientQrcode } from "./components/profile/patientQrcode/PatientQrcode.tsx";
+import { Support } from "./components/support/Support.tsx";
 function App() {
   useEffect(() => {
     // Open the database and create tables if they don't exist
@@ -38,13 +39,13 @@ function App() {
               <Route index element={<Root />}></Route>
               <Route path="start" element={<GetStart />}></Route>
               <Route path="changePWD" element={<ChangePWD />}></Route>
-              
+
               <Route path="login">
                 <Route index element={<Login />}></Route>
                 <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
                 <Route path="scan-qrcode" element={<ScanQR />}></Route>
               </Route>
-              
+
               <Route path="register">
                 <Route
                   index
@@ -63,13 +64,18 @@ function App() {
                   }
                 ></Route>
               </Route>
-              
+
               <Route path="home" element={<Home />}></Route>
               <Route path="reminder" element={<SetReminder />}></Route>
-              
+
               <Route path="profile">
                 <Route index element={<UserProfile />}></Route>
-                <Route path="patient-qr-code" element={<PatientQrcode />}></Route>
+                <Route path="support" element={<Support />}></Route>
+
+                <Route
+                  path="patient-qr-code"
+                  element={<PatientQrcode />}
+                ></Route>
                 <Route path="settings" element={<SettingsPage />}></Route>
                 <Route path="change-password" element={<ChangePWD />}></Route>
                 <Route path="patient-list" element={<PatientList />}></Route>
