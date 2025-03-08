@@ -8,14 +8,20 @@ import {
 import HomeIcon from "../../assets/icon/icon_home.svg";
 import ProfileIcon from "../../assets/icon/Icon_user.svg";
 import IconPlus from "../../assets/icon/Icon_plus.svg";
+import { useLanguage } from "../../contexts/LanguageContext";
+import { useNavigate } from "react-router";
 
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, Arial",
   },
 });
+export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
+  onAddDetailsClick}) => {
+  
+  const { translate } = useLanguage();
+  const navigate = useNavigate();
 
-export const Navbar: React.FC = () => {
   return (
     <Box
       sx={{
@@ -29,7 +35,7 @@ export const Navbar: React.FC = () => {
         padding: 0,
         position: "fixed",
         bottom: 0,
-        zIndex: 1000, // Imposta un z-index alto per la navbar
+        zIndex: 1000, 
         boxShadow: "0px -4px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
@@ -56,6 +62,7 @@ export const Navbar: React.FC = () => {
             },
           }}
           tabIndex={0}
+          onClick={() => navigate("/home")}
         >
           <Box
             component="img"
@@ -69,9 +76,13 @@ export const Navbar: React.FC = () => {
           <ThemeProvider theme={theme}>
             <Typography
               variant="h6"
-              sx={{ fontWeight: "medium", fontSize: "1rem" }}
+              sx={{
+                fontWeight: "medium",
+                fontSize: "1rem",
+                color: "#a2a2a2"
+              }}
             >
-              Home
+              {translate("home")}
             </Typography>
           </ThemeProvider>
         </Button>
@@ -95,6 +106,7 @@ export const Navbar: React.FC = () => {
             component="img"
             src={IconPlus}
             alt="Profile Icon"
+            onClick={onAddDetailsClick}
             sx={{
               width: "3rem",
             }}
@@ -115,6 +127,7 @@ export const Navbar: React.FC = () => {
             },
           }}
           tabIndex={0}
+          onClick={() => navigate("/profile")}
         >
           <Box
             component="img"
@@ -128,9 +141,13 @@ export const Navbar: React.FC = () => {
           <ThemeProvider theme={theme}>
             <Typography
               variant="h6"
-              sx={{ fontWeight: "medium", fontSize: "1rem" }}
+              sx={{
+                fontWeight: "medium",
+                fontSize: "1rem",
+                color: "#a2a2a2"
+              }}
             >
-              Profile
+              {translate("profile")}
             </Typography>
           </ThemeProvider>
         </Button>
