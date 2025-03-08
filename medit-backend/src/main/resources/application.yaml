@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/medit
     username: medit
-    password: meditPassword
+    password: medit
   jpa:
     hibernate:
       ddl-auto: update
