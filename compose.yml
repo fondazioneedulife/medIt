@@ -1,0 +1,35 @@
+name: medit
+
+services:
+  postgresql:
+    image: postgres:17.4
+    # volumes:
+    #     - ~/volumes/jhipster/<%= baseName %>/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=medit
+      - POSTGRES_USER=medit
+      - POSTGRES_PASSWORD=medit
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    labels:
+      org.springframework.boot.ignore: true
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app
+  smtp-server-mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - app
+
+networks:
+  app:
