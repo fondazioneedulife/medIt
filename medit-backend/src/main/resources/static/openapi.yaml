@@ -173,6 +173,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
+        auths:
+          type: array
+          items:
+            $ref: '#/components/schemas/Auth'
         medications:
           type: array
           items:
@@ -255,6 +259,25 @@ components:
         language:
           type: string
         synced_at:
+          type: string
+          format: date-time
+
+    Auth:
+      x-class-name: Auth
+      type: object
+      properties:
+        id:
+          type: integer
+        user:
+          $ref: '#/components/schemas/User'
+        password:
+          type: string
+        failedAttempts:
+          type: integer
+        lastLogin:
+          type: string
+          format: date-time
+        syncedAt:
           type: string
           format: date-time
 
