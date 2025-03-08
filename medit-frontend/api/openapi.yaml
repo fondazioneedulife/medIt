@@ -121,6 +121,50 @@ components:
       bearerFormat: JWT
 
   schemas:
+    RegisterRequest:
+      x-class-name: RegisterRequest
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: "John"
+        lastName:
+          type: string
+          example: "Doe"
+        email:
+          type: string
+          example: "john.doe@example.com"
+        password:
+          type: string
+          format: password
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        timezone:
+          type: string
+          example: "Europe/Rome"
+        language:
+          type: string
+          example: "en"
+
+    LoginRequest:
+      x-class-name: LoginRequest
+      type: object
+      properties:
+        email:
+          type: string
+          example: "john.doe@example.com"
+        password:
+          type: string
+          format: password
+
+    LoginResponse:
+      x-class-name: LoginResponse
+      type: object
+      properties:
+        accessToken:
+          type: string
+          example: "your-jwt-token"
+
     SyncDataRequest:
       x-class-name: SyncDataRequest
       type: object
@@ -181,6 +225,13 @@ components:
         userId:
           type: integer
           example: 1
+
+    UserResponse:
+      x-class-name: UserResponse
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
 
     User:
       x-class-name: User
