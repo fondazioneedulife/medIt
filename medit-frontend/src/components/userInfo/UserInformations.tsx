@@ -1,11 +1,13 @@
-import { ListItem, Typography, Box, colors } from "@mui/material";
+import { ListItem, Typography, Box } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Label2 } from "./label2";
+import { UserInfoLabel } from "./UserInfoLabel";
 import { ReturnIcon } from "../login/ReturnIcon";
-import iconEdit from "../../assets/icon/edit.svg";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { RoleDropdown } from "./RoleDropdown";
 import { useState } from "react";
+import { useLogin } from "../login/LoginContext";
+import iconEdit from "../../assets/icon/edit.svg";
+import iconPatient from "../../assets/icon/icon_patient.svg";
 
 const theme = createTheme({
   typography: {
@@ -22,10 +24,11 @@ const theme = createTheme({
   },
 });
 
-export const UserInfo: React.FC = () => {
+export const UserInformations: React.FC = () => {
   const { translate } = useLanguage();
   const roles = ["Patient", "Caregiver"];
   const [selectedRole, setSelectedRole] = useState(roles[0]);
+  const { user } = useLogin();
 
   return (
     <Box
@@ -35,7 +38,8 @@ export const UserInfo: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        // justifyContent: "center",
+        paddingTop: "6rem",
         width: "100%",
         overflowX: "hidden",
         height: "100vh",
@@ -46,35 +50,31 @@ export const UserInfo: React.FC = () => {
         },
       }}
     >
+      <ReturnIcon path="/profile" color="black" />
       <ListItem
         sx={{
           justifyContent: "center",
           flexDirection: "column",
         }}
       >
-        <Box
-          sx={{
-            position: "fixed",
-            top: "1rem",
-            left: "1rem",
-          }}
-        >
-          <ReturnIcon path="#" color="black" />
-        </Box>
         <ThemeProvider theme={theme}>
           <Typography
             variant="h3"
             component="h3"
             sx={{
               fontWeight: "bold",
-              paddingBottom: "4rem",
-              fontSize: "2.5rem",
+              paddingBottom: "2rem",
+              fontSize: "2rem",
               color: "#000000",
+              textTransform: "capitalize",
+              textAlign: "center",
+              width: "90%"
             }}
           >
-            {translate("User information")}
+            {translate('userInfo')}
           </Typography>
         </ThemeProvider>
+
         <Box
           sx={{
             borderRadius: 5,
@@ -96,10 +96,10 @@ export const UserInfo: React.FC = () => {
           >
             <Box>
               <Box>
-                <Label2
+                <UserInfoLabel
                   inputName="name"
                   img={iconEdit}
-                  placeholder={"Name"}
+                  placeholder={translate('firstName')}
                   style={{
                     color: "black",
                     fontWeight: "600",
@@ -107,10 +107,10 @@ export const UserInfo: React.FC = () => {
                     justifyContent: "space-between",
                   }}
                 />
-                <Label2
+                <UserInfoLabel
                   inputName="surname"
                   img={iconEdit}
-                  placeholder={"Surname"}
+                  placeholder={translate('lastName')}
                   style={{
                     color: "black",
                     fontWeight: "600",
@@ -118,10 +118,10 @@ export const UserInfo: React.FC = () => {
                     justifyContent: "space-between",
                   }}
                 />
-                <Label2
+                <UserInfoLabel
                   inputName="email"
                   img={iconEdit}
-                  placeholder={translate("Email")}
+                  placeholder={translate("email")}
                   showHr={false}
                   style={{
                     color: "black",
@@ -136,16 +136,21 @@ export const UserInfo: React.FC = () => {
         </Box>
       </ListItem>
 
-      <ListItem
-        alignItems="center"
+      <Box
         sx={{
-          justifyContent: "center",
-          flexDirection: "column",
-          marginTop: "2rem",
+          display:"flex",
+          justifyContent:"center",
+          alignItems:"center",
+          width: "80%",
+          [theme.breakpoints.down("md")]: {
+            "@media (orientation: landscape)": {
+              width: "35%",
+            },
+          },
         }}
       >
-        <Box>
-          <Box>
+        {user?.role == 'caregiver'
+          ? 
             <RoleDropdown
               roles={roles}
               selectedRole={selectedRole}
@@ -156,9 +161,34 @@ export const UserInfo: React.FC = () => {
                 },
               }}
             />
+          :
+          <Box
+            sx={{
+              borderRadius: 5,
+              display: "flex",
+              alignItems: "center",
+              backgroundColor: "#ffffff",
+              width: "100%",
+              maxWidth: "20rem",
+              justifyContent: "flex-start",
+              padding: "0.5rem 1rem",
+              height: "3rem",
+              fontSize: "1.2rem",
+              color: "black",
+              fontWeight: "600",
+              fontFamily: "Montserrat, Arial",
+            }}
+          >
+            <img
+              src={iconPatient}
+              alt="patient icon"
+              style={{ width: "3rem", marginRight: "0.5rem" }}
+            />
+            {translate('patient')}
           </Box>
-        </Box>
-      </ListItem>
+        }
+
+      </Box>
     </Box>
   );
 };

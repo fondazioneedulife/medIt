@@ -7,6 +7,7 @@
     "continueWithoutRegistration": "Continue without registration",
     "firstName": "First name",
     "lastName": "Last name",
+    "email": "Email",
     "confrim": "Confirm",
     "confirmPassword": "Confirm password",
     "patient": "Patient",
@@ -24,7 +25,7 @@
     "support": "Support",
     "settings": "Settings",
     "patientList": "patient list",
-    "caregiver": "caregiver",
+    "caregiver": "Caregiver",
     "changePassword": "change password",
     "selectLanguage ": "select language"
   },
@@ -36,6 +37,7 @@
     "continueWithoutRegistration": "Continua senza registrazione",
     "firstName": "Nome",
     "lastName": "Cognome",
+    "email": "Email",
     "confrim": "Conferma",
     "confirmPassword": "Conferma password",
     "patient": "Paziente",
@@ -53,7 +55,7 @@
     "support": "Supporto",
     "settings": "Impostazioni",
     "patientList": "lista pazienti",
-    "caregiver": "caregiver",
+    "caregiver": "Caregiver",
     "changePassword": "cambia password",
     "selectLanguage": "seleziona lingua"
   }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Menu, MenuItem, Button, Box } from "@mui/material";
 import V_Dropdown from "../../assets/icon/V_Dropdown.svg";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 interface RoleDropdownProps {
   roles: string[];
@@ -27,9 +28,11 @@ export const RoleDropdown: React.FC<RoleDropdownProps> = ({
     handleClose();
   };
 
+  const { translate } = useLanguage();
+
   return (
     <>
-      <Box>
+      <Box sx={{ width: "100%"}}>
         <Button
           aria-controls="role-menu"
           aria-haspopup="true"
@@ -51,14 +54,15 @@ export const RoleDropdown: React.FC<RoleDropdownProps> = ({
             borderRadius: "8px",
             textTransform: "none",
             fontSize: "1.2rem",
-            width: "23rem",
+            maxWidth: "20rem",
+            width: "100%",
             justifyContent: "space-between",
             "&:hover": {
               backgroundColor: "#ffffff",
             },
           }}
         >
-          {selectedRole}
+          {selectedRole === 'Patient' ? translate('patient') : translate('caregiver')}
         </Button>
         <Menu
           id="role-menu"
@@ -76,16 +80,17 @@ export const RoleDropdown: React.FC<RoleDropdownProps> = ({
           }}
           PaperProps={{
             style: {
-              width: "29rem",
+              maxWidth: "20rem",
+              width: "100%"
             },
           }}
         >
           <MenuItem onClick={() => handleMenuItemClick("Patient")}>
-            Patient
+            {translate('patient')}
           </MenuItem>
 
-          <MenuItem onClick={() => handleMenuItemClick("Caregiver")}>
-            Caregiver
+          <MenuItem onClick={() => handleMenuItemClick("Caregiver")} >
+            {translate('caregiver')}
           </MenuItem>
         </Menu>
       </Box>

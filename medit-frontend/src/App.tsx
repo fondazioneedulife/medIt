@@ -10,8 +10,7 @@ import { openDB } from "./database/indexdb";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { RegistrationProvider } from "./components/registration/RegistrationContext.tsx";
 import { LoginProvider } from "./components/login/LoginContext.tsx";
-import { UserInfo } from "./components/userInfo/userInfo.tsx";
-import { UserInfoPatient } from "./components/userInfo/userInfo_Patient.tsx";
+import { UserInformations } from "./components/userInfo/UserInformations.tsx";
 import { GetStart } from "./components/getStarted/GetStart";
 import { ChangePWD } from "./components/changePassword/changePassword.tsx";
 import { Home } from "./components/home/home.tsx";
@@ -74,8 +73,7 @@ function App() {
                 <Route path="patient-qr-code" element={<PatientQrcode />}></Route>
                 <Route path="patient-list" element={<PatientList />}></Route>
 
-                <Route path="user-info" element={<UserInfo />}></Route>
-                <Route path="user-info-patient" element={<UserInfoPatient />}></Route>
+                <Route path="user-info" element={<UserInformations />}></Route>
                 <Route path="support" element={<Support />}></Route>
 
                 <Route path="settings" element={<SettingsPage />}></Route>
