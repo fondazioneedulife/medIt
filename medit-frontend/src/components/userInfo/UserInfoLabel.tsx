@@ -13,7 +13,7 @@ interface LabelProps {
   type?: string;
 }
 
-export const Label2: React.FC<LabelProps> = ({
+export const UserInfoLabel: React.FC<LabelProps> = ({
   img,
   placeholder,
   showHr = true,
