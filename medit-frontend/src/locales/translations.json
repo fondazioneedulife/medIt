@@ -31,7 +31,9 @@
     "phone": "Phone",
     "contactForm": "Contact form",
     "FAQs": "FAQs",
-    "writeAMessage": "Write a message ..."
+    "writeAMessage": "Write a message ...",
+    "patientListDescription": "Select a patient profile or add one",
+    "add": "add"
   },
   "it": {
     "login": "Accedi",
@@ -65,6 +67,8 @@
     "phone": "Telefono",
     "contactForm": "Modulo di contatto",
     "FAQs": "FAQs",
-    "writeAMessage": "Scrivi un messaggio ..."
+    "writeAMessage": "Scrivi un messaggio ...",
+    "patientListDescription": "Seleziona un profilo paziente o aggiungine uno",
+    "add": "aggiungi"
   }
 }

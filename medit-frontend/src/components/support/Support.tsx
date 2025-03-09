@@ -12,7 +12,7 @@ import iconForm from "../../assets/icon/contact-form.svg";
 import iconFaqs from "../../assets/icon/icon-faqs.svg";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { ReturnIcon } from "../changePassword/return2";
-import { LabelSupport } from "./labelsupport";
+import { SupportLabel } from "./SupportLabel";
 
 const theme = createTheme({
   typography: {
@@ -96,12 +96,12 @@ export const Support: React.FC = () => {
           >
             <div>
               <div>
-                <LabelSupport
+                <SupportLabel
                   inputName="phone"
                   img={iconPhone}
                   placeholder={translate("phone")}
                 />
-                <LabelSupport
+                <SupportLabel
                   inputName="email"
                   img={iconEmail}
                   placeholder={translate("email")}
@@ -184,7 +184,7 @@ export const Support: React.FC = () => {
             >
               <div>
                 <div>
-                  <LabelSupport
+                  <SupportLabel
                     inputName="faqs"
                     img={iconFaqs}
                     placeholder={translate("FAQs")}
