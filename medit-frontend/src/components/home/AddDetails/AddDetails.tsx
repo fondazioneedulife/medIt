@@ -77,9 +77,11 @@ export const AddDetails: React.FC = () => {
             mt: 4,
             bgcolor: "white",
             boxShadow: "none",
+            borderRadius: 3,
             outline: "black",
             textTransform: "capitalize",
             p: "1rem",
+            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
             gap: 1,
           }}
         >
