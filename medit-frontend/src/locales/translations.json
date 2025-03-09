@@ -27,7 +27,11 @@
     "patientList": "patient list",
     "caregiver": "Caregiver",
     "changePassword": "change password",
-    "selectLanguage ": "select language"
+    "selectLanguage ": "select language",
+    "phone": "Phone",
+    "contactForm": "Contact form",
+    "FAQs": "FAQs",
+    "writeAMessage": "Write a message ..."
   },
   "it": {
     "login": "Accedi",
@@ -57,6 +61,10 @@
     "patientList": "lista pazienti",
     "caregiver": "Caregiver",
     "changePassword": "cambia password",
-    "selectLanguage": "seleziona lingua"
+    "selectLanguage": "seleziona lingua",
+    "phone": "Telefono",
+    "contactForm": "Modulo di contatto",
+    "FAQs": "FAQs",
+    "writeAMessage": "Scrivi un messaggio ..."
   }
 }

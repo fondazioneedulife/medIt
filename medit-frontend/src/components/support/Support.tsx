@@ -58,7 +58,7 @@ export const Support: React.FC = () => {
           },
         }}
       >
-        <ReturnIcon path="#" color="#666666" />
+        <ReturnIcon path="/profile" color="#666666" />
         <Box
           sx={{
             fontSize: isMobile ? "2.5rem" : "3.5rem",
@@ -68,7 +68,7 @@ export const Support: React.FC = () => {
             marginTop: "8rem",
           }}
         >
-          {translate("Support")}
+          {translate('support')}
         </Box>
         <Box
           sx={{
@@ -99,12 +99,12 @@ export const Support: React.FC = () => {
                 <LabelSupport
                   inputName="phone"
                   img={iconPhone}
-                  placeholder={translate("Phone")}
+                  placeholder={translate("phone")}
                 />
                 <LabelSupport
                   inputName="email"
                   img={iconEmail}
-                  placeholder={translate("Email")}
+                  placeholder={translate("email")}
                   showHr={false}
                 />
               </div>
@@ -145,11 +145,11 @@ export const Support: React.FC = () => {
                 fontWeight: "600",
               }}
             >
-              {translate("Contact Form")}
+              {translate("contactForm")}
             </Typography>
           </Box>
           <TextField
-            placeholder={translate("Write a message...")}
+            placeholder={translate("writeAMessage")}
             multiline
             rows={4}
             fullWidth
