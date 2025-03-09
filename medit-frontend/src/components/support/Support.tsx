@@ -11,7 +11,7 @@ import iconPhone from "../../assets/icon/icon-phone.svg";
 import iconForm from "../../assets/icon/contact-form.svg";
 import iconFaqs from "../../assets/icon/icon-faqs.svg";
 import { useLanguage } from "../../contexts/LanguageContext";
-import { ReturnIcon } from "../changePassword/return2";
+import { ReturnIcon } from "../login/ReturnIcon";
 import { SupportLabel } from "./SupportLabel";
 
 const theme = createTheme({

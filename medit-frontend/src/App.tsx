@@ -12,7 +12,7 @@ import { RegistrationProvider } from "./components/registration/RegistrationCont
 import { LoginProvider } from "./components/login/LoginContext.tsx";
 import { UserInformations } from "./components/userInfo/UserInformations.tsx";
 import { GetStart } from "./components/getStarted/GetStart";
-import { ChangePWD } from "./components/changePassword/changePassword.tsx";
+import { ChangePw } from "./components/changePassword/ChangePw.tsx";
 import { Home } from "./components/home/home.tsx";
 import { SetReminder } from "./components/home/SetReminder/SetReminder.tsx";
 import { Root } from "./routes/Root";
@@ -37,7 +37,6 @@ function App() {
             <Route path="/">
               <Route index element={<Root />}></Route>
               <Route path="start" element={<GetStart />}></Route>
-              <Route path="changePWD" element={<ChangePWD />}></Route>
 
               <Route path="login">
                 <Route index element={<Login />}></Route>
@@ -77,7 +76,7 @@ function App() {
                 <Route path="support" element={<Support />}></Route>
 
                 <Route path="settings" element={<SettingsPage />}></Route>
-                <Route path="change-password" element={<ChangePWD />}></Route>
+                <Route path="change-password" element={<ChangePw />}></Route>
               </Route>
             </Route>
           </Routes>
