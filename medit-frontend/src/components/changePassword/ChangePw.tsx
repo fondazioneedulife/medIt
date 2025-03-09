@@ -42,7 +42,7 @@ export const ChangePw: React.FC = () => {
                     },
                 }}
             >
-                <ReturnIcon path="/profile" color="#666666" />
+                <ReturnIcon path="/profile/settings" color="#666666" />
 
                 <Box
                     sx={{

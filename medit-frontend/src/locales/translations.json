@@ -42,9 +42,9 @@
   "it": {
     "add": "aggiungi",
     "caregiver": "Caregiver",
-    "cambiaPassword": "cambia password",
-    "confermaNuovaPassword": "conferma nuova password",
-    "confermaPassword": "Conferma password",
+    "changePassword": "cambia password",
+    "confirmNewPassword": "conferma nuova password",
+    "confirmPassword": "Conferma password",
     "confrim": "Conferma",
     "contactForm": "Modulo di contatto",
     "continueWithoutRegistration": "Continua senza registrazione",

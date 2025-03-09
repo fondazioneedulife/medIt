@@ -75,8 +75,10 @@ function App() {
                 <Route path="user-info" element={<UserInformations />}></Route>
                 <Route path="support" element={<Support />}></Route>
 
-                <Route path="settings" element={<SettingsPage />}></Route>
-                <Route path="change-password" element={<ChangePw />}></Route>
+                <Route path="settings">
+                  <Route index element={<SettingsPage />}></Route>
+                  <Route path="change-password" element={<ChangePw />}></Route>
+                </Route>
               </Route>
             </Route>
           </Routes>

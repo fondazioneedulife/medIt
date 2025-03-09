@@ -58,7 +58,7 @@ export const SettingsPage: React.FC = () => {
                     <ProfileEntry
                         img={changePasswordIcon}
                         text={translate('changePassword')}
-                        path="/profile/change-password"
+                        path="/profile/settings/change-password"
                     />
                     <hr />
                     <SelectLanguage />
