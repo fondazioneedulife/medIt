@@ -36,20 +36,20 @@ export const MedicineComponent: React.FC = () => {
       <Box
         sx={{
           width: { xs: "90%", sm: "55%", md: "40%", lg: "30%", xl: "25%" },
-          height: { md: "14vh", xl: "18vh", xs: "14vh" },
+          height: { md: "12vh", xl: "16vh", xs: "14vh" },
           backgroundColor: "white",
-          borderRadius: "30px",
+          borderRadius: "10px",
           display: "flex",
           p: 2,
-          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+          boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)",
         }}
       >
         <Box
           sx={{
-            width: "35%",
+            width: "25%",
             height: "100%",
             backgroundColor: "lightgrey",
-            borderRadius: "25px",
+            borderRadius: "10px",
           }}
         ></Box>
         <Box
@@ -67,7 +67,7 @@ export const MedicineComponent: React.FC = () => {
                 sx={{
                   fontWeight: "bold",
                   fontSize: { xl: "1.9rem", xs: "1.5rem" },
-                  mb: { xl: 3, xs: 1 },
+                  mb: { xl: 2, xs: 1 },
                 }}
               >
                 Medicine
@@ -122,26 +122,28 @@ export const MedicineComponent: React.FC = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            justifyContent: "space-between",
+            height: { xs: "110%", xl: "100%" },
           }}
         >
           <Box
             sx={{
               backgroundColor: "lightgrey",
-              width: "7vh",
-              height: "7vh",
-              borderRadius: "80px",
+              width: "45px",
+              height: "45px",
+              borderRadius: "100%",
             }}
           ></Box>
-          <Box sx={{ mt: 2 }}>
+          <Box>
             <Box
               sx={{ position: "relative", cursor: "pointer" }}
               onClick={toggleCheck}
             >
               <Box>
-                <img src={Ellipse} alt="Ellipse" width={40} />
+                <img src={Ellipse} alt="Ellipse" width={50} />
               </Box>
               <Fade in={isChecked} timeout={500}>
-                <Box sx={{ position: "absolute", top: -2, left: 7 }}>
+                <Box sx={{ position: "absolute", top: 4, left: 5 }}>
                   <img src={Check} alt="Check" width={40} />
                 </Box>
               </Fade>
