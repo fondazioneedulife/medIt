@@ -211,7 +211,7 @@ export const UserProfile: React.FC = () => {
                             <ProfileEntry 
                                 img={supportIcon}
                                 text={translate('support')}
-                                path="/login"
+                                path="/profile/support"
                             />
                             <hr />
                             <ProfileEntry 

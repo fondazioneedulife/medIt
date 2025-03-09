@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useLanguage } from "../../../contexts/LanguageContext";
-import { ReturnIcon } from "../../changePassword/return2";
+import { ReturnIcon } from "../../login/ReturnIcon";
 import QRimg from "../../../assets/profile/qrcode/QRimg.png";
 
 const theme = createTheme({
