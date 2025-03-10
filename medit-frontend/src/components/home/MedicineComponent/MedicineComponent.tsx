@@ -17,7 +17,13 @@ const theme = createTheme({
   },
 });
 
-export const MedicineComponent: React.FC = () => {
+interface MedicineComponentProps {
+  medication: any;
+}
+
+export const MedicineComponent: React.FC<MedicineComponentProps> = ({
+  medication,
+}) => {
   const [isChecked, setIsChecked] = useState(false);
   const [bgColor, setBgColor] = useState("white");
 
@@ -78,7 +84,7 @@ export const MedicineComponent: React.FC = () => {
                   mb: { xl: 2, xs: 1 },
                 }}
               >
-                Medicine
+                {medication.name}
               </Typography>
             </ThemeProvider>
           </Box>
@@ -88,7 +94,7 @@ export const MedicineComponent: React.FC = () => {
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                Capsule, 100mg
+                {medication.type}, {medication.dose}
               </Typography>
             </ThemeProvider>
           </Box>
@@ -98,7 +104,7 @@ export const MedicineComponent: React.FC = () => {
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                Daily, 1 times a day
+                {medication.program}, {medication.quantity} times a day
               </Typography>
             </ThemeProvider>
           </Box>

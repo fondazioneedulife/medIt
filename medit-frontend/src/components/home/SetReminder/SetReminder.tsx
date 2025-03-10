@@ -10,12 +10,17 @@ import SelectComponent from "../SetReminder/selectWeek";
 import { ButtonSave } from "../AddDetails/button";
 import SetHour from "./SetHour";
 import { motion } from "framer-motion";
+import { addRecord } from "../../../database/indexdb"; // Importa la funzione addRecord
 
 interface SetReminderProps {
   onSave: () => void;
+  medicineId: number;
 }
 
-export const SetReminder: React.FC<SetReminderProps> = ({ onSave }) => {
+export const SetReminder: React.FC<SetReminderProps> = ({
+  onSave,
+  medicineId,
+}) => {
   const theme = createTheme({
     typography: {
       fontFamily: "Montserrat, Arial",
@@ -23,6 +28,9 @@ export const SetReminder: React.FC<SetReminderProps> = ({ onSave }) => {
   });
 
   const [activeDays, setActiveDays] = useState<string[]>([]);
+  const [timeSlots, setTimeSlots] = useState<
+    { hour: string; period: string }[]
+  >([]);
 
   const daysOfWeek = [
     { label: "M", value: "Monday" },
@@ -38,6 +46,21 @@ export const SetReminder: React.FC<SetReminderProps> = ({ onSave }) => {
     setActiveDays((prev) =>
       prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
     );
+  };
+
+  const handleSave = async () => {
+    const reminderData = {
+      medication_id: medicineId,
+      reminder_date_time: timeSlots
+        .map((slot) => `${slot.hour} ${slot.period}`)
+        .join(", "),
+      days: activeDays,
+      id_group: "1",
+      synced_at: new Date(),
+    };
+
+    await addRecord("reminders", reminderData);
+    onSave();
   };
 
   return (
@@ -137,9 +160,9 @@ export const SetReminder: React.FC<SetReminderProps> = ({ onSave }) => {
             pb: 2,
           }}
         >
-          <SetHour />
+          <SetHour onChange={setTimeSlots} />
         </Box>
-        <ButtonSave buttonText="Save" onClick={onSave} />
+        <ButtonSave buttonText="Save" onClick={handleSave} />
       </Box>
     </motion.div>
   );

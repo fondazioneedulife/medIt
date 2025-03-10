@@ -1,36 +1,34 @@
-import * as React from "react";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import React from "react";
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 
-export default function SelectComponent() {
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
-  };
-
-  return (
-    <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <Select
-          value={age}
-          onChange={handleChange}
-          displayEmpty
-          inputProps={{ "aria-label": "Without label" }}
-          sx={{
-            "& .MuiOutlinedInput-notchedOutline": {
-              border: "none",
-            },
-          }}
-        >
-          <MenuItem value="">
-            <em>%</em>
-          </MenuItem>
-          <MenuItem value={10}>mg</MenuItem>
-          <MenuItem value={20}>g</MenuItem>
-        </Select>
-      </FormControl>
-    </div>
-  );
+interface SelectComponentProps {
+  value: string;
+  onChange: (e: SelectChangeEvent<string>) => void;
 }
+
+const SelectComponent: React.FC<SelectComponentProps> = ({
+  value,
+  onChange,
+}) => {
+  return (
+    <FormControl variant="outlined" sx={{ m: 1, minWidth: 120 }}>
+      <Select
+        value={value}
+        onChange={onChange}
+        displayEmpty
+        inputProps={{ "aria-label": "Without label" }}
+      >
+        <MenuItem value="Capsule">Capsule</MenuItem>
+        <MenuItem value="Tablet">Tablet</MenuItem>
+        <MenuItem value="Syrup">Syrup</MenuItem>
+      </Select>
+    </FormControl>
+  );
+};
+
+export default SelectComponent;
