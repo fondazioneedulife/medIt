@@ -87,7 +87,6 @@ export const ScanQR: React.FC = () => {
             sx={{
               width: "250px",
               height: "250px",
-              marginLeft: "-5rem !important",
               backgroundColor: "#242424",
               display: "flex",
               alignItems: "center",
