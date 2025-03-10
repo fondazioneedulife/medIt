@@ -86,7 +86,7 @@ export const ChoseLoginOrSignup: React.FC = () => {
           <img
             src={completeLogoWhite}
             alt="Medit complete logo"
-            style={{ width: "8rem", marginBottom: "5rem" }}
+            style={{ width: "12rem", marginBottom: "5rem" }}
           />
           <Stack
             direction="row"
