@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import Ellipse from "../../../assets/icon/Check-Ellipse.svg";
 import Check from "../../../assets/icon/Check.svg";
+import Image from "../../../assets/icon/immagine.jpg";
+import Profile from "../../../assets/icon/profile.png";
 
 const theme = createTheme({
   typography: {
@@ -17,9 +19,13 @@ const theme = createTheme({
 
 export const MedicineComponent: React.FC = () => {
   const [isChecked, setIsChecked] = useState(false);
+  const [bgColor, setBgColor] = useState("white");
 
   const toggleCheck = () => {
     setIsChecked((prev) => !prev);
+    setBgColor((prev) =>
+      prev === "white" ? "rgba(67, 134, 16, 0.8)" : "white"
+    ); // Cambia il colore di sfondo
   };
 
   return (
@@ -35,23 +41,25 @@ export const MedicineComponent: React.FC = () => {
     >
       <Box
         sx={{
-          width: { xs: "90%", sm: "55%", md: "40%", lg: "30%", xl: "25%" },
+          width: { xs: "85%", sm: "55%", md: "40%", lg: "30%", xl: "25%" },
           height: { md: "12vh", xl: "16vh", xs: "14vh" },
-          backgroundColor: "white",
+          backgroundColor: bgColor, // Applica il colore di sfondo condizionalmente
           borderRadius: "10px",
           display: "flex",
           p: 2,
           boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)",
+          transition: "background-color 0.5s ease", // Aggiungi la transizione
         }}
       >
         <Box
           sx={{
             width: "25%",
             height: "100%",
-            backgroundColor: "lightgrey",
             borderRadius: "10px",
           }}
-        ></Box>
+        >
+          <img src={Image} alt="" width={"100%"} />
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -99,7 +107,7 @@ export const MedicineComponent: React.FC = () => {
               backgroundColor: "#0B6BB2",
               color: "white",
               width: "5.5rem",
-              height: "20%",
+              height: "25%",
               borderRadius: "25px",
               display: "flex",
               justifyContent: "space-around",
@@ -128,12 +136,13 @@ export const MedicineComponent: React.FC = () => {
         >
           <Box
             sx={{
-              backgroundColor: "lightgrey",
               width: "45px",
               height: "45px",
               borderRadius: "100%",
             }}
-          ></Box>
+          >
+            <img src={Profile} alt="" width={"100%"} />
+          </Box>
           <Box>
             <Box
               sx={{ position: "relative", cursor: "pointer" }}
@@ -143,8 +152,8 @@ export const MedicineComponent: React.FC = () => {
                 <img src={Ellipse} alt="Ellipse" width={50} />
               </Box>
               <Fade in={isChecked} timeout={500}>
-                <Box sx={{ position: "absolute", top: 4, left: 5 }}>
-                  <img src={Check} alt="Check" width={40} />
+                <Box sx={{ position: "absolute", top: 0, left: 2 }}>
+                  <img src={Check} alt="Check" width={46} />
                 </Box>
               </Fade>
             </Box>
