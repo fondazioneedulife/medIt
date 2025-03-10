@@ -15,5 +15,5 @@ data class Auth(
     val password: String,
     val failedAttempts: Int,
     val lastLogin: LocalDateTime,
-    val syncedAt: LocalDateTime
+    var syncedAt: LocalDateTime
 )

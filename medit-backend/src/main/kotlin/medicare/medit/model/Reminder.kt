@@ -13,6 +13,6 @@ data class Reminder(
     val medication: Medication,
     val reminderDateTime: LocalDateTime,
     @Column(unique = true)
-    val idGroup: String,
-    val syncedAt: LocalDateTime
+    val idGroup: Long,
+    var syncedAt: LocalDateTime
 )

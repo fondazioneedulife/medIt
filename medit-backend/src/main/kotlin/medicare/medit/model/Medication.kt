@@ -19,5 +19,5 @@ data class Medication(
     val note: String,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
-    val syncedAt: LocalDateTime
+    var syncedAt: LocalDateTime
 )
