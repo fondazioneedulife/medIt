@@ -12,5 +12,5 @@ data class TakenMedication(
     @JoinColumn(name = "reminder_id")
     val reminder: Reminder,
     val dateTime: LocalDateTime,
-    val syncedAt: LocalDateTime
+    var syncedAt: LocalDateTime
 )

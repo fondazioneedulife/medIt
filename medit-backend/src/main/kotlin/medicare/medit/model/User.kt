@@ -11,10 +11,11 @@ data class User(
     @Column(unique = true)
     val email: String,
     val firstName: String,
+    val lastName: String,
     val role: RoleEnum,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
     val timezone: String,
     val language: String,
-    val syncedAt: LocalDateTime
+    var syncedAt: LocalDateTime
 )
