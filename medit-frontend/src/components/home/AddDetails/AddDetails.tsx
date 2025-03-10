@@ -12,7 +12,11 @@ import SelectComponent from "./select";
 import { ButtonSave } from "./button";
 import AddInfo from "./AddInfo";
 
-export const AddDetails: React.FC = () => {
+interface AddDetailsProps {
+  onSave: () => void;
+}
+
+export const AddDetails: React.FC<AddDetailsProps> = ({ onSave }) => {
   const theme = createTheme({
     typography: {
       fontFamily: "Montserrat, Arial",
@@ -70,24 +74,7 @@ export const AddDetails: React.FC = () => {
             </Box>
           </ListItem>
         </Box>
-        <Button
-          variant="outlined"
-          sx={{
-            mr: 1,
-            mt: 4,
-            bgcolor: "white",
-            boxShadow: "none",
-            borderRadius: 3,
-            outline: "black",
-            textTransform: "capitalize",
-            p: "1rem",
-            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
-            gap: 1,
-          }}
-        >
-          <img src={IconPlus} alt="" />
-          Add profile image
-        </Button>
+
         <Box
           sx={{
             marginTop: "2rem",
@@ -113,7 +100,25 @@ export const AddDetails: React.FC = () => {
             sx={{ color: "rgba(98, 98, 98, 0.5)" }}
           ></Typography>
         </Box>
-        <ButtonSave />
+        <Button
+          variant="outlined"
+          sx={{
+            mr: 1,
+            mt: 4,
+            bgcolor: "white",
+            boxShadow: "none",
+            borderRadius: 3,
+            outline: "black",
+            textTransform: "capitalize",
+            p: "1rem",
+            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+            gap: 1,
+          }}
+        >
+          <img src={IconPlus} alt="" />
+          Add profile image
+        </Button>
+        <ButtonSave onClick={onSave} />
       </Box>
     </Box>
   );
