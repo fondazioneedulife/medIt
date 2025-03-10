@@ -21,6 +21,8 @@ import { SettingsPage } from "./components/profile/settings/SettingsPage.tsx";
 import { PatientList } from "./components/patientList/PatientList.tsx";
 import { PatientQrcode } from "./components/profile/patientQrcode/PatientQrcode.tsx";
 import { Support } from "./components/support/Support.tsx";
+import { PatientRegistrationForm } from "./components/patientList/registration/PatientRegistrationForm.tsx";
+
 function App() {
   useEffect(() => {
     // Open the database and create tables if they don't exist
@@ -70,7 +72,10 @@ function App() {
                 <Route index element={<UserProfile />}></Route>
 
                 <Route path="patient-qr-code" element={<PatientQrcode />}></Route>
-                <Route path="patient-list" element={<PatientList />}></Route>
+                <Route path="patient-list">
+                  <Route index element={<PatientList />}></Route>
+                  <Route path="patient-registration" element={<PatientRegistrationForm />}></Route>
+                </Route>
 
                 <Route path="user-info" element={<UserInformations />}></Route>
                 <Route path="support" element={<Support />}></Route>
