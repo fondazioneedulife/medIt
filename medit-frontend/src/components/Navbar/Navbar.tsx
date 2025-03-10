@@ -9,18 +9,40 @@ import HomeIcon from "../../assets/icon/icon_home.svg";
 import ProfileIcon from "../../assets/icon/Icon_user.svg";
 import IconPlus from "../../assets/icon/Icon_plus.svg";
 import { useLanguage } from "../../contexts/LanguageContext";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
+import { useState, useEffect } from "react";
 
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, Arial",
   },
 });
-export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
-  onAddDetailsClick}) => {
-  
+
+const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
+  onAddDetailsClick,
+}) => {
   const { translate } = useLanguage();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [activeButton, setActiveButton] = useState("home");
+
+  useEffect(() => {
+    if (location.pathname === "/home") {
+      setActiveButton("home");
+    } else if (location.pathname === "/profile") {
+      setActiveButton("profile");
+    }
+  }, [location.pathname]);
+
+  const handleHomeClick = () => {
+    setActiveButton("home");
+    navigate("/home");
+  };
+
+  const handleProfileClick = () => {
+    setActiveButton("profile");
+    navigate("/profile");
+  };
 
   return (
     <Box
@@ -35,7 +57,7 @@ export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
         padding: 0,
         position: "fixed",
         bottom: 0,
-        zIndex: 1000, 
+        zIndex: 1000,
         boxShadow: "0px -4px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
@@ -45,7 +67,6 @@ export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
           justifyContent: "space-around",
           alignItems: "center",
           width: "100%",
-          pt: "0.5rem",
         }}
       >
         <Button
@@ -62,7 +83,7 @@ export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
             },
           }}
           tabIndex={0}
-          onClick={() => navigate("/home")}
+          onClick={handleHomeClick}
         >
           <Box
             component="img"
@@ -70,7 +91,7 @@ export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
             alt="Home Icon"
             sx={{
               width: "2.5rem",
-              pt: "1rem",
+              filter: activeButton === "home" ? "none" : "grayscale(100%)",
             }}
           />
           <ThemeProvider theme={theme}>
@@ -79,7 +100,7 @@ export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
               sx={{
                 fontWeight: "medium",
                 fontSize: "1rem",
-                color: "#a2a2a2"
+                color: activeButton === "home" ? "black" : "#a2a2a2",
               }}
             >
               {translate("home")}
@@ -127,7 +148,7 @@ export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
             },
           }}
           tabIndex={0}
-          onClick={() => navigate("/profile")}
+          onClick={handleProfileClick}
         >
           <Box
             component="img"
@@ -135,7 +156,7 @@ export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
             alt="Profile Icon"
             sx={{
               width: "2.5rem",
-              pt: "1rem",
+              filter: activeButton === "profile" ? "none" : "grayscale(100%)",
             }}
           />
           <ThemeProvider theme={theme}>
@@ -144,7 +165,7 @@ export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
               sx={{
                 fontWeight: "medium",
                 fontSize: "1rem",
-                color: "#a2a2a2"
+                color: activeButton === "profile" ? "black" : "#a2a2a2",
               }}
             >
               {translate("profile")}
@@ -155,3 +176,5 @@ export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
     </Box>
   );
 };
+
+export default Navbar;
