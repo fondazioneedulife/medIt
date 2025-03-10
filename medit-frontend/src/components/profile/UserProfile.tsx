@@ -44,6 +44,9 @@ export const UserProfile: React.FC = () => {
     const patientListHandleClick = () => {
         navigate("/profile/patient-list");
     };
+    const logoutHandleClick = () => {
+        navigate("/login");
+    };
 
     return(
         <>
@@ -228,7 +231,7 @@ export const UserProfile: React.FC = () => {
                                 borderRadius: "1rem",
                                 cursor: "pointer"
                             }}
-                            onClick={patientListHandleClick}
+                            onClick={logoutHandleClick}
                         >
                             <Stack
                                 sx={{ width: '100%'}}
