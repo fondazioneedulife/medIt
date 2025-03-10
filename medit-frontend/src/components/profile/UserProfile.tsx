@@ -42,8 +42,7 @@ export const UserProfile: React.FC = () => {
     };
 
     const patientListHandleClick = () => {
-        // TODO: correct right patient qr code route
-        navigate("/login");
+        navigate("/profile/patient-list");
     };
 
     return(
