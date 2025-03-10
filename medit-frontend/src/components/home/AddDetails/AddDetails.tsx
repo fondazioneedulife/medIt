@@ -1,5 +1,5 @@
 import { LabelReminder } from "../../home/AddDetails/LabelReminder";
-import IconPlus from "../../../assets/icon//circle-plus.svg";
+import IconPlus from "../../../assets/icon/photo-plus.svg";
 import {
   Box,
   Button,
@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import SelectComponent from "./select";
 import { ButtonSave } from "./button";
+import AddInfo from "./AddInfo";
 
 export const AddDetails: React.FC = () => {
   const theme = createTheme({
@@ -21,9 +22,9 @@ export const AddDetails: React.FC = () => {
   return (
     <Box
       sx={{
-        height: "80vh",
+        height: "90vh",
         width: "100vw",
-        borderRadius: "40px 40px 0 0",
+        borderRadius: "50px 50px 0 0",
         backgroundColor: "white",
         display: "flex",
         alignItems: "center",
@@ -43,7 +44,7 @@ export const AddDetails: React.FC = () => {
         <ThemeProvider theme={theme}>
           <Typography
             variant="h2"
-            sx={{ fontWeight: "bold", fontSize: "2rem", mb: 6 }}
+            sx={{ fontWeight: "bold", fontSize: "2rem", mb: 4 }}
           >
             Add Details
           </Typography>
@@ -52,13 +53,13 @@ export const AddDetails: React.FC = () => {
           sx={{
             borderRadius: 5,
             backgroundColor: "#F0F0F0",
-            width: { xs: "90%", md: "30%", lg: "30%", xl: "20%" },
+            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
           }}
         >
           <ListItem>
             <Box sx={{ width: "100%" }}>
               <LabelReminder inputName="" placeholder={"Name Product"} />
-              <Box sx={{ display: "flex", width: "60%" }}>
+              <Box sx={{ display: "flex", width: "50%" }}>
                 <LabelReminder
                   inputName="name"
                   placeholder={"Dose"}
@@ -69,6 +70,36 @@ export const AddDetails: React.FC = () => {
             </Box>
           </ListItem>
         </Box>
+        <Button
+          variant="outlined"
+          sx={{
+            mr: 1,
+            mt: 4,
+            bgcolor: "white",
+            boxShadow: "none",
+            borderRadius: 3,
+            outline: "black",
+            textTransform: "capitalize",
+            p: "1rem",
+            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+            gap: 1,
+          }}
+        >
+          <img src={IconPlus} alt="" />
+          Add profile image
+        </Button>
+        <Box
+          sx={{
+            marginTop: "2rem",
+            backgroundColor: "#F0F0F0",
+            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+            borderRadius: 5,
+            height: "15vh",
+          }}
+        >
+          <AddInfo />
+        </Box>
+
         <Box
           sx={{
             display: "flex",
@@ -77,15 +108,10 @@ export const AddDetails: React.FC = () => {
             pt: 5,
           }}
         >
-          <Button
-            variant="contained"
-            sx={{ mr: 1, bgcolor: "white", boxShadow: "none" }}
-          >
-            <img src={IconPlus} alt="" />
-          </Button>
-          <Typography variant="h6" sx={{ color: "rgba(98, 98, 98, 0.5)" }}>
-            Add Profile image
-          </Typography>
+          <Typography
+            variant="h6"
+            sx={{ color: "rgba(98, 98, 98, 0.5)" }}
+          ></Typography>
         </Box>
         <ButtonSave />
       </Box>

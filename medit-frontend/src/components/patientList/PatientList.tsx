@@ -2,141 +2,157 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography/Typography";
 import { ReturnIcon } from "../login/ReturnIcon";
-import patientImage from "../../assets/profile/example_patient_profile_image.svg";
+import { useLanguage } from "../../contexts/LanguageContext";
+import { useNavigate } from "react-router";
+import examplePatientImage from "../../assets/profile/example_patient_profile_image.svg";
 
 
 export const PatientList: React.FC = () => {
-  return (
-    <Box sx={{ backgroundColor: "#F7F7F7" }}>
-        <ReturnIcon path="#" />
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                position: "relative",
-                top: { xs: 40, sm: 60, md: 80 },
-                textAlign: "center",
-            }}
-        >
+    const {translate} = useLanguage();
 
-        <Box>
-            <Typography
-                variant="h3"
+    const navigate = useNavigate();
+
+    const patientRegistrationHandleClick = () => {
+        navigate("/profile/patient-list/patient-registration");
+    };
+
+    return (
+        <>
+            <ReturnIcon path="/profile" color="#666666" />
+            <Box
                 sx={{
-                    mt: "1rem",
-                    ml: "1rem",
-                    mr: "1rem",
-                    fontSize: "2.25rem",
-                    fontWeight: "bold",
-                    lineHeight: "1",
-                    color: "black",
+                    backgroundColor: "#F7F7F7",
+                    height: "100vh",
+                    width: "100vw",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start", 
+                    alignItems: "center",
+                    paddingTop: "6.5rem"
                 }}
             >
-                Patient List
-            </Typography> 
-        </Box>
-
-        <Box>
-            <Typography
-                variant="h4"
-                marginTop={2}
-                sx={{
-                    fontWeight:"regular",
-                    fontSize: "1.5rem",
-                }}
-            >
-                Select a profile patient <br /> or add one
-            </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            backgroundColor: "#F7F7F7", 
-            display: "flex",
-            flexDirection: "row",
-            gap: "1rem",
-            mt: "2rem",
-            width: "100%",
-            justifyContent: "center",
-            ml: { xs: "1rem", sm: "3rem", md: "6.2rem" },
-          }}
-        >
-            <Box
-                component="table"
-                sx={{ width: "30%", textAlign: "center",backgroundColor: "#F7F7F7" }}
-            >
-                <Box component="tr">
-                    <Box component="td" sx={{ height: "120px"}}>
-                        <Button
-                            variant="contained"
-                            sx={{
-                                width: "100%",
-                                height: "100%",
-                                borderRadius: "20px",
-                                backgroundColor: "white",
-                                color: "black",
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                fontWeight:"regular",
-                                fontSize: "1.5rem",
-                            }}
-                        >
-                            <span>+</span>
-                            <span>add</span>
-                        </Button>
-                    </Box>
-                </Box>
-
-                <Box component="tr">
-                    <Box component="td">
-                        <Typography sx={{ fontWeight: "light", mt: "0.5rem", textAlign: "center" }}>
-                        </Typography>
-                    </Box>
-                </Box>
-            </Box>
-
-            <Box
-                component="table"
-                sx={{ width: "30%", textAlign: "center" }}
-            >
-                <Box component="tr">
-                    <Box component="td" sx={{ height: "120px" }}>
-                        <Button
-                            variant="contained"
-                            sx={{
-                                width: "100%",
-                                height: "100%",
-                                borderRadius: "20px",
-                                backgroundColor: "white",
-                                color: "black",
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                fontSize: "2rem",
-                                padding: "0",
-                            }}
-                        >
-                            <img
-                                src={patientImage}
-                                alt="Patient Icon"
-                                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px" }}
-                            />
-                        </Button>
-                    </Box>
-                </Box>
-
-                <Box component="tr">
-                    <Box component="td">
-                    <Typography sx={{ fontWeight: "light", mt: "0.5rem", textAlign: "center" }}>
-                        Carlo Rossi
+                <Box
+                    sx={{
+                        width: "75%",
+                        maxWidth: "20rem",
+                        display: "flex",
+                        flexDirection: "column",
+                        marginBottom: "2rem",
+                        textAlign: "center"
+                    }}
+                >
+                    <Typography
+                        variant="h4"
+                        sx={{
+                            textTransform: "capitalize",
+                            fontWeight: "bold",
+                            fontFamily: "Montserrat, Arial, sans-serif",
+                        }}
+                    >
+                        {translate('patientList')}
+                    </Typography>
+                    <Typography
+                        variant="h6"
+                        sx={{
+                            fontFamily: "Montserrat, Arial, sans-serif",
+                            marginTop: "1rem"
+                        }}
+                    >
+                        {translate('patientListDescription')}
                     </Typography>
                 </Box>
+
+                <Box
+                    sx={{
+                        backgroundColor: "#F7F7F7", 
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "1rem",
+                        mt: "2rem",
+                        width: "100%",
+                        justifyContent: "center",
+                        ml: { xs: "1rem", sm: "3rem", md: "6.2rem" },
+                    }}
+                >
+                    {/* Sample patient profile */}
+                    <Box
+                        component="table"
+                        sx={{ width: "30%", textAlign: "center" }}
+                    >
+                        <Box component="tr">
+                            <Box component="td">
+                                <img
+                                    src={examplePatientImage}
+                                    style={{ width: "8rem", height: "8rem", objectFit: "cover", borderRadius: "20px" }}
+                                    alt="example patient profile image"
+                                />
+                            </Box>
+                        </Box>
+
+                        <Box component="tr">
+                            <Box component="td">
+                                <Typography
+                                    sx={{
+                                        fontWeight: "light",
+                                        textAlign: "center",
+                                        fontFamily: "Montserrat, Arial, sans-serif"
+                                    }}>
+                                    Carlo Rossi
+                                </Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+
+                    {/* add profile */}
+                    <Box
+                        component="table"
+                        sx={{ width: "30%", textAlign: "center",backgroundColor: "#F7F7F7" }}
+                    >
+                        <Box component="tr">
+                            <Box component="td">
+                                <Button
+                                    onClick={patientRegistrationHandleClick}
+                                    variant="contained"
+                                    sx={{
+                                        width: "8rem",
+                                        height: "8rem",
+                                        borderRadius: "20px",
+                                        backgroundColor: "white",
+                                        color: "black",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "center",
+                                        fontWeight:"regular",
+                                        fontSize: "1.5rem",
+                                        textTransform: "none",
+                                        padding: "0",
+                                        textAlign: "center",
+                                    }}
+                                >
+                                    <Typography
+                                        variant="h3" sx={{
+                                            fontWeight: "light",
+                                            fontFamily: "Montserrat, Arial, sans-serif"
+                                        }}
+                                    >
+                                        +
+                                    </Typography>
+                                    <Typography variant="h6" sx={{fontFamily: "Montserrat, Arial, sans-serif",}}>
+                                        {translate('add')}
+                                    </Typography>
+                                </Button>
+                            </Box>
+                        </Box>
+
+                        <Box component="tr">
+                            <Box component="td">
+                                <Typography sx={{ fontWeight: "light", mt: "2rem", textAlign: "center" }}>
+                                </Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
             </Box>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
-  );
+        </>
+    );
 };
