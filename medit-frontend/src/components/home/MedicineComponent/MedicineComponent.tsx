@@ -25,7 +25,7 @@ export const MedicineComponent: React.FC = () => {
     setIsChecked((prev) => !prev);
     setBgColor((prev) =>
       prev === "white" ? "rgba(67, 134, 16, 0.8)" : "white"
-    ); // Cambia il colore di sfondo
+    );
   };
 
   return (
@@ -43,22 +43,22 @@ export const MedicineComponent: React.FC = () => {
         sx={{
           width: { xs: "85%", sm: "55%", md: "40%", lg: "30%", xl: "25%" },
           height: { md: "12vh", xl: "16vh", xs: "14vh" },
-          backgroundColor: bgColor, // Applica il colore di sfondo condizionalmente
+          backgroundColor: bgColor,
           borderRadius: "10px",
           display: "flex",
           p: 2,
           boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)",
-          transition: "background-color 0.5s ease", // Aggiungi la transizione
+          transition: "background-color 0.5s ease",
         }}
       >
         <Box
           sx={{
-            width: "25%",
-            height: "100%",
+            width: { xs: "35%", sm: "22%", md: "23%", lg: "20%", xl: "25%" },
+            height: "auto",
             borderRadius: "10px",
           }}
         >
-          <img src={Image} alt="" width={"100%"} />
+          <img src={Image} alt="" width={"80%"} />
         </Box>
         <Box
           sx={{
