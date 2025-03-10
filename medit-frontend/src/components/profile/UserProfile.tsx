@@ -31,7 +31,7 @@ export const UserProfile: React.FC = () => {
         },
     });
 
-    const { user } = useLogin();
+    const { user, setUser } = useLogin();
 
     const { translate } = useLanguage();
 
@@ -45,7 +45,7 @@ export const UserProfile: React.FC = () => {
         navigate("/profile/patient-list");
     };
     const logoutHandleClick = () => {
-        navigate("/login");
+        setUser(null);
     };
 
     return(

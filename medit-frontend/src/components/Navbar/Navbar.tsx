@@ -91,7 +91,7 @@ export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
             alt="Home Icon"
             sx={{
               width: "2.5rem",
-              filter: activeButton === "home" ? "none" : "grayscale(100%)",
+              filter: activeButton === "home" ? "invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%)" : "grayscale(100%)",
             }}
           />
           <ThemeProvider theme={theme}>
@@ -156,7 +156,7 @@ export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
             alt="Profile Icon"
             sx={{
               width: "2.5rem",
-              filter: activeButton === "profile" ? "none" : "grayscale(100%)",
+              filter: activeButton === "profile" ? "invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%)" : "grayscale(100%)",
             }}
           />
           <ThemeProvider theme={theme}>
