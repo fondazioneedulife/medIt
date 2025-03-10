@@ -11,7 +11,7 @@ interface LoginButtonProps {
   text: string;
   width?: string;
   maxWidth?: string;
-  to: string; // route url
+  to: string;
 }
 
 export const LoginButton: React.FC<LoginButtonProps> = ({
@@ -39,7 +39,7 @@ export const LoginButton: React.FC<LoginButtonProps> = ({
             justifyContent: "center",
             margin: "0 auto",
             fontWeight: "bold",
-            fontSize: "1rem",
+            fontSize: "1.2rem",
             boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
             cursor: "pointer",
             textTransform: "none", // Ensure text is not uppercase
