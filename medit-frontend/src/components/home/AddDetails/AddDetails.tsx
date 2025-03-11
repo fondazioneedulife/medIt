@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { LabelReminder } from "../../home/AddDetails/LabelReminder";
 import IconPlus from "../../../assets/icon/photo-plus.svg";
 import {
@@ -11,9 +12,10 @@ import {
 import SelectComponent from "./select";
 import { ButtonSave } from "./button";
 import AddInfo from "./AddInfo";
+import { addRecord } from "../../../database/indexdb"; // Importa la funzione addRecord
 
 interface AddDetailsProps {
-  onSave: () => void;
+  onSave: (medicineId: number) => void;
 }
 
 export const AddDetails: React.FC<AddDetailsProps> = ({ onSave }) => {
@@ -22,6 +24,30 @@ export const AddDetails: React.FC<AddDetailsProps> = ({ onSave }) => {
       fontFamily: "Montserrat, Arial",
     },
   });
+
+  const [medicineData, setMedicineData] = useState({
+    name: "",
+    type: "Capsule",
+    dose: "",
+    program: "Daily",
+    quantity: 1,
+    note: "",
+    created_at: new Date(),
+    updated_at: new Date(),
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setMedicineData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSave = async () => {
+    const medicineId = Number(await addRecord("medications", medicineData));
+    onSave(medicineId);
+  };
 
   return (
     <Box
@@ -62,14 +88,27 @@ export const AddDetails: React.FC<AddDetailsProps> = ({ onSave }) => {
         >
           <ListItem>
             <Box sx={{ width: "100%" }}>
-              <LabelReminder inputName="" placeholder={"Name Product"} />
+              <LabelReminder
+                inputName="name"
+                placeholder={"Name Product"}
+                onChange={handleInputChange}
+              />
               <Box sx={{ display: "flex", width: "50%" }}>
                 <LabelReminder
-                  inputName="name"
+                  inputName="dose"
                   placeholder={"Dose"}
                   showHr={false}
+                  onChange={handleInputChange}
                 />
-                <SelectComponent />
+                <SelectComponent
+                  value={medicineData.type}
+                  onChange={(e) =>
+                    setMedicineData((prevData) => ({
+                      ...prevData,
+                      type: e.target.value,
+                    }))
+                  }
+                />
               </Box>
             </Box>
           </ListItem>
@@ -118,7 +157,7 @@ export const AddDetails: React.FC<AddDetailsProps> = ({ onSave }) => {
           <img src={IconPlus} alt="" />
           Add profile image
         </Button>
-        <ButtonSave onClick={onSave} />
+        <ButtonSave onClick={handleSave} />
       </Box>
     </Box>
   );

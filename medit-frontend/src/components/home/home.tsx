@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "../Navbar/Navbar.tsx";
 import { MedicineComponent } from "./MedicineComponent/MedicineComponent.tsx";
 import { Calendar } from "./calendar/calendar.tsx";
@@ -8,10 +8,21 @@ import { AddDetails } from "./AddDetails/AddDetails.tsx";
 import { Box } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import { SetReminder } from "./SetReminder/SetReminder.tsx";
+import { getAllRecords } from "../../database/indexdb"; // Importa la funzione getAllRecords
 
 export const Home: React.FC = () => {
   const [showAddDetails, setShowAddDetails] = useState(false);
   const [showSetReminder, setShowSetReminder] = useState(false);
+  const [medications, setMedications] = useState<any[]>([]); // Stato per memorizzare i dati dei medicinali
+
+  useEffect(() => {
+    const fetchMedications = async () => {
+      const meds = await getAllRecords("medications");
+      setMedications(meds);
+    };
+
+    fetchMedications();
+  }, []);
 
   const handleAddDetailsToggle = () => {
     setShowAddDetails(!showAddDetails);
@@ -34,16 +45,9 @@ export const Home: React.FC = () => {
       </Box>
       <Calendar />
       <FilterButton />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
+      {medications.map((med) => (
+        <MedicineComponent key={med.id} medication={med} />
+      ))}
       <AnimatePresence>
         {showAddDetails && (
           <>
@@ -102,7 +106,7 @@ export const Home: React.FC = () => {
               justifyContent: "center",
             }}
           >
-            <SetReminder onSave={handleReminderSave} />
+            <SetReminder onSave={handleReminderSave} medicineId={0} />
           </motion.div>
         )}
       </AnimatePresence>
