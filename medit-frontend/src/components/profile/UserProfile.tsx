@@ -147,6 +147,7 @@ export const UserProfile: React.FC = () => {
                                         color: "white",
                                         borderRadius: "12px",
                                         padding: "2px 8px",
+                                        fontWeight: "bold"
                                     }}
                                 >
                                     {translate(user?.role == 'caregiver' ? 'caregiver' : 'patient').toLocaleLowerCase()}

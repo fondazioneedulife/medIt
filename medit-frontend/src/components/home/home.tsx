@@ -14,7 +14,8 @@ export const Home: React.FC = () => {
   const [showAddDetails, setShowAddDetails] = useState(false);
   const [showSetReminder, setShowSetReminder] = useState(false);
   const [medications, setMedications] = useState<any[]>([]); // Stato per memorizzare i dati dei medicinali
-
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null); // Status to store selected date
+  
   useEffect(() => {
     const fetchMedications = async () => {
       const meds = await getAllRecords("medications");
@@ -38,12 +39,21 @@ export const Home: React.FC = () => {
     setShowSetReminder(false);
   };
 
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      setSelectedDate(utcDate);
+    } else {
+      setSelectedDate(null);
+    }
+  };
+
   return (
     <>
       <Box sx={{ position: "relative" }}>
         <Navbar onAddDetailsClick={handleAddDetailsToggle} />
       </Box>
-      <Calendar />
+      <Calendar onDateChange={handleDateChange} />
       <FilterButton />
       {medications.map((med) => (
         <MedicineComponent key={med.id} medication={med} />
