@@ -84,7 +84,7 @@ export const Registration: React.FC = () => {
       const newUser = {
         ...user,
         role: RoleEnum.Patient,
-        qrCode: qrCodeData,
+        qrcode: qrCodeData,
       };
       await setUser(newUser);
 
