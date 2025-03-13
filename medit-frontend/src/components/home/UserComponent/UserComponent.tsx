@@ -1,5 +1,8 @@
 import { Box, createTheme, ThemeProvider, Typography } from "@mui/material";
 import { NotificationsButton } from "../NotificationsButton/NotificationsButton";
+import { useLogin } from "../../login/LoginContext";
+import { useLanguage } from "../../../contexts/LanguageContext";
+
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, Arial",
@@ -7,6 +10,10 @@ const theme = createTheme({
 });
 
 export const UserComponent: React.FC = () => {
+
+  const {user} = useLogin();
+  const { translate } = useLanguage();
+
   return (
     <Box
       sx={{
@@ -30,9 +37,10 @@ export const UserComponent: React.FC = () => {
           sx={{
             fontWeight: "bold",
             ml: 2,
+            textTransform: "capitalize"
           }}
         >
-          Hi, Carla
+          {translate('hi')}, {user?.firstName}
         </Typography>
       </ThemeProvider>
       <NotificationsButton />
