@@ -11,6 +11,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RoleEnum } from "../../generated";
 import { useRegistration } from "./RegistrationContext";
+import QRCode from "qrcode";
+import { v4 as uuidv4 } from "uuid";
 
 const theme = createTheme({
   typography: {
@@ -75,10 +77,17 @@ export const Registration: React.FC = () => {
         console.error("User with this email already exists");
         return;
       }
-      setUser((prevUser) => ({
-        ...prevUser,
+
+      const uuid = uuidv4();
+      const qrCodeData = await QRCode.toDataURL(uuid);
+
+      const newUser = {
+        ...user,
         role: RoleEnum.Patient,
-      }));
+        qrCode: qrCodeData,
+      };
+      await setUser(newUser);
+
       navigate("/register/choose-role");
     } catch (error) {
       console.error("Failed to register user:", error);
