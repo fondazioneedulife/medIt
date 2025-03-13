@@ -13,6 +13,8 @@ import {
 import { RoleEnum } from "../../generated/models/RoleEnum";
 import bcrypt from "bcryptjs";
 
+import { ReturnIcon } from "../login/ReturnIcon";
+
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, Arial",
@@ -89,13 +91,14 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
     <div
       style={{
         background: "linear-gradient(45deg, #00ca9bff, #1412c6ff)",
-        backgroundSize: "200% 120%", // Estende il gradiente
+        backgroundSize: "200% 120%",
         height: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
+      <ReturnIcon path="/register" color="white" />
       <ListItem
         style={{
           flexDirection: "column",
@@ -103,7 +106,6 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
           maxWidth: "500px",
         }}
       >
-        <Return />
         <div style={{ width: "100%", textAlign: "center" }}>
           <ThemeProvider theme={theme}>
             <Typography

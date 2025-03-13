@@ -32,7 +32,7 @@ export const RoleDropdown: React.FC<RoleDropdownProps> = ({
 
   return (
     <>
-      <Box sx={{ width: "100%"}}>
+      <Box sx={{ width: "100%" }}>
         <Button
           aria-controls="role-menu"
           aria-haspopup="true"
@@ -62,7 +62,9 @@ export const RoleDropdown: React.FC<RoleDropdownProps> = ({
             },
           }}
         >
-          {selectedRole === 'Patient' ? translate('patient') : translate('caregiver')}
+          {selectedRole === "Patient"
+            ? translate("patient")
+            : translate("caregiver")}
         </Button>
         <Menu
           id="role-menu"
@@ -81,16 +83,16 @@ export const RoleDropdown: React.FC<RoleDropdownProps> = ({
           PaperProps={{
             style: {
               maxWidth: "20rem",
-              width: "100%"
+              width: "100%",
             },
           }}
         >
           <MenuItem onClick={() => handleMenuItemClick("Patient")}>
-            {translate('patient')}
+            {translate("patient")}
           </MenuItem>
 
-          <MenuItem onClick={() => handleMenuItemClick("Caregiver")} >
-            {translate('caregiver')}
+          <MenuItem onClick={() => handleMenuItemClick("Caregiver")}>
+            {translate("caregiver")}
           </MenuItem>
         </Menu>
       </Box>
