@@ -1,7 +1,5 @@
-import bcrypt from "bcryptjs";
 import { RegisterRequest } from "../../api-types/RegisterRequest";
 import { User } from "../generated/models/User";
-import { Auth } from "../../api-types/Auth";
 
 const DB_NAME = "Medit";
 const DB_VERSION = 1;

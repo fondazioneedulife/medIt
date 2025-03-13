@@ -61,7 +61,7 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
       }
       const hashedPassword = await bcrypt.hash(user.password, salt);
 
-      const { Confirmpassword, ...userToSave } = user;
+      const { Confirmpassword, id, ...userToSave } = user;
       console.log("User to save:", userToSave);
       const userId = await registerUser({
         ...userToSave,
