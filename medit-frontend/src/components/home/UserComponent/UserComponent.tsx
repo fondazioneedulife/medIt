@@ -1,5 +1,5 @@
 import { Box, createTheme, ThemeProvider, Typography } from "@mui/material";
-import { NotificationsButton } from "../NotificationsButton/NotificationsButton";
+// import { NotificationsButton } from "../NotificationsButton/NotificationsButton";
 import { useLogin } from "../../login/LoginContext";
 import { useLanguage } from "../../../contexts/LanguageContext";
 
@@ -43,7 +43,23 @@ export const UserComponent: React.FC = () => {
           {translate('hi')}, {user?.firstName}
         </Typography>
       </ThemeProvider>
-      <NotificationsButton />
+
+      
+      <Box
+        sx={{
+            backgroundColor: user?.role == 'caregiver' ? "#FF0000" : "#00259D",
+            color: "white",
+            borderRadius: "0.75rem",
+            padding: "0.4rem 0.6rem",
+            fontWeight: "bold",
+            fontSize: "1.25rem",
+            mr: 2
+        }}
+      >
+        {translate(user?.role == 'caregiver' ? 'caregiver' : 'patient').toLocaleLowerCase()}
+      </Box>
+      
+      {/* <NotificationsButton /> */}
     </Box>
   );
 };

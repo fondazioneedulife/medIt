@@ -3,10 +3,11 @@ import {
   Datepicker,
   DatepickerEvent,
 } from "@meinefinsternis/react-horizontal-date-picker";
-import { enUS } from "date-fns/locale";
+import { enUS, it } from "date-fns/locale";
 import classes from "./calendar.module.css";
 import { Box } from "@mui/material";
 import { UserComponent } from "../UserComponent/UserComponent";
+import { useLanguage } from "../../../contexts/LanguageContext";
 
 export const Calendar: React.FC = () => {
   const [date, setDate] = React.useState<{
@@ -24,6 +25,10 @@ export const Calendar: React.FC = () => {
     setDate((prev) => ({ ...prev, endValue, startValue, rangeDates }));
   };
 
+  const { language } = useLanguage();
+
+  const locale = language === 'en' ? enUS : it;
+
   return (
     <Box
       sx={{
@@ -36,7 +41,7 @@ export const Calendar: React.FC = () => {
     >
       <Datepicker
         onChange={handleChange}
-        locale={enUS}
+        locale={locale}
         startValue={date.startValue}
         endValue={date.endValue}
         classNames={{
