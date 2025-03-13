@@ -39,7 +39,7 @@
     "startSlogan": "Your digital healthcare assistant",
     "support": "Support",
     "todaysMedications" : "Todays Medications",
-    "userInfo": "user information",
+    "userInfo": "User information",
     "whoAreYouQuestion": "Who are you?",
     "writeAMessage": "Write a message ..."
   },
@@ -83,7 +83,7 @@
     "startSlogan": "Il tuo assistente digitale per la salute",
     "support": "Supporto",
     "todaysMedications" : "Farmaci di oggi",
-    "userInfo": "informazioni utente",
+    "userInfo": "Informazioni utente",
     "whoAreYouQuestion": "Chi sei?",
     "writeAMessage": "Scrivi un messaggio ..."
   }
