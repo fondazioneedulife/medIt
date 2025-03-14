@@ -10,7 +10,7 @@ import SelectComponent from "../SetReminder/selectWeek";
 import { ButtonSave } from "../AddDetails/button";
 import SetHour from "./SetHour";
 import { AnimatePresence, motion } from "framer-motion";
-import { addRecord } from "../../../database/indexdb"; // Importa la funzione addRecord
+import { addRecord } from "../../../database/indexedDB"; // Importa la funzione addRecord
 import SelectMedication from "./selectMedication";
 import { ReturnIcon } from "./ReturnIcon";
 import { AddDetails } from "../AddDetails/AddDetails";
