@@ -1,5 +1,4 @@
 import { Box, createTheme, ThemeProvider, Typography } from "@mui/material";
-// import { NotificationsButton } from "../NotificationsButton/NotificationsButton";
 import { useLogin } from "../../login/LoginContext";
 import { useLanguage } from "../../../contexts/LanguageContext";
 
@@ -10,8 +9,7 @@ const theme = createTheme({
 });
 
 export const UserComponent: React.FC = () => {
-
-  const {user} = useLogin();
+  const { user } = useLogin();
   const { translate } = useLanguage();
 
   return (
@@ -37,29 +35,28 @@ export const UserComponent: React.FC = () => {
           sx={{
             fontWeight: "bold",
             ml: 2,
-            textTransform: "capitalize"
+            textTransform: "capitalize",
           }}
         >
-          {translate('hi')}, {user?.firstName}
+          {translate("hi")}, {user?.firstName}
         </Typography>
       </ThemeProvider>
 
-      
       <Box
         sx={{
-            backgroundColor: user?.role == 'caregiver' ? "#FF0000" : "#00259D",
-            color: "white",
-            borderRadius: "0.75rem",
-            padding: "0.4rem 0.6rem",
-            fontWeight: "bold",
-            fontSize: "1.25rem",
-            mr: 2
+          backgroundColor: user?.role == "caregiver" ? "#FF0000" : "#00259D",
+          color: "white",
+          borderRadius: "0.75rem",
+          padding: "0.4rem 0.6rem",
+          fontWeight: "bold",
+          fontSize: "1.25rem",
+          mr: 2,
         }}
       >
-        {translate(user?.role == 'caregiver' ? 'caregiver' : 'patient').toLocaleLowerCase()}
+        {translate(
+          user?.role == "caregiver" ? "caregiver" : "patient"
+        ).toLocaleLowerCase()}
       </Box>
-      
-      {/* <NotificationsButton /> */}
     </Box>
   );
 };

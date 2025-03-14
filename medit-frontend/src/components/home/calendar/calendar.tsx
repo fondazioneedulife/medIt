@@ -24,12 +24,11 @@ export const Calendar: React.FC<CalendarProps> = ({ onDateChange }) => {
     const [selectedDate] = d;
     setDate({ selectedDate });
     onDateChange(selectedDate);
-    // console.log(selectedDate);
   };
 
   const { language } = useLanguage();
 
-  const locale = language === 'en' ? enUS : it;
+  const locale = language === "en" ? enUS : it;
 
   return (
     <Box

@@ -36,7 +36,7 @@ export const GetStart: React.FC = () => {
         justifyContent: "center",
         padding: "1rem",
         boxSizing: "border-box",
-        position: "relative", // Aggiunto per posizionare l'icona
+        position: "relative",
         [theme.breakpoints.down("md")]: {
           "@media (orientation: landscape)": {
             height: "175vh",

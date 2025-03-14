@@ -16,10 +16,10 @@ interface ChooseButtonProps {
 export const ChooseButton: React.FC<ChooseButtonProps> = ({ onRoleSelect }) => {
   const { translate } = useLanguage();
 
-  console.log("ChooseButton rendered with onRoleSelect:", onRoleSelect); // Debug
+  console.log("ChooseButton rendered with onRoleSelect:", onRoleSelect);
 
   const handleSelect = (role: string) => {
-    console.log(`Role selected: ${role}`); // Debug
+    console.log(`Role selected: ${role}`);
     onRoleSelect(role);
   };
 
@@ -41,7 +41,7 @@ export const ChooseButton: React.FC<ChooseButtonProps> = ({ onRoleSelect }) => {
             backgroundColor: "white",
             color: "black",
             display: "flex",
-            flexDirection: "column", // Imposta la direzione del flex su colonna
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             fontSize: "1.3rem",
@@ -71,7 +71,7 @@ export const ChooseButton: React.FC<ChooseButtonProps> = ({ onRoleSelect }) => {
             backgroundColor: "white",
             color: "black",
             display: "flex",
-            flexDirection: "column", // Imposta la direzione del flex su colonna
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             fontSize: "1.3rem",

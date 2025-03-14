@@ -52,7 +52,7 @@ export const ScanQR: React.FC = () => {
           spacing={3}
           sx={{
             width: "100%",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           <Box
@@ -95,13 +95,12 @@ export const ScanQR: React.FC = () => {
               position: "relative",
             }}
           >
-            {/* Scanner QR Code */}
             <Scanner
               onScan={(result) => {
                 if (result) {
                   const scanText =
                     typeof result === "string" ? result : result.text;
-                  setScanResult(scanText); // Imposta il risultato della scansione
+                  setScanResult(scanText);
                   console.log("ON SCAN", result[0]);
                 }
               }}

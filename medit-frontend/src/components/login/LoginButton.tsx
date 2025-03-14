@@ -42,7 +42,7 @@ export const LoginButton: React.FC<LoginButtonProps> = ({
             fontSize: "1.2rem",
             boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
             cursor: "pointer",
-            textTransform: "none", // Ensure text is not uppercase
+            textTransform: "none",
           }}
         >
           {text}

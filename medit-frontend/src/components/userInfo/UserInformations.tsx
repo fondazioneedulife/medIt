@@ -38,7 +38,6 @@ export const UserInformations: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        // justifyContent: "center",
         paddingTop: "6rem",
         width: "100%",
         overflowX: "hidden",
@@ -68,10 +67,10 @@ export const UserInformations: React.FC = () => {
               color: "#000000",
               textTransform: "capitalize",
               textAlign: "center",
-              width: "90%"
+              width: "90%",
             }}
           >
-            {translate('userInfo')}
+            {translate("userInfo")}
           </Typography>
         </ThemeProvider>
 
@@ -99,7 +98,7 @@ export const UserInformations: React.FC = () => {
                 <UserInfoLabel
                   inputName="name"
                   img={iconEdit}
-                  placeholder={translate('firstName')}
+                  placeholder={translate("firstName")}
                   style={{
                     color: "black",
                     fontWeight: "600",
@@ -110,7 +109,7 @@ export const UserInformations: React.FC = () => {
                 <UserInfoLabel
                   inputName="surname"
                   img={iconEdit}
-                  placeholder={translate('lastName')}
+                  placeholder={translate("lastName")}
                   style={{
                     color: "black",
                     fontWeight: "600",
@@ -138,9 +137,9 @@ export const UserInformations: React.FC = () => {
 
       <Box
         sx={{
-          display:"flex",
-          justifyContent:"center",
-          alignItems:"center",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
           width: "80%",
           [theme.breakpoints.down("md")]: {
             "@media (orientation: landscape)": {
@@ -149,19 +148,18 @@ export const UserInformations: React.FC = () => {
           },
         }}
       >
-        {user?.role == 'caregiver'
-          ? 
-            <RoleDropdown
-              roles={roles}
-              selectedRole={selectedRole}
-              onRoleSelect={setSelectedRole}
-              sx={{
-                "& .MuiSelect-select": {
-                  textAlign: "left",
-                },
-              }}
-            />
-          :
+        {user?.role == "caregiver" ? (
+          <RoleDropdown
+            roles={roles}
+            selectedRole={selectedRole}
+            onRoleSelect={setSelectedRole}
+            sx={{
+              "& .MuiSelect-select": {
+                textAlign: "left",
+              },
+            }}
+          />
+        ) : (
           <Box
             sx={{
               borderRadius: 5,
@@ -184,10 +182,9 @@ export const UserInformations: React.FC = () => {
               alt="patient icon"
               style={{ width: "3rem", marginRight: "0.5rem" }}
             />
-            {translate('patient')}
+            {translate("patient")}
           </Box>
-        }
-
+        )}
       </Box>
     </Box>
   );

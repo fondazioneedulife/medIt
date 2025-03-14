@@ -8,14 +8,14 @@ import { AddDetails } from "./AddDetails/AddDetails.tsx";
 import { Box } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import { SetReminder } from "./SetReminder/SetReminder.tsx";
-import { getAllRecords } from "../../database/indexdb"; // Importa la funzione getAllRecords
+import { getAllRecords } from "../../database/indexdb";
 
 export const Home: React.FC = () => {
   const [showAddDetails, setShowAddDetails] = useState(false);
   const [showSetReminder, setShowSetReminder] = useState(false);
-  const [medications, setMedications] = useState<any[]>([]); // Stato per memorizzare i dati dei medicinali
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null); // Status to store selected date
-  
+  const [medications, setMedications] = useState<any[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
   useEffect(() => {
     const fetchMedications = async () => {
       const meds = await getAllRecords("medications");
@@ -27,7 +27,7 @@ export const Home: React.FC = () => {
 
   const handleAddDetailsToggle = () => {
     setShowAddDetails(!showAddDetails);
-    setShowSetReminder(false); // Ensure SetReminder is hidden when toggling AddDetails
+    setShowSetReminder(false);
   };
 
   const handleSave = () => {
@@ -41,7 +41,9 @@ export const Home: React.FC = () => {
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
-      const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const utcDate = new Date(
+        Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+      );
       setSelectedDate(utcDate);
     } else {
       setSelectedDate(null);

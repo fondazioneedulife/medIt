@@ -10,7 +10,6 @@ import Cookies from "js-cookie";
 import { useLogin } from "./LoginContext";
 import { RoleEnum } from "../../generated";
 
-// personalized theme with Montserrat font
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, Arial",
@@ -58,9 +57,9 @@ export const ChoseLoginOrSignup: React.FC = () => {
     <Box
       sx={{
         height: "100vh",
-        width: "100vw", // Ensure it takes full width of the viewport
+        width: "100vw",
         background: "linear-gradient(45deg, #00ca9bff, #1412c6ff)",
-        backgroundSize: "200% 120%", // extend the gradient
+        backgroundSize: "200% 120%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -69,7 +68,7 @@ export const ChoseLoginOrSignup: React.FC = () => {
         boxSizing: "border-box",
         [theme.breakpoints.down("md")]: {
           "@media (orientation: landscape)": {
-            height: "175vh", // Adjust the height for landscape orientation on phones
+            height: "175vh",
           },
         },
       }}
