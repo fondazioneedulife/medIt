@@ -5,6 +5,7 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
+import { useLanguage } from "../../../contexts/LanguageContext";
 import IconFilter from "../../../assets/icon/Icon_filter.svg";
 
 const theme = createTheme({
@@ -14,6 +15,9 @@ const theme = createTheme({
 });
 
 export const FilterButton: React.FC = () => {
+
+  const { translate } = useLanguage();
+  
   return (
     <Box
       sx={{
@@ -33,9 +37,10 @@ export const FilterButton: React.FC = () => {
             fontSize: "1.4rem",
           }}
         >
-          Todays Medications
+          {translate('todaysMedications')}
         </Typography>
       </ThemeProvider>
+      
       <Box
         sx={{
           display: "flex",
@@ -62,7 +67,7 @@ export const FilterButton: React.FC = () => {
                 fontWeight: "medium",
               }}
             >
-              Filter
+              {translate('filter')}
             </Typography>
           </ThemeProvider>
         </Button>

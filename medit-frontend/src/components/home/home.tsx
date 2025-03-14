@@ -13,6 +13,7 @@ export const Home: React.FC = () => {
   const [showSetReminder, setShowSetReminder] = useState(false);
   const [medications, setMedications] = useState<any[]>([]); // Stato per memorizzare i dati dei medicinali
   const [showBackground, setShowBackground] = useState(true); // Stato per gestire il background
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null); // Status to store selected date
 
   useEffect(() => {
     const fetchMedications = async () => {
@@ -38,12 +39,21 @@ export const Home: React.FC = () => {
     setShowBackground(false); // Nascondi il background quando si salva AddDetails
   };
 
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      setSelectedDate(utcDate);
+    } else {
+      setSelectedDate(null);
+    }
+  };
+
   return (
     <>
       <Box sx={{ position: "relative" }}>
         <Navbar onAddDetailsClick={handleAddDetailsToggle} />
       </Box>
-      <Calendar />
+      <Calendar onDateChange={handleDateChange} />
       <FilterButton />
       {medications.map((med) => (
         <MedicineComponent key={med.id} medication={med} />
