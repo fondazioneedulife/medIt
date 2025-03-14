@@ -72,7 +72,11 @@ export const Registration: React.FC = () => {
       }
       const existingUser = await getUserByEmail(user.email);
       if (existingUser) {
-        console.error("User with this email already exists");
+        // console.error("User with this email already exists");
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          existingUser: translate("userWithEmailExists"),
+        }));
         return;
       }
       setUser((prevUser) => ({
@@ -190,6 +194,11 @@ export const Registration: React.FC = () => {
                   {errors.Confirmpassword && (
                     <Typography color="error">
                       {errors.Confirmpassword}
+                    </Typography>
+                  )}
+                  {errors.existingUser && (
+                    <Typography color="error" sx={{ mt: "1rem", textAlign: "center" }}>
+                      {errors.existingUser}
                     </Typography>
                   )}
                 </div>

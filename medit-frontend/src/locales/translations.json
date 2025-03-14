@@ -44,9 +44,11 @@
     "signup": "Sign Up",
     "startSlogan": "Your digital healthcare assistant",
     "support": "Support",
+    "timesAday": "times a day",
     "todaysMedications" : "Todays Medications",
     "userInfo": "User information",
     "userNotFound": "User not found",
+    "userWithEmailExists" : "User with this email already exists",
     "whoAreYouQuestion": "Who are you?",
     "writeAMessage": "Write a message ..."
   },
@@ -95,9 +97,11 @@
     "signup": "Registrati",
     "startSlogan": "Il tuo assistente digitale per la salute",
     "support": "Supporto",
+    "timesAday": "volta/e al giorno",
     "todaysMedications" : "Farmaci di oggi",
     "userInfo": "Informazioni utente",
     "userNotFound": "Utente non trovato",
+    "userWithEmailExists": "Utente con questa email già esistente",
     "whoAreYouQuestion": "Chi sei?",
     "writeAMessage": "Scrivi un messaggio ..."
   }
