@@ -1,35 +1,38 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import IconPlus from "../../../assets/icon/PlusAddMedicine.svg";
 
 interface ButtonSaveProps {
   buttonText?: string;
   onClick?: () => void;
 }
 
-export const ButtonSave: React.FC<ButtonSaveProps> = ({
-  buttonText = "Save",
+export const ButtonAddMedicine: React.FC<ButtonSaveProps> = ({
+  buttonText = "Next",
   onClick,
 }) => {
   return (
     <Button
       sx={{
         borderRadius: 3,
-        width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
-        height: "5rem",
+        width: { xs: "50%", md: "22%", lg: "20%", xl: "15%" },
+        height: "2rem",
         backgroundColor: "#0B6BB2",
         color: "white",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         margin: "0 auto",
-        fontWeight: "bold",
-        textTransform: "capitalize",
-        marginTop: "2rem",
-        fontSize: "1.3rem",
+        mt: 1,
+        mb: 3,
+        fontWeight: "semibold",
+        textTransform: "initial",
+        fontSize: "1.1rem",
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         cursor: "pointer",
       }}
       onClick={onClick}
     >
+      <Box component="img" src={IconPlus} sx={{ mr: 1 }}></Box>
       {buttonText}
     </Button>
   );

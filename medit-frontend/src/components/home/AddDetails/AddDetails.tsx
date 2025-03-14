@@ -1,9 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { LabelReminder } from "../../home/AddDetails/LabelReminder";
-import IconPlus from "../../../assets/icon/photo-plus.svg";
 import {
   Box,
-  Button,
   createTheme,
   ListItem,
   ThemeProvider,
@@ -13,12 +11,16 @@ import SelectComponent from "./select";
 import { ButtonSave } from "./button";
 import AddInfo from "./AddInfo";
 import { addRecord } from "../../../database/indexdb"; // Importa la funzione addRecord
+import { useNavigate } from "react-router-dom";
+import InputFileUpload from "./AddImageProfile";
+import { ReturnIcon } from "../SetReminder/ReturnIcon";
 
 interface AddDetailsProps {
   onSave: (medicineId: number) => void;
+  onClose: () => void; // Aggiungi questa prop
 }
 
-export const AddDetails: React.FC<AddDetailsProps> = ({ onSave }) => {
+export const AddDetails: React.FC<AddDetailsProps> = ({ onSave, onClose }) => {
   const theme = createTheme({
     typography: {
       fontFamily: "Montserrat, Arial",
@@ -36,6 +38,8 @@ export const AddDetails: React.FC<AddDetailsProps> = ({ onSave }) => {
     updated_at: new Date(),
   });
 
+  const navigate = useNavigate();
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMedicineData((prevData) => ({
@@ -47,6 +51,7 @@ export const AddDetails: React.FC<AddDetailsProps> = ({ onSave }) => {
   const handleSave = async () => {
     const medicineId = Number(await addRecord("medications", medicineData));
     onSave(medicineId);
+    navigate("/home"); // Reindirizza alla home
   };
 
   return (
@@ -76,7 +81,7 @@ export const AddDetails: React.FC<AddDetailsProps> = ({ onSave }) => {
             variant="h2"
             sx={{ fontWeight: "bold", fontSize: "2rem", mb: 4 }}
           >
-            Add Details
+            Set Medicine
           </Typography>
         </ThemeProvider>
         <Box
@@ -114,6 +119,8 @@ export const AddDetails: React.FC<AddDetailsProps> = ({ onSave }) => {
           </ListItem>
         </Box>
 
+        <ReturnIcon onClick={onClose} />
+
         <Box
           sx={{
             marginTop: "2rem",
@@ -139,24 +146,7 @@ export const AddDetails: React.FC<AddDetailsProps> = ({ onSave }) => {
             sx={{ color: "rgba(98, 98, 98, 0.5)" }}
           ></Typography>
         </Box>
-        <Button
-          variant="outlined"
-          sx={{
-            mr: 1,
-            mt: 4,
-            bgcolor: "white",
-            boxShadow: "none",
-            borderRadius: 3,
-            outline: "black",
-            textTransform: "capitalize",
-            p: "1rem",
-            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
-            gap: 1,
-          }}
-        >
-          <img src={IconPlus} alt="" />
-          Add profile image
-        </Button>
+        <InputFileUpload />
         <ButtonSave onClick={handleSave} />
       </Box>
     </Box>
