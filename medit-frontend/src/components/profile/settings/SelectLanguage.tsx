@@ -52,7 +52,7 @@ export const SelectLanguage: React.FC = () => {
                             marginRight: "1rem"
                         }}
                     />
-                    {translations[language]['selectLanguage'] || 'select language'}
+                    {translations[language]['selectLanguage'] || 'Select language'}
                 </Stack>
             </Box>
 

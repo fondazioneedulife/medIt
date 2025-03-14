@@ -1,5 +1,4 @@
-import { Box, Typography, Button, Stack } from '@mui/material';
-import { useNavigate } from 'react-router';
+import { Box, Typography } from '@mui/material';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { ReturnIcon } from '../../login/ReturnIcon';
 import { ProfileEntry } from '../ProfileEntry';
@@ -9,8 +8,6 @@ import changePasswordIcon from '../../../assets/profile/settings/change_password
 export const SettingsPage: React.FC = () => {
 
     const { translate } = useLanguage();
-
-    const navigate = useNavigate();
 
     return(
         <>
