@@ -1,8 +1,6 @@
 import { Navbar } from "../Navbar/Navbar";
-import { Box, Typography, Button, Stack } from "@mui/material";
-import { ReturnIcon } from "../login/ReturnIcon";
+import { Box, Typography, Button, Stack, Avatar } from "@mui/material";
 import QrCodeIcon from "@mui/icons-material/QrCode";
-import ExampleUserProfile from "../../assets/profile/example_patient_profile_image.svg";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
@@ -31,9 +29,7 @@ export const UserProfile: React.FC = () => {
   });
 
   const { user, setUser } = useLogin();
-
   const { translate } = useLanguage();
-
   const navigate = useNavigate();
 
   const qrCodeHandleClick = () => {
@@ -43,9 +39,16 @@ export const UserProfile: React.FC = () => {
   const patientListHandleClick = () => {
     navigate("/profile/patient-list");
   };
+
   const logoutHandleClick = () => {
     setUser(null);
   };
+
+  const profileImage = user?.profileImage || null;
+
+  const initials = `${user?.firstName?.charAt(0).toUpperCase()}${user?.lastName
+    ?.charAt(0)
+    .toUpperCase()}`;
 
   return (
     <>
@@ -66,7 +69,6 @@ export const UserProfile: React.FC = () => {
           },
         }}
       >
-        <ReturnIcon path="/home" color="black" />
         <ThemeProvider theme={theme}>
           <Box
             sx={{
@@ -93,7 +95,6 @@ export const UserProfile: React.FC = () => {
               <Typography variant="h4" sx={{ fontWeight: "bold" }}>
                 {translate("profile")}
               </Typography>
-              {/* if user role is patient, qr code is visible */}
               {user?.role == "patient" ? (
                 <Button
                   sx={{
@@ -125,11 +126,18 @@ export const UserProfile: React.FC = () => {
                 borderRadius: "1rem",
               }}
             >
-              <img
-                src={ExampleUserProfile}
-                alt="user profile img"
-                style={{ width: "30%", padding: "0.5rem" }}
-              />
+              <Avatar
+                src={profileImage || undefined}
+                sx={{
+                  width: 100,
+                  height: 100,
+                  bgcolor: "#00259D",
+                  fontSize: "2.5rem",
+                  color: "white",
+                }}
+              >
+                {!profileImage && initials}
+              </Avatar>
               <Box ml={2}>
                 <Typography variant="h6" sx={{ textTransform: "capitalize" }}>
                   {user?.firstName}
@@ -150,7 +158,6 @@ export const UserProfile: React.FC = () => {
               </Box>
             </Box>
 
-            {/* patient list link is visible if user role is caregiver */}
             {user?.role == "caregiver" ? (
               <Box
                 sx={{
@@ -222,7 +229,6 @@ export const UserProfile: React.FC = () => {
               />
             </Box>
 
-            {/* logout */}
             <Box
               sx={{
                 padding: "1rem",
