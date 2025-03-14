@@ -23,6 +23,9 @@ export const openDB = (): Promise<IDBDatabase> => {
         usersStore.createIndex("first_name", "first_name", { unique: false });
         usersStore.createIndex("last_name", "last_name", { unique: false });
         usersStore.createIndex("role", "role", { unique: false });
+        usersStore.createIndex("profileImage", "profileImage", {
+          unique: false,
+        });
         usersStore.createIndex("created_at", "created_at", { unique: false });
         usersStore.createIndex("updated_at", "updated_at", { unique: false });
         usersStore.createIndex("timezone", "timezone", { unique: false });
@@ -181,50 +184,45 @@ export const deleteRecord = async (
   });
 };
 
-// export const registerUser = async (
-//   user: RegisterRequest
-// ): Promise<IDBValidKey> => {
-//   const db = await openDB();
-//   return new Promise(async (resolve, reject) => {
-//     try {
-//       const transaction = db.transaction([USER_STORE, "auth"], "readwrite");
-//       const userStore = transaction.objectStore(USER_STORE);
-//       const authStore = transaction.objectStore("auth");
-
-//       // Hash the password before saving
-//       const hashedPassword = await bcrypt.hash(user.password, 10);
-
-//       const { password, ...userToSave } = user;
-//       console.log("User to save:", userToSave);
-//       const userId = await addRecord(USER_STORE, userToSave);
-
-//       const authRequest = authStore.add({
-//         user_id: userId,
-//         password: hashedPassword,
-//         failed_attempts: 0,
-//         last_login: new Date(),
-//         synced_at: new Date(),
-//       } as Auth);
-
-//       authRequest.onsuccess = () => resolve(userId);
-//       authRequest.onerror = () => reject(authRequest.error);
-
-//       // Ensure the transaction is not closed prematurely
-//       transaction.oncomplete = () =>
-//         console.log("Transaction completed successfully.");
-//       transaction.onerror = () => reject(transaction.error);
-//       transaction.onabort = () => reject(transaction.error);
-//     } catch (error) {
-//       reject(error);
-//     }
-//   });
-// };
-
 export const registerUser = async (
   registerRequest: RegisterRequest
 ): Promise<IDBValidKey> => {
   const { password, ...userToSave } = registerRequest;
   return await addRecord("users", userToSave);
+};
+
+export const updateUserInDatabase = async (
+  user: User,
+  profileImageFile: File | null
+): Promise<User> => {
+  const db = await openDB();
+
+  if (profileImageFile) {
+    const reader = new FileReader();
+    reader.readAsDataURL(profileImageFile);
+    return new Promise((resolve, reject) => {
+      reader.onloadend = () => {
+        user.profileImage = reader.result as string;
+
+        const transaction = db.transaction(USER_STORE, "readwrite");
+        const store = transaction.objectStore(USER_STORE);
+        const updateUserRequest = store.put(user);
+
+        updateUserRequest.onsuccess = () => resolve(user);
+        updateUserRequest.onerror = () => reject(updateUserRequest.error);
+      };
+      reader.onerror = () => reject(reader.error);
+    });
+  } else {
+    const transaction = db.transaction(USER_STORE, "readwrite");
+    const store = transaction.objectStore(USER_STORE);
+    const updateUserRequest = store.put(user);
+
+    return new Promise((resolve, reject) => {
+      updateUserRequest.onsuccess = () => resolve(user);
+      updateUserRequest.onerror = () => reject(updateUserRequest.error);
+    });
+  }
 };
 
 export async function getUserByEmail(email: string): Promise<User | undefined> {
