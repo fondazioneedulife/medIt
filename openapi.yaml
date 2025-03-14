@@ -26,28 +26,28 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SyncDataRequest'
+              $ref: "#/components/schemas/SyncDataRequest"
       responses:
-        '200':
+        "200":
           description: Data successfully synced
-        '400':
+        "400":
           description: Invalid data
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
-        '401':
+                $ref: "#/components/schemas/Problem"
+        "401":
           description: Unauthorized
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
-        '500':
+                $ref: "#/components/schemas/Problem"
+        "500":
           description: Internal Server Error
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
 
   /sync/download:
     get:
@@ -56,24 +56,24 @@ paths:
       summary: Sync data from backend to client
       operationId: syncDataDownload
       responses:
-        '200':
+        "200":
           description: Data successfully synced
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SyncDataResponse'
-        '401':
+                $ref: "#/components/schemas/SyncDataResponse"
+        "401":
           description: Unauthorized
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
-        '500':
+                $ref: "#/components/schemas/Problem"
+        "500":
           description: Internal Server Error
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
 
   /qrcode/check:
     post:
@@ -86,32 +86,32 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/QRCodeRequest'
+              $ref: "#/components/schemas/QRCodeRequest"
       responses:
-        '200':
+        "200":
           description: QR code is valid
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QRCodeResponse'
-        '400':
+                $ref: "#/components/schemas/QRCodeResponse"
+        "400":
           description: Invalid QR code
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
-        '401':
+                $ref: "#/components/schemas/Problem"
+        "401":
           description: Unauthorized
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
-        '500':
+                $ref: "#/components/schemas/Problem"
+        "500":
           description: Internal Server Error
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
 
 components:
   securitySchemes:
@@ -138,7 +138,7 @@ components:
           type: string
           format: password
         role:
-          $ref: '#/components/schemas/RoleEnum'
+          $ref: "#/components/schemas/RoleEnum"
         timezone:
           type: string
           example: "Europe/Rome"
@@ -172,19 +172,23 @@ components:
         users:
           type: array
           items:
-            $ref: '#/components/schemas/User'
+            $ref: "#/components/schemas/User"
+        auths:
+          type: array
+          items:
+            $ref: "#/components/schemas/Auth"
         medications:
           type: array
           items:
-            $ref: '#/components/schemas/Medication'
+            $ref: "#/components/schemas/Medication"
         reminders:
           type: array
           items:
-            $ref: '#/components/schemas/Reminder'
+            $ref: "#/components/schemas/Reminder"
         taken_medications:
           type: array
           items:
-            $ref: '#/components/schemas/TakenMedication'
+            $ref: "#/components/schemas/TakenMedication"
 
     SyncDataResponse:
       x-class-name: SyncDataResponse
@@ -193,19 +197,23 @@ components:
         users:
           type: array
           items:
-            $ref: '#/components/schemas/User'
+            $ref: "#/components/schemas/User"
+        auths:
+          type: array
+          items:
+            $ref: "#/components/schemas/Auth"
         medications:
           type: array
           items:
-            $ref: '#/components/schemas/Medication'
+            $ref: "#/components/schemas/Medication"
         reminders:
           type: array
           items:
-            $ref: '#/components/schemas/Reminder'
+            $ref: "#/components/schemas/Reminder"
         taken_medications:
           type: array
           items:
-            $ref: '#/components/schemas/TakenMedication'
+            $ref: "#/components/schemas/TakenMedication"
 
     QRCodeRequest:
       x-class-name: QRCodeRequest
@@ -224,6 +232,7 @@ components:
           example: true
         userId:
           type: integer
+          format: int64
           example: 1
 
     UserResponse:
@@ -231,7 +240,7 @@ components:
       type: object
       properties:
         user:
-          $ref: '#/components/schemas/User'
+          $ref: "#/components/schemas/User"
 
     User:
       x-class-name: User
@@ -239,6 +248,7 @@ components:
       properties:
         id:
           type: integer
+          format: int64
         firstName:
           type: string
         lastName:
@@ -246,7 +256,10 @@ components:
         email:
           type: string
         role:
-          $ref: '#/components/schemas/RoleEnum'
+          $ref: "#/components/schemas/RoleEnum"
+        profileImage:
+          type: string
+          format: byte
         qrcode:
           type: string
           format: byte
@@ -254,7 +267,34 @@ components:
           type: string
         language:
           type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
         synced_at:
+          type: string
+          format: date-time
+
+    Auth:
+      x-class-name: Auth
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        user:
+          $ref: "#/components/schemas/User"
+        password:
+          type: string
+        failedAttempts:
+          type: integer
+          format: int32
+        lastLogin:
+          type: string
+          format: date-time
+        syncedAt:
           type: string
           format: date-time
 
@@ -264,20 +304,30 @@ components:
       properties:
         id:
           type: integer
+          format: int64
         name:
           type: string
         type:
-          $ref: '#/components/schemas/MedicationTypeEnum'
+          $ref: "#/components/schemas/MedicationTypeEnum"
         dose:
           type: integer
+          format: int32
         program:
           type: string
         quantity:
           type: integer
+          format: int32
         note:
           type: string
         userId:
           type: integer
+          format: int64
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
         synced_at:
           type: string
           format: date-time
@@ -288,13 +338,16 @@ components:
       properties:
         id:
           type: integer
+          format: int64
         medication_id:
           type: integer
+          format: int64
         reminder_date_time:
           type: string
           format: date-time
         id_group:
           type: integer
+          format: int64
         synced_at:
           type: string
           format: date-time
@@ -305,8 +358,10 @@ components:
       properties:
         id:
           type: integer
+          format: int64
         reminder_id:
           type: integer
+          format: int64
         date_time:
           type: string
           format: date-time
@@ -349,7 +404,7 @@ components:
             not localized); example: Service Unavailable
         status:
           type: integer
-          format: int32
+          format: int64
           description: |
             The HTTP status code generated by the origin server for this occurrence
             of the problem.
