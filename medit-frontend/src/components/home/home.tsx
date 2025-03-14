@@ -8,7 +8,7 @@ import { AddDetails } from "./AddDetails/AddDetails.tsx";
 import { Box } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import { SetReminder } from "./SetReminder/SetReminder.tsx";
-import { getAllRecords } from "../../database/indexdb"; // Importa la funzione getAllRecords
+import { getAllRecords } from "../../database/indexedDB.ts"; // Importa la funzione getAllRecords
 
 export const Home: React.FC = () => {
   const [showAddDetails, setShowAddDetails] = useState(false);

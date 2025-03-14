@@ -8,7 +8,7 @@ import { useLanguage } from "../../contexts/LanguageContext";
 import { ReturnIcon } from "./ReturnIcon";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserByEmail, getAuthByUserId } from "../../database/indexdb";
+import { getUserByEmail, getAuthByUserId } from "../../database/indexedDB";
 import bcrypt from "bcryptjs";
 import { useLogin } from "./LoginContext";
 import { Auth } from "../../../api-types/Auth";

@@ -6,7 +6,7 @@ import {
   User,
 } from "../generated/models";
 import { SyncDataRequest } from "../generated/models/SyncDataRequest";
-import { openDB } from "./indexdb";
+import { openDB } from "./indexedDB";
 
 export const uploadData = async (token: string) => {
   const db = await openDB();

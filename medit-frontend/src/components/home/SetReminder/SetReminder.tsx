@@ -10,7 +10,7 @@ import SelectComponent from "../SetReminder/selectWeek";
 import { ButtonSave } from "../AddDetails/button";
 import SetHour from "./SetHour";
 import { motion } from "framer-motion";
-import { addRecord } from "../../../database/indexdb"; // Importa la funzione addRecord
+import { addRecord } from "../../../database/indexedDB"; // Importa la funzione addRecord
 
 interface SetReminderProps {
   onSave: () => void;

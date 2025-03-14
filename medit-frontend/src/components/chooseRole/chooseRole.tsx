@@ -9,7 +9,7 @@ import {
   registerUser,
   getUserByEmail,
   addRecord,
-} from "../../database/indexdb";
+} from "../../database/indexedDB";
 import { RoleEnum } from "../../generated/models/RoleEnum";
 import bcrypt from "bcryptjs";
 

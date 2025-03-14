@@ -6,7 +6,7 @@ import iconUser from "../../assets/icon/logo user.svg";
 import iconKey from "../../assets/icon/icon-key.svg";
 import { ReturnIcon } from "../login/ReturnIcon";
 import { useLanguage } from "../../contexts/LanguageContext";
-import { getUserByEmail } from "../../database/indexdb";
+import { getUserByEmail } from "../../database/indexedDB";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RoleEnum } from "../../generated";

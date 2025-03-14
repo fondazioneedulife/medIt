@@ -12,7 +12,7 @@ import {
 import SelectComponent from "./select";
 import { ButtonSave } from "./button";
 import AddInfo from "./AddInfo";
-import { addRecord } from "../../../database/indexdb"; // Importa la funzione addRecord
+import { addRecord } from "../../../database/indexedDB"; // Importa la funzione addRecord
 
 interface AddDetailsProps {
   onSave: (medicineId: number) => void;

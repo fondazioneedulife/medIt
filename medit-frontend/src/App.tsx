@@ -6,7 +6,7 @@ import { ChooseRole } from "./components/chooseRole/chooseRole.tsx";
 import { Login } from "./components/login/Login.tsx";
 import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
 import { ScanQR } from "./components/QRCode/ScanQR.tsx";
-import { openDB } from "./database/indexdb";
+import { openDB } from "./database/indexedDB.ts";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { RegistrationProvider } from "./components/registration/RegistrationContext.tsx";
 import { LoginProvider } from "./components/login/LoginContext.tsx";

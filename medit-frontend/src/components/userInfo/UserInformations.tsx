@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useLogin } from "../login/LoginContext";
 import iconEdit from "../../assets/icon/edit.svg";
 import iconPatient from "../../assets/icon/icon_patient.svg";
-import { updateUserInDatabase } from "../../database/indexdb";
+import { updateUserInDatabase } from "../../database/indexedDB";
 
 const theme = createTheme({
   typography: {
