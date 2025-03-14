@@ -1,13 +1,13 @@
-import { ListItem, Typography, Box } from "@mui/material";
+import { ListItem, Typography, Box, Button, Avatar } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { UserInfoLabel } from "./UserInfoLabel";
 import { ReturnIcon } from "../login/ReturnIcon";
 import { useLanguage } from "../../contexts/LanguageContext";
-import { RoleDropdown } from "./RoleDropdown";
 import { useState } from "react";
 import { useLogin } from "../login/LoginContext";
 import iconEdit from "../../assets/icon/edit.svg";
 import iconPatient from "../../assets/icon/icon_patient.svg";
+import { updateUserInDatabase } from "../../database/indexdb";
 
 const theme = createTheme({
   typography: {
@@ -26,9 +26,50 @@ const theme = createTheme({
 
 export const UserInformations: React.FC = () => {
   const { translate } = useLanguage();
-  const roles = ["Patient", "Caregiver"];
-  const [selectedRole, setSelectedRole] = useState(roles[0]);
-  const { user } = useLogin();
+  const { user, setUser } = useLogin();
+  const [firstName, setFirstName] = useState(user?.firstName || "");
+  const [lastName, setLastName] = useState(user?.lastName || "");
+  const [email, setEmail] = useState(user?.email || "");
+  const [profileImage, setProfileImage] = useState<string | ArrayBuffer | null>(
+    user?.profileImage || null
+  );
+  const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
+
+  const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setProfileImageFile(file);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setProfileImage(event.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSave = async () => {
+    const updatedUser = {
+      ...user,
+      firstName,
+      lastName,
+      email,
+    };
+
+    try {
+      const savedUser = await updateUserInDatabase(
+        updatedUser,
+        profileImageFile
+      );
+      console.log("User saved:", savedUser);
+      setUser(savedUser);
+    } catch (error) {
+      console.error("Failed to save user:", error);
+    }
+  };
+
+  const initials = `${user?.firstName?.charAt(0).toUpperCase()}${user?.lastName
+    ?.charAt(0)
+    .toUpperCase()}`;
 
   return (
     <Box
@@ -38,7 +79,6 @@ export const UserInformations: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        // justifyContent: "center",
         paddingTop: "6rem",
         width: "100%",
         overflowX: "hidden",
@@ -68,10 +108,10 @@ export const UserInformations: React.FC = () => {
               color: "#000000",
               textTransform: "capitalize",
               textAlign: "center",
-              width: "90%"
+              width: "90%",
             }}
           >
-            {translate('userInfo')}
+            {translate("userInfo")}
           </Typography>
         </ThemeProvider>
 
@@ -95,11 +135,47 @@ export const UserInformations: React.FC = () => {
             }}
           >
             <Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: "2rem",
+                }}
+              >
+                <Avatar
+                  src={profileImage as string}
+                  sx={{
+                    width: 100,
+                    height: 100,
+                    bgcolor: "#00259D",
+                    fontSize: "2.5rem",
+                    color: "white",
+                  }}
+                >
+                  {!profileImage && initials}
+                </Avatar>
+                <Button
+                  variant="contained"
+                  component="label"
+                  sx={{ marginTop: "1rem" }}
+                >
+                  {translate("upload")}
+                  <input
+                    type="file"
+                    hidden
+                    accept="image/*"
+                    onChange={handleProfileImageChange}
+                  />
+                </Button>
+              </Box>
               <Box>
                 <UserInfoLabel
-                  inputName="name"
+                  inputName="firstName"
                   img={iconEdit}
-                  placeholder={translate('firstName')}
+                  placeholder={firstName}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   style={{
                     color: "black",
                     fontWeight: "600",
@@ -108,9 +184,11 @@ export const UserInformations: React.FC = () => {
                   }}
                 />
                 <UserInfoLabel
-                  inputName="surname"
+                  inputName="lastName"
                   img={iconEdit}
-                  placeholder={translate('lastName')}
+                  placeholder={lastName}
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   style={{
                     color: "black",
                     fontWeight: "600",
@@ -121,7 +199,9 @@ export const UserInformations: React.FC = () => {
                 <UserInfoLabel
                   inputName="email"
                   img={iconEdit}
-                  placeholder={translate("email")}
+                  placeholder={email}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   showHr={false}
                   style={{
                     color: "black",
@@ -138,9 +218,9 @@ export const UserInformations: React.FC = () => {
 
       <Box
         sx={{
-          display:"flex",
-          justifyContent:"center",
-          alignItems:"center",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
           width: "80%",
           [theme.breakpoints.down("md")]: {
             "@media (orientation: landscape)": {
@@ -149,46 +229,40 @@ export const UserInformations: React.FC = () => {
           },
         }}
       >
-        {user?.role == 'caregiver'
-          ? 
-            <RoleDropdown
-              roles={roles}
-              selectedRole={selectedRole}
-              onRoleSelect={setSelectedRole}
-              sx={{
-                "& .MuiSelect-select": {
-                  textAlign: "left",
-                },
-              }}
-            />
-          :
-          <Box
-            sx={{
-              borderRadius: 5,
-              display: "flex",
-              alignItems: "center",
-              backgroundColor: "#ffffff",
-              width: "100%",
-              maxWidth: "20rem",
-              justifyContent: "flex-start",
-              padding: "0.5rem 1rem",
-              height: "3rem",
-              fontSize: "1.2rem",
-              color: "black",
-              fontWeight: "600",
-              fontFamily: "Montserrat, Arial",
-            }}
-          >
-            <img
-              src={iconPatient}
-              alt="patient icon"
-              style={{ width: "3rem", marginRight: "0.5rem" }}
-            />
-            {translate('patient')}
-          </Box>
-        }
-
+        <Box
+          sx={{
+            borderRadius: 5,
+            display: "flex",
+            alignItems: "center",
+            backgroundColor: "#ffffff",
+            width: "100%",
+            maxWidth: "20rem",
+            justifyContent: "flex-start",
+            padding: "0.5rem 1rem",
+            height: "3rem",
+            fontSize: "1.2rem",
+            color: "black",
+            fontWeight: "600",
+            fontFamily: "Montserrat, Arial",
+          }}
+        >
+          <img
+            src={iconPatient}
+            alt="patient icon"
+            style={{ width: "3rem", marginRight: "0.5rem" }}
+          />
+          {translate(user?.role === "caregiver" ? "caregiver" : "patient")}
+        </Box>
       </Box>
+
+      <Button
+        variant="contained"
+        color="primary"
+        sx={{ marginTop: "2rem" }}
+        onClick={handleSave}
+      >
+        {translate("save")}
+      </Button>
     </Box>
   );
 };
