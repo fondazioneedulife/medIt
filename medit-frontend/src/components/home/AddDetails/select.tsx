@@ -1,9 +1,11 @@
 import React from "react";
 import {
+  createTheme,
   FormControl,
   MenuItem,
   Select,
   SelectChangeEvent,
+  ThemeProvider,
 } from "@mui/material";
 
 interface SelectComponentProps {
@@ -11,23 +13,40 @@ interface SelectComponentProps {
   onChange: (e: SelectChangeEvent<string>) => void;
 }
 
+const theme = createTheme({
+  typography: {
+    fontFamily: "Montserrat, Arial, sans-serif",
+  },
+});
+
 const SelectComponent: React.FC<SelectComponentProps> = ({
   value,
   onChange,
 }) => {
   return (
-    <FormControl variant="outlined" sx={{ m: 1, minWidth: 120 }}>
-      <Select
-        value={value}
-        onChange={onChange}
-        displayEmpty
-        inputProps={{ "aria-label": "Without label" }}
+    <ThemeProvider theme={theme}>
+      <FormControl
+        variant="outlined"
+        sx={{
+          m: 1,
+          minWidth: 120,
+          "& .MuiOutlinedInput-notchedOutline": {
+            border: "none",
+          },
+        }}
       >
-        <MenuItem value="Capsule">Capsule</MenuItem>
-        <MenuItem value="Tablet">Tablet</MenuItem>
-        <MenuItem value="Syrup">Syrup</MenuItem>
-      </Select>
-    </FormControl>
+        <Select
+          value={value}
+          onChange={onChange}
+          displayEmpty
+          inputProps={{ "aria-label": "Without label" }}
+        >
+          <MenuItem value="Capsule">Capsule</MenuItem>
+          <MenuItem value="Tablet">Tablet</MenuItem>
+          <MenuItem value="Syrup">Syrup</MenuItem>
+        </Select>
+      </FormControl>
+    </ThemeProvider>
   );
 };
 

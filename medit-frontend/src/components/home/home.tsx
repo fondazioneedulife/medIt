@@ -4,16 +4,15 @@ import { MedicineComponent } from "./MedicineComponent/MedicineComponent.tsx";
 import { Calendar } from "./calendar/calendar.tsx";
 import "../../index.css";
 import { FilterButton } from "./FilterButton/FilterButton.tsx";
-import { AddDetails } from "./AddDetails/AddDetails.tsx";
 import { Box } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 import { SetReminder } from "./SetReminder/SetReminder.tsx";
 import { getAllRecords } from "../../database/indexdb"; // Importa la funzione getAllRecords
 
 export const Home: React.FC = () => {
-  const [showAddDetails, setShowAddDetails] = useState(false);
   const [showSetReminder, setShowSetReminder] = useState(false);
   const [medications, setMedications] = useState<any[]>([]); // Stato per memorizzare i dati dei medicinali
+  const [showBackground, setShowBackground] = useState(true); // Stato per gestire il background
 
   useEffect(() => {
     const fetchMedications = async () => {
@@ -25,17 +24,18 @@ export const Home: React.FC = () => {
   }, []);
 
   const handleAddDetailsToggle = () => {
-    setShowAddDetails(!showAddDetails);
-    setShowSetReminder(false); // Ensure SetReminder is hidden when toggling AddDetails
-  };
-
-  const handleSave = () => {
-    setShowSetReminder(true);
+    setShowSetReminder(!showSetReminder);
+    setShowBackground(true); // Mostra il background quando si apre SetReminder
   };
 
   const handleReminderSave = () => {
-    setShowAddDetails(false);
     setShowSetReminder(false);
+    setShowBackground(false); // Nascondi il background quando si salva il reminder
+  };
+
+  const handleAddDetailsSave = () => {
+    setShowSetReminder(false);
+    setShowBackground(false); // Nascondi il background quando si salva AddDetails
   };
 
   return (
@@ -49,8 +49,25 @@ export const Home: React.FC = () => {
         <MedicineComponent key={med.id} medication={med} />
       ))}
       <AnimatePresence>
-        {showAddDetails && (
+        {showSetReminder && (
           <>
+            {showBackground && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  width: "100vw",
+                  height: "100vh",
+                  zIndex: 1000,
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                }}
+              />
+            )}
             <motion.div
               initial={{ y: "100vh" }}
               animate={{ y: 0 }}
@@ -58,56 +75,23 @@ export const Home: React.FC = () => {
               transition={{ duration: 0.5 }}
               style={{
                 position: "fixed",
-                top: 0,
+                bottom: 0,
                 left: 0,
                 width: "100vw",
-                height: "100vh",
+                height: "80vh",
                 zIndex: 1001,
                 display: "flex",
-                alignItems: "end",
+                alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              <AddDetails onSave={handleSave} />
+              <SetReminder
+                onSave={handleReminderSave}
+                medicineId={0}
+                onAddDetailsSave={handleAddDetailsSave}
+              />
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100vw",
-                height: "100vh",
-                zIndex: 1000,
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
-              }}
-            />
           </>
-        )}
-
-        {showSetReminder && (
-          <motion.div
-            initial={{ y: "100vh" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100vh" }}
-            transition={{ duration: 0.5 }}
-            style={{
-              position: "fixed",
-              bottom: 0,
-              left: 0,
-              width: "100vw",
-              height: "80vh",
-              zIndex: 1002,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <SetReminder onSave={handleReminderSave} medicineId={0} />
-          </motion.div>
         )}
       </AnimatePresence>
     </>
