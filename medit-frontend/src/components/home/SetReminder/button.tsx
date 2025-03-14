@@ -14,7 +14,7 @@ export const ButtonAddMedicine: React.FC<ButtonSaveProps> = ({
     <Button
       sx={{
         borderRadius: 3,
-        width: { xs: "50%", md: "22%", lg: "20%", xl: "15%" },
+        width: { xs: "40%", sm: "25%", md: "22%", lg: "20%", xl: "15%" },
         height: "2rem",
         backgroundColor: "#0B6BB2",
         color: "white",
