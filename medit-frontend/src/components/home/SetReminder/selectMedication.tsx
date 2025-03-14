@@ -20,7 +20,7 @@ export default function SelectMedication() {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <FormControl sx={{ m: 1, minWidth: "190%" }}>
+        <FormControl sx={{ m: 1, minWidth: "70vw" }}>
           <Select
             value={age}
             onChange={handleChange}

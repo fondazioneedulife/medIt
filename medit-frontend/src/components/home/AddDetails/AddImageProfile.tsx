@@ -24,7 +24,8 @@ export default function InputFileUpload() {
       startIcon={<CloudUploadIcon />}
       sx={{
         mr: 1,
-        mt: 4,
+        mt: 2,
+        mb: 8.5,
         bgcolor: "white",
         boxShadow: "none",
         borderRadius: 3,
