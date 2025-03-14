@@ -16,17 +16,31 @@ interface LoginProviderProps {
 export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(() => {
     const savedUser = Cookies.get("user");
-    return savedUser ? JSON.parse(savedUser) : null;
+
+    if (savedUser) {
+      const parsedUser = JSON.parse(savedUser);
+      parsedUser.profileImage = localStorage.getItem("profileImage") || "";
+      return parsedUser;
+    }
+
+    return null;
   });
 
   useEffect(() => {
     if (user) {
-      Cookies.set("user", JSON.stringify(user), {
+      const { profileImage, ...userWithoutImage } = user;
+
+      Cookies.set("user", JSON.stringify(userWithoutImage), {
         secure: true,
         sameSite: "Strict",
+        expires: 365 * 100,
       });
+
+      if (profileImage) {
+        localStorage.setItem("profileImage", profileImage);
+      }
     } else {
-      Cookies.remove("user");
+      localStorage.removeItem("profileImage");
     }
   }, [user]);
 
