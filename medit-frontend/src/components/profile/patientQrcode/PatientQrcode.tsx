@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import { ReturnIcon } from "../../login/ReturnIcon";
-import QRimg from "../../../assets/profile/qrcode/QRimg.png";
+import { useLocation } from "react-router-dom";
 
 const theme = createTheme({
   typography: {
@@ -21,6 +21,8 @@ const theme = createTheme({
 
 export const PatientQrcode: React.FC = () => {
   const { translate } = useLanguage();
+  const location = useLocation();
+  const qrcode = location.state?.qrcode;
 
   return (
     <ThemeProvider theme={theme}>
@@ -56,7 +58,7 @@ export const PatientQrcode: React.FC = () => {
             color: "black",
           }}
         >
-          {translate('qrCode')}
+          {translate("qrCode")}
         </Box>
         <Box
           sx={{
@@ -68,7 +70,7 @@ export const PatientQrcode: React.FC = () => {
             marginTop: "2rem",
           }}
         >
-          {translate('patientQrCodeDescritpion')}
+          {translate("patientQrCodeDescritpion")}
         </Box>
 
         <Box
@@ -77,12 +79,23 @@ export const PatientQrcode: React.FC = () => {
             marginBottom: "2rem",
           }}
         >
-          {/* TODO: replace placeholder image */}
-          <img
-            src={QRimg}
-            alt="QR"
-            style={{ width: "200px", height: "200px" }}
-          />
+          {qrcode ? (
+            <img
+              src={qrcode}
+              alt="QR Code"
+              style={{ width: "200px", height: "200px" }}
+            />
+          ) : (
+            <Box
+              sx={{
+                fontSize: "1.5rem",
+                fontWeight: "bold",
+                color: "red",
+              }}
+            >
+              {translate("qrCodeNotFound")}
+            </Box>
+          )}
         </Box>
 
         <Box
@@ -93,7 +106,7 @@ export const PatientQrcode: React.FC = () => {
             color: "black",
           }}
         >
-          {translate('scanMe')}
+          {translate("scanMe")}
         </Box>
       </Box>
     </ThemeProvider>

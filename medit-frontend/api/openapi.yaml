@@ -257,6 +257,9 @@ components:
           type: string
         role:
           $ref: "#/components/schemas/RoleEnum"
+        profileImage:
+          type: string
+          format: byte
         qrcode:
           type: string
           format: byte

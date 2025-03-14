@@ -11,6 +11,8 @@ interface LabelProps {
   style?: React.CSSProperties;
   iconshow?: boolean;
   type?: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const UserInfoLabel: React.FC<LabelProps> = ({
@@ -18,9 +20,10 @@ export const UserInfoLabel: React.FC<LabelProps> = ({
   placeholder,
   showHr = true,
   type = "text",
+  value,
+  onChange,
 }) => {
   const [isEditable, setIsEditable] = useState(false);
-  const [value, setValue] = useState(placeholder);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [hideIcons, setHideIcons] = useState(false);
@@ -34,10 +37,6 @@ export const UserInfoLabel: React.FC<LabelProps> = ({
       setIsEditable(true);
       setHideIcons(true);
     }
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
   };
 
   const handleConfirmClick = () => {
@@ -72,7 +71,7 @@ export const UserInfoLabel: React.FC<LabelProps> = ({
         >
           <TextField
             value={value}
-            onChange={handleChange}
+            onChange={onChange}
             variant="outlined"
             type={type}
             InputProps={{
