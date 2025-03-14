@@ -36,23 +36,23 @@ export const Registration: React.FC = () => {
     const newErrors: { [key: string]: string } = {};
 
     if (!user.firstName || !/^[a-zA-Z]+$/.test(user.firstName)) {
-      newErrors.firstName = "Invalid first name";
+      newErrors.firstName = translate("invalidFirstName");
     }
 
     if (!user.lastName || !/^[a-zA-Z]+$/.test(user.lastName)) {
-      newErrors.lastName = "Invalid last name";
+      newErrors.lastName = translate("invalidLastName");
     }
 
     if (!user.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) {
-      newErrors.email = "Invalid email address";
+      newErrors.email = translate("invalidEmailAddress");
     }
 
     if (!user.password || user.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters long";
+      newErrors.password = translate("shortPassword");
     }
 
     if (user.password !== user.Confirmpassword) {
-      newErrors.Confirmpassword = "Passwords do not match";
+      newErrors.Confirmpassword = translate("passwordsDoNotMatch");
     }
 
     setErrors(newErrors);
