@@ -12,7 +12,7 @@ interface LabelProps {
   type?: string;
 }
 
-export const LabelSupport: React.FC<LabelProps> = ({
+export const SupportLabel: React.FC<LabelProps> = ({
   img,
   placeholder,
   showHr = true,

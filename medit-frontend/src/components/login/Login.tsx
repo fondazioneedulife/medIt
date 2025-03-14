@@ -119,7 +119,7 @@ export const Login: React.FC = () => {
           <img
             src={Logo}
             alt="Logo"
-            style={{ width: "8rem", marginBottom: "5rem" }}
+            style={{ width: "12rem", marginBottom: "5rem" }}
           />
 
           <form onSubmit={handleSubmit}>

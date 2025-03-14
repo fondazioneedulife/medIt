@@ -11,8 +11,8 @@ import iconPhone from "../../assets/icon/icon-phone.svg";
 import iconForm from "../../assets/icon/contact-form.svg";
 import iconFaqs from "../../assets/icon/icon-faqs.svg";
 import { useLanguage } from "../../contexts/LanguageContext";
-import { ReturnIcon } from "../changePassword/return2";
-import { LabelSupport } from "./labelsupport";
+import { ReturnIcon } from "../login/ReturnIcon";
+import { SupportLabel } from "./SupportLabel";
 
 const theme = createTheme({
   typography: {
@@ -58,7 +58,7 @@ export const Support: React.FC = () => {
           },
         }}
       >
-        <ReturnIcon path="#" color="#666666" />
+        <ReturnIcon path="/profile" color="#666666" />
         <Box
           sx={{
             fontSize: isMobile ? "2.5rem" : "3.5rem",
@@ -68,7 +68,7 @@ export const Support: React.FC = () => {
             marginTop: "8rem",
           }}
         >
-          {translate("Support")}
+          {translate('support')}
         </Box>
         <Box
           sx={{
@@ -96,15 +96,15 @@ export const Support: React.FC = () => {
           >
             <div>
               <div>
-                <LabelSupport
+                <SupportLabel
                   inputName="phone"
                   img={iconPhone}
-                  placeholder={translate("Phone")}
+                  placeholder={translate("phone")}
                 />
-                <LabelSupport
+                <SupportLabel
                   inputName="email"
                   img={iconEmail}
-                  placeholder={translate("Email")}
+                  placeholder={translate("email")}
                   showHr={false}
                 />
               </div>
@@ -145,11 +145,11 @@ export const Support: React.FC = () => {
                 fontWeight: "600",
               }}
             >
-              {translate("Contact Form")}
+              {translate("contactForm")}
             </Typography>
           </Box>
           <TextField
-            placeholder={translate("Write a message...")}
+            placeholder={translate("writeAMessage")}
             multiline
             rows={4}
             fullWidth
@@ -184,7 +184,7 @@ export const Support: React.FC = () => {
             >
               <div>
                 <div>
-                  <LabelSupport
+                  <SupportLabel
                     inputName="faqs"
                     img={iconFaqs}
                     placeholder={translate("FAQs")}

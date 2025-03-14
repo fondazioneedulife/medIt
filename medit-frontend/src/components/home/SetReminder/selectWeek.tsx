@@ -20,7 +20,7 @@ export default function SelectComponent() {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <FormControl sx={{ m: 1, minWidth: "310px" }}>
+        <FormControl sx={{ m: 1, minWidth: "190%" }}>
           <Select
             value={age}
             onChange={handleChange}

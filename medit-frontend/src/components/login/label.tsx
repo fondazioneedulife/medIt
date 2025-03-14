@@ -70,7 +70,7 @@ export const Label: React.FC<LabelProps> = ({
                   borderColor: "transparent",
                 },
                 "& input": {
-                  color: "black", // Assicurati che il colore del testo sia nero
+                  color: "black",
                 },
               },
             }}

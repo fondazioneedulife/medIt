@@ -9,8 +9,18 @@ import {
 import SelectComponent from "../SetReminder/selectWeek";
 import { ButtonSave } from "../AddDetails/button";
 import SetHour from "./SetHour";
+import { motion } from "framer-motion";
+import { addRecord } from "../../../database/indexdb";
 
-export const SetReminder: React.FC = () => {
+interface SetReminderProps {
+  onSave: () => void;
+  medicineId: number;
+}
+
+export const SetReminder: React.FC<SetReminderProps> = ({
+  onSave,
+  medicineId,
+}) => {
   const theme = createTheme({
     typography: {
       fontFamily: "Montserrat, Arial",
@@ -18,6 +28,9 @@ export const SetReminder: React.FC = () => {
   });
 
   const [activeDays, setActiveDays] = useState<string[]>([]);
+  const [timeSlots, setTimeSlots] = useState<
+    { hour: string; period: string }[]
+  >([]);
 
   const daysOfWeek = [
     { label: "M", value: "Monday" },
@@ -35,19 +48,37 @@ export const SetReminder: React.FC = () => {
     );
   };
 
-  const handleButtonClick = () => {
-    alert("Next button clicked!");
+  const handleSave = async () => {
+    const reminderData = {
+      medication_id: medicineId,
+      reminder_date_time: timeSlots
+        .map((slot) => `${slot.hour} ${slot.period}`)
+        .join(", "),
+      days: activeDays,
+      id_group: "1",
+      synced_at: new Date(),
+    };
+
+    await addRecord("reminders", reminderData);
+    onSave();
   };
 
   return (
-    <Box
-      sx={{
-        width: "100wh",
-        height: "100vh",
+    <motion.div
+      initial={{ y: "100vh" }}
+      animate={{ y: 0 }}
+      exit={{ y: "100vh" }}
+      transition={{ duration: 0.5 }}
+      style={{
+        width: "100%",
+        height: "90vh",
+        borderRadius: "50px 50px 0 0",
         backgroundColor: "white",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "end",
+        position: "fixed",
+        bottom: 0,
       }}
     >
       <Box
@@ -72,7 +103,7 @@ export const SetReminder: React.FC = () => {
           sx={{
             borderRadius: 5,
             backgroundColor: "#F0F0F0",
-            width: { xs: "70%", md: "30%", lg: "30%", xl: "20%" },
+            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
           }}
         >
           <ListItem>
@@ -87,7 +118,7 @@ export const SetReminder: React.FC = () => {
             display: "flex",
             gap: 1.2,
             mt: 3,
-            width: { xs: "70%", md: "30%", lg: "30%", xl: "20%" },
+            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
           }}
         >
           {daysOfWeek.map((day) => (
@@ -123,16 +154,16 @@ export const SetReminder: React.FC = () => {
           sx={{
             borderRadius: 5,
             backgroundColor: "#F0F0F0",
-            width: { xs: "70%", md: "30%", lg: "30%", xl: "20%" },
+            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
             mt: 3,
             pt: 2,
             pb: 2,
           }}
         >
-          <SetHour />
+          <SetHour onChange={setTimeSlots} />
         </Box>
-        <ButtonSave buttonText="Save" onClick={handleButtonClick} />
+        <ButtonSave buttonText="Save" onClick={handleSave} />
       </Box>
-    </Box>
+    </motion.div>
   );
 };

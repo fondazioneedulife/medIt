@@ -1,27 +1,17 @@
-import React from "react";
-import { Box, ListItem } from "@mui/material";
+import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-interface LabelProps {
-  inputName: string;
-  placeholder: string;
-  showHr?: boolean;
-  style?: React.CSSProperties;
-  iconshow?: boolean;
-  type?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+export default function AddInfo() {
+  const theme = createTheme({
+    typography: {
+      fontFamily: "Montserrat, Arial, sans-serif",
+    },
+  });
 
-export const LabelReminder: React.FC<LabelProps> = ({
-  inputName,
-  placeholder,
-  showHr = true,
-  type = "text",
-  onChange,
-}) => {
   return (
-    <>
-      <ListItem>
+    <ThemeProvider theme={theme}>
+      <div>
         <Box
           component="form"
           sx={{ "& > :not(style)": { m: 1, width: "20rem" } }}
@@ -29,22 +19,24 @@ export const LabelReminder: React.FC<LabelProps> = ({
           autoComplete="off"
         >
           <TextField
-            name={inputName}
-            placeholder={placeholder}
+            placeholder="Add information..."
             variant="outlined"
-            type={type}
-            onChange={onChange}
+            multiline
+            rows={3}
+            type="text"
             slotProps={{
               input: {
                 style: {
                   backgroundColor: "transparent",
                   border: "none",
                   outline: "none",
-                  width: "60%",
+                  width: "100%",
                   height: "3rem",
                   fontSize: "1.2rem",
                   color: "black",
-                  fontWeight: "600",
+                  fontWeight: "650",
+                  paddingLeft: "2rem",
+                  paddingTop: "3rem",
                 },
               },
             }}
@@ -63,13 +55,15 @@ export const LabelReminder: React.FC<LabelProps> = ({
                   color: "black",
                 },
               },
+              [theme.breakpoints.down("sm")]: {
+                "& .MuiInputBase-input": {
+                  width: "100%",
+                },
+              },
             }}
           />
         </Box>
-      </ListItem>
-      {showHr === true && (
-        <hr style={{ borderColor: "rgba(98, 98, 98, 0.2)" }} />
-      )}
-    </>
+      </div>
+    </ThemeProvider>
   );
-};
+}

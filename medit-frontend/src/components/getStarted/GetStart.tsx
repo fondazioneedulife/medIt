@@ -36,7 +36,7 @@ export const GetStart: React.FC = () => {
         justifyContent: "center",
         padding: "1rem",
         boxSizing: "border-box",
-        position: "relative", // Aggiunto per posizionare l'icona
+        position: "relative",
         [theme.breakpoints.down("md")]: {
           "@media (orientation: landscape)": {
             height: "175vh",
@@ -56,7 +56,7 @@ export const GetStart: React.FC = () => {
           <img
             src={completeLogoWhite}
             alt="Medit complete logo"
-            style={{ width: "8rem", marginBottom: "5rem" }}
+            style={{ width: "12rem", marginBottom: "5rem" }}
           />
 
           <Box
@@ -83,10 +83,10 @@ export const GetStart: React.FC = () => {
             }}
           >
             <LoginButton
-                text={translate("getStarted")}
-                width="100%"
-                maxWidth="20rem"
-                to="/login/choose"
+              text={translate("getStarted")}
+              width="100%"
+              maxWidth="20rem"
+              to="/login/choose"
             />
           </Stack>
         </Stack>

@@ -11,7 +11,11 @@ import {
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function SelectHour() {
+interface SetHourProps {
+  onChange: (timeSlots: { hour: string; period: string }[]) => void;
+}
+
+const SetHour: React.FC<SetHourProps> = ({ onChange }) => {
   const [timeSlots, setTimeSlots] = React.useState([
     { hour: "", period: "AM" },
   ]);
@@ -32,21 +36,26 @@ export default function SelectHour() {
     const newTimeSlots = [...timeSlots];
     newTimeSlots[index].hour = event.target.value;
     setTimeSlots(newTimeSlots);
+    onChange(newTimeSlots);
   };
 
   const handlePeriodChange = (index: number, event: SelectChangeEvent) => {
     const newTimeSlots = [...timeSlots];
     newTimeSlots[index].period = event.target.value;
     setTimeSlots(newTimeSlots);
+    onChange(newTimeSlots);
   };
 
   const addTimeSlot = () => {
-    setTimeSlots([...timeSlots, { hour: "", period: "AM" }]);
+    const newTimeSlots = [...timeSlots, { hour: "", period: "AM" }];
+    setTimeSlots(newTimeSlots);
+    onChange(newTimeSlots);
   };
 
   const removeTimeSlot = (index: number) => {
     const newTimeSlots = timeSlots.filter((_, i) => i !== index);
     setTimeSlots(newTimeSlots);
+    onChange(newTimeSlots);
   };
 
   return (
@@ -113,4 +122,6 @@ export default function SelectHour() {
       </Box>
     </ThemeProvider>
   );
-}
+};
+
+export default SetHour;

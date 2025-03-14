@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "../Navbar/Navbar.tsx";
 import { MedicineComponent } from "./MedicineComponent/MedicineComponent.tsx";
 import { Calendar } from "./calendar/calendar.tsx";
@@ -6,72 +6,122 @@ import "../../index.css";
 import { FilterButton } from "./FilterButton/FilterButton.tsx";
 import { AddDetails } from "./AddDetails/AddDetails.tsx";
 import { Box } from "@mui/material";
-import { motion } from "framer-motion";
-import { useLogin } from "../login/LoginContext.tsx";
+import { AnimatePresence, motion } from "framer-motion";
+import { SetReminder } from "./SetReminder/SetReminder.tsx";
+import { getAllRecords } from "../../database/indexdb";
 
 export const Home: React.FC = () => {
   const [showAddDetails, setShowAddDetails] = useState(false);
+  const [showSetReminder, setShowSetReminder] = useState(false);
+  const [medications, setMedications] = useState<any[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  useEffect(() => {
+    const fetchMedications = async () => {
+      const meds = await getAllRecords("medications");
+      setMedications(meds);
+    };
+
+    fetchMedications();
+  }, []);
 
   const handleAddDetailsToggle = () => {
     setShowAddDetails(!showAddDetails);
+    setShowSetReminder(false);
   };
 
-  const { user } = useLogin();
-  
+  const handleSave = () => {
+    setShowSetReminder(true);
+  };
+
+  const handleReminderSave = () => {
+    setShowAddDetails(false);
+    setShowSetReminder(false);
+  };
+
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      const utcDate = new Date(
+        Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+      );
+      setSelectedDate(utcDate);
+    } else {
+      setSelectedDate(null);
+    }
+  };
+
   return (
     <>
       <Box sx={{ position: "relative" }}>
         <Navbar onAddDetailsClick={handleAddDetailsToggle} />
       </Box>
-      {console.log(user)}
-      <Calendar />
+      <Calendar onDateChange={handleDateChange} />
       <FilterButton />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      <MedicineComponent />
-      {showAddDetails && (
-        <>
+      {medications.map((med) => (
+        <MedicineComponent key={med.id} medication={med} />
+      ))}
+      <AnimatePresence>
+        {showAddDetails && (
+          <>
+            <motion.div
+              initial={{ y: "100vh" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100vh" }}
+              transition={{ duration: 0.5 }}
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh",
+                zIndex: 1001,
+                display: "flex",
+                alignItems: "end",
+                justifyContent: "center",
+              }}
+            >
+              <AddDetails onSave={handleSave} />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh",
+                zIndex: 1000,
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+              }}
+            />
+          </>
+        )}
+
+        {showSetReminder && (
           <motion.div
             initial={{ y: "100vh" }}
             animate={{ y: 0 }}
+            exit={{ y: "100vh" }}
             transition={{ duration: 0.5 }}
             style={{
               position: "fixed",
-              top: 0,
+              bottom: 0,
               left: 0,
               width: "100vw",
-              height: "100vh",
-              zIndex: 1001,
+              height: "80vh",
+              zIndex: 1002,
               display: "flex",
-              alignItems: "end",
+              alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <AddDetails />
+            <SetReminder onSave={handleReminderSave} medicineId={0} />
           </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100vw",
-              height: "100vh",
-              zIndex: 1000,
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-            }}
-          />
-        </>
-      )}
+        )}
+      </AnimatePresence>
     </>
   );
 };
