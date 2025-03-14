@@ -40,6 +40,7 @@ export const LoginProvider: React.FC<LoginProviderProps> = ({ children }) => {
         localStorage.setItem("profileImage", profileImage);
       }
     } else {
+      Cookies.remove("user");
       localStorage.removeItem("profileImage");
     }
   }, [user]);
