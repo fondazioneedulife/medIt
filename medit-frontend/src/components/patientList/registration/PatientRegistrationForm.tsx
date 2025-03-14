@@ -1,6 +1,6 @@
 import { Button, ListItem, Typography, Box } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { ReturnIcon } from "../../login/ReturnIcon";
+import { PatientRegistrationReturnIcon } from "./PatientRegistrationReturnIcon";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import { PatientLabel } from "./PatientLabel";
 import iconEmail from "../../../assets/icon/icon-email.svg";
@@ -27,7 +27,8 @@ export const PatientRegistrationForm: React.FC = () => {
         alignItems: "center",
       }}
     >
-      <ReturnIcon path="/profile/patient-list" color="white" />
+      <PatientRegistrationReturnIcon path="/profile/patient-list" />
+
       <ListItem
         sx={{
           justifyContent: "center",
@@ -42,7 +43,7 @@ export const PatientRegistrationForm: React.FC = () => {
             component="h3"
             sx={{
               fontWeight: "bold",
-              paddingBottom: "3rem",
+              paddingBottom: "1.5rem",
               fontSize: "2.5rem",
               textAlign: "center",
               color: "white",
