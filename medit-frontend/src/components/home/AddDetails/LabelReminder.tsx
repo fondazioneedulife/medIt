@@ -24,7 +24,7 @@ export const LabelReminder: React.FC<LabelProps> = ({
       <ListItem>
         <Box
           component="form"
-          sx={{ "& > :not(style)": { m: 1, width: "20rem" } }}
+          sx={{ "& > :not(style)": { width: "20rem" } }}
           noValidate
           autoComplete="off"
         >
@@ -60,7 +60,7 @@ export const LabelReminder: React.FC<LabelProps> = ({
                   borderColor: "transparent",
                 },
                 "& input": {
-                  color: "black", // Assicurati che il colore del testo sia nero
+                  color: "black",
                 },
               },
             }}

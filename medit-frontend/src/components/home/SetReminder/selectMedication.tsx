@@ -32,13 +32,10 @@ export default function SelectMedication() {
               },
             }}
           >
-            <MenuItem value="">Tachipirina</MenuItem>
-            <MenuItem value={10}>Moment</MenuItem>
-            <MenuItem value={20}>Brufen</MenuItem>
-            <MenuItem value={30}>Aspirina</MenuItem>
-            <MenuItem value={40}>Imodium</MenuItem>
-            <MenuItem value={50}>Augmentin</MenuItem>
-            <MenuItem value={60}>Xanax</MenuItem>
+            <MenuItem value="">Every day</MenuItem>
+            <MenuItem value={10}>Every week</MenuItem>
+            <MenuItem value={20}>Every month</MenuItem>
+            <MenuItem value={30}>Every year</MenuItem>
           </Select>
         </FormControl>
       </div>
