@@ -19,6 +19,7 @@
     "invalidEmailAddress": "Invalid email address",
     "invalidFirstName": "Invalid first name",
     "invalidLastName": "Invalid last name",
+    "InvalidPassword": "Invalid password",
     "lastName": "Last name",
     "login": "Login",
     "logout": "Logout",
@@ -45,6 +46,7 @@
     "support": "Support",
     "todaysMedications" : "Todays Medications",
     "userInfo": "User information",
+    "userNotFound": "User not found",
     "whoAreYouQuestion": "Who are you?",
     "writeAMessage": "Write a message ..."
   },
@@ -68,6 +70,7 @@
     "invalidEmailAddress": "Email non valida",
     "invalidFirstName": "Nome non valido",
     "invalidLastName": "Cognome non valido",
+    "InvalidPassword" : "Password non valida",
     "lastName": "Cognome",
     "login": "Accedi",
     "logout": "Esci",
@@ -94,6 +97,7 @@
     "support": "Supporto",
     "todaysMedications" : "Farmaci di oggi",
     "userInfo": "Informazioni utente",
+    "userNotFound": "Utente non trovato",
     "whoAreYouQuestion": "Chi sei?",
     "writeAMessage": "Scrivi un messaggio ..."
   }

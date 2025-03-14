@@ -53,7 +53,7 @@ export const Login: React.FC = () => {
       const user = await getUserByEmail(email);
       console.log(user);
       if (!user) {
-        setError("User not found");
+        setError(translate("userNotFound"));
         return;
       }
       if (user.id === undefined) {
@@ -68,7 +68,7 @@ export const Login: React.FC = () => {
       }
       const isPasswordValid = await bcrypt.compare(password, auth.password);
       if (!isPasswordValid) {
-        setError("Invalid password");
+        setError(translate("InvalidPassword"));
         return;
       }
       setUser({
