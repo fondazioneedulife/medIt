@@ -140,6 +140,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
                 {new Date(reminder.reminder_date_time).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",
+                  hour12: true,
                 })}
               </Typography>
             </ThemeProvider>
