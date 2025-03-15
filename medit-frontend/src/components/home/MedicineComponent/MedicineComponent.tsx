@@ -6,6 +6,7 @@ import {
   Typography,
   Fade,
 } from "@mui/material";
+import { useLanguage } from "../../../contexts/LanguageContext";
 import Ellipse from "../../../assets/icon/Check-Ellipse.svg";
 import Check from "../../../assets/icon/Check.svg";
 import Image from "../../../assets/icon/immagine.jpg";
@@ -34,6 +35,9 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
     );
   };
 
+  const { language } = useLanguage();
+  const { translate } = useLanguage();
+
   return (
     <Box
       sx={{
@@ -48,7 +52,7 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
       <Box
         sx={{
           width: { xs: "85%", sm: "55%", md: "40%", lg: "30%", xl: "25%" },
-          height: { md: "12vh", xl: "16vh", xs: "14vh" },
+          height: { md: "12vh", xl: "16vh", xs: language === "it" ? "16vh" : "14vh" },
           backgroundColor: bgColor,
           borderRadius: "10px",
           display: "flex",
@@ -94,7 +98,7 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {medication.type}, {medication.dose}
+                {translate(medication.type.toLowerCase())}, {medication.dose}
               </Typography>
             </ThemeProvider>
           </Box>
@@ -104,7 +108,7 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {medication.program}, {medication.quantity} times a day
+                {translate(medication.program.toLowerCase())}, {medication.quantity} {translate("timesAday")}
               </Typography>
             </ThemeProvider>
           </Box>

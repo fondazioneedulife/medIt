@@ -1,5 +1,4 @@
-import { Box, Typography, Button, Stack } from '@mui/material';
-import { useNavigate } from 'react-router';
+import { Box, Typography } from '@mui/material';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { ReturnIcon } from '../../login/ReturnIcon';
 import { ProfileEntry } from '../ProfileEntry';
@@ -9,8 +8,6 @@ import changePasswordIcon from '../../../assets/profile/settings/change_password
 export const SettingsPage: React.FC = () => {
 
     const { translate } = useLanguage();
-
-    const navigate = useNavigate();
 
     return(
         <>
@@ -24,7 +21,7 @@ export const SettingsPage: React.FC = () => {
                     justifyContent: "flex-start", 
                     alignItems: "center", 
                     backgroundColor: "#f7f7f7",
-                    paddingTop: "6.5rem"
+                    paddingTop: "6.5rem",
                 }} 
             >
                 <Box
@@ -40,8 +37,8 @@ export const SettingsPage: React.FC = () => {
                         variant="h4"
                         sx={{
                             textTransform: "capitalize",
-                            fontWeight: "bold",
                             fontFamily: "Montserrat, Arial, sans-serif",
+                            fontWeight: "bold",
                         }}
                     >
                         {translate('settings')}
@@ -52,7 +49,8 @@ export const SettingsPage: React.FC = () => {
                         width: "80%",
                         maxWidth: "20rem",
                         borderRadius: "1rem",
-                        backgroundColor: "white"
+                        backgroundColor: "white",
+                        fontWeight: 600,
                     }}
                 >
                     <ProfileEntry
