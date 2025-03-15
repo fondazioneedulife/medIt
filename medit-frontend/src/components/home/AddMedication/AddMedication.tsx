@@ -12,7 +12,7 @@ import { ButtonSave } from "./button";
 import AddInfo from "./AddInfo";
 import { addRecord } from "../../../database/indexedDB";
 import { useNavigate } from "react-router-dom";
-import InputFileUpload from "./AddImageProfile";
+import InputFileUpload from "./AddImage";
 import { ReturnIcon } from "../SetReminder/ReturnIcon";
 
 interface AddMedicationProps {

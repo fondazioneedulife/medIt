@@ -36,7 +36,7 @@ export default function InputFileUpload() {
         gap: 1,
       }}
     >
-      Add profile image
+      Add image
       <VisuallyHiddenInput
         type="file"
         onChange={(event) => console.log(event.target.files)}
