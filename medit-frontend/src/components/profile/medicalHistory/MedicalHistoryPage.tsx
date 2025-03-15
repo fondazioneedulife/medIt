@@ -3,6 +3,11 @@ import { useLanguage } from '../../../contexts/LanguageContext';
 import { ReturnIcon } from '../../login/ReturnIcon';
 import { MedicineItem } from './MedicineItem';
 import sampleMedicineImage from '../../../assets/icon/immagine.jpg';
+import tachipirinaImage from '../../../assets/medicins/tachipirina.png';
+import momentImage from '../../../assets/medicins/moment.png';
+import brufenImage from '../../../assets/medicins/brufen.png';
+import aspirinaImage from '../../../assets/medicins/aspirina.png';
+import imodiumImage from '../../../assets/medicins/imodium.png';
 
 export const MedicalHistoryPage: React.FC = () => {
 
@@ -52,33 +57,33 @@ export const MedicalHistoryPage: React.FC = () => {
                     }}
                 >
                     <MedicineItem
-                        image={sampleMedicineImage}
+                        image={tachipirinaImage}
                         title="Tachipirina"
+                        date="Mar 13, 2025"
+                    />
+                    <hr />
+                    <MedicineItem
+                        image={momentImage}
+                        title="Moment"
+                        date="Mar 14, 2025"
+                    />
+                    <hr />
+                    <MedicineItem
+                        image={brufenImage}
+                        title="Brufen"
                         date="Mar 15, 2025"
                     />
                     <hr />
                     <MedicineItem
-                        image={sampleMedicineImage}
-                        title="Medicine 2"
-                        date="Mar 15, 2025"
+                        image={aspirinaImage}
+                        title="Aspirina"
+                        date="Mar 16, 2025"
                     />
                     <hr />
                     <MedicineItem
-                        image={sampleMedicineImage}
-                        title="Medicine 2"
-                        date="Mar 15, 2025"
-                    />
-                    <hr />
-                    <MedicineItem
-                        image={sampleMedicineImage}
-                        title="Medicine 2"
-                        date="Mar 15, 2025"
-                    />
-                    <hr />
-                    <MedicineItem
-                        image={sampleMedicineImage}
-                        title="Medicine 2"
-                        date="Mar 15, 2025"
+                        image={imodiumImage}
+                        title="Imodium"
+                        date="Mar 17, 2025"
                     />
                 </Box>
             </Box>

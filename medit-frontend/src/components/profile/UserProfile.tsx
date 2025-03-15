@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import { ProfileEntry } from "./ProfileEntry";
 import { useLogin } from "../login/LoginContext";
 import userInfoIcon from "../../assets/profile/user_information.svg";
+import medicalHistoryIcon from "../../assets/profile/clipboard_heart_icon.svg";
 import supportIcon from "../../assets/profile/support_icon.svg";
 import settingsIcon from "../../assets/profile/settings_icon.svg";
 import patientListIcon from "../../assets/profile/patient_list_icon.svg";
@@ -214,6 +215,12 @@ export const UserProfile: React.FC = () => {
                 img={userInfoIcon}
                 text={translate("userInfo")}
                 path="/profile/user-info"
+              />
+              <hr />
+              <ProfileEntry
+                img={medicalHistoryIcon}
+                text={translate("medicalHistory")}
+                path="/profile/medical-history"
               />
             </Box>
 

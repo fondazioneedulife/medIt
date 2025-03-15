@@ -25,6 +25,7 @@ export const MedicineItem: React.FC<MedicineItemProps> = ({ image, title, date }
                     width: '4rem',
                     height: '4rem',
                     borderRadius: '0.5rem',
+                    objectFit: 'cover',
                 }}
             />
             <Box sx={{ paddingLeft: '1rem' }}>
