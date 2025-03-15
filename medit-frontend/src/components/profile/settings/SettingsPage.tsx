@@ -21,7 +21,8 @@ export const SettingsPage: React.FC = () => {
                     justifyContent: "flex-start", 
                     alignItems: "center", 
                     backgroundColor: "#f7f7f7",
-                    paddingTop: "6.5rem"
+                    paddingTop: "6.5rem",
+                    fontWeight: "bold",
                 }} 
             >
                 <Box

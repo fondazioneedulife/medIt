@@ -137,7 +137,10 @@ export const UserProfile: React.FC = () => {
                             <Box ml={2}>
                                 <Typography 
                                     variant="h6"
-                                    sx={{textTransform: "capitalize"}}
+                                    sx={{
+                                        textTransform: "capitalize",
+                                        fontWeight: "bold"
+                                    }}
                                 >
                                     {user?.firstName}
                                 </Typography>
@@ -164,7 +167,8 @@ export const UserProfile: React.FC = () => {
                                     padding: "1rem",
                                     backgroundColor: "#0B6BB2",
                                     borderRadius: "1rem",
-                                    cursor: "pointer"
+                                    cursor: "pointer",
+                                    fontWeight: "bold"
                                 }}
                                 onClick={patientListHandleClick}
                             >
@@ -196,7 +200,8 @@ export const UserProfile: React.FC = () => {
                             marginBottom: "2rem",
                             backgroundColor: "white",
                             borderRadius: "1rem",
-                            width: "100%"
+                            width: "100%",
+                            fontWeight: "bold"
                         }}>
                             <ProfileEntry 
                                 img={userInfoIcon}
@@ -209,7 +214,8 @@ export const UserProfile: React.FC = () => {
                             marginBottom: "2rem",
                             backgroundColor: "white",
                             borderRadius: "1rem",
-                            width: "100%"
+                            width: "100%",
+                            fontWeight: "bold"
                         }}>
                             <ProfileEntry 
                                 img={supportIcon}
@@ -235,7 +241,10 @@ export const UserProfile: React.FC = () => {
                             onClick={logoutHandleClick}
                         >
                             <Stack
-                                sx={{ width: '100%'}}
+                                sx={{
+                                    width: '100%',
+                                    fontWeight: "bold"
+                                }}
                                 direction="row"
                                 alignItems="center"
                                 spacing={2}
