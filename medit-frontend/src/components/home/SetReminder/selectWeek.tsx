@@ -4,11 +4,17 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-export default function SelectMedication() {
-  const [age, setAge] = React.useState("");
+interface SelectFrequencyProps {
+  selectedFrequency: string;
+  onFrequencyChange: (frequency: string) => void;
+}
 
+const SelectFrequency: React.FC<SelectFrequencyProps> = ({
+  selectedFrequency,
+  onFrequencyChange,
+}) => {
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
+    onFrequencyChange(event.target.value);
   };
 
   const theme = createTheme({
@@ -22,7 +28,7 @@ export default function SelectMedication() {
       <div>
         <FormControl sx={{ m: 1, minWidth: "70vw" }}>
           <Select
-            value={age}
+            value={selectedFrequency}
             onChange={handleChange}
             displayEmpty
             inputProps={{ "aria-label": "Without label" }}
@@ -32,16 +38,15 @@ export default function SelectMedication() {
               },
             }}
           >
-            <MenuItem value="">Tachipirina</MenuItem>
-            <MenuItem value={10}>Moment</MenuItem>
-            <MenuItem value={20}>Brufen</MenuItem>
-            <MenuItem value={30}>Aspirina</MenuItem>
-            <MenuItem value={40}>Imodium</MenuItem>
-            <MenuItem value={50}>Augmentin</MenuItem>
-            <MenuItem value={60}>Xanax</MenuItem>
+            <MenuItem value="day">Every day</MenuItem>
+            <MenuItem value="week">Every week</MenuItem>
+            <MenuItem value="month">Every month</MenuItem>
+            <MenuItem value="year">Every year</MenuItem>
           </Select>
         </FormControl>
       </div>
     </ThemeProvider>
   );
-}
+};
+
+export default SelectFrequency;
