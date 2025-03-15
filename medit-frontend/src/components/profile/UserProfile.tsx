@@ -6,6 +6,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
 import { ProfileEntry } from "./ProfileEntry";
 import { useLogin } from "../login/LoginContext";
+import { useToggleDetails } from "../home/useToggleDetails";
+import { ReminderModal } from "../home/ReminderModal.tsx";
 import userInfoIcon from "../../assets/profile/user_information.svg";
 import supportIcon from "../../assets/profile/support_icon.svg";
 import settingsIcon from "../../assets/profile/settings_icon.svg";
@@ -32,6 +34,14 @@ export const UserProfile: React.FC = () => {
   const { translate } = useLanguage();
   const navigate = useNavigate();
 
+  const {
+    showSetReminder,
+    showBackground,
+    handleAddDetailsToggle,
+    handleReminderSave,
+    handleAddDetailsSave,
+  } = useToggleDetails();
+
   const qrCodeHandleClick = () => {
     navigate("/profile/patient-qr-code", { state: { qrcode: user?.qrcode } });
   };
@@ -52,7 +62,7 @@ export const UserProfile: React.FC = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar onAddDetailsClick={handleAddDetailsToggle} />
       <Box
         sx={{
           height: "89vh" /* navbar height is 11vh */,
@@ -260,6 +270,12 @@ export const UserProfile: React.FC = () => {
           </Box>
         </ThemeProvider>
       </Box>
+      <ReminderModal
+        showSetReminder={showSetReminder}
+        showBackground={showBackground}
+        handleReminderSave={handleReminderSave}
+        handleAddDetailsSave={handleAddDetailsSave}
+      />
     </>
   );
 };
