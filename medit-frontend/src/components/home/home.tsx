@@ -1,17 +1,25 @@
 import { useState, useEffect } from "react";
-import { Navbar } from "../Navbar/Navbar.tsx";
-import { MedicationComponent } from "./MedicationComponent/MedicationComponent.tsx";
-import { Calendar } from "./calendar/calendar.tsx";
+import { Navbar } from "../Navbar/Navbar";
+import { MedicationComponent } from "./MedicationComponent/MedicationComponent";
+import { Calendar } from "./calendar/calendar";
 import "../../index.css";
-import { FilterButton } from "./FilterButton/FilterButton.tsx";
+import { FilterButton } from "./FilterButton/FilterButton";
 import { Box } from "@mui/material";
-import { getAllRecords } from "../../database/indexedDB.ts";
-import { useToggleDetails } from "./useToggleDetails.ts";
-import { ReminderModal } from "./ReminderModal.tsx";
+import {
+  getAllRecords,
+  getRemindersForDate,
+  getMedicationById,
+} from "../../database/indexedDB";
+import { useToggleDetails } from "./useToggleDetails";
+import { ReminderModal } from "./ReminderModal";
 
 export const Home: React.FC = () => {
   const [medications, setMedications] = useState<any[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [reminders, setReminders] = useState<any[]>([]);
+  const [remindersWithMedications, setRemindersWithMedications] = useState<
+    any[]
+  >([]);
 
   const {
     showSetReminder,
@@ -29,6 +37,39 @@ export const Home: React.FC = () => {
 
     fetchMedications();
   }, []);
+
+  useEffect(() => {
+    const fetchReminders = async () => {
+      if (selectedDate) {
+        const reminders = await getRemindersForDate(selectedDate);
+        setReminders(reminders);
+      } else {
+        setReminders([]);
+      }
+    };
+
+    fetchReminders();
+  }, [selectedDate]);
+
+  useEffect(() => {
+    const fetchRemindersWithMedications = async () => {
+      const remindersWithMeds = await Promise.all(
+        reminders.map(async (reminder) => {
+          const medication = await getMedicationById(
+            Number(reminder.medication_id)
+          );
+          return { ...reminder, medication };
+        })
+      );
+      setRemindersWithMedications(remindersWithMeds);
+    };
+
+    if (reminders.length > 0) {
+      fetchRemindersWithMedications();
+    } else {
+      setRemindersWithMedications([]);
+    }
+  }, [reminders]);
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
@@ -48,8 +89,17 @@ export const Home: React.FC = () => {
       </Box>
       <Calendar onDateChange={handleDateChange} />
       <FilterButton />
-      {medications.map((med) => (
-        <MedicationComponent key={med.id} medication={med} />
+      {remindersWithMedications.map((reminder) => (
+        <div key={reminder.id}>
+          {reminder.medication && (
+            <>
+              <MedicationComponent
+                medication={reminder.medication}
+                reminder={reminder}
+              />
+            </>
+          )}
+        </div>
       ))}
       <ReminderModal
         showSetReminder={showSetReminder}
