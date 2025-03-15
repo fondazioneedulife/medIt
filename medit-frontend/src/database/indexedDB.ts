@@ -54,9 +54,10 @@ export const openDB = (): Promise<IDBDatabase> => {
         medicationsStore.createIndex("name", "name", { unique: false });
         medicationsStore.createIndex("type", "type", { unique: false });
         medicationsStore.createIndex("dose", "dose", { unique: false });
-        medicationsStore.createIndex("program", "program", { unique: false });
+        medicationsStore.createIndex("unit", "unit", { unique: false });
         medicationsStore.createIndex("quantity", "quantity", { unique: false });
         medicationsStore.createIndex("note", "note", { unique: false });
+        medicationsStore.createIndex("image", "image", { unique: false });
         medicationsStore.createIndex("created_at", "created_at", {
           unique: false,
         });
@@ -252,4 +253,16 @@ export const getAuthByUserId = async (userId: number) => {
       reject(request.error);
     };
   });
+};
+
+export const addMedication = async (medication: any): Promise<IDBValidKey> => {
+  return await addRecord("medications", medication);
+};
+
+export const getAllMedications = async (): Promise<any[]> => {
+  return await getAllRecords("medications");
+};
+
+export const addReminder = async (reminder: any): Promise<IDBValidKey> => {
+  return await addRecord("reminders", reminder);
 };
