@@ -117,7 +117,7 @@ const SetHour: React.FC<SetHourProps> = ({ onChange }) => {
           </Box>
         ))}
         <Button onClick={addTimeSlot} sx={{ color: "black" }}>
-          Aggiungi orario
+          ADD HOUR
         </Button>
       </Box>
     </ThemeProvider>

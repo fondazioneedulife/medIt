@@ -6,7 +6,7 @@ import { ChooseRole } from "./components/chooseRole/chooseRole.tsx";
 import { Login } from "./components/login/Login.tsx";
 import { ChoseLoginOrSignup } from "./components/login/ChoseLoginOrSignup.tsx";
 import { ScanQR } from "./components/QRCode/ScanQR.tsx";
-import { openDB } from "./database/indexdb";
+import { openDB } from "./database/indexedDB.ts";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { RegistrationProvider } from "./components/registration/RegistrationContext.tsx";
 import { LoginProvider } from "./components/login/LoginContext.tsx";
@@ -73,18 +73,30 @@ function App() {
                 <Route path="profile">
                   <Route index element={<UserProfile />}></Route>
 
-                  <Route path="patient-qr-code" element={<PatientQrcode />}></Route>
+                  <Route
+                    path="patient-qr-code"
+                    element={<PatientQrcode />}
+                  ></Route>
                   <Route path="patient-list">
                     <Route index element={<PatientList />}></Route>
-                    <Route path="patient-registration" element={<PatientRegistrationForm />}></Route>
+                    <Route
+                      path="patient-registration"
+                      element={<PatientRegistrationForm />}
+                    ></Route>
                   </Route>
 
-                  <Route path="user-info" element={<UserInformations />}></Route>
+                  <Route
+                    path="user-info"
+                    element={<UserInformations />}
+                  ></Route>
                   <Route path="support" element={<Support />}></Route>
 
                   <Route path="settings">
                     <Route index element={<SettingsPage />}></Route>
-                    <Route path="change-password" element={<ChangePw />}></Route>
+                    <Route
+                      path="change-password"
+                      element={<ChangePw />}
+                    ></Route>
                   </Route>
                 </Route>
               </Route>
