@@ -6,27 +6,37 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
-import SelectComponent from "../SetReminder/selectWeek";
+import SelectFrequency from "../SetReminder/selectWeek";
 import { ButtonSave } from "../AddMedication/button";
 import SetHour from "./SetHour";
 import { AnimatePresence, motion } from "framer-motion";
-import { addRecord } from "../../../database/indexedDB"; // Importa la funzione addRecord
+import { addRecord } from "../../../database/indexedDB";
 import SelectMedication from "./selectMedication";
 import { ReturnIcon } from "./ReturnIcon";
 import { AddMedication } from "../AddMedication/AddMedication";
 import { useNavigate } from "react-router-dom";
 import { ButtonAddMedication } from "./button";
+import { v4 as uuidv4 } from "uuid";
+import { generateReminders } from "./generateReminders";
 
 interface SetReminderProps {
   onSave: () => void;
-  medicationId: number;
-  onAddDetailsSave: () => void; // Aggiungi questa prop
+  onAddDetailsSave: () => void;
 }
+
+export const daysOfWeek = [
+  { label: "M", value: "Monday" },
+  { label: "T", value: "Tuesday" },
+  { label: "W", value: "Wednesday" },
+  { label: "T", value: "Thursday" },
+  { label: "F", value: "Friday" },
+  { label: "S", value: "Saturday" },
+  { label: "S", value: "Sunday" },
+];
 
 export const SetReminder: React.FC<SetReminderProps> = ({
   onSave,
-  medicationId: medicationId,
-  onAddDetailsSave, // Aggiungi questa prop
+  onAddDetailsSave,
 }) => {
   const theme = createTheme({
     typography: {
@@ -34,68 +44,93 @@ export const SetReminder: React.FC<SetReminderProps> = ({
     },
   });
 
-  const [activeDays, setActiveDays] = useState<string[]>([]);
-  const [timeSlots, setTimeSlots] = useState<
-    { hour: string; period: string }[]
-  >([]);
+  const [reminderData, setReminderData] = useState({
+    medication_id: "",
+    reminder_date_time: "",
+    days: [] as string[],
+    frequency: "day",
+    id_group: uuidv4(),
+    synced_at: new Date(),
+  });
+
   const [isVisible, setIsVisible] = useState(true);
-  const [showAddDetails, setShowAddDetails] = useState(false);
+  const [showAddMedication, setShowAddMedication] = useState(false);
   const navigate = useNavigate();
 
-  const daysOfWeek = [
-    { label: "M", value: "Monday" },
-    { label: "T", value: "Tuesday" },
-    { label: "W", value: "Wednesday" },
-    { label: "T", value: "Thursday" },
-    { label: "F", value: "Friday" },
-    { label: "S", value: "Saturday" },
-    { label: "S", value: "Sunday" },
-  ];
-
   const toggleDay = (day: string) => {
-    setActiveDays((prev) =>
-      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
-    );
+    setReminderData((prevData) => ({
+      ...prevData,
+      days: prevData.days.includes(day)
+        ? prevData.days.filter((d) => d !== day)
+        : [...prevData.days, day],
+    }));
   };
 
   const handleSave = async () => {
-    const reminderData = {
-      medication_id: medicationId,
-      reminder_date_time: timeSlots
-        .map((slot) => `${slot.hour} ${slot.period}`)
-        .join(", "),
-      days: activeDays,
-      id_group: "1",
-      synced_at: new Date(),
-    };
-
-    await addRecord("reminders", reminderData);
+    const reminders = generateReminders(reminderData);
+    for (const reminder of reminders) {
+      await addRecord("reminders", reminder);
+    }
+    setShowAddMedication(false);
     navigate("/home");
   };
 
   const handleAddMedication = () => {
     setIsVisible(false);
-    setTimeout(() => setShowAddDetails(true), 500); // Delay to allow animation to complete
+    setTimeout(() => setShowAddMedication(true), 500);
   };
 
   const handleClose = () => {
     setIsVisible(false);
-    setTimeout(onSave, 500); // Delay to allow animation to complete
+    setTimeout(onSave, 500);
   };
 
   const handleAddDetailsSave = (medicationId: number) => {
-    setShowAddDetails(false);
-    onAddDetailsSave(); // Chiama la funzione di callback
+    setShowAddMedication(false);
+    onAddDetailsSave();
+    setReminderData((prevData) => ({
+      ...prevData,
+      medication_id: medicationId.toString(),
+    }));
   };
 
   const handleCloseAddDetails = () => {
-    setShowAddDetails(false);
-    setTimeout(() => setIsVisible(true), 500); // Delay to allow animation to complete
+    setShowAddMedication(false);
+    setTimeout(() => setIsVisible(true), 500);
   };
+
+  const handleMedicationChange = (medicationId: string) => {
+    setReminderData((prevData) => ({
+      ...prevData,
+      medication_id: medicationId,
+    }));
+  };
+
+  const handleTimeSlotsChange = (
+    timeSlots: { hour: string; period: string }[]
+  ) => {
+    setReminderData((prevData) => ({
+      ...prevData,
+      reminder_date_time: timeSlots
+        .map((slot) => `${slot.hour} ${slot.period}`)
+        .join(", "),
+    }));
+  };
+
+  const handleFrequencyChange = (frequency: string) => {
+    setReminderData((prevData) => ({
+      ...prevData,
+      frequency,
+    }));
+  };
+
+  React.useEffect(() => {
+    console.log("reminderData aggiornato:", reminderData);
+  }, [reminderData]);
 
   return (
     <AnimatePresence>
-      {isVisible && !showAddDetails && (
+      {isVisible && !showAddMedication && (
         <motion.div
           initial={{ y: "100vh" }}
           animate={{ y: 0 }}
@@ -119,7 +154,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
               position: "absolute",
               top: 16,
               left: 16,
-              zIndex: 1002, // Assicurati che il z-index sia appropriato
+              zIndex: 1002,
             }}
           >
             <ReturnIcon onClick={handleClose} />
@@ -151,7 +186,10 @@ export const SetReminder: React.FC<SetReminderProps> = ({
             >
               <ListItem>
                 <Box>
-                  <SelectComponent />
+                  <SelectMedication
+                    selectedMedication={reminderData.medication_id}
+                    onMedicationChange={handleMedicationChange}
+                  />
                 </Box>
               </ListItem>
             </Box>
@@ -168,7 +206,10 @@ export const SetReminder: React.FC<SetReminderProps> = ({
               }}
             >
               <ListItem>
-                <SelectMedication />
+                <SelectFrequency
+                  selectedFrequency={reminderData.frequency}
+                  onFrequencyChange={handleFrequencyChange}
+                />
               </ListItem>
             </Box>
 
@@ -186,10 +227,12 @@ export const SetReminder: React.FC<SetReminderProps> = ({
                   onClick={() => toggleDay(day.value)}
                   sx={{
                     borderRadius: 3,
-                    backgroundColor: activeDays.includes(day.value)
+                    backgroundColor: reminderData.days.includes(day.value)
                       ? "#0B6BB2"
                       : "#F0F0F0",
-                    color: activeDays.includes(day.value) ? "white" : "black",
+                    color: reminderData.days.includes(day.value)
+                      ? "white"
+                      : "black",
                     width: "50px",
                     height: "50px",
                     display: "flex",
@@ -199,7 +242,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
                     cursor: "pointer",
                     transition: "0.3s",
                     "&:hover": {
-                      backgroundColor: activeDays.includes(day.value)
+                      backgroundColor: reminderData.days.includes(day.value)
                         ? "#084E8A"
                         : "#d0d0d0",
                     },
@@ -219,14 +262,14 @@ export const SetReminder: React.FC<SetReminderProps> = ({
                 pb: 2,
               }}
             >
-              <SetHour onChange={setTimeSlots} />
+              <SetHour onChange={handleTimeSlotsChange} />
             </Box>
 
             <ButtonSave buttonText="Save" onClick={handleSave} />
           </Box>
         </motion.div>
       )}
-      {showAddDetails && (
+      {showAddMedication && (
         <motion.div
           initial={{ y: "100vh" }}
           animate={{ y: 0 }}
