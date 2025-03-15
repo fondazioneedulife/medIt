@@ -22,7 +22,6 @@ export const SettingsPage: React.FC = () => {
                     alignItems: "center", 
                     backgroundColor: "#f7f7f7",
                     paddingTop: "6.5rem",
-                    fontWeight: "bold",
                 }} 
             >
                 <Box
@@ -38,8 +37,8 @@ export const SettingsPage: React.FC = () => {
                         variant="h4"
                         sx={{
                             textTransform: "capitalize",
-                            fontWeight: "bold",
                             fontFamily: "Montserrat, Arial, sans-serif",
+                            fontWeight: "bold",
                         }}
                     >
                         {translate('settings')}
@@ -50,7 +49,8 @@ export const SettingsPage: React.FC = () => {
                         width: "80%",
                         maxWidth: "20rem",
                         borderRadius: "1rem",
-                        backgroundColor: "white"
+                        backgroundColor: "white",
+                        fontWeight: 600,
                     }}
                 >
                     <ProfileEntry

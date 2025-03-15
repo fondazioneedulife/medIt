@@ -136,10 +136,10 @@ export const UserProfile: React.FC = () => {
                             />
                             <Box ml={2}>
                                 <Typography 
-                                    variant="h6"
+                                    variant="h5"
                                     sx={{
                                         textTransform: "capitalize",
-                                        fontWeight: "bold"
+                                        fontWeight: 600
                                     }}
                                 >
                                     {user?.firstName}
@@ -150,7 +150,7 @@ export const UserProfile: React.FC = () => {
                                         color: "white",
                                         borderRadius: "12px",
                                         padding: "2px 8px",
-                                        fontWeight: "bold"
+                                        fontWeight: 600
                                     }}
                                 >
                                     {translate(user?.role == 'caregiver' ? 'caregiver' : 'patient').toLocaleLowerCase()}
@@ -168,7 +168,7 @@ export const UserProfile: React.FC = () => {
                                     backgroundColor: "#0B6BB2",
                                     borderRadius: "1rem",
                                     cursor: "pointer",
-                                    fontWeight: "bold"
+                                    fontWeight: 600
                                 }}
                                 onClick={patientListHandleClick}
                             >
@@ -201,7 +201,7 @@ export const UserProfile: React.FC = () => {
                             backgroundColor: "white",
                             borderRadius: "1rem",
                             width: "100%",
-                            fontWeight: "bold"
+                            fontWeight: 600
                         }}>
                             <ProfileEntry 
                                 img={userInfoIcon}
@@ -215,7 +215,7 @@ export const UserProfile: React.FC = () => {
                             backgroundColor: "white",
                             borderRadius: "1rem",
                             width: "100%",
-                            fontWeight: "bold"
+                            fontWeight: 600
                         }}>
                             <ProfileEntry 
                                 img={supportIcon}
@@ -243,7 +243,7 @@ export const UserProfile: React.FC = () => {
                             <Stack
                                 sx={{
                                     width: '100%',
-                                    fontWeight: "bold"
+                                    fontWeight: 600
                                 }}
                                 direction="row"
                                 alignItems="center"
