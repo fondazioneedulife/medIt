@@ -14,6 +14,7 @@ import { addRecord } from "../../../database/indexedDB";
 import { useNavigate } from "react-router-dom";
 import InputFileUpload from "./AddImage";
 import { ReturnIcon } from "../SetReminder/ReturnIcon";
+import { useLogin } from "../../login/LoginContext";
 
 interface AddMedicationProps {
   onSave: (medicineId: number) => void;
@@ -30,15 +31,20 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
     },
   });
 
+  const { user } = useLogin(); // Sposta la chiamata a useLogin qui
+
   const [medicineData, setMedicineData] = useState({
     name: "",
-    type: "Capsule",
+    type: "",
     dose: "",
-    program: "Daily",
-    quantity: 1,
+    unit: "",
+    quantity: 0,
     note: "",
+    image: "",
+    userId: user ? user.id : 0, // Imposta userId qui
     created_at: new Date(),
     updated_at: new Date(),
+    synced_at: new Date(),
   });
 
   const navigate = useNavigate();
@@ -51,10 +57,31 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
     }));
   };
 
+  const handleUnitChange = (unit: string) => {
+    setMedicineData((prevData) => ({
+      ...prevData,
+      unit,
+    }));
+  };
+
+  const handleNoteChange = (note: string) => {
+    setMedicineData((prevData) => ({
+      ...prevData,
+      note,
+    }));
+  };
+
+  const handleImageUpload = (image: string) => {
+    setMedicineData((prevData) => ({
+      ...prevData,
+      image,
+    }));
+  };
+
   const handleSave = async () => {
     const medicineId = Number(await addRecord("medications", medicineData));
     onSave(medicineId);
-    navigate("/home"); // Reindirizza alla home
+    navigate("/home");
   };
 
   return (
@@ -84,7 +111,7 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
             variant="h2"
             sx={{ fontWeight: "bold", fontSize: "2rem", mb: 4 }}
           >
-            Set Medicine
+            Add Medicine
           </Typography>
         </ThemeProvider>
         <Box
@@ -109,15 +136,16 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
                   onChange={handleInputChange}
                 />
                 <SelectComponent
-                  value={medicineData.type}
-                  onChange={(e) =>
-                    setMedicineData((prevData) => ({
-                      ...prevData,
-                      type: e.target.value,
-                    }))
-                  }
+                  unit={medicineData.unit}
+                  onUnitChange={handleUnitChange}
                 />
               </Box>
+              <LabelReminder
+                inputName="quantity"
+                placeholder={"Quantity"}
+                showHr={false}
+                onChange={handleInputChange}
+              />
             </Box>
           </ListItem>
         </Box>
@@ -133,7 +161,7 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
             height: "15vh",
           }}
         >
-          <AddInfo />
+          <AddInfo onNoteChange={handleNoteChange} />
         </Box>
 
         <Box
@@ -149,7 +177,7 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
             sx={{ color: "rgba(98, 98, 98, 0.5)" }}
           ></Typography>
         </Box>
-        <InputFileUpload />
+        <InputFileUpload onUpload={handleImageUpload} />
         <ButtonSave onClick={handleSave} />
       </Box>
     </Box>
