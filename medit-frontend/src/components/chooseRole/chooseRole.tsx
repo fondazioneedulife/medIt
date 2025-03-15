@@ -1,6 +1,6 @@
 import { ListItem, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Return } from "../registration/return";
+import { ReturnIcon } from "../login/ReturnIcon";
 import { ChooseButton } from "./chooseButton";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useState } from "react";
@@ -9,7 +9,7 @@ import {
   registerUser,
   getUserByEmail,
   addRecord,
-} from "../../database/indexdb";
+} from "../../database/indexedDB";
 import { RoleEnum } from "../../generated/models/RoleEnum";
 import bcrypt from "bcryptjs";
 
@@ -61,7 +61,7 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
       }
       const hashedPassword = await bcrypt.hash(user.password, salt);
 
-      const { Confirmpassword, ...userToSave } = user;
+      const { Confirmpassword, id, ...userToSave } = user;
       console.log("User to save:", userToSave);
       const userId = await registerUser({
         ...userToSave,
@@ -96,6 +96,7 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
         alignItems: "center",
       }}
     >
+      <ReturnIcon path="/register" color="white" />
       <ListItem
         style={{
           flexDirection: "column",
@@ -103,7 +104,6 @@ export const ChooseRole: React.FC<ReturnProps> = ({ style }) => {
           maxWidth: "500px",
         }}
       >
-        <Return />
         <div style={{ width: "100%", textAlign: "center" }}>
           <ThemeProvider theme={theme}>
             <Typography

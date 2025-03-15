@@ -9,26 +9,31 @@ interface LabelProps {
   style?: React.CSSProperties;
   iconshow?: boolean;
   type?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const LabelReminder: React.FC<LabelProps> = ({
+  inputName,
   placeholder,
   showHr = true,
   type = "text",
+  onChange,
 }) => {
   return (
     <>
       <ListItem>
         <Box
           component="form"
-          sx={{ "& > :not(style)": { m: 1, width: "20rem" } }}
+          sx={{ "& > :not(style)": { width: "20rem" } }}
           noValidate
           autoComplete="off"
         >
           <TextField
+            name={inputName}
             placeholder={placeholder}
             variant="outlined"
             type={type}
+            onChange={onChange}
             slotProps={{
               input: {
                 style: {
@@ -55,7 +60,7 @@ export const LabelReminder: React.FC<LabelProps> = ({
                   borderColor: "transparent",
                 },
                 "& input": {
-                  color: "black", // Assicurati che il colore del testo sia nero
+                  color: "black",
                 },
               },
             }}

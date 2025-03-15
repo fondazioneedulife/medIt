@@ -1,4 +1,4 @@
-import { Button, ListItem } from "@mui/material";
+import { Box, Button, ListItem } from "@mui/material";
 import IconArrow from "../../assets/icon/icon_arrow.svg";
 
 export const Return: React.FC = () => {
@@ -6,7 +6,8 @@ export const Return: React.FC = () => {
     <>
       <ListItem sx={{ width: "100%", pb: "4rem", pt: "2rem" }}>
         <Button>
-          <img
+          <Box
+            component="img"
             src={IconArrow}
             alt="User Icon"
             style={{ width: "1rem", cursor: "pointer" }}

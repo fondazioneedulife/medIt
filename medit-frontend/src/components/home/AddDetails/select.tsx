@@ -1,36 +1,53 @@
-import * as React from "react";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import React from "react";
+import {
+  createTheme,
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  ThemeProvider,
+} from "@mui/material";
 
-export default function SelectComponent() {
-  const [age, setAge] = React.useState("");
+interface SelectComponentProps {
+  value: string;
+  onChange: (e: SelectChangeEvent<string>) => void;
+}
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
-  };
+const theme = createTheme({
+  typography: {
+    fontFamily: "Montserrat, Arial, sans-serif",
+  },
+});
 
+const SelectComponent: React.FC<SelectComponentProps> = ({
+  value,
+  onChange,
+}) => {
   return (
-    <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
+    <ThemeProvider theme={theme}>
+      <FormControl
+        variant="outlined"
+        sx={{
+          m: 1,
+          minWidth: 120,
+          "& .MuiOutlinedInput-notchedOutline": {
+            border: "none",
+          },
+        }}
+      >
         <Select
-          value={age}
-          onChange={handleChange}
+          value={value}
+          onChange={onChange}
           displayEmpty
           inputProps={{ "aria-label": "Without label" }}
-          sx={{
-            "& .MuiOutlinedInput-notchedOutline": {
-              border: "none",
-            },
-          }}
         >
-          <MenuItem value="">
-            <em>%</em>
-          </MenuItem>
-          <MenuItem value={10}>mg</MenuItem>
-          <MenuItem value={20}>g</MenuItem>
+          <MenuItem value="Capsule">Capsule</MenuItem>
+          <MenuItem value="Tablet">Tablet</MenuItem>
+          <MenuItem value="Syrup">Syrup</MenuItem>
         </Select>
       </FormControl>
-    </div>
+    </ThemeProvider>
   );
-}
+};
+
+export default SelectComponent;

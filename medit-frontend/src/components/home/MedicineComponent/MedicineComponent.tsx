@@ -6,8 +6,11 @@ import {
   Typography,
   Fade,
 } from "@mui/material";
+import { useLanguage } from "../../../contexts/LanguageContext";
 import Ellipse from "../../../assets/icon/Check-Ellipse.svg";
 import Check from "../../../assets/icon/Check.svg";
+import Image from "../../../assets/icon/immagine.jpg";
+import Profile from "../../../assets/icon/profile.png";
 
 const theme = createTheme({
   typography: {
@@ -15,12 +18,25 @@ const theme = createTheme({
   },
 });
 
-export const MedicineComponent: React.FC = () => {
+interface MedicineComponentProps {
+  medication: any;
+}
+
+export const MedicineComponent: React.FC<MedicineComponentProps> = ({
+  medication,
+}) => {
   const [isChecked, setIsChecked] = useState(false);
+  const [bgColor, setBgColor] = useState("white");
 
   const toggleCheck = () => {
     setIsChecked((prev) => !prev);
+    setBgColor((prev) =>
+      prev === "white" ? "rgba(67, 134, 16, 0.8)" : "white"
+    );
   };
+
+  const { language } = useLanguage();
+  const { translate } = useLanguage();
 
   return (
     <Box
@@ -35,23 +51,25 @@ export const MedicineComponent: React.FC = () => {
     >
       <Box
         sx={{
-          width: { xs: "90%", sm: "55%", md: "40%", lg: "30%", xl: "25%" },
-          height: { md: "14vh", xl: "18vh", xs: "14vh" },
-          backgroundColor: "white",
-          borderRadius: "30px",
+          width: { xs: "85%", sm: "55%", md: "40%", lg: "30%", xl: "25%" },
+          height: { md: "12vh", xl: "16vh", xs: language === "it" ? "16vh" : "14vh" },
+          backgroundColor: bgColor,
+          borderRadius: "10px",
           display: "flex",
           p: 2,
-          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+          boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)",
+          transition: "background-color 0.5s ease",
         }}
       >
         <Box
           sx={{
-            width: "35%",
-            height: "100%",
-            backgroundColor: "lightgrey",
-            borderRadius: "25px",
+            width: { xs: "35%", sm: "22%", md: "23%", lg: "20%", xl: "25%" },
+            height: "auto",
+            borderRadius: "10px",
           }}
-        ></Box>
+        >
+          <img src={Image} alt="" width={"80%"} />
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -67,10 +85,10 @@ export const MedicineComponent: React.FC = () => {
                 sx={{
                   fontWeight: "bold",
                   fontSize: { xl: "1.9rem", xs: "1.5rem" },
-                  mb: { xl: 3, xs: 1 },
+                  mb: { xl: 2, xs: 1 },
                 }}
               >
-                Medicine
+                {medication.name}
               </Typography>
             </ThemeProvider>
           </Box>
@@ -80,7 +98,7 @@ export const MedicineComponent: React.FC = () => {
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                Capsule, 100mg
+                {translate(medication.type.toLowerCase())}, {medication.dose}
               </Typography>
             </ThemeProvider>
           </Box>
@@ -90,7 +108,7 @@ export const MedicineComponent: React.FC = () => {
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                Daily, 1 times a day
+                {translate(medication.program.toLowerCase())}, {medication.quantity} {translate("timesAday")}
               </Typography>
             </ThemeProvider>
           </Box>
@@ -99,7 +117,7 @@ export const MedicineComponent: React.FC = () => {
               backgroundColor: "#0B6BB2",
               color: "white",
               width: "5.5rem",
-              height: "20%",
+              height: "25%",
               borderRadius: "25px",
               display: "flex",
               justifyContent: "space-around",
@@ -122,27 +140,30 @@ export const MedicineComponent: React.FC = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            justifyContent: "space-between",
+            height: { xs: "110%", xl: "100%" },
           }}
         >
           <Box
             sx={{
-              backgroundColor: "lightgrey",
-              width: "7vh",
-              height: "7vh",
-              borderRadius: "80px",
+              width: "45px",
+              height: "45px",
+              borderRadius: "100%",
             }}
-          ></Box>
-          <Box sx={{ mt: 2 }}>
+          >
+            <img src={Profile} alt="" width={"100%"} />
+          </Box>
+          <Box>
             <Box
               sx={{ position: "relative", cursor: "pointer" }}
               onClick={toggleCheck}
             >
               <Box>
-                <img src={Ellipse} alt="Ellipse" width={40} />
+                <img src={Ellipse} alt="Ellipse" width={50} />
               </Box>
               <Fade in={isChecked} timeout={500}>
-                <Box sx={{ position: "absolute", top: -2, left: 7 }}>
-                  <img src={Check} alt="Check" width={40} />
+                <Box sx={{ position: "absolute", top: 0, left: 2 }}>
+                  <img src={Check} alt="Check" width={46} />
                 </Box>
               </Fade>
             </Box>

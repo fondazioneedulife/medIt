@@ -4,7 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-export default function SelectComponent() {
+export default function SelectMedication() {
   const [age, setAge] = React.useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -20,7 +20,7 @@ export default function SelectComponent() {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <FormControl sx={{ m: 1, minWidth: "310px" }}>
+        <FormControl sx={{ m: 1, minWidth: "70vw" }}>
           <Select
             value={age}
             onChange={handleChange}
@@ -32,10 +32,13 @@ export default function SelectComponent() {
               },
             }}
           >
-            <MenuItem value="">Every day</MenuItem>
-            <MenuItem value={10}>Every week</MenuItem>
-            <MenuItem value={20}>Every month</MenuItem>
-            <MenuItem value={30}>Every year</MenuItem>
+            <MenuItem value="">Tachipirina</MenuItem>
+            <MenuItem value={10}>Moment</MenuItem>
+            <MenuItem value={20}>Brufen</MenuItem>
+            <MenuItem value={30}>Aspirina</MenuItem>
+            <MenuItem value={40}>Imodium</MenuItem>
+            <MenuItem value={50}>Augmentin</MenuItem>
+            <MenuItem value={60}>Xanax</MenuItem>
           </Select>
         </FormControl>
       </div>

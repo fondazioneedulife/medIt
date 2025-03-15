@@ -6,14 +6,14 @@ interface ButtonSaveProps {
 }
 
 export const ButtonSave: React.FC<ButtonSaveProps> = ({
-  buttonText = "Next",
+  buttonText = "Save",
   onClick,
 }) => {
   return (
     <Button
       sx={{
         borderRadius: 3,
-        width: { xs: "70%", md: "30%", lg: "30%", xl: "20%" },
+        width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
         height: "5rem",
         backgroundColor: "#0B6BB2",
         color: "white",
@@ -23,7 +23,7 @@ export const ButtonSave: React.FC<ButtonSaveProps> = ({
         margin: "0 auto",
         fontWeight: "bold",
         textTransform: "capitalize",
-        marginTop: "7rem",
+        marginTop: "2rem",
         fontSize: "1.3rem",
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         cursor: "pointer",

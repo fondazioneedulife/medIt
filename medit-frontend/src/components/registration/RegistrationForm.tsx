@@ -6,11 +6,13 @@ import iconUser from "../../assets/icon/logo user.svg";
 import iconKey from "../../assets/icon/icon-key.svg";
 import { ReturnIcon } from "../login/ReturnIcon";
 import { useLanguage } from "../../contexts/LanguageContext";
-import { getUserByEmail } from "../../database/indexdb";
+import { getUserByEmail } from "../../database/indexedDB";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RoleEnum } from "../../generated";
 import { useRegistration } from "./RegistrationContext";
+import QRCode from "qrcode";
+import { v4 as uuidv4 } from "uuid";
 
 const theme = createTheme({
   typography: {
@@ -36,23 +38,23 @@ export const Registration: React.FC = () => {
     const newErrors: { [key: string]: string } = {};
 
     if (!user.firstName || !/^[a-zA-Z]+$/.test(user.firstName)) {
-      newErrors.firstName = "Invalid first name";
+      newErrors.firstName = translate("invalidFirstName");
     }
 
     if (!user.lastName || !/^[a-zA-Z]+$/.test(user.lastName)) {
-      newErrors.lastName = "Invalid last name";
+      newErrors.lastName = translate("invalidLastName");
     }
 
     if (!user.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) {
-      newErrors.email = "Invalid email address";
+      newErrors.email = translate("invalidEmailAddress");
     }
 
     if (!user.password || user.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters long";
+      newErrors.password = translate("shortPassword");
     }
 
     if (user.password !== user.Confirmpassword) {
-      newErrors.Confirmpassword = "Passwords do not match";
+      newErrors.Confirmpassword = translate("passwordsDoNotMatch");
     }
 
     setErrors(newErrors);
@@ -72,13 +74,24 @@ export const Registration: React.FC = () => {
       }
       const existingUser = await getUserByEmail(user.email);
       if (existingUser) {
-        console.error("User with this email already exists");
+        // console.error("User with this email already exists");
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          existingUser: translate("userWithEmailExists"),
+        }));
         return;
       }
-      setUser((prevUser) => ({
-        ...prevUser,
+
+      const uuid = uuidv4();
+      const qrCodeData = await QRCode.toDataURL(uuid);
+
+      const newUser = {
+        ...user,
         role: RoleEnum.Patient,
-      }));
+        qrcode: qrCodeData,
+      };
+      await setUser(newUser);
+
       navigate("/register/choose-role");
     } catch (error) {
       console.error("Failed to register user:", error);
@@ -190,6 +203,11 @@ export const Registration: React.FC = () => {
                   {errors.Confirmpassword && (
                     <Typography color="error">
                       {errors.Confirmpassword}
+                    </Typography>
+                  )}
+                  {errors.existingUser && (
+                    <Typography color="error" sx={{ mt: "1rem", textAlign: "center" }}>
+                      {errors.existingUser}
                     </Typography>
                   )}
                 </div>

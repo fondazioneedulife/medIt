@@ -8,7 +8,7 @@ import { useLanguage } from "../../contexts/LanguageContext";
 import { ReturnIcon } from "./ReturnIcon";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserByEmail, getAuthByUserId } from "../../database/indexdb";
+import { getUserByEmail, getAuthByUserId } from "../../database/indexedDB";
 import bcrypt from "bcryptjs";
 import { useLogin } from "./LoginContext";
 import { Auth } from "../../../api-types/Auth";
@@ -53,7 +53,7 @@ export const Login: React.FC = () => {
       const user = await getUserByEmail(email);
       console.log(user);
       if (!user) {
-        setError("User not found");
+        setError(translate("userNotFound"));
         return;
       }
       if (user.id === undefined) {
@@ -68,7 +68,7 @@ export const Login: React.FC = () => {
       }
       const isPasswordValid = await bcrypt.compare(password, auth.password);
       if (!isPasswordValid) {
-        setError("Invalid password");
+        setError(translate("InvalidPassword"));
         return;
       }
       setUser({
@@ -119,7 +119,7 @@ export const Login: React.FC = () => {
           <img
             src={Logo}
             alt="Logo"
-            style={{ width: "8rem", marginBottom: "5rem" }}
+            style={{ width: "12rem", marginBottom: "5rem" }}
           />
 
           <form onSubmit={handleSubmit}>
