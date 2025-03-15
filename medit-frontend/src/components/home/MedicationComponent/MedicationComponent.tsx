@@ -5,11 +5,13 @@ import {
   ThemeProvider,
   Typography,
   Fade,
+  Avatar,
 } from "@mui/material";
 import Ellipse from "../../../assets/icon/Check-Ellipse.svg";
 import Check from "../../../assets/icon/Check.svg";
 import Image from "../../../assets/icon/immagine.jpg";
 import Profile from "../../../assets/icon/profile.png";
+import { useLogin } from "../../login/LoginContext";
 
 const theme = createTheme({
   typography: {
@@ -19,13 +21,16 @@ const theme = createTheme({
 
 interface MedicationComponentProps {
   medication: any;
+  reminder: any;
 }
 
 export const MedicationComponent: React.FC<MedicationComponentProps> = ({
   medication,
+  reminder,
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [bgColor, setBgColor] = useState("white");
+  const { user } = useLogin();
 
   const toggleCheck = () => {
     setIsChecked((prev) => !prev);
@@ -33,6 +38,12 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
       prev === "white" ? "rgba(67, 134, 16, 0.8)" : "white"
     );
   };
+
+  const profileImage = user?.profileImage || null;
+
+  const initials = `${user?.firstName?.charAt(0).toUpperCase()}${user?.lastName
+    ?.charAt(0)
+    .toUpperCase()}`;
 
   return (
     <Box
@@ -126,7 +137,10 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Bold", fontSize: "1rem" }}
               >
-                9:00 am
+                {new Date(reminder.reminder_date_time).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </Typography>
             </ThemeProvider>
           </Box>
@@ -147,7 +161,15 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
               borderRadius: "100%",
             }}
           >
-            <img src={Profile} alt="" width={"100%"} />
+            <Avatar
+              src={profileImage || undefined}
+              sx={{
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              {!profileImage && initials}
+            </Avatar>
           </Box>
           <Box>
             <Box
