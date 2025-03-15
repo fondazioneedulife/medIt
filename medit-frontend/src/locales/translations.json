@@ -2,6 +2,7 @@
   "en": {
     "add": "add",
     "caregiver": "Caregiver",
+    "capsule" : "Capsule",
     "changePassword": "Change password",
     "confirmNewPassword": "confirm new password",
     "confirmPassword": "Confirm password",
@@ -31,6 +32,8 @@
     "patientQrCodeDescritpion": "The patient can log in by scanning this qr code",
     "patientRegistration" : "Patient registration",
     "phone": "Phone",
+    "pill": "Pill",
+    "powder": "Powder",
     "profile": "Profile",
     "qrCode": "QR code",
     "registration": "Registration",
@@ -55,6 +58,7 @@
   "it": {
     "add": "aggiungi",
     "caregiver": "Caregiver",
+    "capsule" : "Capsula",
     "changePassword": "Cambia password",
     "confirmNewPassword": "conferma nuova password",
     "confirmPassword": "Conferma password",
@@ -84,6 +88,8 @@
     "patientQrCodeDescritpion": "Il paziente può effettuare il login scansionando questo codice qr",
     "patientRegistration" : "Registrazione paziente",
     "phone": "Telefono",
+    "pill" : "Pillola",
+    "powder": "Polvere",
     "profile": "Profilo",
     "qrCode": "Codice QR",
     "registration": "Registrazione",

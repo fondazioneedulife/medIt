@@ -6,6 +6,7 @@ import {
   Typography,
   Fade,
 } from "@mui/material";
+import { useLanguage } from "../../../contexts/LanguageContext";
 import Ellipse from "../../../assets/icon/Check-Ellipse.svg";
 import Check from "../../../assets/icon/Check.svg";
 import Image from "../../../assets/icon/immagine.jpg";
@@ -33,6 +34,8 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
       prev === "white" ? "rgba(67, 134, 16, 0.8)" : "white"
     );
   };
+
+  const { translate } = useLanguage();
 
   return (
     <Box
@@ -94,7 +97,7 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {medication.type}, {medication.dose}
+                {translate(medication.type.toLowerCase())}, {medication.dose}
               </Typography>
             </ThemeProvider>
           </Box>
@@ -104,7 +107,7 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {medication.program}, {medication.quantity} times a day
+                {medication.program}, {medication.quantity} {translate("timesAday")}
               </Typography>
             </ThemeProvider>
           </Box>
