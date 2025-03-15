@@ -7,25 +7,25 @@ import {
   Typography,
 } from "@mui/material";
 import SelectComponent from "../SetReminder/selectWeek";
-import { ButtonSave } from "../AddDetails/button";
+import { ButtonSave } from "../AddMedication/button";
 import SetHour from "./SetHour";
 import { AnimatePresence, motion } from "framer-motion";
 import { addRecord } from "../../../database/indexedDB"; // Importa la funzione addRecord
 import SelectMedication from "./selectMedication";
 import { ReturnIcon } from "./ReturnIcon";
-import { AddDetails } from "../AddDetails/AddDetails";
+import { AddMedication } from "../AddMedication/AddMedication";
 import { useNavigate } from "react-router-dom";
-import { ButtonAddMedicine } from "./button";
+import { ButtonAddMedication } from "./button";
 
 interface SetReminderProps {
   onSave: () => void;
-  medicineId: number;
+  medicationId: number;
   onAddDetailsSave: () => void; // Aggiungi questa prop
 }
 
 export const SetReminder: React.FC<SetReminderProps> = ({
   onSave,
-  medicineId,
+  medicationId: medicationId,
   onAddDetailsSave, // Aggiungi questa prop
 }) => {
   const theme = createTheme({
@@ -60,7 +60,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
 
   const handleSave = async () => {
     const reminderData = {
-      medication_id: medicineId,
+      medication_id: medicationId,
       reminder_date_time: timeSlots
         .map((slot) => `${slot.hour} ${slot.period}`)
         .join(", "),
@@ -73,7 +73,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
     navigate("/home");
   };
 
-  const handleAddMedicine = () => {
+  const handleAddMedication = () => {
     setIsVisible(false);
     setTimeout(() => setShowAddDetails(true), 500); // Delay to allow animation to complete
   };
@@ -83,7 +83,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
     setTimeout(onSave, 500); // Delay to allow animation to complete
   };
 
-  const handleAddDetailsSave = (medicineId: number) => {
+  const handleAddDetailsSave = (medicationId: number) => {
     setShowAddDetails(false);
     onAddDetailsSave(); // Chiama la funzione di callback
   };
@@ -155,9 +155,9 @@ export const SetReminder: React.FC<SetReminderProps> = ({
                 </Box>
               </ListItem>
             </Box>
-            <ButtonAddMedicine
-              buttonText="Add medicine"
-              onClick={handleAddMedicine}
+            <ButtonAddMedication
+              buttonText="Add medication"
+              onClick={handleAddMedication}
             />
             <Box
               sx={{
@@ -245,7 +245,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
             zIndex: 1001,
           }}
         >
-          <AddDetails
+          <AddMedication
             onSave={handleAddDetailsSave}
             onClose={handleCloseAddDetails}
           />

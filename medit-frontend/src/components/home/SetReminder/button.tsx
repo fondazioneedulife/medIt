@@ -1,12 +1,12 @@
 import { Box, Button } from "@mui/material";
-import IconPlus from "../../../assets/icon/PlusAddMedicine.svg";
+import IconPlus from "../../../assets/icon/PlusAddMedication.svg";
 
 interface ButtonSaveProps {
   buttonText?: string;
   onClick?: () => void;
 }
 
-export const ButtonAddMedicine: React.FC<ButtonSaveProps> = ({
+export const ButtonAddMedication: React.FC<ButtonSaveProps> = ({
   buttonText = "Next",
   onClick,
 }) => {

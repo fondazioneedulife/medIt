@@ -17,11 +17,11 @@ const theme = createTheme({
   },
 });
 
-interface MedicineComponentProps {
+interface MedicationComponentProps {
   medication: any;
 }
 
-export const MedicineComponent: React.FC<MedicineComponentProps> = ({
+export const MedicationComponent: React.FC<MedicationComponentProps> = ({
   medication,
 }) => {
   const [isChecked, setIsChecked] = useState(false);

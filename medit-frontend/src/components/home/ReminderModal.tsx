@@ -55,7 +55,7 @@ export const ReminderModal: React.FC<ReminderModalProps> = ({
           >
             <SetReminder
               onSave={handleReminderSave}
-              medicineId={0}
+              medicationId={0}
               onAddDetailsSave={handleAddDetailsSave}
             />
           </motion.div>

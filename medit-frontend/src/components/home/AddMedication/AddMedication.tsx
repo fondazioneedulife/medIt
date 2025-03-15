@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LabelReminder } from "../../home/AddDetails/LabelReminder";
+import { LabelReminder } from "./LabelReminder";
 import {
   Box,
   createTheme,
@@ -15,12 +15,15 @@ import { useNavigate } from "react-router-dom";
 import InputFileUpload from "./AddImageProfile";
 import { ReturnIcon } from "../SetReminder/ReturnIcon";
 
-interface AddDetailsProps {
+interface AddMedicationProps {
   onSave: (medicineId: number) => void;
   onClose: () => void; // Aggiungi questa prop
 }
 
-export const AddDetails: React.FC<AddDetailsProps> = ({ onSave, onClose }) => {
+export const AddMedication: React.FC<AddMedicationProps> = ({
+  onSave,
+  onClose,
+}) => {
   const theme = createTheme({
     typography: {
       fontFamily: "Montserrat, Arial",
