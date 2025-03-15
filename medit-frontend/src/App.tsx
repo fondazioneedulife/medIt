@@ -22,6 +22,7 @@ import { PatientList } from "./components/patientList/PatientList.tsx";
 import { PatientQrcode } from "./components/profile/patientQrcode/PatientQrcode.tsx";
 import { Support } from "./components/support/Support.tsx";
 import { PatientRegistrationForm } from "./components/patientList/registration/PatientRegistrationForm.tsx";
+import { MedicalHistoryPage } from "./components/profile/medicalHistory/MedicalHistoryPage.tsx";
 import AuthGuard from "./routes/AuthGuard.tsx";
 
 function App() {
@@ -98,6 +99,8 @@ function App() {
                       element={<ChangePw />}
                     ></Route>
                   </Route>
+
+                  <Route path="medical-history" element={<MedicalHistoryPage />}/>
                 </Route>
               </Route>
             </Route>
