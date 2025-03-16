@@ -7,6 +7,7 @@ interface ReminderModalProps {
   showBackground: boolean;
   handleReminderSave: () => void;
   handleAddDetailsSave: () => void;
+  handleReminderSaved: () => void;
 }
 
 export const ReminderModal: React.FC<ReminderModalProps> = ({
@@ -14,6 +15,7 @@ export const ReminderModal: React.FC<ReminderModalProps> = ({
   showBackground,
   handleReminderSave,
   handleAddDetailsSave,
+  handleReminderSaved,
 }) => {
   return (
     <AnimatePresence>
@@ -56,6 +58,7 @@ export const ReminderModal: React.FC<ReminderModalProps> = ({
             <SetReminder
               onSave={handleReminderSave}
               onAddDetailsSave={handleAddDetailsSave}
+              handleReminderSaved={handleReminderSaved}
             />
           </motion.div>
         </>
