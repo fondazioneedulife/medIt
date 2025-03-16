@@ -9,6 +9,7 @@ import { ScanQR } from "./components/QRCode/ScanQR.tsx";
 import { openDB } from "./database/indexedDB.ts";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { RegistrationProvider } from "./components/registration/RegistrationContext.tsx";
+import { PatientRegistrationProvider } from "./contexts/PatientRegistrationContenxt.tsx";
 import { LoginProvider } from "./components/login/LoginContext.tsx";
 import { UserInformations } from "./components/userInfo/UserInformations.tsx";
 import { GetStart } from "./components/getStarted/GetStart";
@@ -82,10 +83,16 @@ function App() {
                   ></Route>
                   <Route path="patient-list">
                     <Route index element={<PatientList />}></Route>
+
                     <Route
                       path="patient-registration"
-                      element={<PatientRegistrationForm />}
-                    ></Route>
+                      element={
+                        <PatientRegistrationProvider>
+                          <PatientRegistrationForm />
+                        </PatientRegistrationProvider>
+                      }
+                    >
+                    </Route>
                   </Route>
 
                   <Route

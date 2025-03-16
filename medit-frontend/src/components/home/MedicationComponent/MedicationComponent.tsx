@@ -135,7 +135,8 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {translate(medication.type.toLowerCase())}, {medication.dose} {medication.unit}
+                {translate(medication.type.toLowerCase())}, {medication.dose}{" "}
+                {medication.unit}
               </Typography>
             </ThemeProvider>
           </Box>

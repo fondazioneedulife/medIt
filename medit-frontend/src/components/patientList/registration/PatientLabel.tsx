@@ -10,6 +10,7 @@ interface PatientLabelProps {
   style?: React.CSSProperties;
   iconshow?: boolean;
   type?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export const PatientLabel: React.FC<PatientLabelProps> = ({
@@ -18,6 +19,7 @@ export const PatientLabel: React.FC<PatientLabelProps> = ({
   placeholder,
   showHr = true,
   type = "text",
+  onChange,
 }) => {
   return (
     <>
@@ -41,6 +43,7 @@ export const PatientLabel: React.FC<PatientLabelProps> = ({
             placeholder={placeholder}
             variant="outlined"
             type={type}
+            onChange={onChange}
             InputProps={{
               style: {
                 backgroundColor: "transparent",

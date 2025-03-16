@@ -4,6 +4,10 @@ import Typography from "@mui/material/Typography/Typography";
 import { ReturnIcon } from "../login/ReturnIcon";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useNavigate } from "react-router";
+import { PatientProfileCard } from "./PatientProfileCard";
+import { getAllPatientsByCaregiverId } from "../../database/indexedDB";
+import { useState, useEffect } from "react";
+import { useLogin } from "../login/LoginContext";
 import examplePatientImage from "../../assets/profile/example_patient_profile_image.svg";
 
 
@@ -15,6 +19,20 @@ export const PatientList: React.FC = () => {
     const patientRegistrationHandleClick = () => {
         navigate("/profile/patient-list/patient-registration");
     };
+
+    // cargiver logged in
+    const { user } = useLogin();
+
+    const [caregiverPatients, setPatients] = useState<any[]>([]);
+
+    useEffect(() => {
+    const fetchPatients = async () => {
+        const patients = await getAllPatientsByCaregiverId(user?.id as number);
+        setPatients(patients);
+    };
+
+    fetchPatients();
+    }, []);
 
     return (
         <>
@@ -66,47 +84,31 @@ export const PatientList: React.FC = () => {
                     sx={{
                         backgroundColor: "#F7F7F7", 
                         display: "flex",
-                        flexDirection: "row",
+                        flexWrap: "wrap",
                         gap: "1rem",
                         mt: "2rem",
-                        width: "100%",
-                        justifyContent: "center",
-                        ml: { xs: "1rem", sm: "3rem", md: "6.2rem" },
+                        width: "75%",
+                        justifyContent: "space-between",
                     }}
                 >
-                    {/* Sample patient profile */}
-                    <Box
-                        component="table"
-                        sx={{ width: "30%", textAlign: "center" }}
-                    >
-                        <Box component="tr">
-                            <Box component="td">
-                                <img
-                                    src={examplePatientImage}
-                                    style={{ width: "8rem", height: "8rem", objectFit: "cover", borderRadius: "20px" }}
-                                    alt="example patient profile image"
-                                />
-                            </Box>
-                        </Box>
-
-                        <Box component="tr">
-                            <Box component="td">
-                                <Typography
-                                    sx={{
-                                        fontWeight: "light",
-                                        textAlign: "center",
-                                        fontFamily: "Montserrat, Arial, sans-serif"
-                                    }}>
-                                    Carlo Rossi
-                                </Typography>
-                            </Box>
-                        </Box>
-                    </Box>
+                    {caregiverPatients.map((item) => (
+                        <PatientProfileCard
+                            image={item.profileImage ? item.profileImage : examplePatientImage}
+                            name={item.firstName + ' ' + item.lastName}
+                        />
+                    ))}
 
                     {/* add profile */}
                     <Box
                         component="table"
-                        sx={{ width: "30%", textAlign: "center",backgroundColor: "#F7F7F7" }}
+                        sx={{
+                            width: "45%",
+                            textAlign: "center",
+                            backgroundColor: "#F7F7F7",
+                            flex: "1 1 45%",
+                            maxWidth: "45%",
+                            alignSelf: "flex-start"
+                        }}
                     >
                         <Box component="tr">
                             <Box component="td">

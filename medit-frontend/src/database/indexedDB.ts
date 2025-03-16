@@ -26,6 +26,7 @@ export const openDB = (): Promise<IDBDatabase> => {
         usersStore.createIndex("profileImage", "profileImage", {
           unique: false,
         });
+        usersStore.createIndex("caregiverId", "caregiverId", { unique: false }); // aggiunta caregiverId
         usersStore.createIndex("created_at", "created_at", { unique: false });
         usersStore.createIndex("updated_at", "updated_at", { unique: false });
         usersStore.createIndex("timezone", "timezone", { unique: false });
@@ -189,6 +190,7 @@ export const registerUser = async (
   registerRequest: RegisterRequest
 ): Promise<IDBValidKey> => {
   const { password, ...userToSave } = registerRequest;
+  console.log("registerUser called with user:", userToSave);
   return await addRecord("users", userToSave);
 };
 
@@ -314,6 +316,20 @@ export const getUserById = async (
     const transaction = db.transaction(USER_STORE, "readonly");
     const store = transaction.objectStore(USER_STORE);
     const request = store.get(userId);
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
+// get all patients of a caregiver
+export const getAllPatientsByCaregiverId = async (caregiverId: number) => {
+  const db = await openDB();
+  return new Promise<User[]>((resolve, reject) => {
+    const transaction = db.transaction(USER_STORE, "readonly");
+    const store = transaction.objectStore(USER_STORE);
+    const index = store.index("caregiverId");
+    const request = index.getAll(caregiverId);
 
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
