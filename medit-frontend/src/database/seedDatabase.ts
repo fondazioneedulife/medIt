@@ -4,6 +4,7 @@ import brufenImage from "../assets/medicins/brufen.png";
 import aspirinaImage from "../assets/medicins/aspirina.png";
 import imodiumImage from "../assets/medicins/imodium.png";
 import demoUserImageBase64 from "../assets/profile/demo_user_image.txt?raw";
+import demoUserQrcodeImageBase64 from "../assets/profile/demo_user_qrcode_image.txt?raw";
 
 export const seedDatabase = async (transaction: IDBTransaction) => {
   const usersStore = transaction.objectStore("users");
@@ -17,6 +18,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
     email: "medit@example.com",
     role: "Patient",
     profileImage: demoUserImageBase64,
+    qrcode: demoUserQrcodeImageBase64,
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     language: "en",
     created_at: new Date(),
