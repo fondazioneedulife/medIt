@@ -141,6 +141,7 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
                   inputName="dose"
                   placeholder={"Dose"}
                   showHr={false}
+                  type="number"
                   onChange={handleInputChange}
                 />
                 <SelectComponent
@@ -168,6 +169,7 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
             inputName="quantity"
             placeholder={"Quantity"}
             showHr={false}
+            type="number"
             onChange={handleInputChange}
           />
         </Box>
