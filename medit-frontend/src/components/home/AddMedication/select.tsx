@@ -35,6 +35,8 @@ const SelectComponent: React.FC<SelectComponentProps> = ({
           </MenuItem>
           <MenuItem value={"mg"}>mg</MenuItem>
           <MenuItem value={"g"}>g</MenuItem>
+          <MenuItem value={"ml"}>ml</MenuItem>
+          <MenuItem value={"ml"}>cl</MenuItem>
         </Select>
       </FormControl>
     </div>
