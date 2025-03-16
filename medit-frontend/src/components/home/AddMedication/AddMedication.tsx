@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import SelectComponent from "./select";
+import SelectType from "./SelectType";
 import { ButtonSave } from "./button";
 import AddInfo from "./AddInfo";
 import { addRecord } from "../../../database/indexedDB";
@@ -18,7 +19,7 @@ import { useLogin } from "../../login/LoginContext";
 
 interface AddMedicationProps {
   onSave: (medicineId: number) => void;
-  onClose: () => void; // Aggiungi questa prop
+  onClose: () => void;
 }
 
 export const AddMedication: React.FC<AddMedicationProps> = ({
@@ -31,7 +32,7 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
     },
   });
 
-  const { user } = useLogin(); // Sposta la chiamata a useLogin qui
+  const { user } = useLogin();
 
   const [medicineData, setMedicineData] = useState({
     name: "",
@@ -41,7 +42,7 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
     quantity: 0,
     note: "",
     image: "",
-    userId: user ? user.id : 0, // Imposta userId qui
+    userId: user ? user.id : 0,
     created_at: new Date(),
     updated_at: new Date(),
     synced_at: new Date(),
@@ -61,6 +62,13 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
     setMedicineData((prevData) => ({
       ...prevData,
       unit,
+    }));
+  };
+
+  const handleTypeChange = (type: string) => {
+    setMedicineData((prevData) => ({
+      ...prevData,
+      type,
     }));
   };
 
@@ -140,6 +148,10 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
                   onUnitChange={handleUnitChange}
                 />
               </Box>
+              <SelectType
+                type={medicineData.type}
+                onTypeChange={handleTypeChange}
+              />
               <LabelReminder
                 inputName="quantity"
                 placeholder={"Quantity"}
