@@ -362,3 +362,27 @@ export const addTakenMedication = async (
 ): Promise<IDBValidKey> => {
   return await addRecord("taken_medications", takenMedication);
 };
+
+export const deleteTakenMedication = async (
+  reminderId: number
+): Promise<void> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("taken_medications", "readwrite");
+    const store = transaction.objectStore("taken_medications");
+    const index = store.index("reminder_id");
+    const request = index.openCursor(IDBKeyRange.only(reminderId));
+
+    request.onsuccess = (event) => {
+      const cursor = (event.target as IDBRequest).result;
+      if (cursor) {
+        cursor.delete();
+        cursor.continue();
+      } else {
+        resolve();
+      }
+    };
+
+    request.onerror = () => reject(request.error);
+  });
+};
