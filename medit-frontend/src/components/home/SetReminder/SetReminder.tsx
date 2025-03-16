@@ -48,7 +48,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
     medication_id: "",
     reminder_date_time: "",
     days: [] as string[],
-    frequency: "",
+    frequency: "day",
     id_group: uuidv4(),
     synced_at: new Date(),
   });
