@@ -5,12 +5,13 @@ import {
   ThemeProvider,
   Typography,
   Fade,
+  Avatar,
 } from "@mui/material";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import Ellipse from "../../../assets/icon/Check-Ellipse.svg";
 import Check from "../../../assets/icon/Check.svg";
-import Image from "../../../assets/icon/immagine.jpg";
-import Profile from "../../../assets/icon/profile.png";
+import DefaultImage from "../../../assets/icon/immagine.jpg";
+import { useLogin } from "../../login/LoginContext";
 
 const theme = createTheme({
   typography: {
@@ -18,15 +19,18 @@ const theme = createTheme({
   },
 });
 
-interface MedicineComponentProps {
+interface MedicationComponentProps {
   medication: any;
+  reminder: any;
 }
 
-export const MedicineComponent: React.FC<MedicineComponentProps> = ({
+export const MedicationComponent: React.FC<MedicationComponentProps> = ({
   medication,
+  reminder,
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [bgColor, setBgColor] = useState("white");
+  const { user } = useLogin();
 
   const toggleCheck = () => {
     setIsChecked((prev) => !prev);
@@ -37,6 +41,14 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
 
   const { language } = useLanguage();
   const { translate } = useLanguage();
+
+  const profileImage = user?.profileImage || null;
+
+  const initials = `${user?.firstName?.charAt(0).toUpperCase()}${user?.lastName
+    ?.charAt(0)
+    .toUpperCase()}`;
+
+  const medicationImage = medication.image || DefaultImage;
 
   return (
     <Box
@@ -52,7 +64,11 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
       <Box
         sx={{
           width: { xs: "85%", sm: "55%", md: "40%", lg: "30%", xl: "25%" },
-          height: { md: "12vh", xl: "16vh", xs: language === "it" ? "16vh" : "14vh" },
+          height: {
+            md: "12vh",
+            xl: "16vh",
+            xs: language === "it" ? "16vh" : "14vh",
+          },
           backgroundColor: bgColor,
           borderRadius: "10px",
           display: "flex",
@@ -68,7 +84,7 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
             borderRadius: "10px",
           }}
         >
-          <img src={Image} alt="" width={"80%"} />
+          <img src={medicationImage} alt="Medication" width={"80%"} />
         </Box>
         <Box
           sx={{
@@ -98,7 +114,8 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {translate(medication.type.toLowerCase())}, {medication.dose}
+                {translate(medication.type.toLowerCase())}, {medication.dose}{" "}
+                {medication.unit}
               </Typography>
             </ThemeProvider>
           </Box>
@@ -108,7 +125,7 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {medication.quantity} {translate("timesAday")}
+                {reminder.frequency}, {medication.quantity} left
               </Typography>
             </ThemeProvider>
           </Box>
@@ -130,7 +147,11 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Bold", fontSize: "1rem" }}
               >
-                9:00 am
+                {new Date(reminder.reminder_date_time).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: true,
+                })}
               </Typography>
             </ThemeProvider>
           </Box>
@@ -151,7 +172,15 @@ export const MedicineComponent: React.FC<MedicineComponentProps> = ({
               borderRadius: "100%",
             }}
           >
-            <img src={Profile} alt="" width={"100%"} />
+            <Avatar
+              src={profileImage || undefined}
+              sx={{
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              {!profileImage && initials}
+            </Avatar>
           </Box>
           <Box>
             <Box
