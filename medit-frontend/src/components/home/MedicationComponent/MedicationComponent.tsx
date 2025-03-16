@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import Ellipse from "../../../assets/icon/Check-Ellipse.svg";
 import Check from "../../../assets/icon/Check.svg";
-import Image from "../../../assets/icon/immagine.jpg";
+import DefaultImage from "../../../assets/icon/immagine.jpg";
 import { useLogin } from "../../login/LoginContext";
 
 const theme = createTheme({
@@ -44,6 +44,8 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
     ?.charAt(0)
     .toUpperCase()}`;
 
+  const medicationImage = medication.image || DefaultImage;
+
   return (
     <Box
       sx={{
@@ -74,7 +76,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
             borderRadius: "10px",
           }}
         >
-          <img src={Image} alt="" width={"80%"} />
+          <img src={medicationImage} alt="Medication" width={"80%"} />
         </Box>
         <Box
           sx={{
@@ -104,7 +106,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {medication.dose} {medication.unit}
+                {reminder.frequency}, {medication.dose} {medication.unit}
               </Typography>
             </ThemeProvider>
           </Box>
