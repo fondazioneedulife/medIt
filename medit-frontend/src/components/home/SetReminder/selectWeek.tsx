@@ -38,10 +38,10 @@ const SelectFrequency: React.FC<SelectFrequencyProps> = ({
               },
             }}
           >
-            <MenuItem value="day">Every day</MenuItem>
-            <MenuItem value="week">Every week</MenuItem>
-            <MenuItem value="month">Every month</MenuItem>
-            <MenuItem value="year">Every year</MenuItem>
+            <MenuItem value="daily">Daily</MenuItem>
+            <MenuItem value="weekly">Weekly</MenuItem>
+            <MenuItem value="monthly">Monthly</MenuItem>
+            <MenuItem value="yearly">Yearly</MenuItem>
           </Select>
         </FormControl>
       </div>
