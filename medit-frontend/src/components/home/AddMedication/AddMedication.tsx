@@ -111,7 +111,7 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
             variant="h2"
             sx={{ fontWeight: "bold", fontSize: "2rem", mb: 4 }}
           >
-            Add Medicine
+            Add medication
           </Typography>
         </ThemeProvider>
         <Box
