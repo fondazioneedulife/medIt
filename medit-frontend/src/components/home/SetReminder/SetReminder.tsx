@@ -6,6 +6,7 @@ import {
   ThemeProvider,
   Typography,
   TextField,
+  Alert,
 } from "@mui/material";
 import SelectFrequency from "../SetReminder/selectWeek";
 import { ButtonSave } from "../AddMedication/button";
@@ -60,6 +61,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
     endDate: null as Date | null,
   });
 
+  const [errors, setErrors] = useState<string[]>([]);
   const [isVisible, setIsVisible] = useState(true);
   const [showAddMedication, setShowAddMedication] = useState(false);
   const navigate = useNavigate();
@@ -73,7 +75,34 @@ export const SetReminder: React.FC<SetReminderProps> = ({
     }));
   };
 
+  const validateData = () => {
+    const newErrors: string[] = [];
+    if (!reminderData.medication_id) newErrors.push("Medication is required.");
+    if (!reminderData.reminder_date_time) newErrors.push("Time is required.");
+    if (!reminderData.frequency) newErrors.push("Frequency is required.");
+    if (reminderData.frequency === "weekly" && reminderData.days.length === 0)
+      newErrors.push("At least one day is required for weekly frequency.");
+    if (reminderData.frequency === "monthly" && !reminderData.dayOfMonth)
+      newErrors.push("Day of month is required for monthly frequency.");
+    if (
+      reminderData.frequency === "yearly" &&
+      (!reminderData.dayOfYear || !reminderData.monthOfYear)
+    )
+      newErrors.push("Day and month are required for yearly frequency.");
+    if (!reminderData.endDate) newErrors.push("End date is required.");
+    if (reminderData.endDate && reminderData.endDate < new Date()) {
+      newErrors.push("End date cannot be in the past.");
+    }
+    return newErrors;
+  };
+
   const handleSave = async () => {
+    const validationErrors = validateData();
+    if (validationErrors.length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     const reminders = generateReminders(reminderData);
     for (const reminder of reminders) {
       await addRecord("reminders", reminder);
@@ -208,6 +237,15 @@ export const SetReminder: React.FC<SetReminderProps> = ({
                 Set Reminder
               </Typography>
             </ThemeProvider>
+            {errors.length > 0 && (
+              <Box sx={{ width: "80%", mb: 2 }}>
+                {errors.map((error, index) => (
+                  <Alert key={index} severity="error">
+                    {error}
+                  </Alert>
+                ))}
+              </Box>
+            )}
             <Box
               sx={{
                 borderRadius: 5,
