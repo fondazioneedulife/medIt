@@ -1,13 +1,22 @@
+import React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-export default function AddInfo() {
+interface AddInfoProps {
+  onNoteChange: (note: string) => void;
+}
+
+const AddInfo: React.FC<AddInfoProps> = ({ onNoteChange }) => {
   const theme = createTheme({
     typography: {
       fontFamily: "Montserrat, Arial, sans-serif",
     },
   });
+
+  const handleNoteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onNoteChange(event.target.value);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -24,6 +33,7 @@ export default function AddInfo() {
             multiline
             rows={3}
             type="text"
+            onChange={handleNoteChange}
             slotProps={{
               input: {
                 style: {
@@ -35,7 +45,6 @@ export default function AddInfo() {
                   fontSize: "1.2rem",
                   color: "black",
                   fontWeight: "650",
-                  paddingLeft: "2rem",
                   paddingTop: "3rem",
                 },
               },
@@ -66,4 +75,6 @@ export default function AddInfo() {
       </div>
     </ThemeProvider>
   );
-}
+};
+
+export default AddInfo;

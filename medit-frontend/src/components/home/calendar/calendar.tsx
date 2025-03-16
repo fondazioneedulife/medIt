@@ -10,26 +10,29 @@ import { UserComponent } from "../UserComponent/UserComponent";
 import { useLanguage } from "../../../contexts/LanguageContext";
 
 interface CalendarProps {
+  selectedDate: Date | null;
   onDateChange: (date: Date | null) => void;
 }
 
-export const Calendar: React.FC<CalendarProps> = ({ onDateChange }) => {
+export const Calendar: React.FC<CalendarProps> = ({
+  selectedDate,
+  onDateChange,
+}) => {
   const [date, setDate] = React.useState<{
     selectedDate: Date | null;
   }>({
-    selectedDate: null,
+    selectedDate: selectedDate,
   });
 
   const handleChange = (d: DatepickerEvent) => {
     const [selectedDate] = d;
     setDate({ selectedDate });
     onDateChange(selectedDate);
-    // console.log(selectedDate);
   };
 
   const { language } = useLanguage();
 
-  const locale = language === 'en' ? enUS : it;
+  const locale = language === "en" ? enUS : it;
 
   return (
     <Box
