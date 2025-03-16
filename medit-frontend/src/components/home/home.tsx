@@ -13,7 +13,15 @@ import { useToggleDetails } from "./useToggleDetails";
 import { ReminderModal } from "./ReminderModal";
 
 export const Home: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    new Date(
+      Date.UTC(
+        new Date().getFullYear(),
+        new Date().getMonth(),
+        new Date().getDate()
+      )
+    )
+  );
   const [reminders, setReminders] = useState<any[]>([]);
   const [remindersWithMedications, setRemindersWithMedications] = useState<
     any[]
@@ -76,7 +84,7 @@ export const Home: React.FC = () => {
       <Box sx={{ position: "relative" }}>
         <Navbar onAddDetailsClick={handleAddDetailsToggle} />
       </Box>
-      <Calendar onDateChange={handleDateChange} />
+      <Calendar selectedDate={selectedDate} onDateChange={handleDateChange} />
       <FilterButton />
       {remindersWithMedications.map((reminder) => (
         <div key={reminder.id}>
