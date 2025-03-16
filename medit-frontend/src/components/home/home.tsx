@@ -4,7 +4,7 @@ import { MedicationComponent } from "./MedicationComponent/MedicationComponent";
 import { Calendar } from "./calendar/calendar";
 import "../../index.css";
 import { FilterButton } from "./FilterButton/FilterButton";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import {
   getRemindersForDate,
   getMedicationById,
@@ -86,18 +86,24 @@ export const Home: React.FC = () => {
       </Box>
       <Calendar selectedDate={selectedDate} onDateChange={handleDateChange} />
       <FilterButton />
-      {remindersWithMedications.map((reminder) => (
-        <div key={reminder.id}>
-          {reminder.medication && (
-            <>
-              <MedicationComponent
-                medication={reminder.medication}
-                reminder={reminder}
-              />
-            </>
-          )}
-        </div>
-      ))}
+      {remindersWithMedications.length === 0 ? (
+        <Typography variant="h6" sx={{ textAlign: "center", marginTop: 2 }}>
+          Non ci sono reminder per oggi
+        </Typography>
+      ) : (
+        remindersWithMedications.map((reminder) => (
+          <div key={reminder.id}>
+            {reminder.medication && (
+              <>
+                <MedicationComponent
+                  medication={reminder.medication}
+                  reminder={reminder}
+                />
+              </>
+            )}
+          </div>
+        ))
+      )}
       <ReminderModal
         showSetReminder={showSetReminder}
         showBackground={showBackground}
