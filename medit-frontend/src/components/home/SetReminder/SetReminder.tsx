@@ -26,6 +26,7 @@ import SelectDayAndMonth from "./SelectDayAndMonth";
 interface SetReminderProps {
   onSave: () => void;
   onAddDetailsSave: () => void;
+  handleReminderSaved: () => void;
 }
 
 export const daysOfWeek = [
@@ -41,6 +42,7 @@ export const daysOfWeek = [
 export const SetReminder: React.FC<SetReminderProps> = ({
   onSave,
   onAddDetailsSave,
+  handleReminderSaved,
 }) => {
   const theme = createTheme({
     typography: {
@@ -107,6 +109,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
     for (const reminder of reminders) {
       await addRecord("reminders", reminder);
     }
+    handleReminderSaved();
     setShowAddMedication(false);
     setIsVisible(false);
     setTimeout(onSave, 500);
