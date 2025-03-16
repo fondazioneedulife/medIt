@@ -1,42 +1,55 @@
 import React, { useState } from "react";
-import { LabelReminder } from "../../home/AddDetails/LabelReminder";
+import { LabelReminder } from "./LabelReminder";
 import {
   Box,
   createTheme,
   ListItem,
   ThemeProvider,
   Typography,
+  Alert,
 } from "@mui/material";
 import SelectComponent from "./select";
+import SelectType from "./SelectType";
 import { ButtonSave } from "./button";
 import AddInfo from "./AddInfo";
 import { addRecord } from "../../../database/indexedDB";
 import { useNavigate } from "react-router-dom";
-import InputFileUpload from "./AddImageProfile";
+import InputFileUpload from "./AddImage";
 import { ReturnIcon } from "../SetReminder/ReturnIcon";
+import { useLogin } from "../../login/LoginContext";
 
-interface AddDetailsProps {
+interface AddMedicationProps {
   onSave: (medicineId: number) => void;
-  onClose: () => void; // Aggiungi questa prop
+  onClose: () => void;
 }
 
-export const AddDetails: React.FC<AddDetailsProps> = ({ onSave, onClose }) => {
+export const AddMedication: React.FC<AddMedicationProps> = ({
+  onSave,
+  onClose,
+}) => {
   const theme = createTheme({
     typography: {
       fontFamily: "Montserrat, Arial",
     },
   });
 
+  const { user } = useLogin();
+
   const [medicineData, setMedicineData] = useState({
     name: "",
-    type: "Capsule",
+    type: "",
     dose: "",
-    program: "Daily",
-    quantity: 1,
+    unit: "",
+    quantity: 0,
     note: "",
+    image: "",
+    userId: user ? user.id : 0,
     created_at: new Date(),
     updated_at: new Date(),
+    synced_at: new Date(),
   });
+
+  const [errors, setErrors] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
@@ -48,10 +61,55 @@ export const AddDetails: React.FC<AddDetailsProps> = ({ onSave, onClose }) => {
     }));
   };
 
+  const handleUnitChange = (unit: string) => {
+    setMedicineData((prevData) => ({
+      ...prevData,
+      unit,
+    }));
+  };
+
+  const handleTypeChange = (type: string) => {
+    setMedicineData((prevData) => ({
+      ...prevData,
+      type,
+    }));
+  };
+
+  const handleNoteChange = (note: string) => {
+    setMedicineData((prevData) => ({
+      ...prevData,
+      note,
+    }));
+  };
+
+  const handleImageUpload = (image: string) => {
+    setMedicineData((prevData) => ({
+      ...prevData,
+      image,
+    }));
+  };
+
+  const validateData = () => {
+    const newErrors: string[] = [];
+    if (!medicineData.name) newErrors.push("Name is required.");
+    if (!medicineData.type) newErrors.push("Type is required.");
+    if (!medicineData.dose) newErrors.push("Dose is required.");
+    if (!medicineData.unit) newErrors.push("Unit is required.");
+    if (medicineData.quantity <= 0)
+      newErrors.push("Quantity must be greater than 0.");
+    return newErrors;
+  };
+
   const handleSave = async () => {
+    const validationErrors = validateData();
+    if (validationErrors.length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     const medicineId = Number(await addRecord("medications", medicineData));
     onSave(medicineId);
-    navigate("/home"); // Reindirizza alla home
+    navigate("/home");
   };
 
   return (
@@ -81,9 +139,18 @@ export const AddDetails: React.FC<AddDetailsProps> = ({ onSave, onClose }) => {
             variant="h2"
             sx={{ fontWeight: "bold", fontSize: "2rem", mb: 4 }}
           >
-            Set Medicine
+            Add medication
           </Typography>
         </ThemeProvider>
+        {errors.length > 0 && (
+          <Box sx={{ width: "80%", mb: 2 }}>
+            {errors.map((error, index) => (
+              <Alert key={index} severity="error">
+                {error}
+              </Alert>
+            ))}
+          </Box>
+        )}
         <Box
           sx={{
             borderRadius: 5,
@@ -103,34 +170,51 @@ export const AddDetails: React.FC<AddDetailsProps> = ({ onSave, onClose }) => {
                   inputName="dose"
                   placeholder={"Dose"}
                   showHr={false}
+                  type="number"
                   onChange={handleInputChange}
                 />
                 <SelectComponent
-                  value={medicineData.type}
-                  onChange={(e) =>
-                    setMedicineData((prevData) => ({
-                      ...prevData,
-                      type: e.target.value,
-                    }))
-                  }
+                  unit={medicineData.unit}
+                  onUnitChange={handleUnitChange}
                 />
               </Box>
             </Box>
           </ListItem>
         </Box>
 
+        <Box
+          sx={{
+            borderRadius: 5,
+            backgroundColor: "#F0F0F0",
+            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+            marginTop: "1rem",
+          }}
+        >
+          <SelectType
+            type={medicineData.type}
+            onTypeChange={handleTypeChange}
+          />
+          <LabelReminder
+            inputName="quantity"
+            placeholder={"Quantity"}
+            showHr={false}
+            type="number"
+            onChange={handleInputChange}
+          />
+        </Box>
+
         <ReturnIcon onClick={onClose} />
 
         <Box
           sx={{
-            marginTop: "2rem",
+            marginTop: "1rem",
             backgroundColor: "#F0F0F0",
             width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
             borderRadius: 5,
-            height: "15vh",
+            height: "10vh",
           }}
         >
-          <AddInfo />
+          <AddInfo onNoteChange={handleNoteChange} />
         </Box>
 
         <Box
@@ -146,7 +230,7 @@ export const AddDetails: React.FC<AddDetailsProps> = ({ onSave, onClose }) => {
             sx={{ color: "rgba(98, 98, 98, 0.5)" }}
           ></Typography>
         </Box>
-        <InputFileUpload />
+        <InputFileUpload onUpload={handleImageUpload} />
         <ButtonSave onClick={handleSave} />
       </Box>
     </Box>

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Box, Button, Link, Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ReturnIcon } from "./ReturnIcon";
@@ -9,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useLogin } from "./LoginContext";
 import { RoleEnum } from "../../generated";
+import { getUserById } from "../../database/indexedDB";
 
-// personalized theme with Montserrat font
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, Arial",
@@ -30,13 +31,21 @@ export const ChoseLoginOrSignup: React.FC = () => {
   const { translate } = useLanguage();
   const navigate = useNavigate();
   const { setUser } = useLogin();
+  const [userImage, setUserImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedImage = localStorage.getItem("userImage");
+    if (storedImage) {
+      setUserImage(storedImage);
+    }
+  }, []);
 
   const handleQrCodeClick = () => {
     navigate("/login/scan-qrcode");
   };
 
-  const handleClickHome = () => {
-    const guestUser = {
+  const handleClickHome = async () => {
+    let guestUser = {
       id: -1,
       firstName: "Guest",
       lastName: "User",
@@ -45,6 +54,15 @@ export const ChoseLoginOrSignup: React.FC = () => {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       language: "en",
     };
+
+    try {
+      const user = await getUserById(-1);
+      if (user) {
+        guestUser = user as any;
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
 
     setUser(guestUser);
     Cookies.set("user", JSON.stringify(guestUser), {
@@ -58,9 +76,9 @@ export const ChoseLoginOrSignup: React.FC = () => {
     <Box
       sx={{
         height: "100vh",
-        width: "100vw", // Ensure it takes full width of the viewport
+        width: "100vw",
         background: "linear-gradient(45deg, #00ca9bff, #1412c6ff)",
-        backgroundSize: "200% 120%", // extend the gradient
+        backgroundSize: "200% 120%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -69,7 +87,7 @@ export const ChoseLoginOrSignup: React.FC = () => {
         boxSizing: "border-box",
         [theme.breakpoints.down("md")]: {
           "@media (orientation: landscape)": {
-            height: "175vh", // Adjust the height for landscape orientation on phones
+            height: "175vh",
           },
         },
       }}

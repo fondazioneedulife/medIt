@@ -1,7 +1,12 @@
-import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+
+import React from "react";
+
+interface InputFileUploadProps {
+  onUpload: (image: string) => void;
+}
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -14,7 +19,7 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-export default function InputFileUpload() {
+const InputFileUpload: React.FC<InputFileUploadProps> = ({ onUpload }) => {
   return (
     <Button
       component="label"
@@ -24,8 +29,6 @@ export default function InputFileUpload() {
       startIcon={<CloudUploadIcon />}
       sx={{
         mr: 1,
-        mt: 2,
-        mb: 8.5,
         bgcolor: "white",
         boxShadow: "none",
         borderRadius: 3,
@@ -36,12 +39,23 @@ export default function InputFileUpload() {
         gap: 1,
       }}
     >
-      Add profile image
+      Add image
       <VisuallyHiddenInput
         type="file"
-        onChange={(event) => console.log(event.target.files)}
-        multiple
+        onChange={(event) => {
+          if (event.target.files && event.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              if (e.target?.result) {
+                onUpload(e.target.result as string);
+              }
+            };
+            reader.readAsDataURL(event.target.files[0]);
+          }
+        }}
       />
     </Button>
   );
-}
+};
+
+export default InputFileUpload;
