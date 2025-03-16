@@ -3,6 +3,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { PatientRegistrationReturnIcon } from "./PatientRegistrationReturnIcon";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import { PatientLabel } from "./PatientLabel";
+import { useRegistration } from "../../../contexts/PatientRegistrationContenxt";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { getUserByEmail, registerUser } from "../../../database/indexedDB";
+import { v4 as uuidv4 } from "uuid";
+import { RoleEnum } from "../../../generated";
+import { useLogin } from "../../login/LoginContext";
+import QRCode from "qrcode";
 import iconEmail from "../../../assets/icon/icon-email.svg";
 import iconUser from "../../../assets/icon/logo user.svg";
 import iconKey from "../../../assets/icon/icon-key.svg";
@@ -15,6 +23,91 @@ const theme = createTheme({
 
 export const PatientRegistrationForm: React.FC = () => {
   const { translate } = useLanguage();
+  const navigate = useNavigate();
+  const { patient, setPatient } = useRegistration();
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const { user } = useLogin();
+
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setPatient((prevUser) => ({
+      ...prevUser,
+      [name]: value,
+    }));
+  };
+
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!patient.firstName || !/^[a-zA-Z]+$/.test(patient.firstName)) {
+      newErrors.firstName = translate("invalidFirstName");
+    }
+
+    if (!patient.lastName || !/^[a-zA-Z]+$/.test(patient.lastName)) {
+      newErrors.lastName = translate("invalidLastName");
+    }
+
+    if (!patient.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(patient.email)) {
+      newErrors.email = translate("invalidEmailAddress");
+    }
+
+    if (!patient.password || patient.password.length < 8) {
+      newErrors.password = translate("shortPassword");
+    }
+
+    if (patient.password !== patient.Confirmpassword) {
+      newErrors.Confirmpassword = translate("passwordsDoNotMatch");
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) {
+      return;
+    }
+    try {
+      if (!patient.email) {
+        console.error("Email is required");
+        return;
+      }
+      const existingUser = await getUserByEmail(patient.email);
+      if (existingUser) {
+        // console.error("User with this email already exists");
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          existingUser: translate("userWithEmailExists"),
+        }));
+        return;
+      }
+
+      const uuid = uuidv4();
+      const qrCodeData = await QRCode.toDataURL(uuid);
+
+      const newUser = {
+        ...patient,
+        id: undefined,
+        role: RoleEnum.Patient,
+        caregiverId: user?.id || 0,
+        qrcode: qrCodeData,
+      };
+
+      await setPatient(newUser);
+      await registerUser({
+        ...newUser,
+        created_at: new Date(),
+        updated_at: new Date(),
+      });
+
+      navigate("/profile/patient-list");
+    } catch (error) {
+      console.error("Failed to register patient:", error);
+    }
+  };
 
   return (
     <Box
@@ -52,7 +145,7 @@ export const PatientRegistrationForm: React.FC = () => {
             {translate("patientRegistration")}
           </Typography>
         </ThemeProvider>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Box
             sx={{
               borderRadius: 5,
@@ -78,23 +171,27 @@ export const PatientRegistrationForm: React.FC = () => {
                     inputName="firstName"
                     img={iconUser}
                     placeholder={translate("firstName")}
+                    onChange={handleInputChange}
                   />
                   <PatientLabel
                     inputName="lastName"
                     img={iconUser}
                     placeholder={translate("lastName")}
+                    onChange={handleInputChange}
                   />
                   
                   <PatientLabel
                     inputName="email"
                     img={iconEmail}
                     placeholder={"Email"}
+                    onChange={handleInputChange}
                   />
                   <PatientLabel
                     inputName="password"
                     img={iconKey}
                     placeholder={"Password"}
                     type="password"
+                    onChange={handleInputChange}
                   />
                   <PatientLabel
                     inputName="Confirmpassword"
@@ -102,6 +199,7 @@ export const PatientRegistrationForm: React.FC = () => {
                     placeholder={translate("confirmPassword")}
                     showHr={false}
                     type="password"
+                    onChange={handleInputChange}
                   />
                 </div>
               </div>

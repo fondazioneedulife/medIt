@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography/Typography";
 import { ReturnIcon } from "../login/ReturnIcon";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useNavigate } from "react-router";
+import { PatientProfileCard } from "./PatientProfileCard";
 import examplePatientImage from "../../assets/profile/example_patient_profile_image.svg";
 
 
@@ -66,47 +67,29 @@ export const PatientList: React.FC = () => {
                     sx={{
                         backgroundColor: "#F7F7F7", 
                         display: "flex",
-                        flexDirection: "row",
+                        flexWrap: "wrap",
                         gap: "1rem",
                         mt: "2rem",
-                        width: "100%",
-                        justifyContent: "center",
-                        ml: { xs: "1rem", sm: "3rem", md: "6.2rem" },
+                        width: "75%",
+                        justifyContent: "space-between",
                     }}
                 >
-                    {/* Sample patient profile */}
-                    <Box
-                        component="table"
-                        sx={{ width: "30%", textAlign: "center" }}
-                    >
-                        <Box component="tr">
-                            <Box component="td">
-                                <img
-                                    src={examplePatientImage}
-                                    style={{ width: "8rem", height: "8rem", objectFit: "cover", borderRadius: "20px" }}
-                                    alt="example patient profile image"
-                                />
-                            </Box>
-                        </Box>
-
-                        <Box component="tr">
-                            <Box component="td">
-                                <Typography
-                                    sx={{
-                                        fontWeight: "light",
-                                        textAlign: "center",
-                                        fontFamily: "Montserrat, Arial, sans-serif"
-                                    }}>
-                                    Carlo Rossi
-                                </Typography>
-                            </Box>
-                        </Box>
-                    </Box>
+                    <PatientProfileCard
+                        imageSrc={examplePatientImage}
+                        name="Carlo Rossi"
+                    />
 
                     {/* add profile */}
                     <Box
                         component="table"
-                        sx={{ width: "30%", textAlign: "center",backgroundColor: "#F7F7F7" }}
+                        sx={{
+                            width: "45%",
+                            textAlign: "center",
+                            backgroundColor: "#F7F7F7",
+                            flex: "1 1 45%",
+                            maxWidth: "45%",
+                            alignSelf: "flex-start"
+                        }}
                     >
                         <Box component="tr">
                             <Box component="td">

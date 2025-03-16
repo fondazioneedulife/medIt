@@ -26,6 +26,7 @@ export const openDB = (): Promise<IDBDatabase> => {
         usersStore.createIndex("profileImage", "profileImage", {
           unique: false,
         });
+        usersStore.createIndex("caregiverId", "caregiverId", { unique: false });  // aggiunta caregiverId
         usersStore.createIndex("created_at", "created_at", { unique: false });
         usersStore.createIndex("updated_at", "updated_at", { unique: false });
         usersStore.createIndex("timezone", "timezone", { unique: false });
