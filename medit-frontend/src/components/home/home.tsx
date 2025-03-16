@@ -6,7 +6,6 @@ import "../../index.css";
 import { FilterButton } from "./FilterButton/FilterButton";
 import { Box } from "@mui/material";
 import {
-  getAllRecords,
   getRemindersForDate,
   getMedicationById,
 } from "../../database/indexedDB";
@@ -14,7 +13,6 @@ import { useToggleDetails } from "./useToggleDetails";
 import { ReminderModal } from "./ReminderModal";
 
 export const Home: React.FC = () => {
-  const [medications, setMedications] = useState<any[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [reminders, setReminders] = useState<any[]>([]);
   const [remindersWithMedications, setRemindersWithMedications] = useState<
@@ -28,15 +26,6 @@ export const Home: React.FC = () => {
     handleReminderSave,
     handleAddDetailsSave,
   } = useToggleDetails();
-
-  useEffect(() => {
-    const fetchMedications = async () => {
-      const meds = await getAllRecords("medications");
-      setMedications(meds);
-    };
-
-    fetchMedications();
-  }, []);
 
   useEffect(() => {
     const fetchReminders = async () => {
