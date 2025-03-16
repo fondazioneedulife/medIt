@@ -30,9 +30,9 @@ export const Home: React.FC = () => {
   const {
     showSetReminder,
     showBackground,
-    handleAddDetailsToggle,
+    handleAddMedicationToggle,
     handleReminderSave,
-    handleAddDetailsSave,
+    handleAddMedicationSave,
   } = useToggleDetails();
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export const Home: React.FC = () => {
   return (
     <>
       <Box sx={{ position: "relative" }}>
-        <Navbar onAddDetailsClick={handleAddDetailsToggle} />
+        <Navbar onAddDetailsClick={handleAddMedicationToggle} />
       </Box>
       <Calendar selectedDate={selectedDate} onDateChange={handleDateChange} />
       <FilterButton />
@@ -108,7 +108,7 @@ export const Home: React.FC = () => {
         showSetReminder={showSetReminder}
         showBackground={showBackground}
         handleReminderSave={handleReminderSave}
-        handleAddDetailsSave={handleAddDetailsSave}
+        handleAddDetailsSave={handleAddMedicationSave}
       />
     </>
   );
