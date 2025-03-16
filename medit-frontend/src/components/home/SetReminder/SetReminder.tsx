@@ -5,6 +5,12 @@ import {
   ListItem,
   ThemeProvider,
   Typography,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
 } from "@mui/material";
 import SelectFrequency from "../SetReminder/selectWeek";
 import { ButtonSave } from "../AddMedication/button";
@@ -18,6 +24,8 @@ import { useNavigate } from "react-router-dom";
 import { ButtonAddMedication } from "./button";
 import { v4 as uuidv4 } from "uuid";
 import { generateReminders } from "./generateReminders";
+import { SelectDayOfMonth } from "./SelectDayOfMonth";
+import SelectDayAndMonth from "./SelectDayAndMonth";
 
 interface SetReminderProps {
   onSave: () => void;
@@ -51,6 +59,10 @@ export const SetReminder: React.FC<SetReminderProps> = ({
     frequency: "daily",
     id_group: uuidv4(),
     synced_at: new Date(),
+    dayOfMonth: 1,
+    dayOfYear: 1,
+    monthOfYear: 1,
+    endDate: null as Date | null,
   });
 
   const [isVisible, setIsVisible] = useState(true);
@@ -72,6 +84,8 @@ export const SetReminder: React.FC<SetReminderProps> = ({
       await addRecord("reminders", reminder);
     }
     setShowAddMedication(false);
+    setIsVisible(false);
+    setTimeout(onSave, 500);
     navigate("/home");
   };
 
@@ -121,6 +135,28 @@ export const SetReminder: React.FC<SetReminderProps> = ({
     setReminderData((prevData) => ({
       ...prevData,
       frequency,
+    }));
+  };
+
+  const handleDayOfMonthChange = (day: number) => {
+    setReminderData((prevData) => ({
+      ...prevData,
+      dayOfMonth: day,
+    }));
+  };
+
+  const handleDayAndMonthChange = (day: number, month: number) => {
+    setReminderData((prevData) => ({
+      ...prevData,
+      dayOfYear: day,
+      monthOfYear: month,
+    }));
+  };
+
+  const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setReminderData((prevData) => ({
+      ...prevData,
+      endDate: event.target.value ? new Date(event.target.value) : null,
     }));
   };
 
@@ -213,45 +249,90 @@ export const SetReminder: React.FC<SetReminderProps> = ({
               </ListItem>
             </Box>
 
-            <Box
-              sx={{
-                display: "flex",
-                gap: 1.2,
-                mt: 3,
-                width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
-              }}
-            >
-              {daysOfWeek.map((day) => (
-                <Box
-                  key={day.value}
-                  onClick={() => toggleDay(day.value)}
-                  sx={{
-                    borderRadius: 3,
-                    backgroundColor: reminderData.days.includes(day.value)
-                      ? "#0B6BB2"
-                      : "#F0F0F0",
-                    color: reminderData.days.includes(day.value)
-                      ? "white"
-                      : "black",
-                    width: "50px",
-                    height: "50px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                    transition: "0.3s",
-                    "&:hover": {
+            {reminderData.frequency === "weekly" && (
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 1.2,
+                  mt: 3,
+                  width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+                }}
+              >
+                {daysOfWeek.map((day) => (
+                  <Box
+                    key={day.value}
+                    onClick={() => toggleDay(day.value)}
+                    sx={{
+                      borderRadius: 3,
                       backgroundColor: reminderData.days.includes(day.value)
-                        ? "#084E8A"
-                        : "#d0d0d0",
-                    },
-                  }}
-                >
-                  {day.label}
-                </Box>
-              ))}
-            </Box>
+                        ? "#0B6BB2"
+                        : "#F0F0F0",
+                      color: reminderData.days.includes(day.value)
+                        ? "white"
+                        : "black",
+                      width: "50px",
+                      height: "50px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontWeight: "bold",
+                      cursor: "pointer",
+                      transition: "0.3s",
+                      "&:hover": {
+                        backgroundColor: reminderData.days.includes(day.value)
+                          ? "#084E8A"
+                          : "#d0d0d0",
+                      },
+                    }}
+                  >
+                    {day.label}
+                  </Box>
+                ))}
+              </Box>
+            )}
+
+            {reminderData.frequency === "monthly" && (
+              <Box
+                sx={{
+                  borderRadius: 5,
+                  backgroundColor: "#F0F0F0",
+                  width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+                  mt: 3,
+                  pt: 2,
+                  pb: 2,
+                }}
+              >
+                <SelectDayOfMonth
+                  selectedDay={reminderData.dayOfMonth}
+                  onDayChange={handleDayOfMonthChange}
+                />
+              </Box>
+            )}
+
+            {reminderData.frequency === "yearly" && (
+              <Box
+                sx={{
+                  borderRadius: 5,
+                  backgroundColor: "#F0F0F0",
+                  width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+                  mt: 3,
+                  pt: 2,
+                  pb: 2,
+                }}
+              >
+                <SelectDayAndMonth
+                  selectedDay={reminderData.dayOfYear}
+                  selectedMonth={reminderData.monthOfYear}
+                  onDayChange={(day) =>
+                    handleDayAndMonthChange(day, reminderData.monthOfYear)
+                  }
+                  onMonthChange={(month) =>
+                    handleDayAndMonthChange(reminderData.dayOfYear, month)
+                  }
+                />
+              </Box>
+            )}
+
             <Box
               sx={{
                 borderRadius: 5,
@@ -263,6 +344,28 @@ export const SetReminder: React.FC<SetReminderProps> = ({
               }}
             >
               <SetHour onChange={handleTimeSlotsChange} />
+            </Box>
+
+            <Box
+              sx={{
+                borderRadius: 5,
+                backgroundColor: "#F0F0F0",
+                width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+                mt: 3,
+                pt: 2,
+                pb: 2,
+              }}
+            >
+              <TextField
+                label="End therapy date"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
+                sx={{ mt: 2 }}
+                onChange={handleEndDateChange}
+              />
             </Box>
 
             <ButtonSave buttonText="Save" onClick={handleSave} />
