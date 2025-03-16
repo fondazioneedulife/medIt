@@ -10,7 +10,6 @@ import {
 import Ellipse from "../../../assets/icon/Check-Ellipse.svg";
 import Check from "../../../assets/icon/Check.svg";
 import Image from "../../../assets/icon/immagine.jpg";
-import Profile from "../../../assets/icon/profile.png";
 import { useLogin } from "../../login/LoginContext";
 
 const theme = createTheme({
