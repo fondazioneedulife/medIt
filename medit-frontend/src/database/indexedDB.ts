@@ -1,5 +1,6 @@
 import { RegisterRequest } from "../../api-types/RegisterRequest";
 import { User } from "../generated/models/User";
+import { seedDatabase } from "./seedDatabase";
 
 const DB_NAME = "Medit";
 const DB_VERSION = 1;
@@ -10,7 +11,7 @@ export const openDB = (): Promise<IDBDatabase> => {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-    request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
+    request.onupgradeneeded = async (event: IDBVersionChangeEvent) => {
       const db = (event.target as IDBOpenDBRequest).result;
 
       // Create the Users table
@@ -101,6 +102,10 @@ export const openDB = (): Promise<IDBDatabase> => {
         takenMedicationsStore.createIndex("synced_at", "synced_at", {
           unique: false,
         });
+      }
+
+      if (request.transaction) {
+        await seedDatabase(request.transaction);
       }
     };
 
