@@ -102,6 +102,7 @@ export const generateReminders = (data: ReminderData) => {
         reminders.push({
           medication_id,
           reminder_date_time: reminderDate.toISOString(),
+          frequency,
           id_group,
           synced_at,
         });
