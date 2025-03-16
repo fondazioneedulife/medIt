@@ -6,6 +6,7 @@ import {
   ListItem,
   ThemeProvider,
   Typography,
+  Alert,
 } from "@mui/material";
 import SelectComponent from "./select";
 import SelectType from "./SelectType";
@@ -48,6 +49,8 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
     synced_at: new Date(),
   });
 
+  const [errors, setErrors] = useState<string[]>([]);
+
   const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +89,24 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
     }));
   };
 
+  const validateData = () => {
+    const newErrors: string[] = [];
+    if (!medicineData.name) newErrors.push("Name is required.");
+    if (!medicineData.type) newErrors.push("Type is required.");
+    if (!medicineData.dose) newErrors.push("Dose is required.");
+    if (!medicineData.unit) newErrors.push("Unit is required.");
+    if (medicineData.quantity <= 0)
+      newErrors.push("Quantity must be greater than 0.");
+    return newErrors;
+  };
+
   const handleSave = async () => {
+    const validationErrors = validateData();
+    if (validationErrors.length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     const medicineId = Number(await addRecord("medications", medicineData));
     onSave(medicineId);
     navigate("/home");
@@ -122,6 +142,15 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
             Add medication
           </Typography>
         </ThemeProvider>
+        {errors.length > 0 && (
+          <Box sx={{ width: "80%", mb: 2 }}>
+            {errors.map((error, index) => (
+              <Alert key={index} severity="error">
+                {error}
+              </Alert>
+            ))}
+          </Box>
+        )}
         <Box
           sx={{
             borderRadius: 5,
