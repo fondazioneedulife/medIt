@@ -8,6 +8,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
   const usersStore = transaction.objectStore("users");
   const medicationsStore = transaction.objectStore("medications");
   const remindersStore = transaction.objectStore("reminders");
+  const authStore = transaction.objectStore("auth");
 
   const demoUser = {
     id: 1,
@@ -24,6 +25,20 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
 
   await new Promise((resolve, reject) => {
     const request = usersStore.add(demoUser);
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+
+  const demoAuth = {
+    user_id: 1,
+    password: "$2b$10$pmgsO5wOyudhbKcUQAO82ey5Ne4n4mCrVN0MiQOppUm41o7r7cUJS",
+    failed_attempts: 0,
+    last_login: new Date(),
+    synced_at: new Date(),
+  };
+
+  await new Promise((resolve, reject) => {
+    const request = authStore.add(demoAuth);
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
   });
