@@ -23,6 +23,7 @@ import { PatientQrcode } from "./components/profile/patientQrcode/PatientQrcode.
 import { Support } from "./components/support/Support.tsx";
 import { PatientRegistrationForm } from "./components/patientList/registration/PatientRegistrationForm.tsx";
 import { MedicalHistoryPage } from "./components/profile/medicalHistory/MedicalHistoryPage.tsx";
+import { Details } from "./components/details_medicines/Details.tsx";
 import AuthGuard from "./routes/AuthGuard.tsx";
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
               <Route element={<AuthGuard />}>
                 <Route path="home" element={<Home />}></Route>
                 <Route path="reminder" element={<SetReminder />}></Route>
+                <Route path="medication-details" element={<Details />}></Route>
 
                 <Route path="profile">
                   <Route index element={<UserProfile />}></Route>
@@ -100,7 +102,10 @@ function App() {
                     ></Route>
                   </Route>
 
-                  <Route path="medical-history" element={<MedicalHistoryPage />}/>
+                  <Route
+                    path="medical-history"
+                    element={<MedicalHistoryPage />}
+                  />
                 </Route>
               </Route>
             </Route>
