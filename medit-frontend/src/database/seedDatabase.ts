@@ -32,7 +32,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
     {
       name: "Tachipirina",
       type: "Tablet",
-      dose: "500mg",
+      dose: "500",
       unit: "mg",
       quantity: 20,
       note: "",
@@ -45,7 +45,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
     {
       name: "Moment",
       type: "Tablet",
-      dose: "200mg",
+      dose: "200",
       unit: "mg",
       quantity: 15,
       note: "",
@@ -58,7 +58,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
     {
       name: "Brufen",
       type: "Tablet",
-      dose: "400mg",
+      dose: "400",
       unit: "mg",
       quantity: 10,
       note: "",
@@ -71,7 +71,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
     {
       name: "Aspirina",
       type: "Tablet",
-      dose: "500mg",
+      dose: "500",
       unit: "mg",
       quantity: 20,
       note: "",
@@ -84,7 +84,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
     {
       name: "Imodium",
       type: "Tablet",
-      dose: "2mg",
+      dose: "2",
       unit: "mg",
       quantity: 10,
       note: "",
@@ -109,30 +109,35 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
       medication_id: 1,
       reminder_date_time: new Date().toISOString(),
       id_group: "group1",
+      frequency: "daily",
       synced_at: new Date(),
     },
     {
       medication_id: 2,
       reminder_date_time: new Date().toISOString(),
       id_group: "group2",
+      frequency: "daily",
       synced_at: new Date(),
     },
     {
       medication_id: 3,
       reminder_date_time: new Date().toISOString(),
       id_group: "group3",
+      frequency: "daily",
       synced_at: new Date(),
     },
     {
       medication_id: 4,
       reminder_date_time: new Date().toISOString(),
       id_group: "group4",
+      frequency: "daily",
       synced_at: new Date(),
     },
     {
       medication_id: 5,
       reminder_date_time: new Date().toISOString(),
       id_group: "group5",
+      frequency: "daily",
       synced_at: new Date(),
     },
   ];
