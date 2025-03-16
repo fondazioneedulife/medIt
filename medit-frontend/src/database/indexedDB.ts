@@ -305,3 +305,17 @@ export const getMedicationById = async (
     request.onerror = () => reject(request.error);
   });
 };
+
+export const getUserById = async (
+  userId: number
+): Promise<User | undefined> => {
+  const db = await openDB();
+  return new Promise<User | undefined>((resolve, reject) => {
+    const transaction = db.transaction(USER_STORE, "readonly");
+    const store = transaction.objectStore(USER_STORE);
+    const request = store.get(userId);
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
