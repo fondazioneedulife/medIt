@@ -5,11 +5,6 @@ import {
   ListItem,
   ThemeProvider,
   Typography,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
   TextField,
 } from "@mui/material";
 import SelectFrequency from "../SetReminder/selectWeek";
