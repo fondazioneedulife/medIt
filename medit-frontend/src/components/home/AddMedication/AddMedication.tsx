@@ -148,29 +148,39 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
                   onUnitChange={handleUnitChange}
                 />
               </Box>
-              <SelectType
-                type={medicineData.type}
-                onTypeChange={handleTypeChange}
-              />
-              <LabelReminder
-                inputName="quantity"
-                placeholder={"Quantity"}
-                showHr={false}
-                onChange={handleInputChange}
-              />
             </Box>
           </ListItem>
+        </Box>
+
+        <Box
+          sx={{
+            borderRadius: 5,
+            backgroundColor: "#F0F0F0",
+            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+            marginTop: "1rem",
+          }}
+        >
+          <SelectType
+            type={medicineData.type}
+            onTypeChange={handleTypeChange}
+          />
+          <LabelReminder
+            inputName="quantity"
+            placeholder={"Quantity"}
+            showHr={false}
+            onChange={handleInputChange}
+          />
         </Box>
 
         <ReturnIcon onClick={onClose} />
 
         <Box
           sx={{
-            marginTop: "2rem",
+            marginTop: "1rem",
             backgroundColor: "#F0F0F0",
             width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
             borderRadius: 5,
-            height: "15vh",
+            height: "10vh",
           }}
         >
           <AddInfo onNoteChange={handleNoteChange} />
