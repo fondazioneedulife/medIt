@@ -26,6 +26,7 @@ export const Home: React.FC = () => {
   const [remindersWithMedications, setRemindersWithMedications] = useState<
     any[]
   >([]);
+  const [reminderAdded, setReminderAdded] = useState(false);
 
   const {
     showSetReminder,
@@ -37,7 +38,7 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     const fetchReminders = async () => {
-      if (selectedDate) {
+      if (selectedDate && reminderAdded) {
         const reminders = await getRemindersForDate(selectedDate);
         setReminders(reminders);
       } else {
@@ -46,7 +47,8 @@ export const Home: React.FC = () => {
     };
 
     fetchReminders();
-  }, [selectedDate]);
+    setReminderAdded(false);
+  }, [selectedDate, reminderAdded]);
 
   useEffect(() => {
     const fetchRemindersWithMedications = async () => {
@@ -79,6 +81,10 @@ export const Home: React.FC = () => {
     }
   };
 
+  const handleReminderSaved = () => {
+    setReminderAdded(true);
+  };
+
   return (
     <>
       <Box sx={{ position: "relative" }}>
@@ -109,6 +115,7 @@ export const Home: React.FC = () => {
         showBackground={showBackground}
         handleReminderSave={handleReminderSave}
         handleAddDetailsSave={handleAddMedicationSave}
+        handleReminderSaved={handleReminderSaved}
       />
     </>
   );
