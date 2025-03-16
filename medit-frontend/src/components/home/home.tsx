@@ -38,8 +38,8 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     const fetchReminders = async () => {
-      if (selectedDate && reminderAdded) {
-        const reminders = await getRemindersForDate(selectedDate);
+      if (selectedDate || reminderAdded) {
+        const reminders = await getRemindersForDate(selectedDate as Date);
         setReminders(reminders);
       } else {
         setReminders([]);
