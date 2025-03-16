@@ -356,3 +356,9 @@ export const isMedicationTaken = async (
     request.onerror = () => reject(request.error);
   });
 };
+
+export const addTakenMedication = async (
+  takenMedication: any
+): Promise<IDBValidKey> => {
+  return await addRecord("taken_medications", takenMedication);
+};
