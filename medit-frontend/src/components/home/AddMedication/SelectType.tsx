@@ -4,17 +4,14 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-interface SelectFrequencyProps {
-  selectedFrequency: string;
-  onFrequencyChange: (frequency: string) => void;
+interface SelectTypeProps {
+  type: string;
+  onTypeChange: (type: string) => void;
 }
 
-const SelectFrequency: React.FC<SelectFrequencyProps> = ({
-  selectedFrequency,
-  onFrequencyChange,
-}) => {
+const SelectType: React.FC<SelectTypeProps> = ({ type, onTypeChange }) => {
   const handleChange = (event: SelectChangeEvent) => {
-    onFrequencyChange(event.target.value);
+    onTypeChange(event.target.value as string);
   };
 
   const theme = createTheme({
@@ -28,7 +25,7 @@ const SelectFrequency: React.FC<SelectFrequencyProps> = ({
       <div>
         <FormControl sx={{ m: 1, minWidth: "70vw" }}>
           <Select
-            value={selectedFrequency}
+            value={type}
             onChange={handleChange}
             displayEmpty
             inputProps={{ "aria-label": "Without label" }}
@@ -38,10 +35,11 @@ const SelectFrequency: React.FC<SelectFrequencyProps> = ({
               },
             }}
           >
-            <MenuItem value="daily">Daily</MenuItem>
-            <MenuItem value="weekly">Weekly</MenuItem>
-            <MenuItem value="monthly">Monthly</MenuItem>
-            <MenuItem value="yearly">Yearly</MenuItem>
+            <MenuItem value="">Type</MenuItem>
+            <MenuItem value={"capsule"}>Capsule</MenuItem>
+            <MenuItem value={"tablet"}>Tablet</MenuItem>
+            <MenuItem value={"syrup"}>Syrup</MenuItem>
+            <MenuItem value={"injection"}>Injection</MenuItem>
           </Select>
         </FormControl>
       </div>
@@ -49,4 +47,4 @@ const SelectFrequency: React.FC<SelectFrequencyProps> = ({
   );
 };
 
-export default SelectFrequency;
+export default SelectType;

@@ -149,6 +149,7 @@ export const Login: React.FC = () => {
                   inputName="email"
                   img={iconEmail}
                   placeholder={"Email"}
+                  type="email"
                   onChange={handleInputChange}
                 />
                 <LoginLabel

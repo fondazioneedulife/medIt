@@ -54,9 +54,10 @@ export const openDB = (): Promise<IDBDatabase> => {
         medicationsStore.createIndex("name", "name", { unique: false });
         medicationsStore.createIndex("type", "type", { unique: false });
         medicationsStore.createIndex("dose", "dose", { unique: false });
-        medicationsStore.createIndex("program", "program", { unique: false });
+        medicationsStore.createIndex("unit", "unit", { unique: false });
         medicationsStore.createIndex("quantity", "quantity", { unique: false });
         medicationsStore.createIndex("note", "note", { unique: false });
+        medicationsStore.createIndex("image", "image", { unique: false });
         medicationsStore.createIndex("created_at", "created_at", {
           unique: false,
         });
@@ -80,7 +81,7 @@ export const openDB = (): Promise<IDBDatabase> => {
         remindersStore.createIndex("reminder_date_time", "reminder_date_time", {
           unique: false,
         });
-        remindersStore.createIndex("id_group", "id_group", { unique: true });
+        remindersStore.createIndex("id_group", "id_group", { unique: false });
         remindersStore.createIndex("synced_at", "synced_at", { unique: false });
       }
 
@@ -251,5 +252,70 @@ export const getAuthByUserId = async (userId: number) => {
     request.onerror = () => {
       reject(request.error);
     };
+  });
+};
+
+export const addMedication = async (medication: any): Promise<IDBValidKey> => {
+  return await addRecord("medications", medication);
+};
+
+export const getAllMedications = async (): Promise<any[]> => {
+  return await getAllRecords("medications");
+};
+
+export const addReminder = async (reminder: any): Promise<IDBValidKey> => {
+  return await addRecord("reminders", reminder);
+};
+
+export const getRemindersForDate = async (date: Date): Promise<any[]> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("reminders", "readonly");
+    const store = transaction.objectStore("reminders");
+    const index = store.index("reminder_date_time");
+
+    const start = new Date(date);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(date);
+    end.setHours(23, 59, 59, 999);
+
+    const range = IDBKeyRange.bound(
+      start.toISOString(),
+      end.toISOString(),
+      false,
+      false
+    );
+    const request = index.getAll(range);
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const getMedicationById = async (
+  medication_id: number
+): Promise<any> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("medications", "readonly");
+    const store = transaction.objectStore("medications");
+    const request = store.get(medication_id);
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const getUserById = async (
+  userId: number
+): Promise<User | undefined> => {
+  const db = await openDB();
+  return new Promise<User | undefined>((resolve, reject) => {
+    const transaction = db.transaction(USER_STORE, "readonly");
+    const store = transaction.objectStore(USER_STORE);
+    const request = store.get(userId);
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
   });
 };

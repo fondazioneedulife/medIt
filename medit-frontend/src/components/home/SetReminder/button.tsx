@@ -1,12 +1,12 @@
 import { Box, Button } from "@mui/material";
-import IconPlus from "../../../assets/icon/PlusAddMedicine.svg";
+import IconPlus from "../../../assets/icon/PlusAddMedication.svg";
 
 interface ButtonSaveProps {
   buttonText?: string;
   onClick?: () => void;
 }
 
-export const ButtonAddMedicine: React.FC<ButtonSaveProps> = ({
+export const ButtonAddMedication: React.FC<ButtonSaveProps> = ({
   buttonText = "Next",
   onClick,
 }) => {
@@ -14,7 +14,7 @@ export const ButtonAddMedicine: React.FC<ButtonSaveProps> = ({
     <Button
       sx={{
         borderRadius: 3,
-        width: { xs: "40%", sm: "25%", md: "22%", lg: "20%", xl: "15%" },
+        width: { xs: "50%", sm: "25%", md: "22%", lg: "20%", xl: "15%" },
         height: "2rem",
         backgroundColor: "#0B6BB2",
         color: "white",

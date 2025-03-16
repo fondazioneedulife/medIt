@@ -6,12 +6,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
 import { ProfileEntry } from "./ProfileEntry";
 import { useLogin } from "../login/LoginContext";
+import { useToggleDetails } from "../home/useToggleDetails";
+import { ReminderModal } from "../home/ReminderModal.tsx";
 import userInfoIcon from "../../assets/profile/user_information.svg";
 import medicalHistoryIcon from "../../assets/profile/clipboard_heart_icon.svg";
 import supportIcon from "../../assets/profile/support_icon.svg";
 import settingsIcon from "../../assets/profile/settings_icon.svg";
 import patientListIcon from "../../assets/profile/patient_list_icon.svg";
 import logoutIcon from "../../assets/profile/logoutIcon.svg";
+import { useState } from "react";
 
 export const UserProfile: React.FC = () => {
   const theme = createTheme({
@@ -32,6 +35,15 @@ export const UserProfile: React.FC = () => {
   const { user, setUser } = useLogin();
   const { translate } = useLanguage();
   const navigate = useNavigate();
+  const [, setReminderAdded] = useState(false);
+
+  const {
+    showSetReminder,
+    showBackground,
+    handleAddMedicationToggle,
+    handleReminderSave,
+    handleAddMedicationSave,
+  } = useToggleDetails();
 
   const qrCodeHandleClick = () => {
     navigate("/profile/patient-qr-code", { state: { qrcode: user?.qrcode } });
@@ -45,6 +57,10 @@ export const UserProfile: React.FC = () => {
     setUser(null);
   };
 
+  const handleReminderSaved = () => {
+    setReminderAdded(true);
+  };
+
   const profileImage = user?.profileImage || null;
 
   const initials = `${user?.firstName?.charAt(0).toUpperCase()}${user?.lastName
@@ -53,7 +69,7 @@ export const UserProfile: React.FC = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar onAddDetailsClick={handleAddMedicationToggle} />
       <Box
         sx={{
           height: "89vh" /* navbar height is 11vh */,
@@ -280,6 +296,13 @@ export const UserProfile: React.FC = () => {
           </Box>
         </ThemeProvider>
       </Box>
+      <ReminderModal
+        showSetReminder={showSetReminder}
+        showBackground={showBackground}
+        handleReminderSave={handleReminderSave}
+        handleAddMedicationSave={handleAddMedicationSave}
+        handleReminderSaved={handleReminderSaved}
+      />
     </>
   );
 };
