@@ -67,13 +67,13 @@ export const generateReminders = (data: ReminderData) => {
 
     while (currentDate < addMonths(startDate, 6)) {
       dates.push(new Date(currentDate));
-      if (frequency === "day") {
+      if (frequency === "daily") {
         currentDate = addDays(currentDate, 1);
-      } else if (frequency === "week") {
+      } else if (frequency === "weekly") {
         currentDate = addWeeks(currentDate, 1);
-      } else if (frequency === "month") {
+      } else if (frequency === "monthly") {
         currentDate = addMonths(currentDate, 1);
-      } else if (frequency === "year") {
+      } else if (frequency === "yearly") {
         currentDate = addYears(currentDate, 1);
       }
     }
