@@ -13,6 +13,7 @@ import supportIcon from "../../assets/profile/support_icon.svg";
 import settingsIcon from "../../assets/profile/settings_icon.svg";
 import patientListIcon from "../../assets/profile/patient_list_icon.svg";
 import logoutIcon from "../../assets/profile/logoutIcon.svg";
+import { useState } from "react";
 
 export const UserProfile: React.FC = () => {
   const theme = createTheme({
@@ -33,13 +34,14 @@ export const UserProfile: React.FC = () => {
   const { user, setUser } = useLogin();
   const { translate } = useLanguage();
   const navigate = useNavigate();
+  const [, setReminderAdded] = useState(false);
 
   const {
     showSetReminder,
     showBackground,
-    handleAddDetailsToggle,
+    handleAddMedicationToggle,
     handleReminderSave,
-    handleAddDetailsSave,
+    handleAddMedicationSave,
   } = useToggleDetails();
 
   const qrCodeHandleClick = () => {
@@ -54,6 +56,10 @@ export const UserProfile: React.FC = () => {
     setUser(null);
   };
 
+  const handleReminderSaved = () => {
+    setReminderAdded(true);
+  };
+
   const profileImage = user?.profileImage || null;
 
   const initials = `${user?.firstName?.charAt(0).toUpperCase()}${user?.lastName
@@ -62,7 +68,7 @@ export const UserProfile: React.FC = () => {
 
   return (
     <>
-      <Navbar onAddDetailsClick={handleAddDetailsToggle} />
+      <Navbar onAddDetailsClick={handleAddMedicationToggle} />
       <Box
         sx={{
           height: "89vh" /* navbar height is 11vh */,
@@ -274,7 +280,8 @@ export const UserProfile: React.FC = () => {
         showSetReminder={showSetReminder}
         showBackground={showBackground}
         handleReminderSave={handleReminderSave}
-        handleAddDetailsSave={handleAddDetailsSave}
+        handleAddMedicationSave={handleAddMedicationSave}
+        handleReminderSaved={handleReminderSaved}
       />
     </>
   );

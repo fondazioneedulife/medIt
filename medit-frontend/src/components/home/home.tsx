@@ -114,7 +114,7 @@ export const Home: React.FC = () => {
         showSetReminder={showSetReminder}
         showBackground={showBackground}
         handleReminderSave={handleReminderSave}
-        handleAddDetailsSave={handleAddMedicationSave}
+        handleAddMedicationSave={handleAddMedicationSave}
         handleReminderSaved={handleReminderSaved}
       />
     </>
