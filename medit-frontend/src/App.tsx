@@ -71,7 +71,16 @@ function App() {
 
               <Route element={<AuthGuard />}>
                 <Route path="home" element={<Home />}></Route>
-                <Route path="reminder" element={<SetReminder />}></Route>
+                <Route
+                  path="reminder"
+                  element={
+                    <SetReminder
+                      onSave={() => {}}
+                      onAddDetailsSave={() => {}}
+                      handleReminderSaved={() => {}}
+                    />
+                  }
+                />
                 <Route path="medication-details" element={<Details />}></Route>
 
                 <Route path="profile">
@@ -91,8 +100,7 @@ function App() {
                           <PatientRegistrationForm />
                         </PatientRegistrationProvider>
                       }
-                    >
-                    </Route>
+                    ></Route>
                   </Route>
 
                   <Route
