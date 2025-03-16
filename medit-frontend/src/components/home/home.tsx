@@ -8,6 +8,7 @@ import { Box, Typography } from "@mui/material";
 import {
   getRemindersForDate,
   getMedicationById,
+  isMedicationTaken,
 } from "../../database/indexedDB";
 import { useToggleDetails } from "./useToggleDetails";
 import { ReminderModal } from "./ReminderModal";
@@ -57,7 +58,8 @@ export const Home: React.FC = () => {
           const medication = await getMedicationById(
             Number(reminder.medication_id)
           );
-          return { ...reminder, medication };
+          const taken = await isMedicationTaken(reminder.id);
+          return { ...reminder, medication, taken };
         })
       );
       setRemindersWithMedications(remindersWithMeds);
@@ -85,6 +87,10 @@ export const Home: React.FC = () => {
     setReminderAdded(true);
   };
 
+  const handleCheckChange = () => {
+    setReminderAdded(true);
+  };
+
   return (
     <>
       <Box sx={{ position: "relative" }}>
@@ -97,18 +103,21 @@ export const Home: React.FC = () => {
           Non ci sono reminder per oggi
         </Typography>
       ) : (
-        remindersWithMedications.map((reminder) => (
-          <div key={reminder.id}>
-            {reminder.medication && (
-              <>
-                <MedicationComponent
-                  medication={reminder.medication}
-                  reminder={reminder}
-                />
-              </>
-            )}
-          </div>
-        ))
+        remindersWithMedications
+          .sort((a, b) => (a.taken === b.taken ? 0 : a.taken ? 1 : -1))
+          .map((reminder) => (
+            <div key={reminder.id}>
+              {reminder.medication && (
+                <>
+                  <MedicationComponent
+                    medication={reminder.medication}
+                    reminder={reminder}
+                    onCheckChange={handleCheckChange}
+                  />
+                </>
+              )}
+            </div>
+          ))
       )}
       <ReminderModal
         showSetReminder={showSetReminder}
