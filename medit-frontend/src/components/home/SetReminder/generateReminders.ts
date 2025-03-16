@@ -7,6 +7,10 @@ interface ReminderData {
   frequency: string;
   id_group: string;
   synced_at: Date;
+  dayOfMonth?: number;
+  dayOfYear?: number;
+  monthOfYear?: number;
+  endDate?: Date | null;
 }
 
 export const generateReminders = (data: ReminderData) => {
@@ -18,6 +22,10 @@ export const generateReminders = (data: ReminderData) => {
     frequency,
     id_group,
     synced_at,
+    dayOfMonth,
+    dayOfYear,
+    monthOfYear,
+    endDate,
   } = data;
   const times = reminder_date_time.split(", ");
   const currentDate = new Date();
@@ -31,7 +39,7 @@ export const generateReminders = (data: ReminderData) => {
 
     let diff = dayIndex - adjustedCurrentDayIndex;
 
-    if (diff <= 0) {
+    if (diff < 0) {
       diff += 7;
     }
 
@@ -64,9 +72,12 @@ export const generateReminders = (data: ReminderData) => {
   const generateDates = (startDate: Date, frequency: string) => {
     const dates = [];
     let currentDate = new Date(startDate);
+    const finalEndDate = endDate || addMonths(startDate, 6);
 
-    while (currentDate < addMonths(startDate, 6)) {
-      dates.push(new Date(currentDate));
+    while (currentDate <= finalEndDate) {
+      if (currentDate >= new Date()) {
+        dates.push(new Date(currentDate));
+      }
       if (frequency === "daily") {
         currentDate = addDays(currentDate, 1);
       } else if (frequency === "weekly") {
@@ -81,8 +92,99 @@ export const generateReminders = (data: ReminderData) => {
     return dates;
   };
 
-  for (const day of days) {
-    const startDate = getNextDate(day, currentDate);
+  if (frequency === "daily") {
+    const startDate = new Date();
+    const dates = generateDates(startDate, frequency);
+
+    for (const date of dates) {
+      for (const time of times) {
+        const [hour, period] = time.split(" ");
+        let [hours, minutes] = hour.split(":").map(Number);
+
+        if (period === "PM" && hours !== 12) {
+          hours += 12;
+        } else if (period === "AM" && hours === 12) {
+          hours = 0;
+        }
+
+        const reminderDate = new Date(date);
+        reminderDate.setUTCHours(hours, minutes, 0, 0);
+
+        reminders.push({
+          medication_id,
+          reminder_date_time: reminderDate.toISOString(),
+          frequency,
+          id_group,
+          synced_at,
+        });
+      }
+    }
+  } else if (frequency === "weekly") {
+    for (const day of days) {
+      const startDate = getNextDate(day, currentDate);
+      const dates = generateDates(startDate, frequency);
+
+      for (const date of dates) {
+        for (const time of times) {
+          const [hour, period] = time.split(" ");
+          let [hours, minutes] = hour.split(":").map(Number);
+
+          if (period === "PM" && hours !== 12) {
+            hours += 12;
+          } else if (period === "AM" && hours === 12) {
+            hours = 0;
+          }
+
+          const reminderDate = new Date(date);
+          reminderDate.setUTCHours(hours, minutes, 0, 0);
+
+          reminders.push({
+            medication_id,
+            reminder_date_time: reminderDate.toISOString(),
+            frequency,
+            id_group,
+            synced_at,
+          });
+        }
+      }
+    }
+  } else if (frequency === "monthly" && dayOfMonth) {
+    const startDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      dayOfMonth + 1
+    );
+    const dates = generateDates(startDate, frequency);
+
+    for (const date of dates) {
+      for (const time of times) {
+        const [hour, period] = time.split(" ");
+        let [hours, minutes] = hour.split(":").map(Number);
+
+        if (period === "PM" && hours !== 12) {
+          hours += 12;
+        } else if (period === "AM" && hours === 12) {
+          hours = 0;
+        }
+
+        const reminderDate = new Date(date);
+        reminderDate.setUTCHours(hours, minutes, 0, 0);
+
+        reminders.push({
+          medication_id,
+          reminder_date_time: reminderDate.toISOString(),
+          frequency,
+          id_group,
+          synced_at,
+        });
+      }
+    }
+  } else if (frequency === "yearly" && dayOfYear && monthOfYear) {
+    const startDate = new Date(
+      currentDate.getFullYear(),
+      monthOfYear - 1,
+      dayOfYear + 1
+    );
     const dates = generateDates(startDate, frequency);
 
     for (const date of dates) {
