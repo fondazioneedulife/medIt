@@ -23,7 +23,7 @@ import { PatientQrcode } from "./components/profile/patientQrcode/PatientQrcode.
 import { Support } from "./components/support/Support.tsx";
 import { PatientRegistrationForm } from "./components/patientList/registration/PatientRegistrationForm.tsx";
 import { MedicalHistoryPage } from "./components/profile/medicalHistory/MedicalHistoryPage.tsx";
-import { Details } from "./components/details_medicines/Details.tsx";
+import { Details } from "./components/details_medication/Details.tsx";
 import AuthGuard from "./routes/AuthGuard.tsx";
 
 function App() {

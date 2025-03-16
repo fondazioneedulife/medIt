@@ -52,7 +52,7 @@ export const Details: React.FC = () => {
           },
         }}
       >
-        <ReturnIcon path="#" />
+        <ReturnIcon path="/home" />
         <Stack sx={{ width: "100%", maxWidth: "650px", marginTop: "1rem" }}>
           <TableContainer sx={{ backgroundColor: "transparent" }}>
             <Table
