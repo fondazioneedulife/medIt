@@ -106,7 +106,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {reminder.frequency}, {medication.dose} {medication.unit}
+                {medication.type}, {medication.dose} {medication.unit}
               </Typography>
             </ThemeProvider>
           </Box>
@@ -116,7 +116,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {medication.program}, {medication.quantity} times a day
+                {reminder.frequency}, {medication.quantity} left
               </Typography>
             </ThemeProvider>
           </Box>
