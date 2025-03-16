@@ -263,6 +263,9 @@ components:
         qrcode:
           type: string
           format: byte
+        caregiverId:
+          type: integer
+          format: int64
         timezone:
           type: string
         language:
