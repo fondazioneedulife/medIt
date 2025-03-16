@@ -9,6 +9,7 @@ import { ScanQR } from "./components/QRCode/ScanQR.tsx";
 import { openDB } from "./database/indexedDB.ts";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { RegistrationProvider } from "./components/registration/RegistrationContext.tsx";
+import { PatientRegistrationProvider } from "./contexts/PatientRegistrationContenxt.tsx";
 import { LoginProvider } from "./components/login/LoginContext.tsx";
 import { UserInformations } from "./components/userInfo/UserInformations.tsx";
 import { GetStart } from "./components/getStarted/GetStart";
@@ -23,6 +24,7 @@ import { PatientQrcode } from "./components/profile/patientQrcode/PatientQrcode.
 import { Support } from "./components/support/Support.tsx";
 import { PatientRegistrationForm } from "./components/patientList/registration/PatientRegistrationForm.tsx";
 import { MedicalHistoryPage } from "./components/profile/medicalHistory/MedicalHistoryPage.tsx";
+import { Details } from "./components/details_medication/Details.tsx";
 import AuthGuard from "./routes/AuthGuard.tsx";
 
 function App() {
@@ -70,6 +72,7 @@ function App() {
               <Route element={<AuthGuard />}>
                 <Route path="home" element={<Home />}></Route>
                 <Route path="reminder" element={<SetReminder />}></Route>
+                <Route path="medication-details" element={<Details />}></Route>
 
                 <Route path="profile">
                   <Route index element={<UserProfile />}></Route>
@@ -80,10 +83,16 @@ function App() {
                   ></Route>
                   <Route path="patient-list">
                     <Route index element={<PatientList />}></Route>
+
                     <Route
                       path="patient-registration"
-                      element={<PatientRegistrationForm />}
-                    ></Route>
+                      element={
+                        <PatientRegistrationProvider>
+                          <PatientRegistrationForm />
+                        </PatientRegistrationProvider>
+                      }
+                    >
+                    </Route>
                   </Route>
 
                   <Route
@@ -100,7 +109,10 @@ function App() {
                     ></Route>
                   </Route>
 
-                  <Route path="medical-history" element={<MedicalHistoryPage />}/>
+                  <Route
+                    path="medical-history"
+                    element={<MedicalHistoryPage />}
+                  />
                 </Route>
               </Route>
             </Route>
