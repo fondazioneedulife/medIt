@@ -3,6 +3,7 @@ import momentImage from "../assets/medicins/moment.png";
 import brufenImage from "../assets/medicins/brufen.png";
 import aspirinaImage from "../assets/medicins/aspirina.png";
 import imodiumImage from "../assets/medicins/imodium.png";
+import demoUserImageBase64 from "../assets/profile/demo_user_image.txt?raw";
 
 export const seedDatabase = async (transaction: IDBTransaction) => {
   const usersStore = transaction.objectStore("users");
@@ -11,11 +12,11 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
   const authStore = transaction.objectStore("auth");
 
   const demoUser = {
-    id: 1,
     firstName: "Medit",
     lastName: "User",
     email: "medit@example.com",
     role: "Patient",
+    profileImage: demoUserImageBase64,
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     language: "en",
     created_at: new Date(),
