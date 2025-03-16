@@ -7,6 +7,7 @@ import {
   Fade,
   Avatar,
 } from "@mui/material";
+import { useLanguage } from "../../../contexts/LanguageContext";
 import Ellipse from "../../../assets/icon/Check-Ellipse.svg";
 import Check from "../../../assets/icon/Check.svg";
 import DefaultImage from "../../../assets/icon/immagine.jpg";
@@ -38,6 +39,9 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
     );
   };
 
+  const { language } = useLanguage();
+  const { translate } = useLanguage();
+
   const profileImage = user?.profileImage || null;
 
   const initials = `${user?.firstName?.charAt(0).toUpperCase()}${user?.lastName
@@ -60,7 +64,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
       <Box
         sx={{
           width: { xs: "85%", sm: "55%", md: "40%", lg: "30%", xl: "25%" },
-          height: { md: "12vh", xl: "16vh", xs: "14vh" },
+          height: { md: "12vh", xl: "16vh", xs: language === "it" ? "16vh" : "14vh" },
           backgroundColor: bgColor,
           borderRadius: "10px",
           display: "flex",
@@ -106,7 +110,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {medication.type}, {medication.dose} {medication.unit}
+                {translate(medication.type.toLowerCase())}, {medication.dose} {medication.unit}
               </Typography>
             </ThemeProvider>
           </Box>

@@ -1,11 +1,15 @@
 import { Box, Typography } from '@mui/material';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { ReturnIcon } from '../../login/ReturnIcon';
-import { ProfileEntry } from '../ProfileEntry';
-import { SelectLanguage } from './SelectLanguage';
-import changePasswordIcon from '../../../assets/profile/settings/change_password_icon.svg';
+import { MedicineItem } from './MedicineItem';
+import sampleMedicineImage from '../../../assets/icon/immagine.jpg';
+import tachipirinaImage from '../../../assets/medicins/tachipirina.png';
+import momentImage from '../../../assets/medicins/moment.png';
+import brufenImage from '../../../assets/medicins/brufen.png';
+import aspirinaImage from '../../../assets/medicins/aspirina.png';
+import imodiumImage from '../../../assets/medicins/imodium.png';
 
-export const SettingsPage: React.FC = () => {
+export const MedicalHistoryPage: React.FC = () => {
 
     const { translate } = useLanguage();
 
@@ -41,7 +45,7 @@ export const SettingsPage: React.FC = () => {
                             fontWeight: "bold",
                         }}
                     >
-                        {translate('settings')}
+                        {translate('medicalHistory')}
                     </Typography>
                 </Box>
                 <Box
@@ -49,17 +53,38 @@ export const SettingsPage: React.FC = () => {
                         width: "80%",
                         maxWidth: "20rem",
                         borderRadius: "1rem",
-                        backgroundColor: "white",
-                        fontWeight: 600,
+                        backgroundColor: "#FFFFFF",
                     }}
                 >
-                    <ProfileEntry
-                        img={changePasswordIcon}
-                        text={translate('changePassword')}
-                        path="/profile/settings/change-password"
+                    <MedicineItem
+                        image={tachipirinaImage}
+                        title="Tachipirina"
+                        date="Mar 13, 2025"
                     />
                     <hr />
-                    <SelectLanguage />
+                    <MedicineItem
+                        image={momentImage}
+                        title="Moment"
+                        date="Mar 14, 2025"
+                    />
+                    <hr />
+                    <MedicineItem
+                        image={brufenImage}
+                        title="Brufen"
+                        date="Mar 15, 2025"
+                    />
+                    <hr />
+                    <MedicineItem
+                        image={aspirinaImage}
+                        title="Aspirina"
+                        date="Mar 16, 2025"
+                    />
+                    <hr />
+                    <MedicineItem
+                        image={imodiumImage}
+                        title="Imodium"
+                        date="Mar 17, 2025"
+                    />
                 </Box>
             </Box>
         </>

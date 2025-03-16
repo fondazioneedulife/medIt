@@ -38,23 +38,23 @@ export const Registration: React.FC = () => {
     const newErrors: { [key: string]: string } = {};
 
     if (!user.firstName || !/^[a-zA-Z]+$/.test(user.firstName)) {
-      newErrors.firstName = "Invalid first name";
+      newErrors.firstName = translate("invalidFirstName");
     }
 
     if (!user.lastName || !/^[a-zA-Z]+$/.test(user.lastName)) {
-      newErrors.lastName = "Invalid last name";
+      newErrors.lastName = translate("invalidLastName");
     }
 
     if (!user.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) {
-      newErrors.email = "Invalid email address";
+      newErrors.email = translate("invalidEmailAddress");
     }
 
     if (!user.password || user.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters long";
+      newErrors.password = translate("shortPassword");
     }
 
     if (user.password !== user.Confirmpassword) {
-      newErrors.Confirmpassword = "Passwords do not match";
+      newErrors.Confirmpassword = translate("passwordsDoNotMatch");
     }
 
     setErrors(newErrors);
@@ -74,7 +74,11 @@ export const Registration: React.FC = () => {
       }
       const existingUser = await getUserByEmail(user.email);
       if (existingUser) {
-        console.error("User with this email already exists");
+        // console.error("User with this email already exists");
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          existingUser: translate("userWithEmailExists"),
+        }));
         return;
       }
 
@@ -200,6 +204,11 @@ export const Registration: React.FC = () => {
                   {errors.Confirmpassword && (
                     <Typography color="error">
                       {errors.Confirmpassword}
+                    </Typography>
+                  )}
+                  {errors.existingUser && (
+                    <Typography color="error" sx={{ mt: "1rem", textAlign: "center" }}>
+                      {errors.existingUser}
                     </Typography>
                   )}
                 </div>

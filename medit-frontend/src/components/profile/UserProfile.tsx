@@ -9,6 +9,7 @@ import { useLogin } from "../login/LoginContext";
 import { useToggleDetails } from "../home/useToggleDetails";
 import { ReminderModal } from "../home/ReminderModal.tsx";
 import userInfoIcon from "../../assets/profile/user_information.svg";
+import medicalHistoryIcon from "../../assets/profile/clipboard_heart_icon.svg";
 import supportIcon from "../../assets/profile/support_icon.svg";
 import settingsIcon from "../../assets/profile/settings_icon.svg";
 import patientListIcon from "../../assets/profile/patient_list_icon.svg";
@@ -155,7 +156,13 @@ export const UserProfile: React.FC = () => {
                 {!profileImage && initials}
               </Avatar>
               <Box ml={2}>
-                <Typography variant="h6" sx={{ textTransform: "capitalize" }}>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    textTransform: "capitalize",
+                    fontWeight: 600
+                  }}
+                >
                   {user?.firstName}
                 </Typography>
                 <Box
@@ -165,6 +172,7 @@ export const UserProfile: React.FC = () => {
                     color: "white",
                     borderRadius: "12px",
                     padding: "2px 8px",
+                    fontWeight: 600
                   }}
                 >
                   {translate(
@@ -182,6 +190,7 @@ export const UserProfile: React.FC = () => {
                   backgroundColor: "#0B6BB2",
                   borderRadius: "1rem",
                   cursor: "pointer",
+                  fontWeight: 600
                 }}
                 onClick={patientListHandleClick}
               >
@@ -215,12 +224,19 @@ export const UserProfile: React.FC = () => {
                 backgroundColor: "white",
                 borderRadius: "1rem",
                 width: "100%",
+                fontWeight: 600
               }}
             >
               <ProfileEntry
                 img={userInfoIcon}
                 text={translate("userInfo")}
                 path="/profile/user-info"
+              />
+              <hr />
+              <ProfileEntry
+                img={medicalHistoryIcon}
+                text={translate("medicalHistory")}
+                path="/profile/medical-history"
               />
             </Box>
 
@@ -230,6 +246,7 @@ export const UserProfile: React.FC = () => {
                 backgroundColor: "white",
                 borderRadius: "1rem",
                 width: "100%",
+                fontWeight: 600
               }}
             >
               <ProfileEntry
@@ -255,7 +272,10 @@ export const UserProfile: React.FC = () => {
               onClick={logoutHandleClick}
             >
               <Stack
-                sx={{ width: "100%" }}
+                sx={{
+                  width: "100%",
+                  fontWeight: 600
+                }}
                 direction="row"
                 alignItems="center"
                 spacing={2}
