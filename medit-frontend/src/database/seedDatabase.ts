@@ -7,6 +7,7 @@ import imodiumImage from "../assets/medicins/imodium.png";
 export const seedDatabase = async (transaction: IDBTransaction) => {
   const usersStore = transaction.objectStore("users");
   const medicationsStore = transaction.objectStore("medications");
+  const remindersStore = transaction.objectStore("reminders");
 
   const demoUser = {
     id: 1,
@@ -98,6 +99,47 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
   for (const medication of medications) {
     await new Promise((resolve, reject) => {
       const request = medicationsStore.add(medication);
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  const reminders = [
+    {
+      medication_id: 1,
+      reminder_date_time: new Date().toISOString(),
+      id_group: "group1",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 2,
+      reminder_date_time: new Date().toISOString(),
+      id_group: "group2",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 3,
+      reminder_date_time: new Date().toISOString(),
+      id_group: "group3",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 4,
+      reminder_date_time: new Date().toISOString(),
+      id_group: "group4",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 5,
+      reminder_date_time: new Date().toISOString(),
+      id_group: "group5",
+      synced_at: new Date(),
+    },
+  ];
+
+  for (const reminder of reminders) {
+    await new Promise((resolve, reject) => {
+      const request = remindersStore.add(reminder);
       request.onsuccess = () => resolve(request.result);
       request.onerror = () => reject(request.error);
     });
