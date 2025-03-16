@@ -99,11 +99,6 @@ export const generateReminders = (data: ReminderData) => {
         const reminderDate = new Date(date);
         reminderDate.setUTCHours(hours, minutes, 0, 0);
 
-        console.log(
-          "🛠 Generato reminder corretto:",
-          reminderDate.toISOString()
-        );
-
         reminders.push({
           medication_id,
           reminder_date_time: reminderDate.toISOString(),
