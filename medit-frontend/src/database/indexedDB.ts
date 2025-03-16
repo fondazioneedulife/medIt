@@ -255,3 +255,17 @@ export const getAuthByUserId = async (userId: number) => {
     };
   });
 };
+
+// get all patients of a caregiver
+export const getAllPatientsByCaregiverId = async (caregiverId: number) => {
+  const db = await openDB();
+  return new Promise<User[]>((resolve, reject) => {
+    const transaction = db.transaction(USER_STORE, "readonly");
+    const store = transaction.objectStore(USER_STORE);
+    const index = store.index("caregiverId");
+    const request = index.getAll(caregiverId);
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};

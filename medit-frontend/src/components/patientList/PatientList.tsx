@@ -5,6 +5,9 @@ import { ReturnIcon } from "../login/ReturnIcon";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { useNavigate } from "react-router";
 import { PatientProfileCard } from "./PatientProfileCard";
+import { getAllPatientsByCaregiverId } from "../../database/indexedDB";
+import { useState, useEffect } from "react";
+import { useLogin } from "../login/LoginContext";
 import examplePatientImage from "../../assets/profile/example_patient_profile_image.svg";
 
 
@@ -16,6 +19,20 @@ export const PatientList: React.FC = () => {
     const patientRegistrationHandleClick = () => {
         navigate("/profile/patient-list/patient-registration");
     };
+
+    // cargiver logged in
+    const { user } = useLogin();
+
+    const [caregiverPatients, setPatients] = useState<any[]>([]);
+
+    useEffect(() => {
+    const fetchPatients = async () => {
+        const patients = await getAllPatientsByCaregiverId(user?.id as number);
+        setPatients(patients);
+    };
+
+    fetchPatients();
+    }, []);
 
     return (
         <>
@@ -74,10 +91,9 @@ export const PatientList: React.FC = () => {
                         justifyContent: "space-between",
                     }}
                 >
-                    <PatientProfileCard
-                        imageSrc={examplePatientImage}
-                        name="Carlo Rossi"
-                    />
+                    {caregiverPatients.map((item) => (
+                        <PatientProfileCard image={examplePatientImage} name={item.firstName + ' ' + item.lastName} />
+                    ))}
 
                     {/* add profile */}
                     <Box

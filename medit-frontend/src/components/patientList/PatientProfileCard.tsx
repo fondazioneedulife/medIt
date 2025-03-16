@@ -3,11 +3,11 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 interface PatientProfileCardProps {
-    imageSrc: string;
+    image: string;
     name: string;
 }
 
-export const PatientProfileCard: React.FC<PatientProfileCardProps> = ({ imageSrc, name }) => {
+export const PatientProfileCard: React.FC<PatientProfileCardProps> = ({ image, name }) => {
     return (
         <Box
             component="table"
@@ -16,7 +16,7 @@ export const PatientProfileCard: React.FC<PatientProfileCardProps> = ({ imageSrc
             <Box component="tr">
                 <Box component="td">
                     <img
-                        src={imageSrc}
+                        src={image}
                         style={{ width: "8rem", height: "8rem", objectFit: "cover", borderRadius: "20px" }}
                         alt={`${name} profile image`}
                     />
@@ -27,9 +27,9 @@ export const PatientProfileCard: React.FC<PatientProfileCardProps> = ({ imageSrc
                 <Box component="td">
                     <Typography
                         sx={{
-                            fontWeight: "light",
+                            fontWeight: 600,
                             textAlign: "center",
-                            fontFamily: "Montserrat, Arial, sans-serif"
+                            fontFamily: "Montserrat, Arial, sans-serif",
                         }}>
                         {name}
                     </Typography>
