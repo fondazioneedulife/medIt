@@ -4,26 +4,26 @@ export const useToggleDetails = () => {
   const [showSetReminder, setShowSetReminder] = useState(false);
   const [showBackground, setShowBackground] = useState(true);
 
-  const handleAddDetailsToggle = () => {
+  const handleAddMedicationToggle = () => {
     setShowSetReminder(!showSetReminder);
-    setShowBackground(true); // Show background when SetReminder is opened
+    setShowBackground(true);
   };
 
   const handleReminderSave = () => {
     setShowSetReminder(false);
-    setShowBackground(false); // Hide background when reminder is saved
+    setShowBackground(false);
   };
 
-  const handleAddDetailsSave = () => {
+  const handleAddMedicationSave = () => {
     setShowSetReminder(false);
-    setShowBackground(false); // Hide background when AddDetails is saved
+    setShowBackground(false);
   };
 
   return {
     showSetReminder,
     showBackground,
-    handleAddDetailsToggle,
+    handleAddMedicationToggle,
     handleReminderSave,
-    handleAddDetailsSave,
+    handleAddMedicationSave,
   };
 };
