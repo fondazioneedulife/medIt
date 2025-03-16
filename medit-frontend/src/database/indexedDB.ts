@@ -189,6 +189,7 @@ export const registerUser = async (
   registerRequest: RegisterRequest
 ): Promise<IDBValidKey> => {
   const { password, ...userToSave } = registerRequest;
+  console.log("registerUser called with user:", userToSave);
   return await addRecord("users", userToSave);
 };
 

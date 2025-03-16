@@ -6,11 +6,12 @@ import { PatientLabel } from "./PatientLabel";
 import { useRegistration } from "../../../contexts/PatientRegistrationContenxt";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { getUserByEmail, registerUser } from "../../../database/indexedDB";
+import { getUserByEmail, registerUser, addRecord } from "../../../database/indexedDB";
 import { v4 as uuidv4 } from "uuid";
 import { RoleEnum } from "../../../generated";
 import { useLogin } from "../../login/LoginContext";
 import QRCode from "qrcode";
+import bcrypt from "bcryptjs";
 import iconEmail from "../../../assets/icon/icon-email.svg";
 import iconUser from "../../../assets/icon/logo user.svg";
 import iconKey from "../../../assets/icon/icon-key.svg";
@@ -77,7 +78,6 @@ export const PatientRegistrationForm: React.FC = () => {
       }
       const existingUser = await getUserByEmail(patient.email);
       if (existingUser) {
-        // console.error("User with this email already exists");
         setErrors((prevErrors) => ({
           ...prevErrors,
           existingUser: translate("userWithEmailExists"),
@@ -90,17 +90,37 @@ export const PatientRegistrationForm: React.FC = () => {
 
       const newUser = {
         ...patient,
-        id: undefined,
         role: RoleEnum.Patient,
-        caregiverId: user?.id || 0,
+        caregiverId: user?.id,
         qrcode: qrCodeData,
       };
+      const { id, ...userToSave } = newUser;    // remove item in object
 
-      await setPatient(newUser);
-      await registerUser({
-        ...newUser,
+      await setPatient(userToSave);
+      const patientId = await registerUser({
+        ...userToSave,
         created_at: new Date(),
         updated_at: new Date(),
+      });
+
+      if (!userToSave.email) {
+        console.error("User email is undefined");
+        return;
+      }
+
+      const salt = await bcrypt.genSalt(10);
+      if (!userToSave.password) {
+        console.error("User password is undefined");
+        return;
+      }
+      const hashedPassword = await bcrypt.hash(userToSave.password, salt);
+
+      await addRecord("auth", {
+        user_id: patientId,
+        password: hashedPassword,
+        failed_attempts: 0,
+        last_login: new Date(),
+        synced_at: new Date(),
       });
 
       navigate("/profile/patient-list");
@@ -173,19 +193,27 @@ export const PatientRegistrationForm: React.FC = () => {
                     placeholder={translate("firstName")}
                     onChange={handleInputChange}
                   />
+                  {errors.firstName && (
+                    <Typography color="error">{errors.firstName}</Typography>
+                  )}
                   <PatientLabel
                     inputName="lastName"
                     img={iconUser}
                     placeholder={translate("lastName")}
                     onChange={handleInputChange}
                   />
-                  
+                  {errors.lastName && (
+                    <Typography color="error">{errors.lastName}</Typography>
+                  )}
                   <PatientLabel
                     inputName="email"
                     img={iconEmail}
                     placeholder={"Email"}
                     onChange={handleInputChange}
                   />
+                  {errors.email && (
+                    <Typography color="error">{errors.email}</Typography>
+                  )}
                   <PatientLabel
                     inputName="password"
                     img={iconKey}
@@ -193,6 +221,9 @@ export const PatientRegistrationForm: React.FC = () => {
                     type="password"
                     onChange={handleInputChange}
                   />
+                  {errors.password && (
+                    <Typography color="error">{errors.password}</Typography>
+                  )}
                   <PatientLabel
                     inputName="Confirmpassword"
                     img={iconKey}
@@ -201,6 +232,16 @@ export const PatientRegistrationForm: React.FC = () => {
                     type="password"
                     onChange={handleInputChange}
                   />
+                  {errors.Confirmpassword && (
+                    <Typography color="error">
+                      {errors.Confirmpassword}
+                    </Typography>
+                  )}
+                  {errors.existingUser && (
+                    <Typography color="error" sx={{ mt: "1rem", textAlign: "center" }}>
+                      {errors.existingUser}
+                    </Typography>
+                  )}
                 </div>
               </div>
             </ListItem>
