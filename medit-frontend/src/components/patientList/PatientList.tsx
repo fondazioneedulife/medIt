@@ -92,7 +92,10 @@ export const PatientList: React.FC = () => {
                     }}
                 >
                     {caregiverPatients.map((item) => (
-                        <PatientProfileCard image={examplePatientImage} name={item.firstName + ' ' + item.lastName} />
+                        <PatientProfileCard
+                            image={item.profileImage ? item.profileImage : examplePatientImage}
+                            name={item.firstName + ' ' + item.lastName}
+                        />
                     ))}
 
                     {/* add profile */}
