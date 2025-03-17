@@ -1,7 +1,7 @@
 import { daysOfWeek } from "./SetReminder";
 
 interface ReminderData {
-  medication_id: string;
+  medication_id: number;
   reminder_date_time: string;
   days: string[];
   frequency: string;
@@ -111,7 +111,7 @@ export const generateReminders = (data: ReminderData) => {
         reminderDate.setUTCHours(hours, minutes, 0, 0);
 
         reminders.push({
-          medication_id,
+          medication_id: Number(medication_id),
           reminder_date_time: reminderDate.toISOString(),
           frequency,
           id_group,
@@ -139,7 +139,7 @@ export const generateReminders = (data: ReminderData) => {
           reminderDate.setUTCHours(hours, minutes, 0, 0);
 
           reminders.push({
-            medication_id,
+            medication_id: Number(medication_id),
             reminder_date_time: reminderDate.toISOString(),
             frequency,
             id_group,
@@ -171,7 +171,7 @@ export const generateReminders = (data: ReminderData) => {
         reminderDate.setUTCHours(hours, minutes, 0, 0);
 
         reminders.push({
-          medication_id,
+          medication_id: Number(medication_id),
           reminder_date_time: reminderDate.toISOString(),
           frequency,
           id_group,
@@ -202,7 +202,7 @@ export const generateReminders = (data: ReminderData) => {
         reminderDate.setUTCHours(hours, minutes, 0, 0);
 
         reminders.push({
-          medication_id,
+          medication_id: Number(medication_id),
           reminder_date_time: reminderDate.toISOString(),
           frequency,
           id_group,
