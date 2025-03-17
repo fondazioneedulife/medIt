@@ -71,18 +71,11 @@ export const MedicalHistoryPage: React.FC = () => {
                                 key={index}
                                 image={takenMedicineItem.image ? takenMedicineItem.image : sampleMedicineImage}
                                 title={takenMedicineItem.name}
-                                date={translate('month' + takenMedicineItem.month) + ' ' + takenMedicineItem.day + ', ' + takenMedicineItem.year} 
+                                date={translate('month' + takenMedicineItem.month) + ' ' + takenMedicineItem.day + ', ' + takenMedicineItem.year + ' ' + takenMedicineItem.hour} 
                             />
                             {index < takenMedicines.length - 1 && <hr />}
                         </>
                     ))}
-                    {/*
-                    <MedicineItem
-                        image={momentImage}
-                        title="Moment"
-                        date="Mar 14, 2025"
-                    />
-                     */}
                 </Box>
             </Box>
         </>

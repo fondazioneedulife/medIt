@@ -452,6 +452,7 @@ export const getTakenMedicationsByPatientId = async (userId: number): Promise<an
           month: takenMedicationDate.getMonth() + 1, // getMonth() returns 0-11, so we add 1
           day: takenMedicationDate.getDate(),
           year: takenMedicationDate.getFullYear(),
+          hour: `${takenMedicationDate.getHours() % 12 || 12}:${takenMedicationDate.getMinutes().toString().padStart(2, '0')} ${takenMedicationDate.getHours() >= 12 ? 'PM' : 'AM'}`,
         };
       });
       resolve(enrichedTakenMedications);
