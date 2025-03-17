@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: medit
+  datasource:
+    url: jdbc:postgresql://localhost:5432/medit
+    username: medit
+    password: medit
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
