@@ -29,3 +29,6 @@
   background-color: rgba(255, 0, 0, 0) !important;
 }
 
+:global(.WP)::after{
+  display: none !important;
+}
