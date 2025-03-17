@@ -26,6 +26,7 @@ import { PatientRegistrationForm } from "./components/patientList/registration/P
 import { MedicalHistoryPage } from "./components/profile/medicalHistory/MedicalHistoryPage.tsx";
 import { Details } from "./components/details_medication/Details.tsx";
 import AuthGuard from "./routes/AuthGuard.tsx";
+import RedirectIfAuthenticated from "./routes/RedirectIfAuthenticated.tsx";
 
 function App() {
   useEffect(() => {
@@ -42,29 +43,61 @@ function App() {
           <Routes>
             <Route path="/">
               <Route index element={<Root />}></Route>
-              <Route path="start" element={<GetStart />}></Route>
+              <Route
+                path="start"
+                element={
+                  <RedirectIfAuthenticated>
+                    <GetStart />
+                  </RedirectIfAuthenticated>
+                }
+              ></Route>
 
               <Route path="login">
-                <Route index element={<Login />}></Route>
-                <Route path="choose" element={<ChoseLoginOrSignup />}></Route>
-                <Route path="scan-qrcode" element={<ScanQR />}></Route>
+                <Route
+                  index
+                  element={
+                    <RedirectIfAuthenticated>
+                      <Login />
+                    </RedirectIfAuthenticated>
+                  }
+                ></Route>
+                <Route
+                  path="choose"
+                  element={
+                    <RedirectIfAuthenticated>
+                      <ChoseLoginOrSignup />
+                    </RedirectIfAuthenticated>
+                  }
+                ></Route>
+                <Route
+                  path="scan-qrcode"
+                  element={
+                    <RedirectIfAuthenticated>
+                      <ScanQR />
+                    </RedirectIfAuthenticated>
+                  }
+                ></Route>
               </Route>
 
               <Route path="register">
                 <Route
                   index
                   element={
-                    <RegistrationProvider>
-                      <Registration />
-                    </RegistrationProvider>
+                    <RedirectIfAuthenticated>
+                      <RegistrationProvider>
+                        <Registration />
+                      </RegistrationProvider>
+                    </RedirectIfAuthenticated>
                   }
                 ></Route>
                 <Route
                   path="choose-role"
                   element={
-                    <RegistrationProvider>
-                      <ChooseRole />
-                    </RegistrationProvider>
+                    <RedirectIfAuthenticated>
+                      <RegistrationProvider>
+                        <ChooseRole />
+                      </RegistrationProvider>
+                    </RedirectIfAuthenticated>
                   }
                 ></Route>
               </Route>
@@ -81,7 +114,10 @@ function App() {
                     />
                   }
                 />
-                <Route path="medication-details" element={<Details />}></Route>
+                <Route
+                  path="medication-details/:id"
+                  element={<Details />}
+                ></Route>
 
                 <Route path="profile">
                   <Route index element={<UserProfile />}></Route>

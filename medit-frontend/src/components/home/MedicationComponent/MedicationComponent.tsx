@@ -72,7 +72,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
   };
 
   const handleCardClick = () => {
-    navigate("/medication-details");
+    navigate(`/medication-details/${medication.id}`);
   };
 
   const { language } = useLanguage();
