@@ -12,6 +12,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { ReturnIcon } from "./returnIcon";
 import Medicine from "../../assets/icon/medicine.svg";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getMedicationById } from "../../database/indexedDB";
 
 const theme = createTheme({
   typography: {
@@ -30,6 +33,51 @@ const theme = createTheme({
 
 export const Details: React.FC = () => {
   const { translate } = useLanguage();
+  const { id } = useParams<{ id: string }>();
+  const [medication, setMedication] = useState<any>(null);
+  const [nextDose, setNextDose] = useState<string | null>(null);
+  const [program, setProgram] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchMedication = async () => {
+      if (id) {
+        const med = await getMedicationById(Number(id));
+        setMedication(med);
+
+        const now = new Date();
+        const futureReminders = med.reminders.filter(
+          (reminder: any) => new Date(reminder.reminder_date_time) > now
+        );
+        if (futureReminders.length > 0) {
+          const nextReminder = futureReminders.reduce((prev: any, curr: any) =>
+            new Date(prev.reminder_date_time) <
+            new Date(curr.reminder_date_time)
+              ? prev
+              : curr
+          );
+          const farthestReminder = futureReminders.reduce(
+            (prev: any, curr: any) =>
+              new Date(prev.reminder_date_time) >
+              new Date(curr.reminder_date_time)
+                ? prev
+                : curr
+          );
+          setNextDose(
+            new Date(nextReminder.reminder_date_time).toLocaleString()
+          );
+          setProgram(
+            new Date(farthestReminder.reminder_date_time).toLocaleString()
+          );
+        }
+      }
+    };
+
+    fetchMedication();
+  }, [id]);
+
+  if (!medication) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -81,7 +129,7 @@ export const Details: React.FC = () => {
                     }}
                   >
                     <img
-                      src={Medicine}
+                      src={medication.image || Medicine}
                       alt="Medicine"
                       style={{
                         width: "100%",
@@ -98,10 +146,10 @@ export const Details: React.FC = () => {
                     }}
                   >
                     <Typography variant="h6" fontWeight={550}>
-                      Name
+                      {translate("name")}
                     </Typography>
                     <Typography fontSize="h8" color="#0B6BB2" fontWeight={520}>
-                      Medicine
+                      {medication.name}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -115,30 +163,36 @@ export const Details: React.FC = () => {
                     }}
                   >
                     <Typography variant="h6" fontWeight={550}>
-                      Pill Dosage
+                      {translate("pillDosage")}
                     </Typography>
                     <Typography fontSize="h8" color="#0B6BB2" fontWeight={520}>
-                      100 mg
+                      {medication.dose} {medication.unit}
                     </Typography>
                   </TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell
-                    sx={{
-                      border: "none",
-                      "@media (max-width: 600px)": {
-                        textAlign: "left",
-                      },
-                    }}
-                  >
-                    <Typography variant="h6" fontWeight={550}>
-                      Next Dose
-                    </Typography>
-                    <Typography fontSize="h8" color="#0B6BB2" fontWeight={520}>
-                      tomorrow
-                    </Typography>
-                  </TableCell>
-                </TableRow>
+                {nextDose && (
+                  <TableRow>
+                    <TableCell
+                      sx={{
+                        border: "none",
+                        "@media (max-width: 600px)": {
+                          textAlign: "left",
+                        },
+                      }}
+                    >
+                      <Typography variant="h6" fontWeight={550}>
+                        {translate("nextDose")}
+                      </Typography>
+                      <Typography
+                        fontSize="h8"
+                        color="#0B6BB2"
+                        fontWeight={520}
+                      >
+                        {nextDose}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                )}
               </TableBody>
             </Table>
           </TableContainer>
@@ -165,12 +219,20 @@ export const Details: React.FC = () => {
                       },
                     }}
                   >
-                    <Typography variant="h5" fontWeight={550}>
-                      Dose
-                    </Typography>
-                    <Typography fontSize="h7" color="#505050" fontWeight={520}>
-                      1 times | 9 am, 3 pm
-                    </Typography>
+                    {program && (
+                      <>
+                        <Typography variant="h5" fontWeight={550}>
+                          {translate("program")}
+                        </Typography>
+                        <Typography
+                          fontSize="h7"
+                          color="#505050"
+                          fontWeight={520}
+                        >
+                          {program}
+                        </Typography>
+                      </>
+                    )}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -183,10 +245,10 @@ export const Details: React.FC = () => {
                     }}
                   >
                     <Typography variant="h5" fontWeight={550}>
-                      Program
+                      {translate("quantity")}
                     </Typography>
                     <Typography fontSize="h7" color="#505050" fontWeight={520}>
-                      Total 8 weeks | 6 weeks left
+                      {medication.quantity}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -199,32 +261,20 @@ export const Details: React.FC = () => {
                       },
                     }}
                   >
-                    <Typography variant="h5" fontWeight={550}>
-                      Quantity
-                    </Typography>
-                    <Typography fontSize="h7" color="#505050" fontWeight={520}>
-                      Total 20 capsules | 10 capsules left
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell
-                    sx={{
-                      border: "none",
-                      "@media (max-width: 600px)": {
-                        textAlign: "left",
-                      },
-                    }}
-                  >
-                    <Typography variant="h5" fontWeight={550}>
-                      Add information
-                    </Typography>
-                    <Typography fontSize="h7" color="#505050" fontWeight={520}>
-                      Worem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Etiam eu turpis molestie, dictum est a, mattis tellus. Sed
-                      dignissim, metus nec fringilla accumsan, risus sem
-                      sollicitudin lacus, ut interdum tellus elit sed risus.
-                    </Typography>
+                    {medication.note && (
+                      <>
+                        <Typography variant="h5" fontWeight={550}>
+                          {translate("additionalInformation")}
+                        </Typography>
+                        <Typography
+                          fontSize="h7"
+                          color="#505050"
+                          fontWeight={520}
+                        >
+                          {medication.note}
+                        </Typography>
+                      </>
+                    )}
                   </TableCell>
                 </TableRow>
               </TableBody>
