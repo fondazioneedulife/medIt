@@ -103,6 +103,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
         height: "25vh",
         position: "relative",
         top: 300,
+        zIndex: 0,
       }}
     >
       <Box
