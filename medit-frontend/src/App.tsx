@@ -81,7 +81,10 @@ function App() {
                     />
                   }
                 />
-                <Route path="medication-details" element={<Details />}></Route>
+                <Route
+                  path="medication-details/:id"
+                  element={<Details />}
+                ></Route>
 
                 <Route path="profile">
                   <Route index element={<UserProfile />}></Route>
