@@ -22,9 +22,6 @@ export const MedicalHistoryPage: React.FC = () => {
     fetchTakenMedications();
     }, []);
 
-    console.log("userId", user?.id);
-    console.log(takenMedicines)
-
     return(
         <>
             <ReturnIcon path="/profile" color="black"/>
@@ -68,13 +65,13 @@ export const MedicalHistoryPage: React.FC = () => {
                         backgroundColor: "#FFFFFF",
                     }}
                 >
-                    {takenMedicines.map((item, index) => (
+                    {takenMedicines.map((takenMedicineItem, index) => (
                         <>
                             <MedicineItem
                                 key={index}
-                                image={item.image ? item.image : sampleMedicineImage}
-                                title={item.name}
-                                date="Mar 13, 2025"
+                                image={takenMedicineItem.image ? takenMedicineItem.image : sampleMedicineImage}
+                                title={takenMedicineItem.name}
+                                date={translate('month' + takenMedicineItem.month) + ' ' + takenMedicineItem.day + ', ' + takenMedicineItem.year} 
                             />
                             {index < takenMedicines.length - 1 && <hr />}
                         </>
