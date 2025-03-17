@@ -16,5 +16,6 @@ export default defineConfig({
       cert: readFileSync(resolve(__dirname, process.env.SSL_CERT_FILE || "")),
     },
     port: 3000,
+    strictPort: true,
   },
 });

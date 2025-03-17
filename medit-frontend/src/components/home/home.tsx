@@ -101,22 +101,24 @@ export const Home: React.FC = () => {
         <FilterButton />
         {remindersWithMedications.length === 0 ? (
           <Typography variant="h6" sx={{ textAlign: "center", marginTop: 2 }}>
-            There are no reminders for today
+            Non ci sono reminder per oggi
           </Typography>
         ) : (
-          remindersWithMedications.map((reminder) => (
-            <div key={reminder.id}>
-              {reminder.medication && (
-                <>
-                  <MedicationComponent
-                    medication={reminder.medication}
-                    reminder={reminder}
-                    onCheckChange={handleCheckChange}
-                  />
-                </>
-              )}
-            </div>
-          ))
+          remindersWithMedications
+            .sort((a, b) => (a.taken === b.taken ? 0 : a.taken ? 1 : -1))
+            .map((reminder) => (
+              <div key={reminder.id}>
+                {reminder.medication && (
+                  <>
+                    <MedicationComponent
+                      medication={reminder.medication}
+                      reminder={reminder}
+                      onCheckChange={handleCheckChange}
+                    />
+                  </>
+                )}
+              </div>
+            ))
         )}
         <ReminderModal
           showSetReminder={showSetReminder}
