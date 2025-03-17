@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LabelReminder } from "./LabelReminder";
 import {
   Box,
@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import InputFileUpload from "./AddImage";
 import { ReturnIcon } from "../SetReminder/ReturnIcon";
 import { useLogin } from "../../login/LoginContext";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface AddMedicationProps {
   onSave: (medicineId: number) => void;
@@ -112,127 +113,161 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
     navigate("/home");
   };
 
+  useEffect(() => {
+    if (errors.length > 0) {
+      const timer = setTimeout(() => {
+        setErrors([]);
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [errors]);
+
   return (
-    <Box
-      sx={{
-        height: "90vh",
-        width: "100vw",
-        borderRadius: "50px 50px 0 0",
-        backgroundColor: "white",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <>
+      <ReturnIcon onClick={onClose} />
       <Box
         sx={{
-          height: "100%",
-          width: "100%",
+          height: "100vh",
+          width: "100vw",
+          borderRadius: "50px 50px 0 0",
+          backgroundColor: "white",
+          display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          flexDirection: "column",
-          display: "flex",
         }}
       >
-        <ThemeProvider theme={theme}>
-          <Typography
-            variant="h2"
-            sx={{ fontWeight: "bold", fontSize: "2rem", mb: 4 }}
-          >
-            Add medication
-          </Typography>
-        </ThemeProvider>
-        {errors.length > 0 && (
-          <Box sx={{ width: "80%", mb: 2 }}>
-            {errors.map((error, index) => (
-              <Alert key={index} severity="error">
-                {error}
-              </Alert>
-            ))}
-          </Box>
-        )}
         <Box
           sx={{
-            borderRadius: 5,
-            backgroundColor: "#F0F0F0",
-            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+            height: "100%",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+            display: "flex",
           }}
         >
-          <ListItem>
-            <Box sx={{ width: "100%" }}>
-              <LabelReminder
-                inputName="name"
-                placeholder={"Name Product"}
-                onChange={handleInputChange}
-              />
-              <Box sx={{ display: "flex", width: "50%" }}>
+          <ThemeProvider theme={theme}>
+            <Typography
+              variant="h2"
+              sx={{ fontWeight: "bold", fontSize: "2rem", mb: 2 }}
+            >
+              Add medication
+            </Typography>
+          </ThemeProvider>
+          <AnimatePresence>
+            {errors.length > 0 && (
+              <motion.div
+                initial={{ y: "100vh" }}
+                animate={{ y: 0 }}
+                exit={{ y: "100vh" }}
+                transition={{ duration: 0.5 }}
+                style={{
+                  width: "100%",
+                  position: "absolute",
+                  zIndex: 1,
+                  bottom: 1,
+                }}
+              >
+                {errors.map((error, index) => (
+                  <Alert key={index} severity="error">
+                    {error}
+                  </Alert>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <Box
+            sx={{
+              borderRadius: 5,
+              backgroundColor: "#F0F0F0",
+              width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+            }}
+          >
+            <ListItem>
+              <Box sx={{ width: "100%" }}>
                 <LabelReminder
-                  inputName="dose"
-                  placeholder={"Dose"}
-                  showHr={false}
-                  type="number"
+                  inputName="name"
+                  placeholder={"Name Product"}
                   onChange={handleInputChange}
                 />
-                <SelectComponent
-                  unit={medicineData.unit}
-                  onUnitChange={handleUnitChange}
-                />
+                <Box sx={{ display: "flex", width: "71%" }}>
+                  <LabelReminder
+                    inputName="dose"
+                    placeholder={"Dose"}
+                    showHr={false}
+                    type="number"
+                    onChange={handleInputChange}
+                  />
+                  <SelectComponent
+                    unit={medicineData.unit}
+                    onUnitChange={handleUnitChange}
+                  />
+                </Box>
               </Box>
-            </Box>
-          </ListItem>
-        </Box>
+            </ListItem>
+          </Box>
 
-        <Box
-          sx={{
-            borderRadius: 5,
-            backgroundColor: "#F0F0F0",
-            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
-            marginTop: "1rem",
-          }}
-        >
-          <SelectType
-            type={medicineData.type}
-            onTypeChange={handleTypeChange}
-          />
-          <LabelReminder
-            inputName="quantity"
-            placeholder={"Quantity"}
-            showHr={false}
-            type="number"
-            onChange={handleInputChange}
-          />
-        </Box>
+          <Box
+            sx={{
+              borderRadius: 5,
+              backgroundColor: "#F0F0F0",
+              width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+              marginTop: "1rem",
+            }}
+          >
+            <SelectType
+              type={medicineData.type}
+              onTypeChange={handleTypeChange}
+            />
+          </Box>
+          <Box
+            sx={{
+              borderRadius: 5,
+              backgroundColor: "#F0F0F0",
+              width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+              marginTop: "1rem",
+            }}
+          >
+            {" "}
+            <LabelReminder
+              inputName="quantity"
+              placeholder={"Quantity"}
+              showHr={false}
+              type="number"
+              onChange={handleInputChange}
+            />
+          </Box>
 
-        <ReturnIcon onClick={onClose} />
+          <Box
+            sx={{
+              marginTop: "1rem",
+              backgroundColor: "#F0F0F0",
+              width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
+              borderRadius: 5,
+              height: "10vh",
+            }}
+          >
+            <AddInfo onNoteChange={handleNoteChange} />
+          </Box>
 
-        <Box
-          sx={{
-            marginTop: "1rem",
-            backgroundColor: "#F0F0F0",
-            width: { xs: "80%", md: "30%", lg: "30%", xl: "20%" },
-            borderRadius: 5,
-            height: "10vh",
-          }}
-        >
-          <AddInfo onNoteChange={handleNoteChange} />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              pt: 5,
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{ color: "rgba(98, 98, 98, 0.5)" }}
+            ></Typography>
+          </Box>
+          <InputFileUpload onUpload={handleImageUpload} />
+          <ButtonSave onClick={handleSave} />
         </Box>
-
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            pt: 5,
-          }}
-        >
-          <Typography
-            variant="h6"
-            sx={{ color: "rgba(98, 98, 98, 0.5)" }}
-          ></Typography>
-        </Box>
-        <InputFileUpload onUpload={handleImageUpload} />
-        <ButtonSave onClick={handleSave} />
       </Box>
-    </Box>
+    </>
   );
 };

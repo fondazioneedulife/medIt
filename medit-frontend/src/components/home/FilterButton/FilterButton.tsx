@@ -15,9 +15,8 @@ const theme = createTheme({
 });
 
 export const FilterButton: React.FC = () => {
-
   const { translate } = useLanguage();
-  
+
   return (
     <Box
       sx={{
@@ -34,13 +33,13 @@ export const FilterButton: React.FC = () => {
           sx={{
             fontWeight: "bold",
             ml: 2,
-            fontSize: "1.4rem",
+            fontSize: "1.6rem",
           }}
         >
-          {translate('todaysMedications')}
+          {translate("Reminders")}
         </Typography>
       </ThemeProvider>
-      
+
       <Box
         sx={{
           display: "flex",
@@ -67,7 +66,7 @@ export const FilterButton: React.FC = () => {
                 fontWeight: "medium",
               }}
             >
-              {translate('filter')}
+              {translate("filter")}
             </Typography>
           </ThemeProvider>
         </Button>

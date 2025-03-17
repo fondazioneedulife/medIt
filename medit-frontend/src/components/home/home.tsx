@@ -94,7 +94,7 @@ export const Home: React.FC = () => {
       <FilterButton />
       {remindersWithMedications.length === 0 ? (
         <Typography variant="h6" sx={{ textAlign: "center", marginTop: 2 }}>
-          Non ci sono reminder per oggi
+          There are no reminders for today
         </Typography>
       ) : (
         remindersWithMedications.map((reminder) => (

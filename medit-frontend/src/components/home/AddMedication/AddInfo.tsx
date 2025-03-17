@@ -44,7 +44,7 @@ const AddInfo: React.FC<AddInfoProps> = ({ onNoteChange }) => {
                   height: "3rem",
                   fontSize: "1.2rem",
                   color: "black",
-                  fontWeight: "650",
+                  fontWeight: "600",
                   paddingTop: "3rem",
                 },
               },
