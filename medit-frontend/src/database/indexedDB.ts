@@ -275,6 +275,19 @@ export const addReminder = async (reminder: any): Promise<IDBValidKey> => {
   return await addRecord("reminders", reminder);
 };
 
+export const getRemindersByMedicationId = async (medicationId: number): Promise<any[]> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("reminders", "readonly");
+    const store = transaction.objectStore("reminders");
+    const index = store.index("medication_id");
+    const request = index.getAll(medicationId);
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
 export const getRemindersForDate = async (date: Date): Promise<any[]> => {
   const db = await openDB();
   return new Promise((resolve, reject) => {
@@ -323,6 +336,19 @@ export const getMedicationById = async (id: number) => {
   });
 
   return { ...medication, reminders };
+};
+
+export const getMedicationsByUserId = async (userId: number): Promise<any[]> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("medications", "readonly");
+    const store = transaction.objectStore("medications");
+    const index = store.index("userId");
+    const request = index.getAll(userId);
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
 };
 
 export const getUserById = async (
@@ -394,6 +420,43 @@ export const deleteTakenMedication = async (
       }
     };
 
+    request.onerror = () => reject(request.error);
+  });
+};
+
+
+// get all taken medications of a patient
+export const getTakenMedicationsByPatientId = async (userId: number): Promise<any[]> => {
+  const medications = await getMedicationsByUserId(userId);
+  const reminders = await Promise.all(medications.map(med => getRemindersByMedicationId(med.id)));
+
+  const reminderIds = reminders.flat().map(reminder => reminder.id);
+
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("taken_medications", "readonly");
+    const store = transaction.objectStore("taken_medications");
+    const index = store.index("reminder_id");
+    const request = index.getAll();
+
+    request.onsuccess = () => {
+      const takenMedications = request.result.filter(takenMed => reminderIds.includes(takenMed.reminder_id));
+      const enrichedTakenMedications = takenMedications.map(takenMed => {
+        const reminder = reminders.flat().find(reminder => reminder.id === takenMed.reminder_id);
+        const medication = medications.find(med => med.id === reminder.medication_id);
+        const takenMedicationDate = new Date(takenMed.date_time);
+
+        return {
+          name: medication?.name,
+          image: medication?.image,
+          month: takenMedicationDate.getMonth() + 1, // getMonth() returns 0-11, so we add 1
+          day: takenMedicationDate.getDate(),
+          year: takenMedicationDate.getFullYear(),
+          hour: `${takenMedicationDate.getHours() % 12 || 12}:${takenMedicationDate.getMinutes().toString().padStart(2, '0')} ${takenMedicationDate.getHours() >= 12 ? 'PM' : 'AM'}`,
+        };
+      });
+      resolve(enrichedTakenMedications);
+    };
     request.onerror = () => reject(request.error);
   });
 };
