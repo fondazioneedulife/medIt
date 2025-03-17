@@ -93,7 +93,7 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <Box sx={{ pb: 22 }}>
+      <Box sx={{ pb: 50 }}>
         <Box sx={{ position: "relative" }}>
           <Navbar onAddDetailsClick={handleAddMedicationToggle} />
         </Box>
