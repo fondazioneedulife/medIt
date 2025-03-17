@@ -5,11 +5,17 @@ import Typography from '@mui/material/Typography';
 interface PatientProfileCardProps {
     image: string;
     name: string;
+    onClick: () => void;
 }
 
-export const PatientProfileCard: React.FC<PatientProfileCardProps> = ({ image, name }) => {
+export const PatientProfileCard: React.FC<PatientProfileCardProps> = ({
+    image,
+    name,
+    onClick
+}) => {
     return (
         <Box
+            onClick={onClick}
             component="table"
             sx={{ width: "45%", textAlign: "center" }}
         >
