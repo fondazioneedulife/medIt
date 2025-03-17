@@ -112,7 +112,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
           height: {
             md: "12vh",
             xl: "16vh",
-            xs: language === "it" ? "16vh" : "14vh",
+            xs: language === "it" ? "18vh" : "14vh",
           },
           backgroundColor: bgColor,
           borderRadius: "10px",
@@ -183,7 +183,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {reminder.frequency}, {quantity} left
+                {translate(reminder.frequency.toLowerCase())}, {quantity} {translate("quantityLeft")}
               </Typography>
             </ThemeProvider>
           </Box>
