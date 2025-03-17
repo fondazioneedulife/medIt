@@ -20,12 +20,6 @@ const SetHour: React.FC<SetHourProps> = ({ onChange }) => {
     { hour: "", period: "AM" },
   ]);
 
-  const theme = createTheme({
-    typography: {
-      fontFamily: "Montserrat, Arial, sans-serif",
-    },
-  });
-
   const hours: string[] = [];
   for (let h = 1; h <= 12; h++) {
     hours.push(`${h}:00`);
@@ -58,6 +52,12 @@ const SetHour: React.FC<SetHourProps> = ({ onChange }) => {
     onChange(newTimeSlots);
   };
 
+  const theme = createTheme({
+    typography: {
+      fontFamily: "Montserrat, Arial, sans-serif",
+    },
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -81,13 +81,14 @@ const SetHour: React.FC<SetHourProps> = ({ onChange }) => {
                 inputProps={{ "aria-label": "Select Hour" }}
                 sx={{
                   "& .MuiOutlinedInput-notchedOutline": { border: "none" },
+                  fontWeight: 600,
                 }}
               >
-                <MenuItem value="" disabled>
+                <MenuItem value="" disabled sx={{ fontWeight: 600 }}>
                   HH:MM
                 </MenuItem>
                 {hours.map((time, i) => (
-                  <MenuItem key={i} value={time}>
+                  <MenuItem key={i} value={time} sx={{ fontWeight: 600 }}>
                     {time}
                   </MenuItem>
                 ))}
@@ -102,10 +103,15 @@ const SetHour: React.FC<SetHourProps> = ({ onChange }) => {
                 inputProps={{ "aria-label": "Select Period" }}
                 sx={{
                   "& .MuiOutlinedInput-notchedOutline": { border: "none" },
+                  fontWeight: 600,
                 }}
               >
-                <MenuItem value="AM">AM</MenuItem>
-                <MenuItem value="PM">PM</MenuItem>
+                <MenuItem value="AM" sx={{ fontWeight: 600 }}>
+                  AM
+                </MenuItem>
+                <MenuItem value="PM" sx={{ fontWeight: 600 }}>
+                  PM
+                </MenuItem>
               </Select>
             </FormControl>
             <IconButton
@@ -116,7 +122,7 @@ const SetHour: React.FC<SetHourProps> = ({ onChange }) => {
             </IconButton>
           </Box>
         ))}
-        <Button onClick={addTimeSlot} sx={{ color: "black" }}>
+        <Button onClick={addTimeSlot} sx={{ color: "black", fontWeight: 600 }}>
           ADD HOUR
         </Button>
       </Box>

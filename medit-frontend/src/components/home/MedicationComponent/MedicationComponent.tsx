@@ -94,7 +94,8 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
         alignItems: "center",
         height: "25vh",
         position: "relative",
-        top: 20,
+        top: 100,
+        zIndex: 0,
       }}
     >
       <Box
@@ -182,7 +183,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
             sx={{
               backgroundColor: "#0B6BB2",
               color: "white",
-              width: "5.5rem",
+              width: "5.7rem",
               height: "25%",
               borderRadius: "25px",
               display: "flex",

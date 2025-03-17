@@ -28,7 +28,6 @@ const InputFileUpload: React.FC<InputFileUploadProps> = ({ onUpload }) => {
       tabIndex={-1}
       startIcon={<CloudUploadIcon />}
       sx={{
-        mr: 1,
         bgcolor: "white",
         boxShadow: "none",
         borderRadius: 3,

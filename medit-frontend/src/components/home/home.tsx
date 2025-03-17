@@ -93,9 +93,39 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <Box sx={{ position: "relative" }}>
-        <Navbar onAddDetailsClick={handleAddMedicationToggle} />
+      <Box sx={{ pb: 22 }}>
+        <Box sx={{ position: "relative" }}>
+          <Navbar onAddDetailsClick={handleAddMedicationToggle} />
+        </Box>
+        <Calendar selectedDate={selectedDate} onDateChange={handleDateChange} />
+        <FilterButton />
+        {remindersWithMedications.length === 0 ? (
+          <Typography variant="h6" sx={{ textAlign: "center", marginTop: 2 }}>
+            There are no reminders for today
+          </Typography>
+        ) : (
+          remindersWithMedications.map((reminder) => (
+            <div key={reminder.id}>
+              {reminder.medication && (
+                <>
+                  <MedicationComponent
+                    medication={reminder.medication}
+                    reminder={reminder}
+                  />
+                </>
+              )}
+            </div>
+          ))
+        )}
+        <ReminderModal
+          showSetReminder={showSetReminder}
+          showBackground={showBackground}
+          handleReminderSave={handleReminderSave}
+          handleAddMedicationSave={handleAddMedicationSave}
+          handleReminderSaved={handleReminderSaved}
+        />
       </Box>
+
       <Calendar selectedDate={selectedDate} onDateChange={handleDateChange} />
       <FilterButton />
       {remindersWithMedications.length === 0 ? (

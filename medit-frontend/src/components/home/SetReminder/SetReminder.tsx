@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   createTheme,
@@ -191,6 +191,16 @@ export const SetReminder: React.FC<SetReminderProps> = ({
     console.log("reminderData aggiornato:", reminderData);
   }, [reminderData]);
 
+  useEffect(() => {
+    if (errors.length > 0) {
+      const timer = setTimeout(() => {
+        setErrors([]);
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [errors]);
+
   return (
     <AnimatePresence>
       {isVisible && !showAddMedication && (
@@ -201,7 +211,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
           transition={{ duration: 0.5 }}
           style={{
             width: "100%",
-            height: "90vh",
+            height: "95vh",
             borderRadius: "50px 50px 0 0",
             backgroundColor: "white",
             display: "flex",
@@ -215,8 +225,8 @@ export const SetReminder: React.FC<SetReminderProps> = ({
           <Box
             sx={{
               position: "absolute",
-              top: 16,
-              left: 16,
+              top: 0,
+              left: 0,
               zIndex: 1002,
             }}
           >
@@ -235,20 +245,33 @@ export const SetReminder: React.FC<SetReminderProps> = ({
             <ThemeProvider theme={theme}>
               <Typography
                 variant="h2"
-                sx={{ fontWeight: "bold", fontSize: "2rem", mb: 3 }}
+                sx={{ fontWeight: "bold", fontSize: "2rem", mb: 2 }}
               >
                 Set Reminder
               </Typography>
             </ThemeProvider>
-            {errors.length > 0 && (
-              <Box sx={{ width: "80%", mb: 2 }}>
-                {errors.map((error, index) => (
-                  <Alert key={index} severity="error">
-                    {error}
-                  </Alert>
-                ))}
-              </Box>
-            )}
+            <AnimatePresence>
+              {errors.length > 0 && (
+                <motion.div
+                  initial={{ y: "100vh" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "100vh" }}
+                  transition={{ duration: 0.5 }}
+                  style={{
+                    width: "100%",
+                    position: "absolute",
+                    zIndex: 1,
+                    bottom: 1,
+                  }}
+                >
+                  {errors.map((error, index) => (
+                    <Alert key={index} severity="error">
+                      {error}
+                    </Alert>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
             <Box
               sx={{
                 borderRadius: 5,
@@ -392,16 +415,23 @@ export const SetReminder: React.FC<SetReminderProps> = ({
                 pb: 2,
               }}
             >
-              <TextField
-                label="End therapy date"
-                type="date"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                fullWidth
-                sx={{ mt: 2 }}
-                onChange={handleEndDateChange}
-              />
+              <ThemeProvider theme={theme}>
+                <TextField
+                  sx={{
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: "none",
+                    },
+                    fontWeight: 600,
+                  }}
+                  label="End therapy date"
+                  type="date"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  fullWidth
+                  onChange={handleEndDateChange}
+                />
+              </ThemeProvider>
             </Box>
 
             <ButtonSave buttonText="Save" onClick={handleSave} />
