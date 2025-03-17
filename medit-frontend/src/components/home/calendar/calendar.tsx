@@ -40,7 +40,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         position: "fixed",
         backgroundColor: "white",
         width: "100%",
-        top: -90,
+        top: -80,
         zIndex: "1",
         mt: 10,
       }}
