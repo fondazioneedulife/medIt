@@ -437,7 +437,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
               </ThemeProvider>
             </Box>
 
-            <ButtonSave buttonText="Save" onClick={handleSave} />
+            <ButtonSave buttonText={translate("save")} onClick={handleSave} />
           </Box>
         </motion.div>
       )}

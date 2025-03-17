@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { useLanguage } from "../../../contexts/LanguageContext";
 
 interface ButtonSaveProps {
   buttonText?: string;
@@ -6,9 +7,11 @@ interface ButtonSaveProps {
 }
 
 export const ButtonSave: React.FC<ButtonSaveProps> = ({
-  buttonText = "Save",
+  buttonText,
   onClick,
 }) => {
+  const { translate } = useLanguage();
+  const defaultButtonText = buttonText || translate("save");
   return (
     <Button
       sx={{
@@ -30,7 +33,7 @@ export const ButtonSave: React.FC<ButtonSaveProps> = ({
       }}
       onClick={onClick}
     >
-      {buttonText}
+      {defaultButtonText}
     </Button>
   );
 };

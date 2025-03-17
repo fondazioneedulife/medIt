@@ -3,6 +3,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useLanguage } from "../../../contexts/LanguageContext";
 
 interface SelectTypeProps {
   type: string;
@@ -19,6 +20,8 @@ const SelectType: React.FC<SelectTypeProps> = ({ type, onTypeChange }) => {
       fontFamily: "Montserrat, Arial, sans-serif",
     },
   });
+
+  const { translate } = useLanguage();
 
   return (
     <ThemeProvider theme={theme}>
@@ -43,31 +46,31 @@ const SelectType: React.FC<SelectTypeProps> = ({ type, onTypeChange }) => {
               value=""
               sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
             >
-              Type
+              {translate("type")}
             </MenuItem>
             <MenuItem
               value={"capsule"}
               sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
             >
-              Capsule
+              {translate("capsule")}
             </MenuItem>
             <MenuItem
               value={"tablet"}
               sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
             >
-              Tablet
+              {translate("tablet")}
             </MenuItem>
             <MenuItem
               value={"syrup"}
               sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
             >
-              Syrup
+              {translate("syrup")}
             </MenuItem>
             <MenuItem
               value={"injection"}
               sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
             >
-              Injection
+              {translate("injection")}
             </MenuItem>
           </Select>
         </FormControl>

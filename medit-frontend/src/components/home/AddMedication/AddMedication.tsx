@@ -191,13 +191,13 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
               <Box sx={{ width: "100%" }}>
                 <LabelReminder
                   inputName="name"
-                  placeholder={"Name Product"}
+                  placeholder={translate("nameProduct")}
                   onChange={handleInputChange}
                 />
                 <Box sx={{ display: "flex", width: "71%" }}>
                   <LabelReminder
                     inputName="dose"
-                    placeholder={"Dose"}
+                    placeholder={translate("dose")}
                     showHr={false}
                     type="number"
                     onChange={handleInputChange}
@@ -235,7 +235,7 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
             {" "}
             <LabelReminder
               inputName="quantity"
-              placeholder={"Quantity"}
+              placeholder={translate("quantity")}
               showHr={false}
               type="number"
               onChange={handleInputChange}
