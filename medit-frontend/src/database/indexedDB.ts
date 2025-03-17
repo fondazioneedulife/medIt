@@ -84,6 +84,7 @@ export const openDB = (): Promise<IDBDatabase> => {
           unique: false,
         });
         remindersStore.createIndex("id_group", "id_group", { unique: false });
+        remindersStore.createIndex("frequency", "frequency", { unique: false });
         remindersStore.createIndex("synced_at", "synced_at", { unique: false });
       }
 
@@ -337,6 +338,51 @@ export const getAllPatientsByCaregiverId = async (caregiverId: number) => {
     const request = index.getAll(caregiverId);
 
     request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const isMedicationTaken = async (
+  reminderId: number
+): Promise<boolean> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("taken_medications", "readonly");
+    const store = transaction.objectStore("taken_medications");
+    const index = store.index("reminder_id");
+    const request = index.get(reminderId);
+
+    request.onsuccess = () => resolve(!!request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const addTakenMedication = async (
+  takenMedication: any
+): Promise<IDBValidKey> => {
+  return await addRecord("taken_medications", takenMedication);
+};
+
+export const deleteTakenMedication = async (
+  reminderId: number
+): Promise<void> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("taken_medications", "readwrite");
+    const store = transaction.objectStore("taken_medications");
+    const index = store.index("reminder_id");
+    const request = index.openCursor(IDBKeyRange.only(reminderId));
+
+    request.onsuccess = (event) => {
+      const cursor = (event.target as IDBRequest).result;
+      if (cursor) {
+        cursor.delete();
+        cursor.continue();
+      } else {
+        resolve();
+      }
+    };
+
     request.onerror = () => reject(request.error);
   });
 };
