@@ -314,6 +314,19 @@ export const getMedicationById = async (
   });
 };
 
+export const getMedicationsByUserId = async (userId: number): Promise<any[]> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("medications", "readonly");
+    const store = transaction.objectStore("medications");
+    const index = store.index("userId");
+    const request = index.getAll(userId);
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
 export const getUserById = async (
   userId: number
 ): Promise<User | undefined> => {
@@ -385,4 +398,10 @@ export const deleteTakenMedication = async (
 
     request.onerror = () => reject(request.error);
   });
+};
+
+
+// get all taken medications of a patient
+export const getTakenMedicationsByPatientId = async (userId: number) => {
+  // ...
 };

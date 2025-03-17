@@ -12,45 +12,11 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
   const remindersStore = transaction.objectStore("reminders");
   const authStore = transaction.objectStore("auth");
 
-  const patientUser = {
-    firstName: "Medit",
-    lastName: "User",
-    email: "medit@example.com",
-    role: "Patient",
-    profileImage: demoUserImageBase64,
-    qrcode: demoUserQrcodeImageBase64,
-    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    language: "en",
-    created_at: new Date(),
-    updated_at: new Date(),
-    synced_at: new Date(),
-  };
-
-  await new Promise((resolve, reject) => {
-    const request = usersStore.add(patientUser);
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
-
-  const patientAuth = {
-    user_id: 1,
-    password: "$2b$10$pmgsO5wOyudhbKcUQAO82ey5Ne4n4mCrVN0MiQOppUm41o7r7cUJS",
-    failed_attempts: 0,
-    last_login: new Date(),
-    synced_at: new Date(),
-  };
-
-  await new Promise((resolve, reject) => {
-    const request = authStore.add(patientAuth);
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
-
   const caregiverUser = {
     firstName: "Caregiver",
     lastName: "User",
     email: "caregiver@example.com",
-    role: "Caregiver",
+    role: "caregiver",
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     language: "en",
     created_at: new Date(),
@@ -65,7 +31,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
   });
 
   const caregiverAuth = {
-    user_id: 2,
+    user_id: 1,
     password: "$2b$10$pmgsO5wOyudhbKcUQAO82ey5Ne4n4mCrVN0MiQOppUm41o7r7cUJS",
     failed_attempts: 0,
     last_login: new Date(),
@@ -74,6 +40,41 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
 
   await new Promise((resolve, reject) => {
     const request = authStore.add(caregiverAuth);
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+
+  const patientUser = {
+    firstName: "Medit",
+    lastName: "User",
+    email: "medit@example.com",
+    role: "patient",
+    profileImage: demoUserImageBase64,
+    qrcode: demoUserQrcodeImageBase64,
+    caregiverId: 1,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    language: "en",
+    created_at: new Date(),
+    updated_at: new Date(),
+    synced_at: new Date(),
+  };
+
+  await new Promise((resolve, reject) => {
+    const request = usersStore.add(patientUser);
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+
+  const patientAuth = {
+    user_id: 2,
+    password: "$2b$10$pmgsO5wOyudhbKcUQAO82ey5Ne4n4mCrVN0MiQOppUm41o7r7cUJS",
+    failed_attempts: 0,
+    last_login: new Date(),
+    synced_at: new Date(),
+  };
+
+  await new Promise((resolve, reject) => {
+    const request = authStore.add(patientAuth);
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
   });
@@ -87,7 +88,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
       quantity: 20,
       note: "",
       image: tachipirinaImage,
-      userId: 1,
+      userId: 2,
       created_at: new Date(),
       updated_at: new Date(),
       synced_at: new Date(),
@@ -100,7 +101,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
       quantity: 15,
       note: "",
       image: momentImage,
-      userId: 1,
+      userId: 2,
       created_at: new Date(),
       updated_at: new Date(),
       synced_at: new Date(),
@@ -113,7 +114,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
       quantity: 10,
       note: "",
       image: brufenImage,
-      userId: 1,
+      userId: 2,
       created_at: new Date(),
       updated_at: new Date(),
       synced_at: new Date(),
@@ -126,7 +127,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
       quantity: 20,
       note: "",
       image: aspirinaImage,
-      userId: 1,
+      userId: 2,
       created_at: new Date(),
       updated_at: new Date(),
       synced_at: new Date(),
@@ -139,7 +140,7 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
       quantity: 10,
       note: "",
       image: imodiumImage,
-      userId: 1,
+      userId: 2,
       created_at: new Date(),
       updated_at: new Date(),
       synced_at: new Date(),
