@@ -23,7 +23,7 @@ const SelectType: React.FC<SelectTypeProps> = ({ type, onTypeChange }) => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <FormControl sx={{ m: 1, minWidth: "70vw" }}>
+        <FormControl sx={{ m: 1, display: "flex", alignItems: "center" }}>
           <Select
             value={type}
             onChange={handleChange}
@@ -33,13 +33,42 @@ const SelectType: React.FC<SelectTypeProps> = ({ type, onTypeChange }) => {
               "& .MuiOutlinedInput-notchedOutline": {
                 border: "none",
               },
+              width: "100%",
+              fontWeight: 600,
+              fontSize: "1.2rem",
+              minWidth: "100%",
             }}
           >
-            <MenuItem value="">Type</MenuItem>
-            <MenuItem value={"capsule"}>Capsule</MenuItem>
-            <MenuItem value={"tablet"}>Tablet</MenuItem>
-            <MenuItem value={"syrup"}>Syrup</MenuItem>
-            <MenuItem value={"injection"}>Injection</MenuItem>
+            <MenuItem
+              value=""
+              sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
+            >
+              Type
+            </MenuItem>
+            <MenuItem
+              value={"capsule"}
+              sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
+            >
+              Capsule
+            </MenuItem>
+            <MenuItem
+              value={"tablet"}
+              sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
+            >
+              Tablet
+            </MenuItem>
+            <MenuItem
+              value={"syrup"}
+              sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
+            >
+              Syrup
+            </MenuItem>
+            <MenuItem
+              value={"injection"}
+              sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
+            >
+              Injection
+            </MenuItem>
           </Select>
         </FormControl>
       </div>

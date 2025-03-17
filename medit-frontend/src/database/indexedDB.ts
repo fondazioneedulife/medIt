@@ -84,6 +84,7 @@ export const openDB = (): Promise<IDBDatabase> => {
           unique: false,
         });
         remindersStore.createIndex("id_group", "id_group", { unique: false });
+        remindersStore.createIndex("frequency", "frequency", { unique: false });
         remindersStore.createIndex("synced_at", "synced_at", { unique: false });
       }
 
@@ -274,6 +275,21 @@ export const addReminder = async (reminder: any): Promise<IDBValidKey> => {
   return await addRecord("reminders", reminder);
 };
 
+export const getRemindersByMedicationId = async (
+  medicationId: number
+): Promise<any[]> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("reminders", "readonly");
+    const store = transaction.objectStore("reminders");
+    const index = store.index("medication_id");
+    const request = index.getAll(medicationId);
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
 export const getRemindersForDate = async (date: Date): Promise<any[]> => {
   const db = await openDB();
   return new Promise((resolve, reject) => {
@@ -299,14 +315,40 @@ export const getRemindersForDate = async (date: Date): Promise<any[]> => {
   });
 };
 
-export const getMedicationById = async (
-  medication_id: number
-): Promise<any> => {
+export const getMedicationById = async (id: number) => {
+  const db = await openDB();
+  const transaction = db.transaction(["medications", "reminders"], "readonly");
+  const medicationsStore = transaction.objectStore("medications");
+  const remindersStore = transaction.objectStore("reminders");
+
+  const medicationRequest = medicationsStore.get(id);
+
+  const medication = await new Promise<any>((resolve, reject) => {
+    medicationRequest.onsuccess = () => resolve(medicationRequest.result);
+    medicationRequest.onerror = () => reject(medicationRequest.error);
+  });
+
+  const remindersRequest = remindersStore.index("medication_id").getAll(id);
+  const reminders = await new Promise<any[]>((resolve, reject) => {
+    remindersRequest.onsuccess = () => {
+      console.log("remindersRequest", remindersRequest.result);
+      resolve(remindersRequest.result);
+    };
+    remindersRequest.onerror = () => reject(remindersRequest.error);
+  });
+
+  return { ...medication, reminders };
+};
+
+export const getMedicationsByUserId = async (
+  userId: number
+): Promise<any[]> => {
   const db = await openDB();
   return new Promise((resolve, reject) => {
     const transaction = db.transaction("medications", "readonly");
     const store = transaction.objectStore("medications");
-    const request = store.get(medication_id);
+    const index = store.index("userId");
+    const request = index.getAll(userId);
 
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
@@ -337,6 +379,123 @@ export const getAllPatientsByCaregiverId = async (caregiverId: number) => {
     const request = index.getAll(caregiverId);
 
     request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const isMedicationTaken = async (
+  reminderId: number
+): Promise<boolean> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("taken_medications", "readonly");
+    const store = transaction.objectStore("taken_medications");
+    const index = store.index("reminder_id");
+    const request = index.get(reminderId);
+
+    request.onsuccess = () => resolve(!!request.result);
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const addTakenMedication = async (
+  takenMedication: any
+): Promise<IDBValidKey> => {
+  return await addRecord("taken_medications", takenMedication);
+};
+
+export const deleteTakenMedication = async (
+  reminderId: number
+): Promise<void> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("taken_medications", "readwrite");
+    const store = transaction.objectStore("taken_medications");
+    const index = store.index("reminder_id");
+    const request = index.openCursor(IDBKeyRange.only(reminderId));
+
+    request.onsuccess = (event) => {
+      const cursor = (event.target as IDBRequest).result;
+      if (cursor) {
+        cursor.delete();
+        cursor.continue();
+      } else {
+        resolve();
+      }
+    };
+
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const getTakenMedicationsByPatientId = async (
+  userId: number
+): Promise<any[]> => {
+  const medications = await getMedicationsByUserId(userId);
+  const reminders = await Promise.all(
+    medications.map((med) => getRemindersByMedicationId(med.id))
+  );
+
+  const reminderIds = reminders.flat().map((reminder) => reminder.id);
+
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("taken_medications", "readonly");
+    const store = transaction.objectStore("taken_medications");
+    const index = store.index("reminder_id");
+    const request = index.getAll();
+
+    request.onsuccess = () => {
+      const takenMedications = request.result.filter((takenMed) =>
+        reminderIds.includes(takenMed.reminder_id)
+      );
+      const enrichedTakenMedications = takenMedications.map((takenMed) => {
+        const reminder = reminders
+          .flat()
+          .find((reminder) => reminder.id === takenMed.reminder_id);
+        const medication = medications.find(
+          (med) => med.id === reminder.medication_id
+        );
+        const takenMedicationDate = new Date(takenMed.date_time);
+
+        return {
+          name: medication?.name,
+          image: medication?.image,
+          month: takenMedicationDate.getMonth() + 1, // getMonth() returns 0-11, so we add 1
+          day: takenMedicationDate.getDate(),
+          year: takenMedicationDate.getFullYear(),
+          hour: `${
+            takenMedicationDate.getHours() % 12 || 12
+          }:${takenMedicationDate.getMinutes().toString().padStart(2, "0")} ${
+            takenMedicationDate.getHours() >= 12 ? "PM" : "AM"
+          }`,
+        };
+      });
+      resolve(enrichedTakenMedications);
+    };
+    request.onerror = () => reject(request.error);
+  });
+};
+
+export const updateMedicationQuantity = async (
+  medicationId: number,
+  quantity: number
+): Promise<void> => {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction("medications", "readwrite");
+    const store = transaction.objectStore("medications");
+    const request = store.get(medicationId);
+
+    request.onsuccess = () => {
+      const medication = request.result;
+      medication.quantity = quantity;
+      const updateRequest = store.put(medication);
+
+      updateRequest.onsuccess = () => resolve();
+      updateRequest.onerror = () => reject(updateRequest.error);
+    };
+
     request.onerror = () => reject(request.error);
   });
 };

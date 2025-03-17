@@ -41,8 +41,19 @@ const SelectMedication: React.FC<SelectMedicationProps> = ({
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <FormControl sx={{ m: 1, minWidth: "70vw" }}>
+        <FormControl
+          sx={{
+            minWidth: {
+              xs: "70vw",
+              sm: "70vw",
+              md: "26vw",
+              lg: "27vw",
+              xl: "18vw",
+            },
+          }}
+        >
           <Select
+            fullWidth
             value={selectedMedication}
             onChange={handleChange}
             inputProps={{ "aria-label": "Without label" }}
@@ -50,10 +61,17 @@ const SelectMedication: React.FC<SelectMedicationProps> = ({
               "& .MuiOutlinedInput-notchedOutline": {
                 border: "none",
               },
+              fontWeight: 600,
+              fontSize: "1.2rem",
             }}
+            disabled={medications.length === 0}
           >
             {medications.map((med) => (
-              <MenuItem key={med.id} value={med.id.toString()}>
+              <MenuItem
+                sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
+                key={med.id}
+                value={med.id.toString()}
+              >
                 {med.name}
               </MenuItem>
             ))}

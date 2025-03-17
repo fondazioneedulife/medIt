@@ -26,7 +26,17 @@ const SelectFrequency: React.FC<SelectFrequencyProps> = ({
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <FormControl sx={{ m: 1, minWidth: "70vw" }}>
+        <FormControl
+          sx={{
+            minWidth: {
+              xs: "70vw",
+              sm: "70vw",
+              md: "26vw",
+              lg: "27vw",
+              xl: "18vw",
+            },
+          }}
+        >
           <Select
             value={selectedFrequency}
             onChange={handleChange}
@@ -36,12 +46,34 @@ const SelectFrequency: React.FC<SelectFrequencyProps> = ({
               "& .MuiOutlinedInput-notchedOutline": {
                 border: "none",
               },
+              fontWeight: 600,
+              fontSize: "1.2rem",
             }}
           >
-            <MenuItem value="daily">Daily</MenuItem>
-            <MenuItem value="weekly">Weekly</MenuItem>
-            <MenuItem value="monthly">Monthly</MenuItem>
-            <MenuItem value="yearly">Yearly</MenuItem>
+            <MenuItem
+              value="daily"
+              sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
+            >
+              Daily
+            </MenuItem>
+            <MenuItem
+              value="weekly"
+              sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
+            >
+              Weekly
+            </MenuItem>
+            <MenuItem
+              value="monthly"
+              sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
+            >
+              Monthly
+            </MenuItem>
+            <MenuItem
+              value="yearly"
+              sx={{ fontWeight: 600, color: "grey", fontSize: "1.2rem" }}
+            >
+              Yearly
+            </MenuItem>
           </Select>
         </FormControl>
       </div>

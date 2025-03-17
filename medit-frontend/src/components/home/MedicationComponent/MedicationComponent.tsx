@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   createTheme,
@@ -14,6 +14,12 @@ import Ellipse from "../../../assets/icon/Check-Ellipse.svg";
 import Check from "../../../assets/icon/Check.svg";
 import DefaultImage from "../../../assets/icon/immagine.jpg";
 import { useLogin } from "../../login/LoginContext";
+import {
+  addTakenMedication,
+  deleteTakenMedication,
+  isMedicationTaken,
+  updateMedicationQuantity,
+} from "../../../database/indexedDB";
 
 const theme = createTheme({
   typography: {
@@ -24,27 +30,57 @@ const theme = createTheme({
 interface MedicationComponentProps {
   medication: any;
   reminder: any;
+  onCheckChange: () => void;
 }
 
 export const MedicationComponent: React.FC<MedicationComponentProps> = ({
   medication,
   reminder,
+  onCheckChange,
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [bgColor, setBgColor] = useState("white");
+  const [quantity, setQuantity] = useState(medication.quantity);
 
   const navigate = useNavigate();
   const { user } = useLogin();
 
-  const toggleCheck = () => {
+  useEffect(() => {
+    const checkMedicationTaken = async () => {
+      const taken = await isMedicationTaken(reminder.id);
+      setIsChecked(taken);
+      setBgColor(taken ? "rgba(67, 134, 16, 0.8)" : "white");
+    };
+
+    checkMedicationTaken();
+  }, [reminder.id]);
+
+  const toggleCheck = async () => {
     setIsChecked((prev) => !prev);
     setBgColor((prev) =>
       prev === "white" ? "rgba(67, 134, 16, 0.8)" : "white"
     );
+
+    if (!isChecked) {
+      await addTakenMedication({
+        reminder_id: reminder.id,
+        date_time: new Date().toISOString(),
+      });
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      await updateMedicationQuantity(medication.id, newQuantity);
+    } else {
+      await deleteTakenMedication(reminder.id);
+      const newQuantity = quantity + 1;
+      setQuantity(newQuantity);
+      await updateMedicationQuantity(medication.id, newQuantity);
+    }
+
+    onCheckChange();
   };
 
   const handleCardClick = () => {
-    navigate("/medication-details");
+    navigate(`/medication-details/${medication.id}`);
   };
 
   const { language } = useLanguage();
@@ -66,7 +102,8 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
         alignItems: "center",
         height: "25vh",
         position: "relative",
-        top: 20,
+        top: 300,
+        zIndex: 0,
       }}
     >
       <Box
@@ -135,7 +172,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {translate(medication.type.toLowerCase())}, {medication.dose}{" "}
+                {translate(medication.type.toLowerCase())}, {medication.dose}
                 {medication.unit}
               </Typography>
             </ThemeProvider>
@@ -146,7 +183,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {reminder.frequency}, {medication.quantity} left
+                {reminder.frequency}, {quantity} left
               </Typography>
             </ThemeProvider>
           </Box>

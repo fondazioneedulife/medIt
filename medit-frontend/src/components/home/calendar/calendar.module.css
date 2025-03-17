@@ -20,6 +20,6 @@
   font-size: 2rem;
 }
 
-.Ez:after {
-  background-color: none !important;
+:global(.Ez)::after {
+  background: none !important;
 }
