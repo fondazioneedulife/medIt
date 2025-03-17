@@ -111,6 +111,7 @@ export const Home: React.FC = () => {
                   <MedicationComponent
                     medication={reminder.medication}
                     reminder={reminder}
+                    onCheckChange={handleCheckChange}
                   />
                 </>
               )}
@@ -125,37 +126,6 @@ export const Home: React.FC = () => {
           handleReminderSaved={handleReminderSaved}
         />
       </Box>
-
-      <Calendar selectedDate={selectedDate} onDateChange={handleDateChange} />
-      <FilterButton />
-      {remindersWithMedications.length === 0 ? (
-        <Typography variant="h6" sx={{ textAlign: "center", marginTop: 2 }}>
-          Non ci sono reminder per oggi
-        </Typography>
-      ) : (
-        remindersWithMedications
-          .sort((a, b) => (a.taken === b.taken ? 0 : a.taken ? 1 : -1))
-          .map((reminder) => (
-            <div key={reminder.id}>
-              {reminder.medication && (
-                <>
-                  <MedicationComponent
-                    medication={reminder.medication}
-                    reminder={reminder}
-                    onCheckChange={handleCheckChange}
-                  />
-                </>
-              )}
-            </div>
-          ))
-      )}
-      <ReminderModal
-        showSetReminder={showSetReminder}
-        showBackground={showBackground}
-        handleReminderSave={handleReminderSave}
-        handleAddMedicationSave={handleAddMedicationSave}
-        handleReminderSaved={handleReminderSaved}
-      />
     </>
   );
 };
