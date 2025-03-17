@@ -11,7 +11,7 @@ import {
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { ReturnIcon } from "./returnIcon";
-import Medicine from "../../assets/icon/medicine.svg";
+import Medicine from "../../assets/icon/pillola.svg";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
