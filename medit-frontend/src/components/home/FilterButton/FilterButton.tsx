@@ -44,7 +44,7 @@ export const FilterButton: React.FC = () => {
             fontSize: "1.6rem",
           }}
         >
-          {translate("Reminders")}
+          {translate("reminders")}
         </Typography>
       </ThemeProvider>
 

@@ -1,7 +1,7 @@
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-
+import { useLanguage } from "../../../contexts/LanguageContext";
 import React from "react";
 
 interface InputFileUploadProps {
@@ -19,7 +19,10 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
+
 const InputFileUpload: React.FC<InputFileUploadProps> = ({ onUpload }) => {
+  const { translate } = useLanguage();
+
   return (
     <Button
       component="label"
@@ -38,7 +41,7 @@ const InputFileUpload: React.FC<InputFileUploadProps> = ({ onUpload }) => {
         gap: 1,
       }}
     >
-      Add image
+      {translate("addImage")}
       <VisuallyHiddenInput
         type="file"
         onChange={(event) => {

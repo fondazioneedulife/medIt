@@ -1,6 +1,7 @@
 import { RegisterRequest } from "../../api-types/RegisterRequest";
 import { User } from "../generated/models/User";
 import { seedDatabase } from "./seedDatabase";
+import jsQR from "jsqr";
 
 const DB_NAME = "Medit";
 const DB_VERSION = 1;
@@ -331,7 +332,6 @@ export const getMedicationById = async (id: number) => {
   const remindersRequest = remindersStore.index("medication_id").getAll(id);
   const reminders = await new Promise<any[]>((resolve, reject) => {
     remindersRequest.onsuccess = () => {
-      console.log("remindersRequest", remindersRequest.result);
       resolve(remindersRequest.result);
     };
     remindersRequest.onerror = () => reject(remindersRequest.error);
@@ -497,5 +497,54 @@ export const updateMedicationQuantity = async (
     };
 
     request.onerror = () => reject(request.error);
+  });
+};
+
+export const getUserByUUID = async (
+  uuid: string
+): Promise<User | undefined> => {
+  const db = await openDB();
+  const tx = db.transaction(USER_STORE, "readonly");
+  const store = tx.objectStore(USER_STORE);
+  const request = store.getAll();
+
+  return new Promise<User | undefined>((resolve, reject) => {
+    request.onsuccess = async () => {
+      const users = request.result;
+      for (const user of users) {
+        if (user.role === "patient") {
+          if (user.qrcode) {
+            const decodedQRCode = await decodeQRCode(user.qrcode);
+            if (decodedQRCode === uuid) {
+              resolve(user);
+              return;
+            }
+          }
+        }
+      }
+      resolve(undefined);
+    };
+    request.onerror = () => reject(request.error);
+  });
+};
+
+const decodeQRCode = async (base64Image: string): Promise<string | null> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = base64Image;
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return resolve(null);
+
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const qrCode = jsQR(imageData.data, imageData.width, imageData.height);
+      resolve(qrCode?.data || null);
+    };
+    img.onerror = () => reject("Errore nel caricamento dell'immagine.");
   });
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import { useLanguage } from "../../../contexts/LanguageContext";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 interface AddInfoProps {
@@ -18,6 +19,8 @@ const AddInfo: React.FC<AddInfoProps> = ({ onNoteChange }) => {
     onNoteChange(event.target.value);
   };
 
+  const { translate } = useLanguage();
+
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -28,7 +31,7 @@ const AddInfo: React.FC<AddInfoProps> = ({ onNoteChange }) => {
           autoComplete="off"
         >
           <TextField
-            placeholder="Add information..."
+            placeholder={translate("addInformation")}
             variant="outlined"
             multiline
             rows={3}

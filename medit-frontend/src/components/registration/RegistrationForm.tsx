@@ -37,11 +37,11 @@ export const Registration: React.FC = () => {
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
 
-    if (!user.firstName || !/^[a-zA-Z]+$/.test(user.firstName)) {
+    if (!user.firstName || !/^[a-zA-ZÀ-ÿ]+$/.test(user.firstName)) {
       newErrors.firstName = translate("invalidFirstName");
     }
 
-    if (!user.lastName || !/^[a-zA-Z]+$/.test(user.lastName)) {
+    if (!user.lastName || !/^[a-zA-ZÀ-ÿ]+$/.test(user.lastName)) {
       newErrors.lastName = translate("invalidLastName");
     }
 
@@ -207,7 +207,10 @@ export const Registration: React.FC = () => {
                     </Typography>
                   )}
                   {errors.existingUser && (
-                    <Typography color="error" sx={{ mt: "1rem", textAlign: "center" }}>
+                    <Typography
+                      color="error"
+                      sx={{ mt: "1rem", textAlign: "center" }}
+                    >
                       {errors.existingUser}
                     </Typography>
                   )}
