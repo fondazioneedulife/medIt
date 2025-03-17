@@ -2,9 +2,11 @@ spring:
   application:
     name: medit
   datasource:
-    url: jdbc:postgresql://localhost:5432/medit
+    url: jdbc:postgresql://postgres_db:5432/medit_db
     username: medit
-    password: medit
+    password: 7Q0rBpE7PFkr9s
+    driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
