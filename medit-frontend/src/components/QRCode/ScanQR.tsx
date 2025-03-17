@@ -4,6 +4,8 @@ import { ReturnIcon } from "../login/ReturnIcon";
 import { useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { useLanguage } from "../../contexts/LanguageContext";
+import { useLogin } from "../login/LoginContext";
+import { getUserByUUID } from "../../database/indexedDB";
 
 const theme = createTheme({
   typography: {
@@ -22,8 +24,28 @@ const theme = createTheme({
 
 export const ScanQR: React.FC = () => {
   const [scanResult, setScanResult] = useState<string | null>(null);
-
   const { translate } = useLanguage();
+  const { setUser } = useLogin();
+
+  const handleScan = async (result: any) => {
+    console.log("Scanned:", result);
+    if (result && result[0] && result[0].rawValue) {
+      const scanText = result[0].rawValue;
+      setScanResult(scanText);
+
+      try {
+        const user = await getUserByUUID(scanText);
+        if (user) {
+          setUser(user);
+          console.log("User logged in:", user);
+        } else {
+          console.log("User not found");
+        }
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+      }
+    }
+  };
 
   return (
     <Box
@@ -52,7 +74,7 @@ export const ScanQR: React.FC = () => {
           spacing={3}
           sx={{
             width: "100%",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           <Box
@@ -97,14 +119,7 @@ export const ScanQR: React.FC = () => {
           >
             {/* Scanner QR Code */}
             <Scanner
-              onScan={(result) => {
-                if (result) {
-                  const scanText =
-                    typeof result === "string" ? result : result.text;
-                  setScanResult(scanText); // Imposta il risultato della scansione
-                  console.log("ON SCAN", result[0]);
-                }
-              }}
+              onScan={(result) => handleScan(result)}
               onError={(error) => console.log("ON ERROR", error?.message)}
             />
           </Box>
