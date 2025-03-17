@@ -43,6 +43,7 @@ export const MedicineItem: React.FC<MedicineItemProps> = ({ image, title, date }
                     variant="body2"
                     sx={{
                         fontFamily: "Montserrat, Arial, sans-serif",
+                        fontWeight: 500,
                         color: "#505050",
                     }}
                 >

@@ -16,6 +16,7 @@ interface LabelProps {
 }
 
 export const UserInfoLabel: React.FC<LabelProps> = ({
+  inputName,
   img,
   placeholder,
   showHr = true,
@@ -70,7 +71,9 @@ export const UserInfoLabel: React.FC<LabelProps> = ({
           autoComplete="off"
         >
           <TextField
-            value={value}
+            value={
+              value || inputName.charAt(0).toUpperCase() + inputName.slice(1)
+            }
             onChange={onChange}
             variant="outlined"
             type={type}

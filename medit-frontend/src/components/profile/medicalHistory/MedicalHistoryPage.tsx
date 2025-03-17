@@ -2,16 +2,25 @@ import { Box, Typography } from '@mui/material';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { ReturnIcon } from '../../login/ReturnIcon';
 import { MedicineItem } from './MedicineItem';
+import { useEffect, useState } from 'react';
+import { useLogin } from '../../login/LoginContext';
+import { getTakenMedicationsByPatientId } from '../../../database/indexedDB';
 import sampleMedicineImage from '../../../assets/icon/immagine.jpg';
-import tachipirinaImage from '../../../assets/medicins/tachipirina.png';
-import momentImage from '../../../assets/medicins/moment.png';
-import brufenImage from '../../../assets/medicins/brufen.png';
-import aspirinaImage from '../../../assets/medicins/aspirina.png';
-import imodiumImage from '../../../assets/medicins/imodium.png';
 
 export const MedicalHistoryPage: React.FC = () => {
 
     const { translate } = useLanguage();
+    const { user } = useLogin();
+    const [takenMedicines, setTakenMedications] = useState<any[]>([]);
+    
+    useEffect(() => {
+    const fetchTakenMedications = async () => {
+        const medications = await getTakenMedicationsByPatientId(user?.id as number);
+        setTakenMedications(medications);
+    };
+
+    fetchTakenMedications();
+    }, []);
 
     return(
         <>
@@ -56,35 +65,17 @@ export const MedicalHistoryPage: React.FC = () => {
                         backgroundColor: "#FFFFFF",
                     }}
                 >
-                    <MedicineItem
-                        image={tachipirinaImage}
-                        title="Tachipirina"
-                        date="Mar 13, 2025"
-                    />
-                    <hr />
-                    <MedicineItem
-                        image={momentImage}
-                        title="Moment"
-                        date="Mar 14, 2025"
-                    />
-                    <hr />
-                    <MedicineItem
-                        image={brufenImage}
-                        title="Brufen"
-                        date="Mar 15, 2025"
-                    />
-                    <hr />
-                    <MedicineItem
-                        image={aspirinaImage}
-                        title="Aspirina"
-                        date="Mar 16, 2025"
-                    />
-                    <hr />
-                    <MedicineItem
-                        image={imodiumImage}
-                        title="Imodium"
-                        date="Mar 17, 2025"
-                    />
+                    {takenMedicines.map((takenMedicineItem, index) => (
+                        <>
+                            <MedicineItem
+                                key={index}
+                                image={takenMedicineItem.image ? takenMedicineItem.image : sampleMedicineImage}
+                                title={takenMedicineItem.name}
+                                date={translate('month' + takenMedicineItem.month) + ' ' + takenMedicineItem.day + ', ' + takenMedicineItem.year + ' ' + takenMedicineItem.hour} 
+                            />
+                            {index < takenMedicines.length - 1 && <hr />}
+                        </>
+                    ))}
                 </Box>
             </Box>
         </>

@@ -8,6 +8,8 @@ import { PatientProfileCard } from "./PatientProfileCard";
 import { getAllPatientsByCaregiverId } from "../../database/indexedDB";
 import { useState, useEffect } from "react";
 import { useLogin } from "../login/LoginContext";
+import { getAuthByUserId } from "../../database/indexedDB";
+import { RoleEnum } from "../../generated/models/RoleEnum";
 import examplePatientImage from "../../assets/profile/example_patient_profile_image.svg";
 
 
@@ -21,7 +23,7 @@ export const PatientList: React.FC = () => {
     };
 
     // cargiver logged in
-    const { user } = useLogin();
+    const { user, setUser } = useLogin();
 
     const [caregiverPatients, setPatients] = useState<any[]>([]);
 
@@ -33,6 +35,36 @@ export const PatientList: React.FC = () => {
 
     fetchPatients();
     }, []);
+
+    const handlePatientCardClick = async (patient: any) => {
+        try {
+          const auth = await getAuthByUserId(patient.id);
+
+          if (!auth) {
+            console.error("Authentication data not found");
+            return;
+          }
+          const isCaregiverPatient = patient.caregiverId === user?.id ? true : false;
+          if (!isCaregiverPatient) {
+            console.error("Invalid patient");
+            return;
+          }
+
+          setUser({
+            ...patient,
+            firstName: patient.firstName || "",
+            lastName: patient.lastName || "",
+            email: patient.email || "",
+            role: patient.role || RoleEnum.Patient,
+            qrcode: patient.qrcode || "",
+            timezone: patient.timezone || "",
+            language: patient.language || "",
+          });
+          navigate("/profile");
+        } catch (error) {
+          console.error("Failed to login patient:", error);
+        }
+    };
 
     return (
         <>
@@ -95,6 +127,7 @@ export const PatientList: React.FC = () => {
                         <PatientProfileCard
                             image={item.profileImage ? item.profileImage : examplePatientImage}
                             name={item.firstName + ' ' + item.lastName}
+                            onClick={() => handlePatientCardClick(item)}
                         />
                     ))}
 
