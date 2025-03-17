@@ -6,7 +6,11 @@ import { PatientLabel } from "./PatientLabel";
 import { useRegistration } from "../../../contexts/PatientRegistrationContenxt";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { getUserByEmail, registerUser, addRecord } from "../../../database/indexedDB";
+import {
+  getUserByEmail,
+  registerUser,
+  addRecord,
+} from "../../../database/indexedDB";
 import { v4 as uuidv4 } from "uuid";
 import { RoleEnum } from "../../../generated";
 import { useLogin } from "../../login/LoginContext";
@@ -29,7 +33,6 @@ export const PatientRegistrationForm: React.FC = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const { user } = useLogin();
 
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPatient((prevUser) => ({
@@ -41,11 +44,11 @@ export const PatientRegistrationForm: React.FC = () => {
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
 
-    if (!patient.firstName || !/^[a-zA-Z]+$/.test(patient.firstName)) {
+    if (!patient.firstName || !/^[a-zA-ZÀ-ÿ]+$/.test(patient.firstName)) {
       newErrors.firstName = translate("invalidFirstName");
     }
 
-    if (!patient.lastName || !/^[a-zA-Z]+$/.test(patient.lastName)) {
+    if (!patient.lastName || !/^[a-zA-ZÀ-ÿ]+$/.test(patient.lastName)) {
       newErrors.lastName = translate("invalidLastName");
     }
 
@@ -94,7 +97,7 @@ export const PatientRegistrationForm: React.FC = () => {
         caregiverId: user?.id,
         qrcode: qrCodeData,
       };
-      const { id, ...userToSave } = newUser;    // remove item in object
+      const { id, ...userToSave } = newUser; // remove item in object
 
       await setPatient(userToSave);
       const patientId = await registerUser({
@@ -238,7 +241,10 @@ export const PatientRegistrationForm: React.FC = () => {
                     </Typography>
                   )}
                   {errors.existingUser && (
-                    <Typography color="error" sx={{ mt: "1rem", textAlign: "center" }}>
+                    <Typography
+                      color="error"
+                      sx={{ mt: "1rem", textAlign: "center" }}
+                    >
                       {errors.existingUser}
                     </Typography>
                   )}
