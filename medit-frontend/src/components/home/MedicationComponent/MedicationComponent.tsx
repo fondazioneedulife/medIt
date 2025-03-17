@@ -94,7 +94,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
         alignItems: "center",
         height: "25vh",
         position: "relative",
-        top: 100,
+        top: 300,
         zIndex: 0,
       }}
     >
