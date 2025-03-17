@@ -9,8 +9,19 @@ const theme = createTheme({
   },
 });
 
-export const ChooseButton: React.FC = () => {
+interface ChooseButtonProps {
+  onRoleSelect: (role: string) => void;
+}
+
+export const ChooseButton: React.FC<ChooseButtonProps> = ({ onRoleSelect }) => {
   const { translate } = useLanguage();
+
+  console.log("ChooseButton rendered with onRoleSelect:", onRoleSelect); // Debug
+
+  const handleSelect = (role: string) => {
+    console.log(`Role selected: ${role}`); // Debug
+    onRoleSelect(role);
+  };
 
   return (
     <>
@@ -22,6 +33,7 @@ export const ChooseButton: React.FC = () => {
         }}
       >
         <Button
+          onClick={() => handleSelect("caregiver")}
           sx={{
             borderRadius: 3,
             width: "30rem",
@@ -43,7 +55,7 @@ export const ChooseButton: React.FC = () => {
             component="h3"
             style={{
               fontWeight: "bold",
-              fontSize: "2rem",
+              fontSize: "1.5rem",
               textTransform: "capitalize",
             }}
           >
@@ -51,6 +63,7 @@ export const ChooseButton: React.FC = () => {
           </Typography>
         </Button>
         <Button
+          onClick={() => handleSelect("patient")}
           sx={{
             borderRadius: 3,
             width: "20rem",
@@ -72,7 +85,7 @@ export const ChooseButton: React.FC = () => {
             component="h3"
             style={{
               fontWeight: "bold",
-              fontSize: "2rem",
+              fontSize: "1.5rem",
               textTransform: "capitalize",
             }}
           >

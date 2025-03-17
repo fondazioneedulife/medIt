@@ -3,26 +3,36 @@ import {
   Datepicker,
   DatepickerEvent,
 } from "@meinefinsternis/react-horizontal-date-picker";
-import { enUS } from "date-fns/locale";
+import { enUS, it } from "date-fns/locale";
 import classes from "./calendar.module.css";
 import { Box } from "@mui/material";
 import { UserComponent } from "../UserComponent/UserComponent";
+import { useLanguage } from "../../../contexts/LanguageContext";
 
-export const Calendar: React.FC = () => {
+interface CalendarProps {
+  selectedDate: Date | null;
+  onDateChange: (date: Date | null) => void;
+}
+
+export const Calendar: React.FC<CalendarProps> = ({
+  selectedDate,
+  onDateChange,
+}) => {
   const [date, setDate] = React.useState<{
-    endValue: Date | null;
-    startValue: Date | null;
-    rangeDates: Date[] | null;
+    selectedDate: Date | null;
   }>({
-    startValue: null,
-    endValue: null,
-    rangeDates: [],
+    selectedDate: selectedDate,
   });
 
   const handleChange = (d: DatepickerEvent) => {
-    const [startValue, endValue, rangeDates] = d;
-    setDate((prev) => ({ ...prev, endValue, startValue, rangeDates }));
+    const [selectedDate] = d;
+    setDate({ selectedDate });
+    onDateChange(selectedDate);
   };
+
+  const { language } = useLanguage();
+
+  const locale = language === "en" ? enUS : it;
 
   return (
     <Box
@@ -32,13 +42,14 @@ export const Calendar: React.FC = () => {
         width: "100%",
         top: "0",
         zIndex: "1",
+        height: "100px",
       }}
     >
       <Datepicker
         onChange={handleChange}
-        locale={enUS}
-        startValue={date.startValue}
-        endValue={date.endValue}
+        locale={locale}
+        startValue={date.selectedDate}
+        endValue={date.selectedDate}
         classNames={{
           dayLabel: classes.dayLabel,
           selectedDay: classes.selectedDay,

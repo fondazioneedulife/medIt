@@ -8,6 +8,9 @@ import {
 import HomeIcon from "../../assets/icon/icon_home.svg";
 import ProfileIcon from "../../assets/icon/Icon_user.svg";
 import IconPlus from "../../assets/icon/Icon_plus.svg";
+import { useLanguage } from "../../contexts/LanguageContext";
+import { useNavigate, useLocation } from "react-router";
+import { useState, useEffect } from "react";
 
 const theme = createTheme({
   typography: {
@@ -15,7 +18,32 @@ const theme = createTheme({
   },
 });
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.FC<{ onAddDetailsClick: () => void }> = ({
+  onAddDetailsClick,
+}) => {
+  const { translate } = useLanguage();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [activeButton, setActiveButton] = useState("home");
+
+  useEffect(() => {
+    if (location.pathname === "/home") {
+      setActiveButton("home");
+    } else if (location.pathname === "/profile") {
+      setActiveButton("profile");
+    }
+  }, [location.pathname]);
+
+  const handleHomeClick = () => {
+    setActiveButton("home");
+    navigate("/home");
+  };
+
+  const handleProfileClick = () => {
+    setActiveButton("profile");
+    navigate("/profile");
+  };
+
   return (
     <Box
       sx={{
@@ -29,7 +57,7 @@ export const Navbar: React.FC = () => {
         padding: 0,
         position: "fixed",
         bottom: 0,
-        zIndex: 1000, // Imposta un z-index alto per la navbar
+        zIndex: 1000,
         boxShadow: "0px -4px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
@@ -39,7 +67,6 @@ export const Navbar: React.FC = () => {
           justifyContent: "space-around",
           alignItems: "center",
           width: "100%",
-          pt: "0.5rem",
         }}
       >
         <Button
@@ -56,6 +83,7 @@ export const Navbar: React.FC = () => {
             },
           }}
           tabIndex={0}
+          onClick={handleHomeClick}
         >
           <Box
             component="img"
@@ -63,15 +91,22 @@ export const Navbar: React.FC = () => {
             alt="Home Icon"
             sx={{
               width: "2.5rem",
-              pt: "1rem",
+              filter:
+                activeButton === "home"
+                  ? "invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%)"
+                  : "grayscale(100%)",
             }}
           />
           <ThemeProvider theme={theme}>
             <Typography
               variant="h6"
-              sx={{ fontWeight: "medium", fontSize: "1rem" }}
+              sx={{
+                fontWeight: "medium",
+                fontSize: "1rem",
+                color: activeButton === "home" ? "black" : "#a2a2a2",
+              }}
             >
-              Home
+              {translate("home")}
             </Typography>
           </ThemeProvider>
         </Button>
@@ -90,11 +125,12 @@ export const Navbar: React.FC = () => {
             position: "relative",
             transform: "translateY(-60%)",
           }}
+          onClick={onAddDetailsClick}
         >
           <Box
             component="img"
             src={IconPlus}
-            alt="Profile Icon"
+            alt="Add Icon"
             sx={{
               width: "3rem",
             }}
@@ -115,6 +151,7 @@ export const Navbar: React.FC = () => {
             },
           }}
           tabIndex={0}
+          onClick={handleProfileClick}
         >
           <Box
             component="img"
@@ -122,15 +159,22 @@ export const Navbar: React.FC = () => {
             alt="Profile Icon"
             sx={{
               width: "2.5rem",
-              pt: "1rem",
+              filter:
+                activeButton === "profile"
+                  ? "invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%)"
+                  : "grayscale(100%)",
             }}
           />
           <ThemeProvider theme={theme}>
             <Typography
               variant="h6"
-              sx={{ fontWeight: "medium", fontSize: "1rem" }}
+              sx={{
+                fontWeight: "medium",
+                fontSize: "1rem",
+                color: activeButton === "profile" ? "black" : "#a2a2a2",
+              }}
             >
-              Profile
+              {translate("profile")}
             </Typography>
           </ThemeProvider>
         </Button>

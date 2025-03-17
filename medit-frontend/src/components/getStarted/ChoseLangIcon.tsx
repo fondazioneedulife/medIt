@@ -7,7 +7,7 @@ import itFlag from '../../assets/flags/it.svg';
 
 const languages = [
     { code: 'en', name: 'English', flag: enFlag },
-    { code: 'it', name: 'Italian', flag: itFlag },
+    { code: 'it', name: 'Italiano', flag: itFlag },
 ];
 
 export const ChoseLangIcon: React.FC = () => {

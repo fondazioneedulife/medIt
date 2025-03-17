@@ -6,6 +6,7 @@ export interface User {
   last_name: string;
   email: string;
   role: RoleEnum;
+  caregiverId: number;
   created_at: Date;
   update_at: Date;
   timezone: string;
