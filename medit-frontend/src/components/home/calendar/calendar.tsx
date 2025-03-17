@@ -40,9 +40,9 @@ export const Calendar: React.FC<CalendarProps> = ({
         position: "fixed",
         backgroundColor: "white",
         width: "100%",
-        top: "0",
+        top: -90,
         zIndex: "1",
-        height: "100px",
+        mt: 10,
       }}
     >
       <Datepicker
