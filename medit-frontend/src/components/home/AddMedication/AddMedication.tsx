@@ -18,6 +18,7 @@ import InputFileUpload from "./AddImage";
 import { ReturnIcon } from "../SetReminder/ReturnIcon";
 import { useLogin } from "../../login/LoginContext";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLanguage } from "../../../contexts/LanguageContext";
 
 interface AddMedicationProps {
   onSave: (medicineId: number) => void;
@@ -113,6 +114,8 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
     navigate("/home");
   };
 
+  const { translate } = useLanguage();
+
   useEffect(() => {
     if (errors.length > 0) {
       const timer = setTimeout(() => {
@@ -152,7 +155,7 @@ export const AddMedication: React.FC<AddMedicationProps> = ({
               variant="h2"
               sx={{ fontWeight: "bold", fontSize: "2rem", mb: 2 }}
             >
-              Add medication
+              {translate("addMedication")}
             </Typography>
           </ThemeProvider>
           <AnimatePresence>
