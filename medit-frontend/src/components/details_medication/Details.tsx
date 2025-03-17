@@ -145,10 +145,17 @@ export const Details: React.FC = () => {
                       },
                     }}
                   >
-                    <Typography variant="h6" fontWeight={550}>
+                    <Typography
+                      variant="h6"
+                      sx={{ fontWeight: 600, fontSize: "1.5rem" }}
+                    >
                       {translate("name")}
                     </Typography>
-                    <Typography fontSize="h8" color="#0B6BB2" fontWeight={520}>
+                    <Typography
+                      fontSize="h8"
+                      color="#0B6BB2"
+                      sx={{ fontWeight: 600, fontSize: "1.3rem" }}
+                    >
                       {medication.name}
                     </Typography>
                   </TableCell>
@@ -162,10 +169,17 @@ export const Details: React.FC = () => {
                       },
                     }}
                   >
-                    <Typography variant="h6" fontWeight={550}>
+                    <Typography
+                      variant="h6"
+                      sx={{ fontWeight: 600, fontSize: "1.5rem" }}
+                    >
                       {translate("pillDosage")}
                     </Typography>
-                    <Typography fontSize="h8" color="#0B6BB2" fontWeight={520}>
+                    <Typography
+                      fontSize="h8"
+                      color="#0B6BB2"
+                      sx={{ fontWeight: 600, fontSize: "1.3rem" }}
+                    >
                       {medication.dose} {medication.unit}
                     </Typography>
                   </TableCell>
@@ -180,13 +194,16 @@ export const Details: React.FC = () => {
                         },
                       }}
                     >
-                      <Typography variant="h6" fontWeight={550}>
+                      <Typography
+                        variant="h6"
+                        sx={{ fontWeight: 600, fontSize: "1.5rem" }}
+                      >
                         {translate("nextDose")}
                       </Typography>
                       <Typography
                         fontSize="h8"
                         color="#0B6BB2"
-                        fontWeight={520}
+                        sx={{ fontWeight: 600, fontSize: "1.3rem" }}
                       >
                         {nextDose}
                       </Typography>
@@ -197,7 +214,7 @@ export const Details: React.FC = () => {
             </Table>
           </TableContainer>
           <TableContainer
-            sx={{ backgroundColor: "transparent", marginTop: "2rem" }}
+            sx={{ backgroundColor: "transparent", marginTop: "2rem", ml: 2 }}
           >
             <Table
               sx={{
@@ -221,13 +238,16 @@ export const Details: React.FC = () => {
                   >
                     {program && (
                       <>
-                        <Typography variant="h5" fontWeight={550}>
+                        <Typography
+                          variant="h5"
+                          sx={{ fontWeight: 600, fontSize: "1.8rem" }}
+                        >
                           {translate("program")}
                         </Typography>
                         <Typography
                           fontSize="h7"
                           color="#505050"
-                          fontWeight={520}
+                          sx={{ fontWeight: 600, fontSize: "1.3rem" }}
                         >
                           {program}
                         </Typography>
@@ -244,10 +264,17 @@ export const Details: React.FC = () => {
                       },
                     }}
                   >
-                    <Typography variant="h5" fontWeight={550}>
+                    <Typography
+                      variant="h5"
+                      sx={{ fontWeight: 600, fontSize: "1.8rem" }}
+                    >
                       {translate("quantity")}
                     </Typography>
-                    <Typography fontSize="h7" color="#505050" fontWeight={520}>
+                    <Typography
+                      fontSize="h7"
+                      color="#505050"
+                      sx={{ fontWeight: 600, fontSize: "1.3rem" }}
+                    >
                       {medication.quantity}
                     </Typography>
                   </TableCell>
@@ -263,13 +290,16 @@ export const Details: React.FC = () => {
                   >
                     {medication.note && (
                       <>
-                        <Typography variant="h5" fontWeight={550}>
+                        <Typography
+                          variant="h5"
+                          sx={{ fontWeight: 600, fontSize: "1.8rem" }}
+                        >
                           {translate("additionalInformation")}
                         </Typography>
                         <Typography
                           fontSize="h7"
                           color="#505050"
-                          fontWeight={520}
+                          sx={{ fontWeight: 600, fontSize: "1.3rem" }}
                         >
                           {medication.note}
                         </Typography>
