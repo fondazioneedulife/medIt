@@ -62,6 +62,7 @@ export const UserInformations: React.FC = () => {
       );
       console.log("User saved:", savedUser);
       setUser(savedUser);
+      window.location.reload();
     } catch (error) {
       console.error("Failed to save user:", error);
     }

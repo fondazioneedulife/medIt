@@ -12,7 +12,7 @@ import { useLanguage } from "../../../contexts/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import Ellipse from "../../../assets/icon/Check-Ellipse.svg";
 import Check from "../../../assets/icon/Check.svg";
-import DefaultImage from "../../../assets/icon/immagine.jpg";
+import DefaultImage from "../../../assets/icon/pillola.svg";
 import { useLogin } from "../../login/LoginContext";
 import {
   addTakenMedication,
@@ -49,7 +49,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
     const checkMedicationTaken = async () => {
       const taken = await isMedicationTaken(reminder.id);
       setIsChecked(taken);
-      setBgColor(taken ? "rgba(67, 134, 16, 0.8)" : "white");
+      setBgColor(taken ? "rgba(67, 134, 16, 0.3)" : "white");
     };
 
     checkMedicationTaken();
@@ -58,7 +58,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
   const toggleCheck = async () => {
     setIsChecked((prev) => !prev);
     setBgColor((prev) =>
-      prev === "white" ? "rgba(67, 134, 16, 0.8)" : "white"
+      prev === "white" ? "rgba(67, 134, 16, 0.3)" : "white"
     );
 
     if (!isChecked) {
@@ -112,7 +112,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
           height: {
             md: "12vh",
             xl: "16vh",
-            xs: language === "it" ? "16vh" : "14vh",
+            xs: language === "it" ? "18vh" : "14vh",
           },
           backgroundColor: bgColor,
           borderRadius: "10px",
@@ -137,7 +137,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
         />
         <Box
           sx={{
-            width: { xs: "35%", sm: "22%", md: "23%", lg: "20%", xl: "25%" },
+            width: { xs: "30%", sm: "22%", md: "23%", lg: "20%", xl: "25%" },
             height: "auto",
             borderRadius: "10px",
           }}
@@ -183,7 +183,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {reminder.frequency}, {quantity} left
+                {translate(reminder.frequency.toLowerCase())}, {quantity} {translate("quantityLeft")}
               </Typography>
             </ThemeProvider>
           </Box>
@@ -191,8 +191,8 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
             sx={{
               backgroundColor: "#0B6BB2",
               color: "white",
-              width: "5.5rem",
-              height: "25%",
+              width: "6rem",
+              height: "20%",
               borderRadius: "25px",
               display: "flex",
               justifyContent: "space-around",

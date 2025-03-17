@@ -9,6 +9,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useLanguage } from "../../../contexts/LanguageContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 interface SetHourProps {
@@ -57,6 +58,8 @@ const SetHour: React.FC<SetHourProps> = ({ onChange }) => {
       fontFamily: "Montserrat, Arial, sans-serif",
     },
   });
+
+  const { translate } = useLanguage();
 
   return (
     <ThemeProvider theme={theme}>
@@ -123,7 +126,7 @@ const SetHour: React.FC<SetHourProps> = ({ onChange }) => {
           </Box>
         ))}
         <Button onClick={addTimeSlot} sx={{ color: "black", fontWeight: 600 }}>
-          ADD HOUR
+          {translate("addHour")}
         </Button>
       </Box>
     </ThemeProvider>

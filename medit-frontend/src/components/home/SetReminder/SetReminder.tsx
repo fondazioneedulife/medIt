@@ -22,6 +22,7 @@ import { v4 as uuidv4 } from "uuid";
 import { generateReminders } from "./generateReminders";
 import { SelectDayOfMonth } from "./SelectDayOfMonth";
 import SelectDayAndMonth from "./SelectDayAndMonth";
+import { useLanguage } from "../../../contexts/LanguageContext";
 
 interface SetReminderProps {
   onSave: () => void;
@@ -187,6 +188,8 @@ export const SetReminder: React.FC<SetReminderProps> = ({
     }));
   };
 
+  const { translate } = useLanguage();
+
   React.useEffect(() => {
     console.log("reminderData aggiornato:", reminderData);
   }, [reminderData]);
@@ -247,7 +250,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
                 variant="h2"
                 sx={{ fontWeight: "bold", fontSize: "2rem", mb: 2 }}
               >
-                Set Reminder
+                {translate("setReminder")}
               </Typography>
             </ThemeProvider>
             <AnimatePresence>
@@ -289,7 +292,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
               </ListItem>
             </Box>
             <ButtonAddMedication
-              buttonText="Add medication"
+              buttonText={translate("addMedication")}
               onClick={handleAddMedication}
             />
             <Box
@@ -423,7 +426,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
                     },
                     fontWeight: 600,
                   }}
-                  label="End therapy date"
+                  label={translate("endTherapyDate")}
                   type="date"
                   InputLabelProps={{
                     shrink: true,
@@ -434,7 +437,7 @@ export const SetReminder: React.FC<SetReminderProps> = ({
               </ThemeProvider>
             </Box>
 
-            <ButtonSave buttonText="Save" onClick={handleSave} />
+            <ButtonSave buttonText={translate("save")} onClick={handleSave} />
           </Box>
         </motion.div>
       )}
