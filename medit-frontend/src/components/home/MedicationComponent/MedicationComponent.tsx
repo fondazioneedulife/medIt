@@ -18,6 +18,7 @@ import {
   addTakenMedication,
   deleteTakenMedication,
   isMedicationTaken,
+  updateMedicationQuantity,
 } from "../../../database/indexedDB";
 
 const theme = createTheme({
@@ -39,6 +40,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [bgColor, setBgColor] = useState("white");
+  const [quantity, setQuantity] = useState(medication.quantity);
 
   const navigate = useNavigate();
   const { user } = useLogin();
@@ -64,8 +66,14 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
         reminder_id: reminder.id,
         date_time: new Date().toISOString(),
       });
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      await updateMedicationQuantity(medication.id, newQuantity);
     } else {
       await deleteTakenMedication(reminder.id);
+      const newQuantity = quantity + 1;
+      setQuantity(newQuantity);
+      await updateMedicationQuantity(medication.id, newQuantity);
     }
 
     onCheckChange();
@@ -94,8 +102,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
         alignItems: "center",
         height: "25vh",
         position: "relative",
-        top: 100,
-        zIndex: 0,
+        top: 300,
       }}
     >
       <Box
@@ -175,7 +182,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
                 variant="h5"
                 sx={{ fontWeight: "Medium", fontSize: "1.1rem" }}
               >
-                {reminder.frequency}, {medication.quantity} left
+                {reminder.frequency}, {quantity} left
               </Typography>
             </ThemeProvider>
           </Box>
@@ -183,7 +190,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
             sx={{
               backgroundColor: "#0B6BB2",
               color: "white",
-              width: "5.7rem",
+              width: "5.5rem",
               height: "25%",
               borderRadius: "25px",
               display: "flex",
