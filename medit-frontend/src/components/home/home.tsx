@@ -9,11 +9,14 @@ import {
   getRemindersForDate,
   getMedicationById,
   isMedicationTaken,
+  getAllPatientsByCaregiverId,
 } from "../../database/indexedDB";
 import { useToggleDetails } from "./useToggleDetails";
 import { ReminderModal } from "./ReminderModal";
+import { useLogin } from "../login/LoginContext";
 
 export const Home: React.FC = () => {
+  const { user } = useLogin();
   const [selectedDate, setSelectedDate] = useState<Date | null>(
     new Date(
       Date.UTC(
@@ -28,6 +31,7 @@ export const Home: React.FC = () => {
     any[]
   >([]);
   const [reminderAdded, setReminderAdded] = useState(false);
+  const [userIds, setUserIds] = useState<number[]>([]);
 
   const {
     showSetReminder,
@@ -36,6 +40,21 @@ export const Home: React.FC = () => {
     handleReminderSave,
     handleAddMedicationSave,
   } = useToggleDetails();
+
+  useEffect(() => {
+    const fetchUserIds = async () => {
+      if (user) {
+        const ids = [user.id];
+        if (user.role === "caregiver") {
+          const patients = await getAllPatientsByCaregiverId(user.id as number);
+          ids.push(...patients.map((patient) => patient.id));
+        }
+        setUserIds(ids.filter((id): id is number => id !== undefined));
+      }
+    };
+
+    fetchUserIds();
+  }, [user]);
 
   useEffect(() => {
     const fetchReminders = async () => {
@@ -58,11 +77,18 @@ export const Home: React.FC = () => {
           const medication = await getMedicationById(
             Number(reminder.medication_id)
           );
-          const taken = await isMedicationTaken(reminder.id);
-          return { ...reminder, medication, taken };
+          if (medication && userIds.includes(medication.userId)) {
+            const taken = await isMedicationTaken(reminder.id);
+            return { ...reminder, medication, taken };
+          }
+          return null;
         })
       );
-      setRemindersWithMedications(remindersWithMeds);
+
+      // Filtra i promemoria nulli (quelli che non appartengono agli userIds)
+      setRemindersWithMedications(
+        remindersWithMeds.filter((reminder) => reminder !== null)
+      );
     };
 
     if (reminders.length > 0) {
@@ -70,7 +96,7 @@ export const Home: React.FC = () => {
     } else {
       setRemindersWithMedications([]);
     }
-  }, [reminders]);
+  }, [reminders, userIds]);
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
