@@ -20,6 +20,7 @@ import {
   updateMedicationQuantity,
   getUserById,
 } from "../../../database/indexedDB";
+import { useLogin } from "../../login/LoginContext";
 
 const theme = createTheme({
   typography: {
@@ -41,8 +42,7 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
   const [isChecked, setIsChecked] = useState(false);
   const [bgColor, setBgColor] = useState("white");
   const [quantity, setQuantity] = useState(medication.quantity);
-  const [profileImage, setProfileImage] = useState<string | null>(null);
-  const [initials, setInitials] = useState<string>("");
+  const { user, setUser } = useLogin();
 
   const navigate = useNavigate();
 
@@ -55,22 +55,6 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
 
     checkMedicationTaken();
   }, [reminder.id]);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const user = await getUserById(medication.userId);
-      if (user) {
-        setProfileImage(user.profileImage || null);
-        setInitials(
-          `${user.firstName?.charAt(0).toUpperCase()}${user.lastName
-            ?.charAt(0)
-            .toUpperCase()}`
-        );
-      }
-    };
-
-    fetchUser();
-  }, [medication.userId]);
 
   const toggleCheck = async () => {
     setIsChecked((prev) => !prev);
@@ -104,6 +88,12 @@ export const MedicationComponent: React.FC<MedicationComponentProps> = ({
   const { translate } = useLanguage();
 
   const medicationImage = medication.image || DefaultImage;
+
+  const profileImage = user?.profileImage || null;
+
+  const initials = `${user?.firstName?.charAt(0).toUpperCase()}${user?.lastName
+    ?.charAt(0)
+    .toUpperCase()}`;
 
   return (
     <Box
