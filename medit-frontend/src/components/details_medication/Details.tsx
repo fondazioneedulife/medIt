@@ -257,15 +257,18 @@ export const Details: React.FC = () => {
                   >
                     {reminder && (
                       <>
-                        <Typography variant="h5" fontWeight={550}>
+                        <Typography
+                          variant="h5"
+                          sx={{ fontWeight: 600, fontSize: "1.8rem" }}
+                        >
                           {translate("frequency")}
                         </Typography>
                         <Typography
                           fontSize="h7"
                           color="#505050"
-                          fontWeight={520}
+                          sx={{ fontWeight: 600, fontSize: "1.3rem" }}
                         >
-                          {reminder.frequency}
+                          {translate(reminder.frequency)}
                         </Typography>
                       </>
                     )}
