@@ -3,7 +3,11 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { getAllMedications } from "../../../database/indexedDB";
+import {
+  getAllMedications,
+  getAllPatientsByCaregiverId,
+} from "../../../database/indexedDB";
+import { useLogin } from "../../login/LoginContext";
 
 interface SelectMedicationProps {
   selectedMedication: string;
@@ -15,21 +19,30 @@ const SelectMedication: React.FC<SelectMedicationProps> = ({
   onMedicationChange,
 }) => {
   const [medications, setMedications] = React.useState<any[]>([]);
+  const { user } = useLogin();
 
   React.useEffect(() => {
     const fetchMedications = async () => {
       const meds = await getAllMedications();
-      setMedications(meds);
-      if (meds.length > 0 && !selectedMedication) {
-        onMedicationChange(meds[0].id.toString());
+      if (user) {
+        const userIds = [user.id];
+        if (user.role === "caregiver") {
+          const patients = await getAllPatientsByCaregiverId(user.id as number);
+          userIds.push(...patients.map((patient) => patient.id));
+        }
+        const filteredMeds = meds.filter((med) => userIds.includes(med.userId));
+        setMedications(filteredMeds);
+        if (filteredMeds.length > 0 && !selectedMedication) {
+          onMedicationChange(filteredMeds[0].id.toString());
+        }
       }
     };
 
     fetchMedications();
-  }, [selectedMedication]);
+  }, [selectedMedication, user]);
 
   const handleChange = (event: SelectChangeEvent) => {
-    onMedicationChange(event.target.value as string);
+    onMedicationChange(event.target.value);
   };
 
   const theme = createTheme({
