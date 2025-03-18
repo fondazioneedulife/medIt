@@ -145,7 +145,81 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
       updated_at: new Date(),
       synced_at: new Date(),
     },
+
+    {
+      name: "Tachipirina",
+      type: "Tablet",
+      dose: "500",
+      unit: "mg",
+      quantity: 20,
+      note: "",
+      image: tachipirinaImage,
+      userId: -1,
+      created_at: new Date(),
+      updated_at: new Date(),
+      synced_at: new Date(),
+    },
+    {
+      name: "Moment",
+      type: "Tablet",
+      dose: "200",
+      unit: "mg",
+      quantity: 15,
+      note: "",
+      image: momentImage,
+      userId: -1,
+      created_at: new Date(),
+      updated_at: new Date(),
+      synced_at: new Date(),
+    },
+    {
+      name: "Brufen",
+      type: "Tablet",
+      dose: "400",
+      unit: "mg",
+      quantity: 10,
+      note: "",
+      image: brufenImage,
+      userId: -1,
+      created_at: new Date(),
+      updated_at: new Date(),
+      synced_at: new Date(),
+    },
+    {
+      name: "Aspirina",
+      type: "Tablet",
+      dose: "500",
+      unit: "mg",
+      quantity: 20,
+      note: "",
+      image: aspirinaImage,
+      userId: -1,
+      created_at: new Date(),
+      updated_at: new Date(),
+      synced_at: new Date(),
+    },
+    {
+      name: "Imodium",
+      type: "Tablet",
+      dose: "2",
+      unit: "mg",
+      quantity: 10,
+      note: "",
+      image: imodiumImage,
+      userId: -1,
+      created_at: new Date(),
+      updated_at: new Date(),
+      synced_at: new Date(),
+    },
   ];
+
+  for (const medication of medications) {
+    await new Promise((resolve, reject) => {
+      const request = medicationsStore.add(medication);
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
 
   for (const medication of medications) {
     await new Promise((resolve, reject) => {
@@ -436,8 +510,148 @@ export const seedDatabase = async (transaction: IDBTransaction) => {
       frequency: "daily",
       synced_at: new Date(),
     },
+    // Promemoria per l'utente con userId: -1
+    {
+      medication_id: 6,
+      reminder_date_time: new Date(Date.now() + msInDay(0)).toISOString(),
+      id_group: "group6",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 6,
+      reminder_date_time: new Date(Date.now() + msInDay(1)).toISOString(),
+      id_group: "group6",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 6,
+      reminder_date_time: new Date(Date.now() + msInDay(2)).toISOString(),
+      id_group: "group6",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 6,
+      reminder_date_time: new Date(Date.now() + msInDay(3)).toISOString(),
+      id_group: "group6",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 7,
+      reminder_date_time: new Date(Date.now() + msInWeek(0)).toISOString(),
+      id_group: "group7",
+      frequency: "weekly",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 7,
+      reminder_date_time: new Date(Date.now() + msInWeek(1)).toISOString(),
+      id_group: "group7",
+      frequency: "weekly",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 7,
+      reminder_date_time: new Date(Date.now() + msInWeek(2)).toISOString(),
+      id_group: "group7",
+      frequency: "weekly",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 8,
+      reminder_date_time: new Date(Date.now() + msInDay(0)).toISOString(),
+      id_group: "group8",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 9,
+      reminder_date_time: new Date(Date.now() + msInDay(0)).toISOString(),
+      id_group: "group9",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 10,
+      reminder_date_time: new Date(Date.now() + msInDay(1)).toISOString(),
+      id_group: "group10",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 6,
+      reminder_date_time: new Date(Date.now() + msInDay(4)).toISOString(),
+      id_group: "group6",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 6,
+      reminder_date_time: new Date(Date.now() + msInDay(5)).toISOString(),
+      id_group: "group6",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 6,
+      reminder_date_time: new Date(Date.now() + msInDay(6)).toISOString(),
+      id_group: "group6",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 6,
+      reminder_date_time: new Date(Date.now() + msInDay(7)).toISOString(),
+      id_group: "group6",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 7,
+      reminder_date_time: new Date(Date.now() + msInWeek(3)).toISOString(),
+      id_group: "group7",
+      frequency: "weekly",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 7,
+      reminder_date_time: new Date(Date.now() + msInWeek(4)).toISOString(),
+      id_group: "group7",
+      frequency: "weekly",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 7,
+      reminder_date_time: new Date(Date.now() + msInWeek(5)).toISOString(),
+      id_group: "group7",
+      frequency: "weekly",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 8,
+      reminder_date_time: new Date(Date.now() + msInDay(1)).toISOString(),
+      id_group: "group8",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 9,
+      reminder_date_time: new Date(Date.now() + msInDay(1)).toISOString(),
+      id_group: "group9",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
+    {
+      medication_id: 10,
+      reminder_date_time: new Date(Date.now() + msInDay(2)).toISOString(),
+      id_group: "group10",
+      frequency: "daily",
+      synced_at: new Date(),
+    },
   ];
-
   for (const reminder of reminders) {
     await new Promise((resolve, reject) => {
       const request = remindersStore.add(reminder);
