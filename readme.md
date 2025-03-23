@@ -39,8 +39,15 @@ Offre **compatibilità offline**, **notifiche personalizzate** e **gestione avan
 - Estensione a **operatori sanitari**  
 
 ## 👨‍💻 Contributori  
-Antinori Davide, Barbieri Gianmarco, Bennai Ayoub, De Leva Francesco,  
-Fornalè Pietro, Giacopuzzi Lorenzo, Imran Talha, Milli Diego, Russo Lorenzo  
+Diego Milli - Front-End Lead
+Lorenzo Giacopuzzi - Front-End Developer, Designer
+Ayoub Bennai - Front-End Developer
+Francesco de Leva - Technical Writer, Social Media
+Davide Antinori - System Administrator
+Gianmarco Barbieri - Technical Writer, Social Media
+Lorenzo Russo - Design Lead, Front-End Developer
+Pietro Fornalè - Project Manager, Spokesperson
+Talha Imran - Project Manager, Technical Lead
 
 ## 📜 Licenza  
 **MIT** – Contribuisci su [GitHub](#)!  
